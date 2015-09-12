@@ -1,0 +1,6 @@
+{
+	"name" : "teach.d",
+	"description" : "Hello World - A minimal DUB bundle.",
+	"dependencies" : {
+	}
+}
