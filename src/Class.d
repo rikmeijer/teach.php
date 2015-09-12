@@ -11,6 +11,11 @@ class Class {
 	}
 	
 	bool expects(Student student) {
+		foreach (Student expectedStudent; this.students) {
+			if (expectedStudent == student) {
+				return true;
+			}
+		}
 		return false;
 	}
 	
@@ -19,6 +24,7 @@ class Class {
 		auto studentB = new Student();
 		auto studentClass = new Class([studentA]);
 		assert(studentClass.expects(studentB) == false);
+		assert(studentClass.expects(studentA));
 	}
 	
 }
