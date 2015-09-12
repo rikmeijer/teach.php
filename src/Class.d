@@ -14,17 +14,13 @@ class Class {
 	}
 	
 	bool expects(Student student) {
-		foreach (Student expectedStudent; this.students) {
-			if (expectedStudent == student) {
-				return true;
-			}
-		}
-		return false;
+		return student.enrolled(this.course);
 	}
 	
 	unittest {
 		auto course = new Course();
 		auto studentA = new Student();
+		studentA.enroll(course);
 		auto studentB = new Student();
 		auto studentClass = new Class(course, [studentA]);
 		assert(studentClass.expects(studentB) == false);
