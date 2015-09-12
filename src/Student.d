@@ -1,13 +1,14 @@
-class Student
-{
-	bool reportAbsent()
-	{
-		return true;
+import Course;
+
+class Student {
+	
+	bool enrolled(Course course) {
+		return false;
 	}
 	
-	unittest 
-	{
+	unittest {
 		auto student = new Student();
-		assert(student.reportAbsent());
+		auto course = new Course();
+		assert(student.enrolled(course) == false);
 	}
 }
