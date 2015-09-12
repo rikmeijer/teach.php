@@ -6,7 +6,7 @@ import teach.Class;
 class Course {
 	
 	Class startClass() {
-		return new Class();
+		return new Class([]);
 	}
 	
 	unittest {
