@@ -1,4 +1,6 @@
-import Course;
+module teach.Student;
+
+import teach.Course;
 
 class Student {
 	
