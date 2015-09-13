@@ -27,4 +27,13 @@ class Student {
 		student.enroll(course);
 		assert(student.enrolled(course));
 	}
+	
+	void skipClass() {
+		
+	}
+	
+	unittest {
+		auto student = new Student();
+		student.skipClass();
+	}
 }
