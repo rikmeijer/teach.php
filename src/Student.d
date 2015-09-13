@@ -1,6 +1,7 @@
 module teach.Student;
 
 import teach.Course;
+import teach.Lesson;
 
 class Student {
 	
@@ -28,12 +29,14 @@ class Student {
 		assert(student.enrolled(course));
 	}
 	
-	void skipClass() {
+	void skip(Lesson lesson) {
 		
 	}
 	
 	unittest {
 		auto student = new Student();
-		student.skipClass();
+		//auto course = new Course();
+		Lesson lesson = new Lesson();
+		student.skip(lesson);
 	}
 }
