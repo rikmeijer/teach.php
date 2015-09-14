@@ -1,4 +1,4 @@
-module teach.Course;
+module teach.course;
 
 class Course {
 	

@@ -1,5 +1,6 @@
 import std.stdio;
 import std.string;
+import teach.course;
 
 int main() {
 	write("Hello, what course are the students following today? ");
@@ -14,5 +15,7 @@ int main() {
 			return 1;
 			
 	}
+	Course course = new Course(answer);
+			
 	return 0;
 }

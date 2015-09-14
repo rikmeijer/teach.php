@@ -1,7 +1,7 @@
-module teach.Student;
+module teach.student;
 
-import teach.Course;
-import teach.Lesson;
+import teach.course;
+import teach.lesson;
 
 class Student {
 	

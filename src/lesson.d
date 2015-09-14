@@ -1,6 +1,6 @@
-module teach.Lesson;
+module teach.lesson;
 
-import teach.Course;
+import teach.course;
 
 class Lesson {
 	
