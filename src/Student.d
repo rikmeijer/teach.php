@@ -36,7 +36,7 @@ class Student {
 	unittest {
 		auto student = new Student();
 		//auto course = new Course();
-		Lesson lesson = new Lesson();
+		Lesson lesson = new Lesson(course);
 		student.skip(lesson);
 	}
 }
