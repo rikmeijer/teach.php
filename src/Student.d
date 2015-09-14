@@ -23,7 +23,7 @@ class Student {
 	
 	unittest {
 		auto student = new Student();
-		auto course = new Course();
+		auto course = new Course("PROG1");
 		assert(student.enrolled(course) == false);
 		student.enroll(course);
 		assert(student.enrolled(course));
@@ -35,7 +35,7 @@ class Student {
 	
 	unittest {
 		auto student = new Student();
-		//auto course = new Course();
+		auto course = new Course("PROG1");
 		Lesson lesson = new Lesson(course);
 		student.skip(lesson);
 	}
