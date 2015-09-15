@@ -6,14 +6,13 @@ import teach.lesson;
 
 class Student {
 	
-	CourseStudent enroll(Course course) {
+	CourseStudent enrollIn(Course course) {
 		return new CourseStudent(course);
 	}
 	
 	unittest {
 		auto student = new Student();
 		auto course = new Course("PROG1");
-		assert(student.enrolled(course) == false);
-		CourseStudent coursestudent = student.enroll(course);
+		CourseStudent coursestudent = student.enrollIn(course);
 	}
 }
