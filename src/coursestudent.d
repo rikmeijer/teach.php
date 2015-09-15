@@ -7,11 +7,11 @@ class CourseStudent {
 	
 	private Course course;
 	
-	this(Course course) {
+	public this(Course course) {
 		this.course = course;
 	}
 	
-	void skip(Lesson lesson) {
+	public void skip(Lesson lesson) {
 		
 	}
 	

@@ -6,7 +6,7 @@ import teach.lesson;
 
 class Student {
 	
-	CourseStudent enrollIn(Course course) {
+	public CourseStudent enrollIn(Course course) {
 		return new CourseStudent(course);
 	}
 	

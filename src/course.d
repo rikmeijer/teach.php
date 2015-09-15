@@ -4,7 +4,7 @@ class Course {
 	
 	private string name;
 	
-	this(string name) {
+	public this(string name) {
 		this.name = name;
 	}
 	
