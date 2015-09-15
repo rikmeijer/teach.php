@@ -1,9 +1,9 @@
 import std.stdio;
 import std.string;
-import teach.course;
+import teach.leergang;
 
 int main() {
-	write("Hello, what course are the students following today? ");
+	write("Hallo, voor welke leergang hebben de studenten les? ");
 	string answer = strip(readln());
 	switch (answer) {
 		case "PROG1":
@@ -11,11 +11,11 @@ int main() {
 		case "DATAB1":
 			break;
 		default:
-			writeln("Don't know course '" ~ answer ~ "'...");
+			writeln("Onbekende leergang '" ~ answer ~ "'...");
 			return 1;
 			
 	}
-	Course course = new Course(answer);
+	Leergang leergang = new Leergang(answer);
 			
 	return 0;
 }
