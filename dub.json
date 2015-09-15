@@ -1,6 +1,9 @@
 {
 	"name" : "teach.d",
-	"description" : "Hello World - A minimal DUB bundle.",
+	"description" : "Tool om aan/afwezigheid tijdens de les te registreren",
+	"libs": ["sqlite3"],
+    "lflags": ["-L/usr/lib/x86_64-linux-gnu/libsqlite3.so.0"],
 	"dependencies" : {
+		"d2sqlite3": "~>0.7.2"
 	}
 }

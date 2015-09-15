@@ -1,6 +1,8 @@
 {
 	"dub": {
-		"cachedUpgrades": {},
-		"lastUpgrade": "2015-09-14T14:34:05.3030671"
+		"cachedUpgrades": {
+			"d2sqlite3": "0.7.2"
+		},
+		"lastUpgrade": "2015-09-15T14:42:16.8883869"
 	}
 }
