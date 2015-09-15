@@ -11,13 +11,13 @@ class Course {
 		this.name = name;
 	}
 	
-	public CourseStudent enroll(Student student) {
-		return new CourseStudent(this);
+	public bool enroll(Student student) {
+		return true;
 	}
-	
+		
 	unittest {
 		auto student = new Student();
 		auto course = new Course("PROG1");
-		CourseStudent coursestudent = course.enroll(student);
+		assert(course.enroll(student));
 	}
 }
