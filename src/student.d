@@ -27,16 +27,6 @@ class Student {
 		assert(student.enrolled(course) == false);
 		student.enroll(course);
 		assert(student.enrolled(course));
-	}
-	
-	void skip(Lesson lesson) {
 		
-	}
-	
-	unittest {
-		auto student = new Student();
-		auto course = new Course("PROG1");
-		Lesson lesson = new Lesson(course);
-		student.skip(lesson);
 	}
 }
