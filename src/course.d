@@ -1,6 +1,5 @@
 module teach.course;
 
-import teach.coursestudent;
 import teach.student;
 
 class Course {
