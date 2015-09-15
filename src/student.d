@@ -1,6 +1,7 @@
 module teach.student;
 
 import teach.course;
+import teach.coursestudent;
 import teach.lesson;
 
 class Student {
@@ -16,17 +17,17 @@ class Student {
 		return false;
 	}
 	
-	void enroll(Course course) {
+	CourseStudent enroll(Course course) {
 		this.courses.length++;
 		this.courses[] = course;
+		return new CourseStudent(course);
 	}
 	
 	unittest {
 		auto student = new Student();
 		auto course = new Course("PROG1");
 		assert(student.enrolled(course) == false);
-		student.enroll(course);
+		CourseStudent coursestudent = student.enroll(course);
 		assert(student.enrolled(course));
-		
 	}
 }
