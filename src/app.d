@@ -4,8 +4,8 @@ import std.conv;
 import d2sqlite3;
 import teach.leergang;
 
-int main() {
-	Database db = Database("/home/rik/teach.sqlite3");
+int main(string[] args) {
+	Database db = Database(args[1]);
 	
 	auto leergangen = db.execute("SELECT naam FROM leergang");
 	if (leergangen.empty()) {
