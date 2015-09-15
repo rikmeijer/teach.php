@@ -5,6 +5,10 @@ import d2sqlite3;
 import teach.leergang;
 
 int main(string[] args) {
+	if (args.length == 1) {
+		writeln("Geef database mee als argument");
+		return 1;
+	}
 	Database db = Database(args[1]);
 	
 	auto leergangen = db.execute("SELECT naam FROM leergang");
