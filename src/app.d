@@ -11,35 +11,39 @@ int main(string[] args) {
 	}
 	Database db = Database(args[1]);
 	
-	auto leergangen = db.execute("SELECT naam FROM leergang");
+	auto leergangen = db.execute("SELECT id, naam FROM leergang");
 	if (leergangen.empty()) {
 		writeln("Geen leergangen beschikbaar");
 		return 1;
 	}
 	writeln("Hallo, de volgende leergangen zijn beschikbaar: ");
-	string[string] choices;
+	cliChoice[] choices;
 	foreach (leergang; leergangen) {
-		string choiceKey = to!string(choices.length);
-		string choice = leergang["naam"].as!string;
-		choices[choiceKey] = choice;
+		choices ~= cliChoice(leergang["id"].as!string, leergang["naam"].as!string);
 	}
-	string answer = cli_choice("welke leergang wil je gebruiken? ", choices);
 	
-	Leergang leergang = new Leergang(choices[answer]);
-			
+	cliChoice answer = cli_choice("welke leergang wil je gebruiken? ", choices);
+	
+	Leergang leergang = new Leergang(answer.label);
+	
 	return 0;
 }
 
+struct cliChoice {
+	string id;
+	string label;
+}
 
-string cli_choice(string question, string[string] choices) {
-	foreach (choiceKey, choice; choices) {
-		writeln(choiceKey ~ ". " ~ choice);
+cliChoice cli_choice(string question, cliChoice[] choices) {
+	for (int choiceKey = 0; choiceKey < choices.length; choiceKey++) {
+		writeln(to!string(choiceKey) ~ ". " ~ choices[choiceKey].label);
 	}
 	write(question);
 	string answer = strip(readln());
-	if (answer !in choices) {
+	int selectedChoiceKey = to!int(answer);
+	if (selectedChoiceKey >= choices.length) {
 		writeln("Antwoord '" ~ answer ~ "' onjuist.");
 		return cli_choice(question, choices);
 	}
-	return answer;
+	return choices[selectedChoiceKey];
 }
