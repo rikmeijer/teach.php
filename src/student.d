@@ -1,19 +1,19 @@
 module teach.student;
 
 import teach.leergang;
-import teach.les;
+import teach.contactmoment;
 
 class Student {
 	
 	
-	public void verzuim(Les les) {
+	public void verzuim(Contactmoment contactmoment) {
 		
 	}
 	
 	unittest {
 		auto student = new Student();
 		auto leergang = new Leergang("PROG1");
-		Les les = new Les(leergang);
-		student.verzuim(les);
+		Contactmoment contactmoment = new Contactmoment(leergang);
+		student.verzuim(contactmoment);
 	}
 }

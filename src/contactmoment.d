@@ -1,8 +1,8 @@
-module teach.les;
+module teach.contactmoment;
 
 import teach.leergang;
 
-class Les {
+class Contactmoment {
 	
 	private Leergang leergang;
 	
