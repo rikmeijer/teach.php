@@ -21,9 +21,11 @@ int main(string[] args) {
 		choices ~= Choice(leergang["id"].as!string, leergang["naam"].as!string);
 	}
 	
-	Choice answer = choice("welke leergang wil je gebruiken? ", choices);
+	Choice choiceLeergang = choice("welke leergang wil je gebruiken? ", choices);
 	
-	Leergang leergang = new Leergang(answer.label);
+	Leergang leergang = new Leergang(choiceLeergang.label);
+	
+	
 	
 	return 0;
 }
