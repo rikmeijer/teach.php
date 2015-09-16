@@ -25,11 +25,11 @@ int main(string[] args) {
 	Choice[] choicesLeergangen = mapResultRange(leergangen, "id", "naam");
 	Choice choiceLeergang = choice("welke leergang wil je gebruiken? ", choicesLeergangen);
 	
-	Leergang leergang = new Leergang(dataLeergang(choiceLeergang.id, choiceLeergang.label));
+	dataLeergang dLeergang = dataLeergang(choiceLeergang.id, choiceLeergang.label);
+	Leergang leergang = new Leergang(dLeergang);
 	
-	auto leergangcontactmomentenStatement = db.prepare("SELECT id, naam FROM contactmoment WHERE leergang_id = ?");
-	leergangcontactmomentenStatement.bind(1, choiceLeergang.id);
-	auto leergangcontactmomenten = leergangcontactmomentenStatement.execute();
+	auto query = dLeergang.prepareSelectContactmomenten();
+	auto leergangcontactmomenten = query.execute(db);
 	
 	Choice[] choicesContactmomenten = mapResultRange(leergangcontactmomenten, "id", "naam");
 	choicesContactmomenten ~= Choice(null, "Nieuw aanmaken");
@@ -45,11 +45,7 @@ int main(string[] args) {
 }
 
 private string insertQuery(Database db, prepared_query query) {
-	auto statement = db.prepare(query.query);
-	query.mapParameters(delegate void(int index, string value) {
-		statement.bind(index, value);
-		});
-	statement.execute();
+	query.execute(db);
 	return to!string(db.lastInsertRowid());
 }
 
