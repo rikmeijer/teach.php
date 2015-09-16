@@ -25,7 +25,7 @@ int main(string[] args) {
 	Choice[] choicesLeergangen = mapResultRange(leergangen, "id", "naam");
 	Choice choiceLeergang = choice("welke leergang wil je gebruiken? ", choicesLeergangen);
 	
-	Leergang leergang = new Leergang(choiceLeergang.label);
+	Leergang leergang = new Leergang(dataLeergang(choiceLeergang.id, choiceLeergang.label));
 	
 	auto leergangcontactmomentenStatement = db.prepare("SELECT id, naam FROM contactmoment WHERE leergang_id = ?");
 	leergangcontactmomentenStatement.bind(1, choiceLeergang.id);

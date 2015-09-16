@@ -18,10 +18,6 @@ class Leergang {
 	
 	private dataLeergang leergang;
 	
-	public this(string naam) {
-		this(dataLeergang(null, naam));
-	}
-	
 	public this(dataLeergang leergang) {
 		this.leergang = leergang;
 	}
