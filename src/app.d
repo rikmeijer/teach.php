@@ -25,7 +25,13 @@ int main(string[] args) {
 	
 	Leergang leergang = new Leergang(choiceLeergang.label);
 	
-	
+	auto leergangcontactmomentenStatement = db.prepare("SELECT id, naam FROM contactmoment WHERE leergang_id = ?");
+	leergangcontactmomentenStatement.bind(1, choiceLeergang.id);
+	auto leergangcontactmomenten = leergangcontactmomentenStatement.execute();
+	if (leergangcontactmomenten.empty()) {
+		writeln("Geen contactmomenten beschikbaar");
+		return 1;
+	}
 	
 	return 0;
 }
