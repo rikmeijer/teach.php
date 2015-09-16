@@ -4,12 +4,12 @@ import std.stdio;
 import std.string;
 import std.conv;
 
-struct cliChoice {
+struct Choice {
 	string id;
 	string label;
 }
 
-cliChoice cli_choice(string question, cliChoice[] choices) {
+Choice choice(string question, Choice[] choices) {
 	for (int choiceKey = 0; choiceKey < choices.length; choiceKey++) {
 		writeln(to!string(choiceKey) ~ ". " ~ choices[choiceKey].label);
 	}
@@ -18,7 +18,7 @@ cliChoice cli_choice(string question, cliChoice[] choices) {
 	int selectedChoiceKey = to!int(answer);
 	if (selectedChoiceKey >= choices.length) {
 		writeln("Antwoord '" ~ answer ~ "' onjuist.");
-		return cli_choice(question, choices);
+		return choice(question, choices);
 	}
 	return choices[selectedChoiceKey];
 }

@@ -16,12 +16,12 @@ int main(string[] args) {
 		return 1;
 	}
 	writeln("Hallo, de volgende leergangen zijn beschikbaar: ");
-	cliChoice[] choices;
+	Choice[] choices;
 	foreach (leergang; leergangen) {
-		choices ~= cliChoice(leergang["id"].as!string, leergang["naam"].as!string);
+		choices ~= Choice(leergang["id"].as!string, leergang["naam"].as!string);
 	}
 	
-	cliChoice answer = cli_choice("welke leergang wil je gebruiken? ", choices);
+	Choice answer = choice("welke leergang wil je gebruiken? ", choices);
 	
 	Leergang leergang = new Leergang(answer.label);
 	
