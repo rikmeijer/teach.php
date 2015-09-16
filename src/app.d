@@ -1,4 +1,5 @@
 import std.stdio;
+import std.conv;
 import d2sqlite3;
 import teach.leergang;
 import teach.cli.choice;
@@ -31,8 +32,12 @@ int main(string[] args) {
 	Choice choiceContactmoment = choice("welke contactmoment wil je gebruiken? ", choicesContactmomenten);
 	
 	if (choiceContactmoment.id is null) {
-		string contactmomentNaam = askInput("Geef de naam voor nieuw contactmoment: ");
-		writeln(contactmomentNaam);
+		choiceContactmoment.label = askInput("Geef de naam voor nieuw contactmoment: ");
+		auto leergangcontactmomentInsertStatement = db.prepare("INSERT INTO contactmoment (`naam`, `leergang_id`) VALUES (?, ?)");
+		leergangcontactmomentInsertStatement.bind(1, choiceContactmoment.label);
+		leergangcontactmomentInsertStatement.bind(2, choiceLeergang.id);
+		leergangcontactmomentInsertStatement.execute();
+		choiceContactmoment.id = to!string(db.lastInsertRowid());
 	}
 	
 	return 0;
