@@ -1,7 +1,7 @@
 module teach.cli.choice;
 
+import teach.cli.text;
 import std.stdio;
-import std.string;
 import std.conv;
 
 struct Choice {
@@ -9,12 +9,11 @@ struct Choice {
 	string label;
 }
 
-Choice choice(string question, Choice[] choices) {
+public Choice choice(string question, Choice[] choices) {
 	for (int choiceKey = 0; choiceKey < choices.length; choiceKey++) {
 		writeln(to!string(choiceKey) ~ ". " ~ choices[choiceKey].label);
 	}
-	write(question);
-	string answer = strip(readln());
+	string answer = askInput(question);
 	int selectedChoiceKey = to!int(answer);
 	if (selectedChoiceKey >= choices.length) {
 		writeln("Antwoord '" ~ answer ~ "' onjuist.");
