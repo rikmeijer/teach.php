@@ -38,16 +38,19 @@ int main(string[] args) {
 	if (choiceContactmoment.id is null) {
 		choiceContactmoment.label = askInput("Geef de naam voor nieuw contactmoment: ");
 		auto contactmoment = dataContactmoment(choiceContactmoment.id, choiceContactmoment.label, choiceLeergang.id);
-		prepared_query query = contactmoment.prepareInsert();
-		auto leergangcontactmomentInsertStatement = db.prepare(query.query);
-		query.mapParameters(delegate void(int index, string value) {
-			leergangcontactmomentInsertStatement.bind(index, value);
-			});
-		leergangcontactmomentInsertStatement.execute();
-		choiceContactmoment.id = to!string(db.lastInsertRowid());
+		choiceContactmoment.id = insertQuery(db, contactmoment.prepareInsert());
 	}
 	
 	return 0;
+}
+
+private string insertQuery(Database db, prepared_query query) {
+	auto statement = db.prepare(query.query);
+	query.mapParameters(delegate void(int index, string value) {
+		statement.bind(index, value);
+		});
+	statement.execute();
+	return to!string(db.lastInsertRowid());
 }
 
 private Choice[] mapResultRange(ResultRange results, string idColumn, string labelColumn) {
