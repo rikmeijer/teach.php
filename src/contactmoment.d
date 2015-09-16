@@ -5,6 +5,7 @@ import teach.leergang;
 
 struct dataContactmoment {
 	
+	string id;
 	string naam;
 	string leergang_id;
 	
@@ -17,7 +18,7 @@ struct dataContactmoment {
 }
 
 unittest {
-	dataContactmoment cm = dataContactmoment("TEST", "1");
+	dataContactmoment cm = dataContactmoment(null, "TEST", "1");
 	prepared_query pq = cm.prepareInsert();
 	assert(pq.query == "INSERT INTO contactmoment (`naam`, `leergang_id`) VALUES (?, ?)");
 	assert(pq.parameters[0] == "TEST");
