@@ -1,18 +1,33 @@
 module teach.leergang;
 
+import teach.sql;
 import teach.student;
 
 struct dataLeergang {
 	
 	string id;
 	string naam;
+	
+	unittest {
+		dataLeergang lg = dataLeergang("1", "PROG1");
+		assert(lg.id == "1");
+		assert(lg.naam == "PROG1");
+	}
+	
+	public prepared_query prepareSelectContactmomenten() {
+		return prepared_query("SELECT id, naam FROM contactmoment WHERE leergang_id = ?", [
+			this.id
+			]);
+	}
+	
+	unittest {
+		dataLeergang lg = dataLeergang("1", "PROG1");
+		prepared_query pq = lg.prepareSelectContactmomenten();
+		assert(pq.query == "SELECT id, naam FROM contactmoment WHERE leergang_id = ?");
+		assert(pq.parameters[0] == "1");
+	}
 }
 
-unittest {
-	dataLeergang lg = dataLeergang("1", "PROG1");
-	assert(lg.id == "1");
-	assert(lg.naam == "PROG1");
-}
 
 class Leergang {
 	
