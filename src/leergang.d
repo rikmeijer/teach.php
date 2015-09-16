@@ -2,6 +2,18 @@ module teach.leergang;
 
 import teach.student;
 
+struct dataLeergang {
+	
+	string id;
+	string naam;
+}
+
+unittest {
+	dataLeergang lg = dataLeergang("1", "PROG1");
+	assert(lg.id == "1");
+	assert(lg.naam == "PROG1");
+}
+
 class Leergang {
 	
 	private string naam;
