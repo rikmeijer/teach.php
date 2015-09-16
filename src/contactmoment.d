@@ -3,7 +3,7 @@ module teach.contactmoment;
 import teach.sql;
 import teach.leergang;
 
-struct contactmoment {
+struct dataContactmoment {
 	
 	string naam;
 	string leergang_id;
@@ -17,7 +17,7 @@ struct contactmoment {
 }
 
 unittest {
-	contactmoment cm = contactmoment("TEST", "1");
+	dataContactmoment cm = dataContactmoment("TEST", "1");
 	prepared_query pq = cm.prepareInsert();
 	assert(pq.query == "INSERT INTO contactmoment (`naam`, `leergang_id`) VALUES (?, ?)");
 	assert(pq.parameters[0] == "TEST");
@@ -26,10 +26,10 @@ unittest {
 
 class Contactmoment {
 	
-	private Leergang leergang;
+	private dataContactmoment contactmoment;
 	
-	public this(Leergang leergang) {
-		this.leergang = leergang;
+	public this(dataContactmoment contactmoment) {
+		this.contactmoment = contactmoment;
 	}
 	
 }
