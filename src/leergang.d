@@ -16,10 +16,14 @@ unittest {
 
 class Leergang {
 	
-	private string naam;
+	private dataLeergang leergang;
 	
 	public this(string naam) {
-		this.naam = naam;
+		this(dataLeergang(null, naam));
+	}
+	
+	public this(dataLeergang leergang) {
+		this.leergang = leergang;
 	}
 	
 	public bool registreerStudent(Student student) {
@@ -28,7 +32,7 @@ class Leergang {
 		
 	unittest {
 		auto student = new Student();
-		auto leergang = new Leergang("PROG1");
+		auto leergang = new Leergang(dataLeergang("1", "PROG1"));
 		assert(leergang.registreerStudent(student));
 	}
 }
