@@ -21,19 +21,25 @@ int main(string[] args) {
 	foreach (leergang; leergangen) {
 		string choiceKey = to!string(choices.length);
 		string choice = leergang["naam"].as!string;
-		
-		writeln(choiceKey ~ ". " ~ choice);
 		choices[choiceKey] = choice;
 	}
-	write("welke leergang wil je gebruiken? ");
-	
-	string answer = strip(readln());
-	if (answer !in choices) {
-		writeln("Onbekende leergang '" ~ answer ~ "'...");
-		return 1;
-	}
+	string answer = cli_choice("welke leergang wil je gebruiken? ", choices);
 	
 	Leergang leergang = new Leergang(choices[answer]);
 			
 	return 0;
+}
+
+
+string cli_choice(string question, string[string] choices) {
+	foreach (choiceKey, choice; choices) {
+		writeln(choiceKey ~ ". " ~ choice);
+	}
+	write(question);
+	string answer = strip(readln());
+	if (answer !in choices) {
+		writeln("Antwoord '" ~ answer ~ "' onjuist.");
+		return cli_choice(question, choices);
+	}
+	return answer;
 }
