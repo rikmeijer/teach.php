@@ -1,9 +1,13 @@
 import std.stdio;
 import std.conv;
 import d2sqlite3;
-import teach.leergang;
 import teach.cli.choice;
 import teach.cli.text;
+
+import teach.sql;
+
+import teach.leergang;
+import teach.contactmoment;
 
 int main(string[] args) {
 	if (args.length == 1) {
@@ -33,9 +37,12 @@ int main(string[] args) {
 	
 	if (choiceContactmoment.id is null) {
 		choiceContactmoment.label = askInput("Geef de naam voor nieuw contactmoment: ");
-		auto leergangcontactmomentInsertStatement = db.prepare("INSERT INTO contactmoment (`naam`, `leergang_id`) VALUES (?, ?)");
-		leergangcontactmomentInsertStatement.bind(1, choiceContactmoment.label);
-		leergangcontactmomentInsertStatement.bind(2, choiceLeergang.id);
+		auto contactmoment = dataContactmoment(choiceContactmoment.id, choiceContactmoment.label, choiceLeergang.id);
+		prepared_query query = contactmoment.prepareInsert();
+		auto leergangcontactmomentInsertStatement = db.prepare(query.query);
+		query.mapParameters(delegate void(int index, string value) {
+			leergangcontactmomentInsertStatement.bind(index, value);
+			});
 		leergangcontactmomentInsertStatement.execute();
 		choiceContactmoment.id = to!string(db.lastInsertRowid());
 	}
