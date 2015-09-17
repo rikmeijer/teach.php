@@ -9,21 +9,34 @@ struct dataContactmoment {
 	string naam;
 	string leergang_id;
 	
+	static prepared_query prepareSelectByLeergang(string leergang_id) {
+		return prepared_query("SELECT id, naam FROM contactmoment WHERE leergang_id = ?", [
+			leergang_id
+			]);
+	}
+	
+	unittest {
+		import dunit.toolkit;
+		prepared_query pq = dataContactmoment.prepareSelectByLeergang("1");
+		assertEqual(pq.query, "SELECT id, naam FROM contactmoment WHERE leergang_id = ?");
+	}
+	
 	public prepared_query prepareInsert() {
 		return prepared_query("INSERT INTO contactmoment (`naam`, `leergang_id`) VALUES (?, ?)", [
 			this.naam,
 			this.leergang_id
 			]);
 	}
-}
+	
+	unittest {
+		import dunit.toolkit;
+		dataContactmoment cm = dataContactmoment(null, "TEST", "1");
+		prepared_query pq = cm.prepareInsert();
+		assertEqual(pq.query, "INSERT INTO contactmoment (`naam`, `leergang_id`) VALUES (?, ?)");
+		assertEqual(pq.parameters[0], "TEST");
+		assertEqual(pq.parameters[1], "1");
+	}
 
-unittest {
-	import dunit.toolkit;
-	dataContactmoment cm = dataContactmoment(null, "TEST", "1");
-	prepared_query pq = cm.prepareInsert();
-	assertEqual(pq.query, "INSERT INTO contactmoment (`naam`, `leergang_id`) VALUES (?, ?)");
-	assertEqual(pq.parameters[0], "TEST");
-	assertEqual(pq.parameters[1], "1");
 }
 
 class Contactmoment {

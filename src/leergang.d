@@ -25,19 +25,6 @@ struct dataLeergang {
 		assertEqual(pq.query, "SELECT id, naam FROM leergang");
 	}
 	
-	public prepared_query prepareSelectContactmomenten() {
-		return prepared_query("SELECT id, naam FROM contactmoment WHERE leergang_id = ?", [
-			this.id
-			]);
-	}
-	
-	unittest {
-		import dunit.toolkit;
-		dataLeergang lg = dataLeergang("1", "PROG1");
-		prepared_query pq = lg.prepareSelectContactmomenten();
-		assertEqual(pq.query, "SELECT id, naam FROM contactmoment WHERE leergang_id = ?");
-		assertEqual(pq.parameters[0], "1");
-	}
 }
 
 
