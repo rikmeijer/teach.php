@@ -15,7 +15,7 @@ int main(string[] args) {
 	}
 	Database db = Database(args[1]);
 	
-	auto leergangen = db.execute("SELECT id, naam FROM leergang");
+	auto leergangen = dataLeergang.prepareSelect().select(db);
 	if (leergangen.empty()) {
 		writeln("Geen leergangen beschikbaar");
 		return 1;
