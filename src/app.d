@@ -1,5 +1,4 @@
 import std.stdio;
-import std.conv;
 import d2sqlite3;
 import teach.cli.choice;
 import teach.cli.text;
@@ -38,15 +37,10 @@ int main(string[] args) {
 	if (choiceContactmoment.id is null) {
 		choiceContactmoment.label = askInput("Geef de naam voor nieuw contactmoment: ");
 		auto contactmoment = dataContactmoment(choiceContactmoment.id, choiceContactmoment.label, choiceLeergang.id);
-		choiceContactmoment.id = insertQuery(db, contactmoment.prepareInsert());
+		choiceContactmoment.id = contactmoment.prepareInsert().insert(db);
 	}
 	
 	return 0;
-}
-
-private string insertQuery(Database db, prepared_query query) {
-	query.execute(db);
-	return to!string(db.lastInsertRowid());
 }
 
 private Choice[] mapResultRange(ResultRange results, string idColumn, string labelColumn) {
