@@ -27,8 +27,7 @@ int main(string[] args) {
 	dataLeergang dLeergang = dataLeergang(choiceLeergang.id, choiceLeergang.label);
 	Leergang leergang = new Leergang(dLeergang);
 	
-	auto query = dLeergang.prepareSelectContactmomenten();
-	auto leergangcontactmomenten = query.execute(db);
+	auto leergangcontactmomenten = dLeergang.prepareSelectContactmomenten().execute(db);
 	
 	Choice[] choicesContactmomenten = mapResultRange(leergangcontactmomenten, "id", "naam");
 	choicesContactmomenten ~= Choice(null, "Nieuw aanmaken");
