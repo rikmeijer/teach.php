@@ -15,6 +15,16 @@ struct dataLeergang {
 		assertEqual(lg.naam, "PROG1");
 	}
 	
+	static prepareSelect() {
+		return prepared_query("SELECT id, naam FROM leergang", []);
+	}
+	
+	unittest {
+		import dunit.toolkit;
+		prepared_query pq = dataLeergang.prepareSelect();
+		assertEqual(pq.query, "SELECT id, naam FROM leergang");
+	}
+	
 	public prepared_query prepareSelectContactmomenten() {
 		return prepared_query("SELECT id, naam FROM contactmoment WHERE leergang_id = ?", [
 			this.id
