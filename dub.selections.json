@@ -1,7 +1,7 @@
 {
 	"fileVersion": 1,
 	"versions": {
-		"dunit": "1.0.10",
+		"dunit": "1.0.11",
 		"memutils": "0.4.1",
 		"mysql-d": "0.3.2",
 		"vibe-d": "0.7.24",

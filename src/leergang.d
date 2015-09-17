@@ -9,9 +9,10 @@ struct dataLeergang {
 	string naam;
 	
 	unittest {
+		import dunit.toolkit;
 		dataLeergang lg = dataLeergang("1", "PROG1");
-		assert(lg.id == "1");
-		assert(lg.naam == "PROG1");
+		assertEqual(lg.id, "1");
+		assertEqual(lg.naam, "PROG1");
 	}
 	
 	public prepared_query prepareSelectContactmomenten() {
@@ -21,10 +22,11 @@ struct dataLeergang {
 	}
 	
 	unittest {
+		import dunit.toolkit;
 		dataLeergang lg = dataLeergang("1", "PROG1");
 		prepared_query pq = lg.prepareSelectContactmomenten();
-		assert(pq.query == "SELECT id, naam FROM contactmoment WHERE leergang_id = ?");
-		assert(pq.parameters[0] == "1");
+		assertEqual(pq.query, "SELECT id, naam FROM contactmoment WHERE leergang_id = ?");
+		assertEqual(pq.parameters[0], "1");
 	}
 }
 
@@ -42,8 +44,9 @@ class Leergang {
 	}
 		
 	unittest {
+		import dunit.toolkit;
 		auto student = new Student();
 		auto leergang = new Leergang(dataLeergang("1", "PROG1"));
-		assert(leergang.registreerStudent(student));
+		assertTrue(leergang.registreerStudent(student));
 	}
 }

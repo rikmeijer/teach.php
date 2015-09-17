@@ -4,6 +4,7 @@
 	"libs": ["sqlite3"],
     "lflags": ["-L/usr/lib/x86_64-linux-gnu/libsqlite3.so.0"],
 	"dependencies" : {
+		"dunit": "~>1.0.11",
 		"d2sqlite3": "~>0.7.2"
 	}
 }

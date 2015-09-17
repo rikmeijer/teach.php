@@ -18,11 +18,12 @@ struct dataContactmoment {
 }
 
 unittest {
+	import dunit.toolkit;
 	dataContactmoment cm = dataContactmoment(null, "TEST", "1");
 	prepared_query pq = cm.prepareInsert();
-	assert(pq.query == "INSERT INTO contactmoment (`naam`, `leergang_id`) VALUES (?, ?)");
-	assert(pq.parameters[0] == "TEST");
-	assert(pq.parameters[1] == "1");
+	assertEqual(pq.query, "INSERT INTO contactmoment (`naam`, `leergang_id`) VALUES (?, ?)");
+	assertEqual(pq.parameters[0], "TEST");
+	assertEqual(pq.parameters[1], "1");
 }
 
 class Contactmoment {
