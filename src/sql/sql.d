@@ -43,24 +43,24 @@ struct prepared_query {
 
 class Select {
 	
-	fields fieldIdentifiers;
+	string[] fieldIdentifiers;
 	string tableIdentifier;
 	
 	
-	this(fields fieldIdentifiers, string tableIdentifier) {
+	this(string[] fieldIdentifiers, string tableIdentifier) {
 		this.fieldIdentifiers = fieldIdentifiers;
 		this.tableIdentifier = tableIdentifier;
 	}
 	
 	public prepared_query prepare() {
-		return prepared_query("SELECT " ~ join(this.fieldIdentifiers.identifiers, ", ") ~ " FROM " ~ this.tableIdentifier, []);
+		return prepared_query("SELECT " ~ join(this.fieldIdentifiers, ", ") ~ " FROM " ~ this.tableIdentifier, []);
 	}
 }
 
 unittest {
 	import dunit.toolkit;
 		
-	Select query = new Select(fields(["id", "naam", "jaar"]), "studentgroep");
+	Select query = new Select(["id", "naam", "jaar"], "studentgroep");
 	prepared_query pq = query.prepare();
 	assertEqual(pq.query, "SELECT id, naam, jaar FROM studentgroep");
 	
