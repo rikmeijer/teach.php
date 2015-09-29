@@ -17,7 +17,8 @@ struct dataStudentgroep {
 	}
 	
 	static prepared_query prepareSelect() {
-		return prepared_query("SELECT id, naam, jaar FROM studentgroep", []);
+		Select query = new Select(["id", "naam", "jaar"], "studentgroep");
+		return query.prepare();
 	}
 	unittest {
 		import dunit.toolkit;

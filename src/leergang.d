@@ -16,7 +16,8 @@ struct dataLeergang {
 	}
 	
 	static prepareSelect() {
-		return prepared_query("SELECT id, naam FROM leergang", []);
+		Select query = new Select(["id", "naam"], "leergang");
+		return query.prepare();
 	}
 	
 	unittest {
