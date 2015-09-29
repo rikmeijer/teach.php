@@ -47,13 +47,14 @@ class Condition {
 	public string prepare() {
 		return this.lhsOperand ~ " " ~ this.operator ~ " ?";
 	}
-}
-
-unittest {
-	import dunit.toolkit;
 	
-	Condition condition = new Condition("leergang_id", "=");
-	assertEqual("leergang_id = ?", condition.prepare());
+	unittest {
+		import dunit.toolkit;
+		
+		Condition condition = new Condition("leergang_id", "=");
+		assertEqual("leergang_id = ?", condition.prepare());
+	}
+
 }
 
 class Select {
@@ -70,13 +71,13 @@ class Select {
 	public prepared_query prepare() {
 		return prepared_query("SELECT " ~ join(this.fieldIdentifiers, ", ") ~ " FROM " ~ this.tableIdentifier, []);
 	}
-}
 
-unittest {
-	import dunit.toolkit;
+	unittest {
+		import dunit.toolkit;
+			
+		Select query = new Select(["id", "naam", "jaar"], "studentgroep");
+		prepared_query pq = query.prepare();
+		assertEqual(pq.query, "SELECT id, naam, jaar FROM studentgroep");
 		
-	Select query = new Select(["id", "naam", "jaar"], "studentgroep");
-	prepared_query pq = query.prepare();
-	assertEqual(pq.query, "SELECT id, naam, jaar FROM studentgroep");
-	
+	}
 }
