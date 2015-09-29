@@ -4,13 +4,6 @@ import d2sqlite3;
 import std.conv;
 import std.array;
 
-struct fields {
-	string[] identifiers;
-}
-unittest {
-	fields studentgroepFields = fields(["id", "naam", "jaar"]);
-}
-
 struct prepared_query {
 	string query;
 	string[] parameters;
