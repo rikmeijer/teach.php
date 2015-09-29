@@ -61,6 +61,7 @@ class Select {
 	
 	string[] fieldIdentifiers;
 	string tableIdentifier;
+	Condition[] conditions;
 	
 	
 	this(string[] fieldIdentifiers, string tableIdentifier) {
@@ -69,7 +70,17 @@ class Select {
 	}
 	
 	public prepared_query prepare() {
-		return prepared_query("SELECT " ~ join(this.fieldIdentifiers, ", ") ~ " FROM " ~ this.tableIdentifier, []);
+		string[] where = [];
+		foreach (Condition condition; this.conditions) {
+			where ~= condition.prepare();
+		}
+		
+		string sql = "SELECT " ~ join(this.fieldIdentifiers, ", ") ~ " FROM " ~ this.tableIdentifier;
+		if (where.length > 0) {
+			sql ~= " WHERE " ~ join(where, "AND");
+		}
+		
+		return prepared_query(sql, []);
 	}
 
 	unittest {
@@ -78,6 +89,21 @@ class Select {
 		Select query = new Select(["id", "naam", "jaar"], "studentgroep");
 		prepared_query pq = query.prepare();
 		assertEqual(pq.query, "SELECT id, naam, jaar FROM studentgroep");
+		
+	}
+	
+	public void where(Condition condition) {
+		this.conditions ~= condition;
+	}
+	
+	unittest {
+		import dunit.toolkit;
+		
+		
+		Select query = new Select(["id", "naam"], "contactmoment");
+		query.where(new Condition("leergang_id", "="));
+		prepared_query pq = query.prepare();
+		assertEqual(pq.query, "SELECT id, naam FROM contactmoment WHERE leergang_id = ?");
 		
 	}
 }
