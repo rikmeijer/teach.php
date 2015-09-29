@@ -1,5 +1,5 @@
 {
-	"name" : "teach.d",
+	"name" : "teach-d",
 	"description" : "Tool om aan/afwezigheid tijdens de les te registreren",
 	"libs": ["sqlite3"],
     "lflags": ["-L/usr/lib/x86_64-linux-gnu/libsqlite3.so.0"],
