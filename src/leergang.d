@@ -1,6 +1,6 @@
 module teach.leergang;
 
-import teach.sql;
+import sql;
 import teach.student;
 
 struct dataLeergang {

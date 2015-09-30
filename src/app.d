@@ -3,7 +3,7 @@ import d2sqlite3;
 import teach.cli.choice;
 import teach.cli.text;
 
-import teach.sql;
+import sql;
 
 import teach.leergang;
 import teach.contactmoment;

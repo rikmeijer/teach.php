@@ -1,6 +1,6 @@
 module teach.studentgroep;
 
-import teach.sql;
+import sql;
 
 struct dataStudentgroep {
 	

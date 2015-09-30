@@ -1,6 +1,6 @@
 module teach.contactmoment;
 
-import teach.sql;
+import sql;
 import teach.leergang;
 
 struct dataContactmoment {
