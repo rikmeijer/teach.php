@@ -10,9 +10,9 @@ struct dataContactmoment {
 	string leergang_id;
 	
 	static prepared_query prepareSelectByLeergang(string leergang_id) {
-		return prepared_query("SELECT id, naam FROM contactmoment WHERE leergang_id = ?", [
-			leergang_id
-			]);
+		Select query = new Select(["id", "naam"], "contactmoment");
+		query.where(new Condition("leergang_id", "="));
+		return query.prepare();
 	}
 	
 	unittest {
