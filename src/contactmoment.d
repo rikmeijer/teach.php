@@ -9,16 +9,15 @@ struct dataContactmoment {
 	string naam;
 	string leergang_id;
 	
-	static prepared_query prepareSelectByLeergang(Schema source, string leergang_id) {
+	static Select prepareSelectByLeergang(Schema source, string leergang_id) {
 		Select query = source.table("contactmoment").select(["id", "naam"]);
 		query.where(new Condition("leergang_id", "="));
-		return query.prepare();
+		return query;
 	}
 	
 	unittest {
 		import dunit.toolkit;
-		prepared_query pq = dataContactmoment.prepareSelectByLeergang(new Schema(), "1");
-		assertEqual(pq.query, "SELECT id, naam FROM contactmoment WHERE leergang_id = ?");
+		Select pq = dataContactmoment.prepareSelectByLeergang(new Schema(), "1");
 	}
 	
 	public prepared_query prepareInsert() {

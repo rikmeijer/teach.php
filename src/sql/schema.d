@@ -2,6 +2,7 @@ module sql.schema;
 
 import sql.table;
 import sql.select;
+import sql.query;
 
 import d2sqlite3;
 
@@ -50,5 +51,9 @@ class Schema {
 		
 		Schema teach = Schema.sqlite("/tmp/database.sqlite3");
 		assertEqual("SELECT id, naam FROM studentgroep", teach.select("studentgroep", ["id", "naam"]).prepare().query);
+	}
+	
+	public ResultRange execute(prepared_query query) {
+		return query.select(this.sqlite_database);
 	}
 }

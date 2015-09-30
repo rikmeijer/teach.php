@@ -16,7 +16,7 @@ int main(string[] args) {
 	Database db = Database(args[1]);
 	Schema source = Schema.sqlite(args[1]);
 	
-	auto leergangen = dataLeergang.prepareSelect(source).select(db);
+	auto leergangen = dataLeergang.prepareSelect(source).execute();
 	if (leergangen.empty()) {
 		writeln("Geen leergangen beschikbaar");
 		return 1;
@@ -28,7 +28,7 @@ int main(string[] args) {
 	dataLeergang dLeergang = dataLeergang(choiceLeergang.id, choiceLeergang.label);
 	Leergang leergang = new Leergang(dLeergang);
 	
-	auto leergangcontactmomenten = dataContactmoment.prepareSelectByLeergang(source, choiceLeergang.id).select(db);
+	auto leergangcontactmomenten = dataContactmoment.prepareSelectByLeergang(source, choiceLeergang.id).execute();
 	
 	Choice[] choicesContactmomenten = mapResultRange(leergangcontactmomenten, "id", "naam");
 	choicesContactmomenten ~= Choice(null, "Nieuw aanmaken");

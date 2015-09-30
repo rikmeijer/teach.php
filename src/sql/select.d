@@ -1,6 +1,7 @@
 module sql.select;
 
 import std.array;
+import d2sqlite3;
 
 import sql.schema;
 import sql.query;
@@ -55,5 +56,9 @@ class Select {
 		prepared_query pq = query.prepare();
 		assertEqual(pq.query, "SELECT id, naam FROM contactmoment WHERE leergang_id = ?");
 		
+	}
+	
+	public ResultRange execute() {
+		return this.schema.execute(this.prepare());
 	}
 }

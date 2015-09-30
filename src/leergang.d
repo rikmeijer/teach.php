@@ -15,14 +15,13 @@ struct dataLeergang {
 		assertEqual(lg.naam, "PROG1");
 	}
 	
-	static prepareSelect(Schema source) {
-		return source.table("leergang").select(["id", "naam"]).prepare();
+	static Select prepareSelect(Schema source) {
+		return source.table("leergang").select(["id", "naam"]);
 	}
 	
 	unittest {
 		import dunit.toolkit;
-		prepared_query pq = dataLeergang.prepareSelect(new Schema());
-		assertEqual(pq.query, "SELECT id, naam FROM leergang");
+		Select pq = dataLeergang.prepareSelect(new Schema());
 	}
 	
 }
