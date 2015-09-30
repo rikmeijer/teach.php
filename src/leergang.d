@@ -16,8 +16,8 @@ struct dataLeergang {
 	}
 	
 	static prepareSelect() {
-		Select query = new Select(["id", "naam"], "leergang");
-		return query.prepare();
+		Table table = new Table("leergang");
+		return table.select(["id", "naam"]).prepare();
 	}
 	
 	unittest {
