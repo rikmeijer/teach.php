@@ -1,6 +1,7 @@
 module sql.table;
 
 import sql.select;
+import sql.schema;
 
 class Table {
 	
