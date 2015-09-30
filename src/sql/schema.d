@@ -54,6 +54,7 @@ class Schema {
 	}
 	
 	public ResultRange execute(prepared_query query) {
-		return query.select(this.sqlite_database);
+		Statement statement = query.prepare(this.sqlite_database);
+		return statement.execute();
 	}
 }

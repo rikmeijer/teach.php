@@ -13,7 +13,7 @@ struct prepared_query {
 		}
 	}
 	
-	private Statement prepare(Database db) {
+	public Statement prepare(Database db) {
 		auto statement = db.prepare(this.query);
 		for (int i = 0; i < this.parameters.length; i++) {
 			statement.bind(i + 1, this.parameters[i]);
@@ -26,9 +26,4 @@ struct prepared_query {
 		statement.execute();
 		return to!string(db.lastInsertRowid());
 	}
-
-	public ResultRange select(Database db) {
-		Statement statement = this.prepare(db);
-		return statement.execute();
-	}	
 }
