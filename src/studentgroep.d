@@ -16,12 +16,4 @@ struct dataStudentgroep {
 		assertEqual(sg.jaar, "2015");
 	}
 	
-	static prepared_query prepareSelect(Schema source) {
-		return source.table("studentgroep").select(["id", "naam", "jaar"]).prepare();
-	}
-	unittest {
-		import dunit.toolkit;
-		prepared_query pq = dataStudentgroep.prepareSelect(new Schema());
-		assertEqual(pq.query, "SELECT id, naam, jaar FROM studentgroep");
-	}
 }
