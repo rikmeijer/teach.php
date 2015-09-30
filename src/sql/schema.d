@@ -19,7 +19,7 @@ class Schema {
 	}
 	
 	public Table table(string tableIdentifier) {
-		return new Table(tableIdentifier);
+		return new Table(this, tableIdentifier);
 	}
 	
 	unittest {
