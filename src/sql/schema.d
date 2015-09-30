@@ -42,7 +42,7 @@ class Schema {
 	}
 	
 	public Select select(string tableIdentifier, string[] fields) {
-		return new Select(fields, tableIdentifier);
+		return new Select(this, tableIdentifier, fields);
 	}
 	
 	unittest {
