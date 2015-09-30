@@ -14,7 +14,7 @@ int main(string[] args) {
 		return 1;
 	}
 	Database db = Database(args[1]);
-	Schema source = new Schema();
+	Schema source = Schema.sqlite(args[1]);
 	
 	auto leergangen = dataLeergang.prepareSelect(source).select(db);
 	if (leergangen.empty()) {
