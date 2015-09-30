@@ -4,7 +4,7 @@ import sql.select;
 
 class Table {
 	
-	string identifier;
+	private string identifier;
 	
 	this(string identifier) {
 		this.identifier = identifier;

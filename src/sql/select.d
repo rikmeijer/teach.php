@@ -7,10 +7,9 @@ import sql.condition;
 
 class Select {
 	
-	string[] fieldIdentifiers;
-	string tableIdentifier;
-	Condition[] conditions;
-	
+	private string[] fieldIdentifiers;
+	private string tableIdentifier;
+	private Condition[] conditions;
 	
 	this(string[] fieldIdentifiers, string tableIdentifier) {
 		this.fieldIdentifiers = fieldIdentifiers;
