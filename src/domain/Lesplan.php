@@ -1,6 +1,6 @@
 <?php
 namespace Teach;
 
-class Lesplan {
-	
+class Lesplan
+{
 }

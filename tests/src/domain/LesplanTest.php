@@ -6,7 +6,9 @@ namespace Teach;
  */
 class LesplanTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
+     *
      * @var Lesplan
      */
     protected $object;
@@ -17,7 +19,7 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new Lesplan;
+        $this->object = new Lesplan();
     }
 
     /**
@@ -25,10 +27,10 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
      * This method is called after a test is executed.
      */
     protected function tearDown()
+    {}
+
+    public function testMe()
     {
-    }
-    
-    public function testMe() {
-    	$this->assertTrue(true);
+        $this->assertTrue(true);
     }
 }
