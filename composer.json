@@ -3,7 +3,7 @@
 	"description" : "teach support",
 	"autoload" : {
 		"psr-4" : {
-			"Teach\\" : "src/"
+			"Teach\\" : "src/domain"
 		}
 	},
 	"require" : {
