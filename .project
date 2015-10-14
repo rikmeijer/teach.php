@@ -1,17 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>teach.d</name>
+	<name>teach.php</name>
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.dsource.ddt.ide.core.DubBuilder</name>
+			<name>com.dubture.composer.core.builder.buildPathManagementBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.wst.common.project.facet.core.builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.wst.validation.validationbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.dltk.core.scriptbuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>org.dsource.ddt.ide.core.nature</nature>
+		<nature>org.eclipse.php.core.PHPNature</nature>
+		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
+		<nature>com.dubture.composer.core.composerNature</nature>
 	</natures>
 </projectDescription>
