@@ -2,7 +2,99 @@
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 $applicationBootstrap();
 
-?><!DOCTYPE html>
+$introductie = array(
+    "Activerende opening" => array(
+        'inhoud' => 'Scené uit de matrix tonen waarop wordt gezegd: "I don\'t even see the code". Wie kent deze film? Een ervaren programmeur zal een vergelijkbaar gevoel hebben bij code: programmeren is een visualisatie kunnen uitdrukken in code en vice versa.',
+        'werkvorm' => "film",
+        'organisatievorm' => "plenair",
+        'werkvormsoort' => "ijsbreker",
+        'tijd' => "5",
+        'intelligenties' => array(
+            "verbaal-linguistisch",
+            "visueel-ruimtelijk",
+            "interpersoonlijk",
+            "intrapersoonlijk"
+        )
+    ),
+    "Focus" => array(
+        "inhoud" => "Visie, Leerdoelen, Programma, Afspraken",
+        "werkvorm" => "presentatie",
+        "organisatievorm" => "plenair",
+        "werkvormsoort" => "docent gecentreerd",
+        "tijd" => "4",
+        "intelligenties" => array(
+            "verbaal-linguistisch",
+            "logisch-mathematisch",
+            "interpersoonlijk"
+        )
+    ),
+    "Voorstellen" => array(
+        "inhoud" => "Voorstellen Docent",
+        "werkvorm" => "presentatie",
+        "organisatievorm" => "plenair",
+        "werkvormsoort" => "docent gecentreerd",
+        "tijd" => "4",
+        "intelligenties" => array(
+            "verbaal-linguistisch",
+            "logisch-mathematisch",
+            "interpersoonlijk"
+        )
+    )
+);
+
+function renderFase($naam, array $werkvorm)
+{
+    $beschikbareIntelligenties = array(
+        "verbaal-linguistisch" => "VL",
+        "logisch-mathematisch" => "LM",
+        "visueel-ruimtelijk" => "VR",
+        "muzikaal-ritmisch" => "MR",
+        "lichamelijk-kinesthetisch" => "LK",
+        "naturalistisch" => "N",
+        "interpersoonlijk" => "IR",
+        "intrapersoonlijk" => "IA"
+    );
+    
+    ?>
+<table class="two-columns">
+	<caption><?=htmlentities($naam); ?></caption>
+	<tr>
+		<th>werkvorm</th>
+		<td><?=htmlentities($werkvorm['werkvorm']); ?></td>
+		<th>organisatievorm</th>
+		<td><?=htmlentities($werkvorm['organisatievorm']); ?></td>
+	</tr>
+	<tr>
+		<th>tijd</th>
+		<td><?=htmlentities($werkvorm['tijd']); ?> minuten</td>
+		<th>soort werkvorm</th>
+		<td><?=htmlentities($werkvorm['werkvormsoort']); ?></td>
+	</tr>
+	<tr>
+		<th>intelligenties</th>
+		<td colspan="3">
+			<ul class="meervoudige-intelligenties">
+					<?php
+    foreach ($beschikbareIntelligenties as $beschikbareIntelligentieIdentifier => $beschikbareIntelligentie) {
+        $selected = in_array($beschikbareIntelligentieIdentifier, $werkvorm['intelligenties']);
+        ?><li
+					id="<?= htmlentities($beschikbareIntelligentieIdentifier); ?>"
+					<?=($selected ? ' class="selected"' : '');?>><?=htmlentities($beschikbareIntelligentie); ?></li><?php
+    }
+    ?>
+				</ul>
+		</td>
+	</tr>
+	<tr>
+		<th>inhoud</th>
+		<td colspan="3"><?=htmlentities($werkvorm['inhoud']); ?></td>
+	</tr>
+</table>
+<?php
+}
+
+?>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -48,17 +140,18 @@ table.two-columns th {
 ul.meervoudige-intelligenties {
 	list-style: none;
 	margin: 0;
-	padding:0;
+	padding: 0;
 }
+
 ul.meervoudige-intelligenties li {
-	float:left;
+	float: left;
 	padding: 0 5px;
 	color: #d0d0d0;
 }
+
 ul.meervoudige-intelligenties li.selected {
 	color: #000000;
 }
-
 
 hr {
 	border: 0;
@@ -80,7 +173,7 @@ hr {
 	</header>
 	<section>
 		<h3>Beginsituatie</h3>
-		<table>
+		<table class="two-columns">
 			<tr>
 				<th>doelgroep</th>
 				<td>eerstejaars HBO-studenten</td>
@@ -125,48 +218,11 @@ hr {
 	<hr />
 	<section>
 		<h3>Introductie</h3>
-		<table>
-			<caption>Activerende opening</caption>
-			<tr>
-				<th>werkvorm</th>
-				<td>film</td>
-			</tr>
-			<tr>
-				<th>tijd</th>
-				<td>5 minuten</td>
-			</tr>
-			<tr>
-				<th>organisatievorm</th>
-				<td>plenair</td>
-			</tr>
-			<tr>
-				<th>soort werkvorm</th>
-				<td>ijsbreker</td>
-			</tr>
-			<tr>
-				<th>intelligenties</th>
-				<td>
-					<ul class="meervoudige-intelligenties">
-						<li id="verbaal-linguistisch" class="selected">VL</li>
-						<li id="logisch-mathematisch">LM</li>
-						<li id="visueel-ruimtelijk" class="selected">VR</li>
-						<li id="muzikaal-ritmisch">MR</li>
-						<li id="lichamelijk-kinesthetisch">LK</li>
-						<li id="naturalistisch">N</li>
-						<li id="interpersoonlijk" class="selected">IR</li>
-						<li id="intrapersoonlijk" class="selected">IA</li>
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<th>inhoud</th>
-				<td>Scen&eacute; uit de matrix tonen waarop wordt gezegd:
-					&quot;I don&rsquo;t even see the code&quot;. Wie kent deze film?
-					Een ervaren programmeur zal een vergelijkbaar gevoel hebben bij
-					code: programmeren is een visualisatie kunnen uitdrukken in code en
-					vice versa.</td>
-			</tr>
-		</table>
-	</section>
+		<?php
+foreach ($introductie as $faseIdentifier => $fase) {
+    renderFase($faseIdentifier, $fase);
+}
+?>
+    </section>
 </body>
 </html>
