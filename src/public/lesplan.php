@@ -2,6 +2,7 @@
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 $applicationBootstrap();
 
+
 $introductie = array(
     "Activerende opening" => array(
         'inhoud' => 'Scené uit de matrix tonen waarop wordt gezegd: "I don\'t even see the code". Wie kent deze film? Een ervaren programmeur zal een vergelijkbaar gevoel hebben bij code: programmeren is een visualisatie kunnen uitdrukken in code en vice versa.',
@@ -10,10 +11,10 @@ $introductie = array(
         'werkvormsoort' => "ijsbreker",
         'tijd' => "5",
         'intelligenties' => array(
-            "verbaal-linguistisch",
-            "visueel-ruimtelijk",
-            "interpersoonlijk",
-            "intrapersoonlijk"
+            MI_VERBAAL_LINGUISTISCH,
+            MI_VISUEEL_RUIMTELIJK,
+            MI_INTERPERSOONLIJK,
+            MI_INTRAPERSOONLIJK
         )
     ),
     "Focus" => array(
@@ -23,9 +24,9 @@ $introductie = array(
         "werkvormsoort" => "docent gecentreerd",
         "tijd" => "4",
         "intelligenties" => array(
-            "verbaal-linguistisch",
-            "logisch-mathematisch",
-            "interpersoonlijk"
+            MI_VERBAAL_LINGUISTISCH,
+            MI_LOGISCH_MATHEMATISCH,
+            MI_INTERPERSOONLIJK
         )
     ),
     "Voorstellen" => array(
@@ -35,9 +36,9 @@ $introductie = array(
         "werkvormsoort" => "docent gecentreerd",
         "tijd" => "4",
         "intelligenties" => array(
-            "verbaal-linguistisch",
-            "logisch-mathematisch",
-            "interpersoonlijk"
+            MI_VERBAAL_LINGUISTISCH,
+            MI_LOGISCH_MATHEMATISCH,
+            MI_INTERPERSOONLIJK
         )
     )
 );
@@ -51,10 +52,10 @@ $kern = array(
             "werkvormsoort" => "ijsbreker",
             "tijd" => "5",
             "intelligenties" => array(
-                "verbaal-linguistisch",
-                "visueel-ruimtelijk",
-                "naturalistisch",
-                "interpersoonlijk"
+                MI_VERBAAL_LINGUISTISCH,
+                MI_VISUEEL_RUIMTELIJK,
+                MI_NATURALISTISCH,
+                MI_INTERPERSOONLIJK
             )
         ),
         "Reflecteren" => array(
@@ -65,9 +66,9 @@ $kern = array(
             "werkvormsoort" => "discussie",
             "tijd" => "5",
             "intelligenties" => array(
-                "verbaal-linguistisch",
-                "intrapersoonlijk",
-                "interpersoonlijk"
+                MI_VERBAAL_LINGUISTISCH,
+                MI_INTRAPERSOONLIJK,
+                MI_INTERPERSOONLIJK
             )
         ),
         "Conceptualiseren" => array(
@@ -79,9 +80,9 @@ $kern = array(
             "werkvormsoort" => "docentgecentreerd",
             "tijd" => "5",
             "intelligenties" => array(
-                "verbaal-linguistisch",
-                "visueel-ruimtelijk",
-                "interpersoonlijk"
+                MI_VERBAAL_LINGUISTISCH,
+                MI_VISUEEL_RUIMTELIJK,
+                MI_INTERPERSOONLIJK
             )
         ),
         "Toepassen" => array(
@@ -93,8 +94,8 @@ $kern = array(
             "werkvormsoort" => "individuele werkopdracht",
             "tijd" => "15",
             "intelligenties" => array(
-                "verbaal-linguistisch",
-                "intrapersoonlijk"
+                MI_VERBAAL_LINGUISTISCH,
+                MI_INTRAPERSOONLIJK
             )
         )
     ),
@@ -106,8 +107,8 @@ $kern = array(
             "werkvormsoort" => "ijsbreker",
             "tijd" => "5",
             "intelligenties" => array(
-                "verbaal-linguistisch",
-                "interpersoonlijk"
+                MI_VERBAAL_LINGUISTISCH,
+                MI_INTERPERSOONLIJK
             )
         ),
         "Reflecteren" => array(
@@ -117,10 +118,10 @@ $kern = array(
             "werkvormsoort" => "discussie",
             "tijd" => "5",
             "intelligenties" => array(
-                "verbaal-linguistisch",
-                "logisch-mathematisch",
-                "intrapersoonlijk",
-                "interpersoonlijk"
+                MI_VERBAAL_LINGUISTISCH,
+                MI_LOGISCH_MATHEMATISCH,
+                MI_INTRAPERSOONLIJK,
+                MI_INTERPERSOONLIJK
             )
         ),
         "Conceptualiseren" => array(
@@ -130,9 +131,9 @@ $kern = array(
             "werkvormsoort" => "docentgecentreerd",
             "tijd" => "10",
             "intelligenties" => array(
-                "verbaal-linguistisch",
-                "visueel-ruimtelijk",
-                "interpersoonlijk"
+                MI_VERBAAL_LINGUISTISCH,
+                MI_VISUEEL_RUIMTELIJK,
+                MI_INTERPERSOONLIJK
             )
         ),
         "Toepassen" => array(
@@ -142,8 +143,8 @@ $kern = array(
             "werkvormsoort" => "individuele werkopdracht",
             "tijd" => "30",
             "intelligenties" => array(
-                "verbaal-linguistisch",
-                "intrapersoonlijk"
+                MI_VERBAAL_LINGUISTISCH,
+                MI_INTRAPERSOONLIJK
             )
         )
     )
@@ -159,8 +160,8 @@ $afsluiting = array(
         "werkvormsoort" => "docentgecentreerd",
         "tijd" => "2",
         "intelligenties" => array(
-            "verbaal-linguistisch",
-            "interpersoonlijk"
+            MI_VERBAAL_LINGUISTISCH,
+            MI_INTERPERSOONLIJK
         )
     ),
     "Evaluatie" => array(
@@ -170,8 +171,8 @@ $afsluiting = array(
         "werkvormsoort" => "ijsbreker",
         "tijd" => "3",
         "intelligenties" => array(
-            "verbaal-linguistisch",
-            "interpersoonlijk"
+            MI_VERBAAL_LINGUISTISCH,
+            MI_INTERPERSOONLIJK
         )
     ),
     "Pakkend slot" => array(
@@ -181,9 +182,9 @@ $afsluiting = array(
         "werkvormsoort" => "docentgecentreerd",
         "tijd" => "1",
         "intelligenties" => array(
-            "verbaal-linguistisch",
-            "visueel-ruimtelijk",
-            "intrapersoonlijk"
+            MI_VERBAAL_LINGUISTISCH,
+            MI_VISUEEL_RUIMTELIJK,
+            MI_INTRAPERSOONLIJK
         )
     )
 );
@@ -191,14 +192,14 @@ $afsluiting = array(
 function renderFase($naam, array $werkvorm)
 {
     $beschikbareIntelligenties = array(
-        "verbaal-linguistisch" => "VL",
-        "logisch-mathematisch" => "LM",
-        "visueel-ruimtelijk" => "VR",
-        "muzikaal-ritmisch" => "MR",
-        "lichamelijk-kinesthetisch" => "LK",
-        "naturalistisch" => "N",
-        "interpersoonlijk" => "IR",
-        "intrapersoonlijk" => "IA"
+        MI_VERBAAL_LINGUISTISCH => "VL",
+        MI_LOGISCH_MATHEMATISCH => "LM",
+        MI_VISUEEL_RUIMTELIJK => "VR",
+        MI_MUZIKAAL_RITMISCH => "MR",
+        MI_LICHAMELIJK_KINESTHETISCH => "LK",
+        MI_NATURALISTISCH => "N",
+        MI_INTERPERSOONLIJK => "IR",
+        MI_INTRAPERSOONLIJK => "IA"
     );
     
     ?>
