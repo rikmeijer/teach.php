@@ -42,6 +42,63 @@ $introductie = array(
     )
 );
 
+$kern = array(
+    "Zelfstandig eclipse installeren" => array(
+        "Ervaren" => array(
+            "inhoud" => "Tonen afbeeldingen van werkomgevingen: wie herkent de werkomgeving?",
+            "werkvorm" => "verhalen vertellen bij foto’s ",
+            "organisatievorm" => "plenair",
+            "werkvormsoort" => "ijsbreker",
+            "tijd" => "5",
+            "intelligenties" => array(
+                "verbaal-linguistisch",
+                "visueel-ruimtelijk",
+                "naturalistisch",
+                "interpersoonlijk"
+            )
+        ),
+        "Reflecteren" => array(
+            "inhoud" => "Tonen afbeeldingen van werkomgevingen: wie herkent de werkomgeving?",
+            "werkvorm" => "verhalen vertellen bij foto’s ",
+            "organisatievorm" => "plenair",
+            "werkvormsoort" => "ijsbreker",
+            "tijd" => "5",
+            "intelligenties" => array(
+                "verbaal-linguistisch",
+                "visueel-ruimtelijk",
+                "naturalistisch",
+                "interpersoonlijk"
+            )
+        ),
+        "Conceptualiseren" => array(
+            "inhoud" => "Tonen afbeeldingen van werkomgevingen: wie herkent de werkomgeving?",
+            "werkvorm" => "verhalen vertellen bij foto’s ",
+            "organisatievorm" => "plenair",
+            "werkvormsoort" => "ijsbreker",
+            "tijd" => "5",
+            "intelligenties" => array(
+                "verbaal-linguistisch",
+                "visueel-ruimtelijk",
+                "naturalistisch",
+                "interpersoonlijk"
+            )
+        ),
+        "Toepassen" => array(
+            "inhoud" => "Tonen afbeeldingen van werkomgevingen: wie herkent de werkomgeving?",
+            "werkvorm" => "verhalen vertellen bij foto’s ",
+            "organisatievorm" => "plenair",
+            "werkvormsoort" => "ijsbreker",
+            "tijd" => "5",
+            "intelligenties" => array(
+                "verbaal-linguistisch",
+                "visueel-ruimtelijk",
+                "naturalistisch",
+                "interpersoonlijk"
+            )
+        )
+    )
+);
+
 function renderFase($naam, array $werkvorm)
 {
     $beschikbareIntelligenties = array(
@@ -223,6 +280,19 @@ foreach ($introductie as $faseIdentifier => $fase) {
     renderFase($faseIdentifier, $fase);
 }
 ?>
+    </section>
+	<section>
+		<h3>Kern</h3>
+		<?php 
+		$themaCounter = 1;
+		foreach ($kern as $themaIdentifier => $thema) {
+		    ?><h4>Thema <?=$themaCounter;?>: <?=htmlentities($themaIdentifier);?></h4><?php
+    		foreach ($thema as $faseIdentifier => $fase) {
+                renderFase($faseIdentifier, $fase);
+            }
+            $themaCounter++;
+		}
+		?>    	
     </section>
 </body>
 </html>
