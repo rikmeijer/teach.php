@@ -3,7 +3,9 @@
 	"description" : "teach support",
 	"autoload" : {
 		"psr-4" : {
-			"Teach\\" : "src/domain"
+			"Teach\\Entities\\" : "src/entities",
+			"Teach\\Interactors\\" : "src/interactors",
+			"Teach\\Adapters\\" : "src/adapters"
 		}
 	},
 	"require" : {
