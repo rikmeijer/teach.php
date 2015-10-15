@@ -46,7 +46,7 @@ $kern = array(
     "Zelfstandig eclipse installeren" => array(
         "Ervaren" => array(
             "inhoud" => "Tonen afbeeldingen van werkomgevingen: wie herkent de werkomgeving?",
-            "werkvorm" => "verhalen vertellen bij foto’s ",
+            "werkvorm" => "verhalen vertellen bij foto's",
             "organisatievorm" => "plenair",
             "werkvormsoort" => "ijsbreker",
             "tijd" => "5",
@@ -58,42 +58,43 @@ $kern = array(
             )
         ),
         "Reflecteren" => array(
-            "inhoud" => "Tonen afbeeldingen van werkomgevingen: wie herkent de werkomgeving?",
-            "werkvorm" => "verhalen vertellen bij foto’s ",
+            "inhoud" => "•	Link leggen naar een programmeeromgeving: niet fysiek, maar virtueel.
+•	Wie kan bedenken wat voor gereedschap erbij programmeren komt kijken?",
+            "werkvorm" => "brainstormen",
             "organisatievorm" => "plenair",
-            "werkvormsoort" => "ijsbreker",
+            "werkvormsoort" => "discussie",
             "tijd" => "5",
             "intelligenties" => array(
                 "verbaal-linguistisch",
-                "visueel-ruimtelijk",
-                "naturalistisch",
+                "intrapersoonlijk",
                 "interpersoonlijk"
             )
         ),
         "Conceptualiseren" => array(
-            "inhoud" => "Tonen afbeeldingen van werkomgevingen: wie herkent de werkomgeving?",
-            "werkvorm" => "verhalen vertellen bij foto’s ",
+            "inhoud" => "•	Kort uitleggen wat IDE/eclipse is (programmeeromgeving)/waarvoor het wordt gebruikt. 
+•	Korte demo ter kennismaking
+•	Wat zijn de randvoorwaarden van de installatie?",
+            "werkvorm" => "presentatie (visueel ondersteunen, laatste sheet met randvoorwaarden open laten)",
             "organisatievorm" => "plenair",
-            "werkvormsoort" => "ijsbreker",
+            "werkvormsoort" => "docentgecentreerd",
             "tijd" => "5",
             "intelligenties" => array(
                 "verbaal-linguistisch",
                 "visueel-ruimtelijk",
-                "naturalistisch",
                 "interpersoonlijk"
             )
         ),
         "Toepassen" => array(
-            "inhoud" => "Tonen afbeeldingen van werkomgevingen: wie herkent de werkomgeving?",
-            "werkvorm" => "verhalen vertellen bij foto’s ",
+            "inhoud" => "•	Student installeert zelf eclipse
+•	Aanvullende opdracht (capaciteit): importeren voorbeeldproject van blackboard of een nieuw project aanmaken
+•	Na 10min controleren of dit bij iedereen is gelukt",
+            "werkvorm" => "verwerkingsopdracht",
             "organisatievorm" => "plenair",
-            "werkvormsoort" => "ijsbreker",
-            "tijd" => "5",
+            "werkvormsoort" => "individuele werkopdracht",
+            "tijd" => "15",
             "intelligenties" => array(
                 "verbaal-linguistisch",
-                "visueel-ruimtelijk",
-                "naturalistisch",
-                "interpersoonlijk"
+                "intrapersoonlijk"
             )
         )
     )
@@ -268,8 +269,11 @@ hr {
 		<h3>Leerdoelen</h3>
 		<p>Na afloop van de les kan de student:</p>
 		<ol>
-			<li>Zelfstandig eclipse installeren</li>
-			<li>Java-code lezen en uitleggen wat er gebeurt</li>
+			<?php
+foreach (array_keys($kern) as $themaIdentifier) {
+    ?><li><?=htmlentities($themaIdentifier); ?></li><?php
+}
+?>
 		</ol>
 	</section>
 	<hr />
@@ -283,16 +287,16 @@ foreach ($introductie as $faseIdentifier => $fase) {
     </section>
 	<section>
 		<h3>Kern</h3>
-		<?php 
-		$themaCounter = 1;
-		foreach ($kern as $themaIdentifier => $thema) {
-		    ?><h4>Thema <?=$themaCounter;?>: <?=htmlentities($themaIdentifier);?></h4><?php
-    		foreach ($thema as $faseIdentifier => $fase) {
-                renderFase($faseIdentifier, $fase);
-            }
-            $themaCounter++;
-		}
-		?>    	
+		<?php
+$themaCounter = 1;
+foreach ($kern as $themaIdentifier => $thema) {
+    ?><h4>Thema <?=$themaCounter;?>: <?=htmlentities($themaIdentifier);?></h4><?php
+    foreach ($thema as $faseIdentifier => $fase) {
+        renderFase($faseIdentifier, $fase);
+    }
+    $themaCounter ++;
+}
+?>    	
     </section>
 </body>
 </html>
