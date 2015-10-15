@@ -217,17 +217,16 @@ body header {
 	text-align: center;
 }
 
-body table {
-	width: 210mm;
-	border-spacing: 0;
-}
 
 body section h3 {
 	color: #ff6600;
 }
 
 table {
+	width: 210mm;
+	border-spacing: 0;
     margin-bottom: 1em;
+    table-layout: fixed ;
 }
 
 table caption {
@@ -237,17 +236,13 @@ table caption {
 
 table td, table th {
 	padding: 5px;
+	vertical-align: top;
 }
 
 table th {
 	text-align: right;
 	background-color: #f6f6f6;
-	vertical-align: top;
 	width: 20%;
-}
-
-table.two-columns th {
-	width: 10%;
 }
 
 ul.meervoudige-intelligenties {
@@ -281,8 +276,8 @@ hr {
 <body>
 	<header>
 		<h1>Lesplan programmeren</h1>
-		<h2>Blok 1 / Week 1 / Les 1</h2>
 	</header>
+	<h2>Blok 1 / Week 1 / Les 1</h2>
 	<section>
 		<h3>Beginsituatie</h3>
 		<table class="two-columns">
