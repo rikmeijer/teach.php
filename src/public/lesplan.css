@@ -1,0 +1,66 @@
+@CHARSET "UTF-8";
+
+body {
+	font-family: sans-serif;
+	font-size: 12pt;
+	line-height: 1.5em;
+}
+
+body header {
+	text-align: center;
+}
+
+
+body section h3 {
+	color: #ff6600;
+}
+
+table {
+	width: 210mm;
+	border-spacing: 0;
+    margin-bottom: 1em;
+    table-layout: fixed ;
+}
+
+table caption {
+	color: #aa6600;
+	border-bottom: 1px solid #aa6600;
+}
+
+table td, table th {
+	padding: 5px;
+	vertical-align: top;
+}
+
+table th {
+	text-align: right;
+	background-color: #f6f6f6;
+	width: 20%;
+}
+
+ul.meervoudige-intelligenties {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.meervoudige-intelligenties li {
+	padding: 0 5px;
+	display:none;
+}
+
+ul.meervoudige-intelligenties li.selected {
+	display:inline;
+}
+
+hr {
+	border: 0;
+	height: 1px;
+	background: #333;
+}
+
+@media print {
+	body header, hr {
+		page-break-after: always;
+	}
+}

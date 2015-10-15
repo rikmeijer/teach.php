@@ -149,6 +149,45 @@ $kern = array(
     )
 );
 
+$afsluiting = array(
+    "Huiswerk" => array(
+        "inhoud" => "-	Challenge voor eerstvolgende les maken
+-	Practicum opdrachten thuis afronden
+-	Huiswerk maken als extra oefening",
+        "werkvorm" => "presentatie",
+        "organisatievorm" => "plenair",
+        "werkvormsoort" => "docentgecentreerd",
+        "tijd" => "2",
+        "intelligenties" => array(
+            "verbaal-linguistisch",
+            "interpersoonlijk"
+        )
+    ),
+    "Evaluatie" => array(
+        "inhoud" => "Verzamelen feedback papiertjes",
+        "werkvorm" => "nabespreking",
+        "organisatievorm" => "plenair",
+        "werkvormsoort" => "ijsbreker",
+        "tijd" => "3",
+        "intelligenties" => array(
+            "verbaal-linguistisch",
+            "interpersoonlijk"
+        )
+    ),
+    "Pakkend slot" => array(
+        "inhoud" => "Foto",
+        "werkvorm" => "presentatie",
+        "organisatievorm" => "plenair",
+        "werkvormsoort" => "docentgecentreerd",
+        "tijd" => "1",
+        "intelligenties" => array(
+            "verbaal-linguistisch",
+            "visueel-ruimtelijk",
+            "intrapersoonlijk"
+        )
+    )
+);
+
 function renderFase($naam, array $werkvorm)
 {
     $beschikbareIntelligenties = array(
@@ -164,38 +203,39 @@ function renderFase($naam, array $werkvorm)
     
     ?>
 <table class="two-columns">
-	<caption><?=htmlentities($naam); ?></caption>
-	<tr>
-		<th>werkvorm</th>
-		<td><?=htmlentities($werkvorm['werkvorm']); ?></td>
-		<th>organisatievorm</th>
-		<td><?=htmlentities($werkvorm['organisatievorm']); ?></td>
-	</tr>
-	<tr>
-		<th>tijd</th>
-		<td><?=htmlentities($werkvorm['tijd']); ?> minuten</td>
-		<th>soort werkvorm</th>
-		<td><?=htmlentities($werkvorm['werkvormsoort']); ?></td>
-	</tr>
-	<tr>
-		<th>intelligenties</th>
-		<td colspan="3">
-			<ul class="meervoudige-intelligenties">
+ <caption><?=htmlentities($naam); ?></caption>
+ <tr>
+  <th>werkvorm</th>
+  <td><?=htmlentities($werkvorm['werkvorm']); ?></td>
+  <th>organisatievorm</th>
+  <td><?=htmlentities($werkvorm['organisatievorm']); ?></td>
+ </tr>
+ <tr>
+  <th>tijd</th>
+  <td><?=htmlentities($werkvorm['tijd']); ?> minuten</td>
+  <th>soort werkvorm</th>
+  <td><?=htmlentities($werkvorm['werkvormsoort']); ?></td>
+ </tr>
+ <tr>
+  <th>intelligenties</th>
+  <td colspan="3">
+   <ul class="meervoudige-intelligenties">
 					<?php
     foreach ($beschikbareIntelligenties as $beschikbareIntelligentieIdentifier => $beschikbareIntelligentie) {
         $selected = in_array($beschikbareIntelligentieIdentifier, $werkvorm['intelligenties']);
         ?><li
-					id="<?= htmlentities($beschikbareIntelligentieIdentifier); ?>"
-					<?=($selected ? ' class="selected"' : '');?>><?=htmlentities($beschikbareIntelligentie); ?></li><?php
+     id="<?= htmlentities($beschikbareIntelligentieIdentifier); ?>"
+     <?=($selected ? ' class="selected"' : '');?>
+    ><?=htmlentities($beschikbareIntelligentie); ?></li><?php
     }
     ?>
 				</ul>
-		</td>
-	</tr>
-	<tr>
-		<th>inhoud</th>
-		<td colspan="3"><?=htmlentities($werkvorm['inhoud']); ?></td>
-	</tr>
+  </td>
+ </tr>
+ <tr>
+  <th>inhoud</th>
+  <td colspan="3"><?=htmlentities($werkvorm['inhoud']); ?></td>
+ </tr>
 </table>
 <?php
 }
@@ -206,140 +246,76 @@ function renderFase($naam, array $werkvorm)
 <head>
 <meta charset="UTF-8">
 <title>Lesplan</title>
-<style>
-body {
-	font-family: sans-serif;
-	font-size: 12pt;
-	line-height: 1.5em;
-}
-
-body header {
-	text-align: center;
-}
-
-
-body section h3 {
-	color: #ff6600;
-}
-
-table {
-	width: 210mm;
-	border-spacing: 0;
-    margin-bottom: 1em;
-    table-layout: fixed ;
-}
-
-table caption {
-	color: #aa6600;
-	border-bottom: 1px solid #aa6600;
-}
-
-table td, table th {
-	padding: 5px;
-	vertical-align: top;
-}
-
-table th {
-	text-align: right;
-	background-color: #f6f6f6;
-	width: 20%;
-}
-
-ul.meervoudige-intelligenties {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-ul.meervoudige-intelligenties li {
-	padding: 0 5px;
-	display:none;
-}
-
-ul.meervoudige-intelligenties li.selected {
-	display:inline;
-}
-
-hr {
-	border: 0;
-	height: 1px;
-	background: #333;
-}
-
-@media print {
-	body header, section {
-		page-break-after: always;
-	}
-}
-</style>
+<link rel="stylesheet" type="text/css" href="lesplan.css">
 </head>
 <body>
-	<header>
-		<h1>Lesplan programmeren</h1>
-	</header>
-	<h2>Blok 1 / Week 1 / Les 1</h2>
-	<section>
-		<h3>Beginsituatie</h3>
-		<table class="two-columns">
-			<tr>
-				<th>doelgroep</th>
-				<td>eerstejaars HBO-studenten</td>
-				<th>opleiding</th>
-				<td>HBO-informatica (<del>deeltijd</del>/voltijd)
-				</td>
-			</tr>
-			<tr>
-				<th>ervaring</th>
-				<td><del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>,
-					geen</td>
-				<th>groepsgrootte</th>
-				<td>ca. 16 personen</td>
-			</tr>
-			<tr>
-				<th>tijd</th>
-				<td>van <strong>8:45</strong> tot <strong>10:20</strong> (45
-					minuten)
-				</td>
-				<th>ruimte</th>
-				<td>beschikking over vaste computers</td>
-			</tr>
-			<tr>
-				<th>overige</th>
-				<td colspan="3">nvt</td>
-			</tr>
-		</table>
-		<h3>Benodigde media</h3>
-		<ul>
-			<li>filmfragment matrix</li>
-			<li>rode en groene briefjes/post-its voor feedback</li>
-			<li>presentatie</li>
-			<li>voorbeeldproject voor aanvullende feedback</li>
-		</ul>
-		<h3>Leerdoelen</h3>
-		<p>Na afloop van de les kan de student:</p>
-		<ol>
+ <header>
+  <h1>Lesplan programmeren</h1>
+ </header>
+ <section>
+  <h2>Blok 1 / Week 1 / Les 1</h2>
+  <h3>Beginsituatie</h3>
+  <table class="two-columns">
+   <tr>
+    <th>doelgroep</th>
+    <td>eerstejaars HBO-studenten</td>
+    <th>opleiding</th>
+    <td>HBO-informatica (<del>deeltijd</del>/voltijd)
+    </td>
+   </tr>
+   <tr>
+    <th>ervaring</th>
+    <td><del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>,
+     geen</td>
+    <th>groepsgrootte</th>
+    <td>ca. 16 personen</td>
+   </tr>
+   <tr>
+    <th>tijd</th>
+    <td>van <strong>8:45</strong> tot <strong>10:20</strong> (45
+     minuten)
+    </td>
+    <th>ruimte</th>
+    <td>beschikking over vaste computers</td>
+   </tr>
+   <tr>
+    <th>overige</th>
+    <td colspan="3">nvt</td>
+   </tr>
+  </table>
+  <h3>Benodigde media</h3>
+  <ul>
+   <li>filmfragment matrix</li>
+   <li>rode en groene briefjes/post-its voor feedback</li>
+   <li>presentatie</li>
+   <li>voorbeeldproject voor aanvullende feedback</li>
+  </ul>
+  <h3>Leerdoelen</h3>
+  <p>Na afloop van de les kan de student:</p>
+  <ol>
 			<?php
 foreach (array_keys($kern) as $themaIdentifier) {
     ?><li><?=htmlentities($themaIdentifier); ?></li><?php
 }
 ?>
 		</ol>
-	</section>
-	<hr />
-		<h2>Introductie</h2>
-	<section>
+ </section>
+ <section>
+  <h2>Introductie</h2>
 		<?php
 foreach ($introductie as $faseIdentifier => $fase) {
     renderFase($faseIdentifier, $fase);
 }
 ?>
     </section>
-    <hr />
-		<h2>Kern</h2>
+ <hr />
+ <section>
+  <h2>Kern</h2>
 		<?php
 $themaCounter = 1;
 foreach ($kern as $themaIdentifier => $thema) {
-    ?><section><h3>Thema <?=$themaCounter;?>: <?=htmlentities($themaIdentifier);?></h3><?php
+    ?><section>
+   <h3>Thema <?=$themaCounter;?>: <?=htmlentities($themaIdentifier);?></h3><?php
     foreach ($thema as $faseIdentifier => $fase) {
         renderFase($faseIdentifier, $fase);
     }
@@ -347,6 +323,15 @@ foreach ($kern as $themaIdentifier => $thema) {
     ?></section><?php
 }
 ?>    	
-    
+	</section>
+ <hr />
+ <section>
+  <h2>Afsluiting</h2>
+		<?php
+foreach ($afsluiting as $faseIdentifier => $fase) {
+    renderFase($faseIdentifier, $fase);
+}
+?>
+    </section>
 </body>
 </html>
