@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+$applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
+$applicationBootstrap();
+
+?><!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
