@@ -97,6 +97,55 @@ $kern = array(
                 "intrapersoonlijk"
             )
         )
+    ),
+    "Java-code lezen en uitleggen wat er gebeurt" => array(
+        "Ervaren" => array(
+            "inhoud" => "Achterhalen wie wel eens adhv van een recept/handleiding heeft gewerkt.",
+            "werkvorm" => "metafoor",
+            "organisatievorm" => "plenair",
+            "werkvormsoort" => "ijsbreker",
+            "tijd" => "5",
+            "intelligenties" => array(
+                "verbaal-linguistisch",
+                "interpersoonlijk"
+            )
+        ),
+        "Reflecteren" => array(
+            "inhoud" => "Studenten met buurman/vrouw overleggen hoeveel verschillende stappen er zijn bij het uitvoeren van een handleiding. Tijdens het uitvoeren van taken voeren wij onbewust veel contextgevoelige taken uit een computer kent dit niet.",
+            "werkvorm" => "brainstormen",
+            "organisatievorm" => "groepswerk",
+            "werkvormsoort" => "discussie",
+            "tijd" => "5",
+            "intelligenties" => array(
+                "verbaal-linguistisch",
+                "logisch-mathematisch",
+                "intrapersoonlijk",
+                "interpersoonlijk"
+            )
+        ),
+        "Conceptualiseren" => array(
+            "inhoud" => "Tonen pseudo-code bij vorig recept of handleiding (bijv. IKEA handleiding)",
+            "werkvorm" => "demonstratie",
+            "organisatievorm" => "plenair",
+            "werkvormsoort" => "docentgecentreerd",
+            "tijd" => "10",
+            "intelligenties" => array(
+                "verbaal-linguistisch",
+                "visueel-ruimtelijk",
+                "interpersoonlijk"
+            )
+        ),
+        "Toepassen" => array(
+            "inhoud" => "Studenten voeren SIMPEL (waarin zij moeten uitleggen wat de code doet) en BASIS (schrijven pseudo-code) opdrachten uit. Eventueel COMPLEX (zelf code schrijven) als voorschot op volgende week.",
+            "werkvorm" => "verwerkingsopdracht",
+            "organisatievorm" => "plenair",
+            "werkvormsoort" => "individuele werkopdracht",
+            "tijd" => "30",
+            "intelligenties" => array(
+                "verbaal-linguistisch",
+                "intrapersoonlijk"
+            )
+        )
     )
 );
 
@@ -160,6 +209,7 @@ function renderFase($naam, array $werkvorm)
 <style>
 body {
 	font-family: sans-serif;
+	font-size: 12pt;
 	line-height: 1.5em;
 }
 
@@ -176,8 +226,13 @@ body section h3 {
 	color: #ff6600;
 }
 
+table {
+    margin-bottom: 1em;
+}
+
 table caption {
 	color: #aa6600;
+	border-bottom: 1px solid #aa6600;
 }
 
 table td, table th {
@@ -202,13 +257,12 @@ ul.meervoudige-intelligenties {
 }
 
 ul.meervoudige-intelligenties li {
-	float: left;
 	padding: 0 5px;
-	color: #d0d0d0;
+	display:none;
 }
 
 ul.meervoudige-intelligenties li.selected {
-	color: #000000;
+	display:inline;
 }
 
 hr {
@@ -277,26 +331,27 @@ foreach (array_keys($kern) as $themaIdentifier) {
 		</ol>
 	</section>
 	<hr />
+		<h2>Introductie</h2>
 	<section>
-		<h3>Introductie</h3>
 		<?php
 foreach ($introductie as $faseIdentifier => $fase) {
     renderFase($faseIdentifier, $fase);
 }
 ?>
     </section>
-	<section>
-		<h3>Kern</h3>
+    <hr />
+		<h2>Kern</h2>
 		<?php
 $themaCounter = 1;
 foreach ($kern as $themaIdentifier => $thema) {
-    ?><h4>Thema <?=$themaCounter;?>: <?=htmlentities($themaIdentifier);?></h4><?php
+    ?><section><h3>Thema <?=$themaCounter;?>: <?=htmlentities($themaIdentifier);?></h3><?php
     foreach ($thema as $faseIdentifier => $fase) {
         renderFase($faseIdentifier, $fase);
     }
     $themaCounter ++;
+    ?></section><?php
 }
 ?>    	
-    </section>
+    
 </body>
 </html>
