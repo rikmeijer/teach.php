@@ -16,7 +16,12 @@ final class Fase
     public function generateFirstStep()
     {
         return ['table' => [['class' => 'two-columns'], [
-            'caption' => $this->caption
+            'caption' => $this->caption,
+            'tr' => [[], [
+                
+                'th' => 'werkvorm'
+                
+            ]]
         ]]];
     }
 }
