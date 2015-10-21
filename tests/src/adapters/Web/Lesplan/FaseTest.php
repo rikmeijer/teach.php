@@ -26,9 +26,9 @@ class FaseTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {}
 
-    public function testRender()
+    public function testGenerateFirstStep()
     {
-        $html = $this->object->render();
+        $html = $this->object->generateFirstStep();
         $this->assertEquals('two-columns', $html['table'][0]['class']);
         $this->assertCount(0, $html['table'][1]);
     }

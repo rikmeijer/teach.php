@@ -7,7 +7,7 @@ final class Fase
     /**
      * @return array
      */
-    public function render()
+    public function generateFirstStep()
     {
         return ['table' => [['class' => 'two-columns'], []]];
     }
