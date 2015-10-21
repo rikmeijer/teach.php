@@ -35,10 +35,12 @@ final class Factory
      */
     private function convertDefinition($elementIdentifier, $elementDefinition)
     {
-        if (is_string($elementDefinition)) {
-            return $this->createText($elementDefinition);
-        } else {
+        if (is_array($elementDefinition)) {
             return $this->createElement($elementIdentifier, $elementDefinition[0], $elementDefinition[1]);
+        } elseif (is_string($elementIdentifier)) {
+            return $this->convertDefinition($elementIdentifier, [[], [$elementDefinition]]);
+        } else {
+            return $this->createText($elementDefinition);
         }
     }
 

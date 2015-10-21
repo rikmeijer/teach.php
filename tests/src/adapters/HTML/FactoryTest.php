@@ -24,4 +24,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $html = $object->makeHTML(['Hello World', 'li' => [['src' => "bla.gif"], []]]);
         $this->assertEquals('Hello World<li src="bla.gif"></li>', $html);
     }
+    
+
+    public function testMakeHTMLWithTextOnlyElement()
+    {
+        $object = new Factory();
+        $html = $object->makeHTML(['Hello World', 'a' => 'Hello Hello']);
+        $this->assertEquals('Hello World<a>Hello Hello</a>', $html);
+    }
 }
