@@ -58,6 +58,14 @@ final class Fase
                             ['td', ['colspan' => '3'], []]
                         ]
                     ],
+                    [
+                        'tr',
+                        [],
+                        [   
+                            ['th', 'inhoud'],
+                            ['td', ['colspan' => '3'], [$this->werkvorm['inhoud']]]
+                        ]
+                    ]
                 ]
             ]
             
