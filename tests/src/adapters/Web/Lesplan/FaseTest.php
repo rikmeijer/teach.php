@@ -29,6 +29,7 @@ class FaseTest extends \PHPUnit_Framework_TestCase
     public function testRender()
     {
         $html = $this->object->render();
-        $this->assertEquals(['table' => [['class' => 'two-columns'], []]], $html);
+        $this->assertEquals('two-columns', $html['table'][0]['class']);
+        $this->assertCount(0, $html['table'][1]);
     }
 }
