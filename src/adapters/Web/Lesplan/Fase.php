@@ -66,7 +66,7 @@ final class Fase
                             ['th', 'intelligenties'],
                             ['td', ['colspan' => '3'], [
                                 ['ul', ['class' => "meervoudige-intelligenties"], [
-                                    ['li', ['id' => self::MI_VERBAAL_LINGUISTISCH]]
+                                    ['li', ['id' => self::MI_VERBAAL_LINGUISTISCH], ['VL']]
                                 ]]
                             ]]
                         ]
