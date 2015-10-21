@@ -65,7 +65,7 @@ final class Fase
                         [   
                             ['th', 'intelligenties'],
                             ['td', ['colspan' => '3'], [
-                                ['ul']
+                                ['ul', ['class' => "meervoudige-intelligenties"]]
                             ]]
                         ]
                     ],
