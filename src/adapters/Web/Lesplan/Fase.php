@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Adapters\HTML\Lesplan;
+namespace Teach\Adapters\Web\Lesplan;
 
 
 final class Fase {

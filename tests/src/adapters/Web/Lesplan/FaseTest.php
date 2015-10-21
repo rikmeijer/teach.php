@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Adapters\HTML\Lesplan;
+namespace Teach\Adapters\Web\Lesplan;
 
 class FaseTest extends \PHPUnit_Framework_TestCase
 {
