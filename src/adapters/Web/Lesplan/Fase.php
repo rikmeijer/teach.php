@@ -4,6 +4,15 @@ namespace Teach\Adapters\Web\Lesplan;
 final class Fase
 {
 
+    const MI_VERBAAL_LINGUISTISCH = "verbaal-linguistisch";
+    const MI_LOGISCH_MATHEMATISCH = "logisch-mathematisch";
+    const MI_VISUEEL_RUIMTELIJK = "visueel-ruimtelijk";
+    const MI_MUZIKAAL_RITMISCH = "muzikaal-ritmisch";
+    const MI_LICHAMELIJK_KINESTHETISCH = "lichamelijk-kinesthetisch";
+    const MI_NATURALISTISCH = "naturalistisch";
+    const MI_INTERPERSOONLIJK = "interpersoonlijk";
+    const MI_INTRAPERSOONLIJK = "intrapersoonlijk";
+
     private $caption;
     private $werkvorm;
 
@@ -55,7 +64,9 @@ final class Fase
                         [],
                         [   
                             ['th', 'intelligenties'],
-                            ['td', ['colspan' => '3'], []]
+                            ['td', ['colspan' => '3'], [
+                                ['ul']
+                            ]]
                         ]
                     ],
                     [

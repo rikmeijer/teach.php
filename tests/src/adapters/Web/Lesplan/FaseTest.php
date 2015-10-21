@@ -14,11 +14,11 @@ class FaseTest extends \PHPUnit_Framework_TestCase
                 "organisatievorm" => "plenair",
                 "werkvormsoort" => "discussie",
                 "tijd" => "5",
-//                 "intelligenties" => array(
-//                     MI_VERBAAL_LINGUISTISCH,
-//                     MI_INTRAPERSOONLIJK,
-//                     MI_INTERPERSOONLIJK
-//                 )
+                "intelligenties" => array(
+                    Fase::MI_VERBAAL_LINGUISTISCH,
+                    Fase::MI_INTRAPERSOONLIJK,
+                    Fase::MI_INTERPERSOONLIJK
+                )
             ));
         $html = $object->generateFirstStep();
         $this->assertEquals('table', $html[0][HTMLFactory::TAG]);
@@ -57,7 +57,7 @@ class FaseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("intelligenties", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals('3', $row[HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['colspan']);
-        //$this->assertEquals("5 minuten", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
+        $this->assertEquals("ul", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
 
         $row = $html[0][HTMLFactory::CHILDREN][4];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
