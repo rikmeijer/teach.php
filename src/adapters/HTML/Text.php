@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters\HTML;
 
-final class Text
+final class Text implements RenderableInterface
 {
     private $contents;
     

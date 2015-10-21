@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters\HTML;
 
-final class Element
+final class Element implements RenderableInterface
 {
     private $tagName;
     private $attributes = array();
@@ -22,7 +22,7 @@ final class Element
         $this->attributes[] = $attributeIdentifier . '="' . $attributeValue . '"';
     }
     
-    public function child(Element $child)
+    public function child(RenderableInterface $child)
     {
         $this->children[] = $child;
     }
