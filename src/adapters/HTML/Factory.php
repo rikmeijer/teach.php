@@ -3,6 +3,11 @@ namespace Teach\Adapters\HTML;
 
 final class Factory
 {
+    const TAG = 0;
+    const ATTRIBUTES = 1;
+    const TEXT = 1;
+    const CHILDREN = 2;
+    
 
     /**
      *

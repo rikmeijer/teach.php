@@ -1,6 +1,8 @@
 <?php
 namespace Teach\Adapters\Web\Lesplan;
 
+use \Teach\Adapters\HTML\Factory as HTMLFactory;
+
 class FaseTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerateFirstStep()
@@ -19,15 +21,15 @@ class FaseTest extends \PHPUnit_Framework_TestCase
 //                 )
             ));
         $html = $object->generateFirstStep();
-        $this->assertEquals('table', $html[0][0]);
-        $this->assertEquals('two-columns', $html[0][1]['class']);
-        $this->assertEquals("caption", $html[0][2][0][0]);
-        $this->assertEquals("Reflecteren", $html[0][2][0][1]);
+        $this->assertEquals('table', $html[0][HTMLFactory::TAG]);
+        $this->assertEquals('two-columns', $html[0][HTMLFactory::ATTRIBUTES]['class']);
+        $this->assertEquals("caption", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals("Reflecteren", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
 
-        $this->assertEquals("tr", $html[0][2][1][0]);
-        $this->assertEquals("th", $html[0][2][1][2][0][0]);
-        $this->assertEquals("werkvorm", $html[0][2][1][2][0][1]);
-        $this->assertEquals("td", $html[0][2][1][2][1][0]);
-        $this->assertEquals("brainstormen", $html[0][2][1][2][1][1]);
+        $this->assertEquals("tr", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
+        $this->assertEquals("th", $html[0][HTMLFactory::CHILDREN][1][2][0][HTMLFactory::TAG]);
+        $this->assertEquals("werkvorm", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("td", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
+        $this->assertEquals("brainstormen", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
     }
 }
