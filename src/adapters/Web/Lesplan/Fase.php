@@ -12,6 +12,17 @@ final class Fase
     const MI_NATURALISTISCH = "naturalistisch";
     const MI_INTERPERSOONLIJK = "interpersoonlijk";
     const MI_INTRAPERSOONLIJK = "intrapersoonlijk";
+    
+    const INTELLIGENTIES = [
+        self::MI_VERBAAL_LINGUISTISCH => 'VL',
+        self::MI_LOGISCH_MATHEMATISCH => "LM",
+        self::MI_VISUEEL_RUIMTELIJK => "VR",
+        self::MI_MUZIKAAL_RITMISCH => "MR",
+        self::MI_LICHAMELIJK_KINESTHETISCH => "LK",
+        self::MI_NATURALISTISCH => "N",
+        self::MI_INTERPERSOONLIJK => "IR",
+        self::MI_INTRAPERSOONLIJK => "IA"
+    ];
 
     private $caption;
     private $werkvorm;
@@ -28,6 +39,12 @@ final class Fase
      */
     public function generateFirstStep()
     {
+        $intelligentieListItems = array();
+        foreach (self::INTELLIGENTIES as $intelligentieIdentifier => $intelligentieLable) {
+            $intelligentieListItems[] = ['li', ['id' => $intelligentieIdentifier], [$intelligentieLable]];
+        }
+        
+        
         return [
             [
                 'table',
@@ -65,9 +82,7 @@ final class Fase
                         [   
                             ['th', 'intelligenties'],
                             ['td', ['colspan' => '3'], [
-                                ['ul', ['class' => "meervoudige-intelligenties"], [
-                                    ['li', ['id' => self::MI_VERBAAL_LINGUISTISCH], ['VL']]
-                                ]]
+                                ['ul', ['class' => "meervoudige-intelligenties"], $intelligentieListItems]
                             ]]
                         ]
                     ],

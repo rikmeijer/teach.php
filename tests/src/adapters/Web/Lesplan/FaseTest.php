@@ -64,6 +64,34 @@ class FaseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(Fase::MI_VERBAAL_LINGUISTISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::ATTRIBUTES]['id']);
         $this->assertEquals('VL', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
 
+        $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
+        $this->assertEquals(Fase::MI_LOGISCH_MATHEMATISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals('LM', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
+
+        $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][2][HTMLFactory::TAG]);
+        $this->assertEquals(Fase::MI_VISUEEL_RUIMTELIJK, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][2][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals('VR', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0]);
+
+        $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][3][HTMLFactory::TAG]);
+        $this->assertEquals(Fase::MI_MUZIKAAL_RITMISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][3][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals('MR', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][3][HTMLFactory::CHILDREN][0]);
+
+        $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][4][HTMLFactory::TAG]);
+        $this->assertEquals(Fase::MI_LICHAMELIJK_KINESTHETISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][4][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals('LK', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][4][HTMLFactory::CHILDREN][0]);
+
+        $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][5][HTMLFactory::TAG]);
+        $this->assertEquals(Fase::MI_NATURALISTISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][5][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals('N', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][5][HTMLFactory::CHILDREN][0]);
+
+        $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][6][HTMLFactory::TAG]);
+        $this->assertEquals(Fase::MI_INTERPERSOONLIJK, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][6][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals('IR', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][6][HTMLFactory::CHILDREN][0]);
+
+        $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][7][HTMLFactory::TAG]);
+        $this->assertEquals(Fase::MI_INTRAPERSOONLIJK, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][7][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals('IA', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][0]);
+
         $row = $html[0][HTMLFactory::CHILDREN][4];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
         $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
