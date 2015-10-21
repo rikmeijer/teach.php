@@ -33,10 +33,11 @@ final class Fase
                     [
                         'tr',
                         [],
-                        [
-                            
+                        [   
                             ['th', 'werkvorm'],
-                            ['td', $this->werkvorm['werkvorm']]
+                            ['td', $this->werkvorm['werkvorm']],
+                            ['th', 'organisatievorm'],
+                            ['td', $this->werkvorm['organisatievorm']]
                         ]
                     ]
                 ]

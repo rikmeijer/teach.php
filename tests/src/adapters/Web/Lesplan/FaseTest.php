@@ -27,9 +27,14 @@ class FaseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("Reflecteren", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
 
         $this->assertEquals("tr", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
-        $this->assertEquals("th", $html[0][HTMLFactory::CHILDREN][1][2][0][HTMLFactory::TAG]);
+        $this->assertEquals("th", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals("werkvorm", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
         $this->assertEquals("td", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals("brainstormen", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
+        
+        $this->assertEquals("th", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][2][HTMLFactory::TAG]);
+        $this->assertEquals("organisatievorm", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][2][HTMLFactory::TEXT]);
+        $this->assertEquals("td", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][3][HTMLFactory::TAG]);
+        $this->assertEquals("plenair", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][3][HTMLFactory::TEXT]);
     }
 }
