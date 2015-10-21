@@ -1,0 +1,17 @@
+<?php
+namespace Teach\Adapters\HTML;
+
+final class Text
+{
+    private $contents;
+    
+    public function __construct($contents)
+    {
+        $this->contents = $contents;
+    }
+    
+    public function render()
+    {
+        return $this->contents;
+    }
+}
