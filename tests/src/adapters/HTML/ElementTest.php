@@ -22,7 +22,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     public function testRenderChild()
     {
         $object = new Element("table");
-        $object->child(new Element("tr"));
+        $object->append(new Element("tr"));
         $html = $object->render();
         $this->assertEquals('<table><tr></tr></table>', $html);
     }
@@ -30,7 +30,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     public function testRenderTextChild()
     {
         $object = new Element("table");
-        $object->child(new Text("tr"));
+        $object->append(new Text("tr"));
         $html = $object->render();
         $this->assertEquals('<table>tr</table>', $html);
     }

@@ -22,7 +22,7 @@ final class Element implements RenderableInterface
         $this->attributes[] = $attributeIdentifier . '="' . $attributeValue . '"';
     }
     
-    public function child(RenderableInterface $child)
+    public function append(RenderableInterface $child)
     {
         $this->children[] = $child;
     }
