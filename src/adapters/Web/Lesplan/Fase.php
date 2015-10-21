@@ -1,12 +1,14 @@
 <?php
 namespace Teach\Adapters\Web\Lesplan;
 
+final class Fase
+{
 
-final class Fase {
-
-    public function render() {
-        $html = '<table class="two-columns"></table>';
-        return $html;
+    /**
+     * @return array
+     */
+    public function render()
+    {
+        return ['table' => [['class' => 'two-columns'], []]];
     }
-    
 }

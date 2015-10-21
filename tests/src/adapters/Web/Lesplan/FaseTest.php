@@ -6,7 +6,7 @@ class FaseTest extends \PHPUnit_Framework_TestCase
 
     /**
      *
-     * @var Lesplan
+     * @var Fase
      */
     protected $object;
 
@@ -29,6 +29,6 @@ class FaseTest extends \PHPUnit_Framework_TestCase
     public function testRender()
     {
         $html = $this->object->render();
-        $this->assertEquals('<table class="two-columns"></table>', $html);
+        $this->assertEquals(['table' => [['class' => 'two-columns'], []]], $html);
     }
 }
