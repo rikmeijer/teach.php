@@ -10,4 +10,10 @@ class TextTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('table', $html);
     }
 
+    public function testRenderHTMLEntities()
+    {
+        $object = new Text("téble");
+        $html = $object->render();
+        $this->assertEquals('t&eacute;ble', $html);
+    }
 }

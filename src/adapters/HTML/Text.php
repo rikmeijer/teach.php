@@ -12,6 +12,6 @@ final class Text
     
     public function render()
     {
-        return $this->contents;
+        return htmlentities($this->contents);
     }
 }
