@@ -39,7 +39,25 @@ final class Fase
                             ['th', 'organisatievorm'],
                             ['td', $this->werkvorm['organisatievorm']]
                         ]
-                    ]
+                    ],
+                    [
+                        'tr',
+                        [],
+                        [   
+                            ['th', 'tijd'],
+                            ['td', $this->werkvorm['tijd'] . ' minuten'],
+                            ['th', 'soort werkvorm'],
+                            ['td', $this->werkvorm['werkvormsoort']]
+                        ]
+                    ],
+                    [
+                        'tr',
+                        [],
+                        [   
+                            ['th', 'intelligenties'],
+                            ['td', ['colspan' => '3'], []]
+                        ]
+                    ],
                 ]
             ]
             
