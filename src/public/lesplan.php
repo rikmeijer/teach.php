@@ -11,10 +11,10 @@ $onderdelen = array(
             'werkvormsoort' => "ijsbreker",
             'tijd' => "5",
             'intelligenties' => array(
-                MI_VERBAAL_LINGUISTISCH,
-                MI_VISUEEL_RUIMTELIJK,
-                MI_INTERPERSOONLIJK,
-                MI_INTRAPERSOONLIJK
+                \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Adapters\Web\Lesplan\Fase::MI_VISUEEL_RUIMTELIJK,
+                \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK,
+                \Teach\Adapters\Web\Lesplan\Fase::MI_INTRAPERSOONLIJK
             )
         ),
         "Focus" => array(
@@ -24,9 +24,9 @@ $onderdelen = array(
             "werkvormsoort" => "docent gecentreerd",
             "tijd" => "4",
             "intelligenties" => array(
-                MI_VERBAAL_LINGUISTISCH,
-                MI_LOGISCH_MATHEMATISCH,
-                MI_INTERPERSOONLIJK
+                \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Adapters\Web\Lesplan\Fase::MI_LOGISCH_MATHEMATISCH,
+                \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
             )
         ),
         "Voorstellen" => array(
@@ -36,9 +36,9 @@ $onderdelen = array(
             "werkvormsoort" => "docent gecentreerd",
             "tijd" => "4",
             "intelligenties" => array(
-                MI_VERBAAL_LINGUISTISCH,
-                MI_LOGISCH_MATHEMATISCH,
-                MI_INTERPERSOONLIJK
+                \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Adapters\Web\Lesplan\Fase::MI_LOGISCH_MATHEMATISCH,
+                \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
             )
         )
     ),
@@ -51,10 +51,10 @@ $onderdelen = array(
                 "werkvormsoort" => "ijsbreker",
                 "tijd" => "5",
                 "intelligenties" => array(
-                    MI_VERBAAL_LINGUISTISCH,
-                    MI_VISUEEL_RUIMTELIJK,
-                    MI_NATURALISTISCH,
-                    MI_INTERPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_VISUEEL_RUIMTELIJK,
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_NATURALISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
                 )
             ),
             "Reflecteren" => array(
@@ -65,9 +65,9 @@ $onderdelen = array(
                 "werkvormsoort" => "discussie",
                 "tijd" => "5",
                 "intelligenties" => array(
-                    MI_VERBAAL_LINGUISTISCH,
-                    MI_INTRAPERSOONLIJK,
-                    MI_INTERPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTRAPERSOONLIJK,
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
                 )
             ),
             "Conceptualiseren" => array(
@@ -79,9 +79,9 @@ $onderdelen = array(
                 "werkvormsoort" => "docentgecentreerd",
                 "tijd" => "5",
                 "intelligenties" => array(
-                    MI_VERBAAL_LINGUISTISCH,
-                    MI_VISUEEL_RUIMTELIJK,
-                    MI_INTERPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_VISUEEL_RUIMTELIJK,
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
                 )
             ),
             "Toepassen" => array(
@@ -93,8 +93,8 @@ $onderdelen = array(
                 "werkvormsoort" => "individuele werkopdracht",
                 "tijd" => "15",
                 "intelligenties" => array(
-                    MI_VERBAAL_LINGUISTISCH,
-                    MI_INTRAPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTRAPERSOONLIJK
                 )
             )
         ),
@@ -106,8 +106,8 @@ $onderdelen = array(
                 "werkvormsoort" => "ijsbreker",
                 "tijd" => "5",
                 "intelligenties" => array(
-                    MI_VERBAAL_LINGUISTISCH,
-                    MI_INTERPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
                 )
             ),
             "Reflecteren" => array(
@@ -117,10 +117,10 @@ $onderdelen = array(
                 "werkvormsoort" => "discussie",
                 "tijd" => "5",
                 "intelligenties" => array(
-                    MI_VERBAAL_LINGUISTISCH,
-                    MI_LOGISCH_MATHEMATISCH,
-                    MI_INTRAPERSOONLIJK,
-                    MI_INTERPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_LOGISCH_MATHEMATISCH,
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTRAPERSOONLIJK,
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
                 )
             ),
             "Conceptualiseren" => array(
@@ -130,9 +130,9 @@ $onderdelen = array(
                 "werkvormsoort" => "docentgecentreerd",
                 "tijd" => "10",
                 "intelligenties" => array(
-                    MI_VERBAAL_LINGUISTISCH,
-                    MI_VISUEEL_RUIMTELIJK,
-                    MI_INTERPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_VISUEEL_RUIMTELIJK,
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
                 )
             ),
             "Toepassen" => array(
@@ -142,8 +142,8 @@ $onderdelen = array(
                 "werkvormsoort" => "individuele werkopdracht",
                 "tijd" => "30",
                 "intelligenties" => array(
-                    MI_VERBAAL_LINGUISTISCH,
-                    MI_INTRAPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTRAPERSOONLIJK
                 )
             )
         )
@@ -158,8 +158,8 @@ $onderdelen = array(
             "werkvormsoort" => "docentgecentreerd",
             "tijd" => "2",
             "intelligenties" => array(
-                MI_VERBAAL_LINGUISTISCH,
-                MI_INTERPERSOONLIJK
+                \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
             )
         ),
         "Evaluatie" => array(
@@ -169,8 +169,8 @@ $onderdelen = array(
             "werkvormsoort" => "ijsbreker",
             "tijd" => "3",
             "intelligenties" => array(
-                MI_VERBAAL_LINGUISTISCH,
-                MI_INTERPERSOONLIJK
+                \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
             )
         ),
         "Pakkend slot" => array(
@@ -180,9 +180,9 @@ $onderdelen = array(
             "werkvormsoort" => "docentgecentreerd",
             "tijd" => "1",
             "intelligenties" => array(
-                MI_VERBAAL_LINGUISTISCH,
-                MI_VISUEEL_RUIMTELIJK,
-                MI_INTRAPERSOONLIJK
+                \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Adapters\Web\Lesplan\Fase::MI_VISUEEL_RUIMTELIJK,
+                \Teach\Adapters\Web\Lesplan\Fase::MI_INTRAPERSOONLIJK
             )
         )
     )
@@ -190,54 +190,9 @@ $onderdelen = array(
 
 function renderFase($naam, array $werkvorm)
 {
-    $beschikbareIntelligenties = array(
-        MI_VERBAAL_LINGUISTISCH => "VL",
-        MI_LOGISCH_MATHEMATISCH => "LM",
-        MI_VISUEEL_RUIMTELIJK => "VR",
-        MI_MUZIKAAL_RITMISCH => "MR",
-        MI_LICHAMELIJK_KINESTHETISCH => "LK",
-        MI_NATURALISTISCH => "N",
-        MI_INTERPERSOONLIJK => "IR",
-        MI_INTRAPERSOONLIJK => "IA"
-    );
-    
-    ?>
-<table class="two-columns">
- <caption><?=htmlentities($naam); ?></caption>
- <tr>
-  <th>werkvorm</th>
-  <td><?=htmlentities($werkvorm['werkvorm']); ?></td>
-  <th>organisatievorm</th>
-  <td><?=htmlentities($werkvorm['organisatievorm']); ?></td>
- </tr>
- <tr>
-  <th>tijd</th>
-  <td><?=htmlentities($werkvorm['tijd']); ?> minuten</td>
-  <th>soort werkvorm</th>
-  <td><?=htmlentities($werkvorm['werkvormsoort']); ?></td>
- </tr>
- <tr>
-  <th>intelligenties</th>
-  <td colspan="3">
-   <ul class="meervoudige-intelligenties">
-					<?php
-    foreach ($beschikbareIntelligenties as $beschikbareIntelligentieIdentifier => $beschikbareIntelligentie) {
-        $selected = in_array($beschikbareIntelligentieIdentifier, $werkvorm['intelligenties']);
-        ?><li
-     id="<?= htmlentities($beschikbareIntelligentieIdentifier); ?>"
-     <?=($selected ? ' class="selected"' : '');?>
-    ><?=htmlentities($beschikbareIntelligentie); ?></li><?php
-    }
-    ?>
-				</ul>
-  </td>
- </tr>
- <tr>
-  <th>inhoud</th>
-  <td colspan="3"><?=htmlentities($werkvorm['inhoud']); ?></td>
- </tr>
-</table>
-<?php
+    $fase = new \Teach\Adapters\Web\Lesplan\Fase($naam, $werkvorm);
+    $factory = new \Teach\Adapters\HTML\Factory();
+    print $factory->makeHTML($fase->generateFirstStep());
 }
 
 ?>
