@@ -17,8 +17,8 @@ final class Factory
             $element->attribute($attributeIdentifier, $attributeValue);
         }
         
-        foreach ($elements as $childTagname => $elementDefinition) {
-            $element->append($this->convertDefinition($childTagname, $elementDefinition));
+        foreach ($elements as $elementDefinition) {
+            $element->append($this->convertDefinition($elementDefinition));
         }
         return $element;
     }
@@ -33,22 +33,22 @@ final class Factory
      * @param array $elementDefinition            
      * @return RenderableInterface
      */
-    private function convertDefinition($elementIdentifier, $elementDefinition)
+    private function convertDefinition($elementDefinition)
     {
-        if (is_array($elementDefinition)) {
-            return $this->createElement($elementIdentifier, $elementDefinition[0], $elementDefinition[1]);
-        } elseif (is_string($elementIdentifier)) {
-            return $this->convertDefinition($elementIdentifier, [[], [$elementDefinition]]);
-        } else {
+        if (is_string($elementDefinition)) {
             return $this->createText($elementDefinition);
+        } elseif (is_string($elementDefinition[1])) {
+            return $this->convertDefinition([$elementDefinition[0], [], [$elementDefinition[1]]]);
+        } else {
+            return $this->createElement($elementDefinition[0], $elementDefinition[1], $elementDefinition[2]);
         }
     }
 
     public function makeHTML(array $elements)
     {
         $html = '';
-        foreach ($elements as $elementIdentifier => $elementDefinition) {
-            $html .= $this->convertDefinition($elementIdentifier, $elementDefinition)->render();
+        foreach ($elements as $elementDefinition) {
+            $html .= $this->convertDefinition($elementDefinition)->render();
         }
         return $html;
     }
