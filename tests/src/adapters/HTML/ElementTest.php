@@ -34,4 +34,14 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $html = $object->render();
         $this->assertEquals('<table>tr</table>', $html);
     }
+    
+    public function testRenderVoid()
+    {
+        $voids = ['br', 'hr', 'img', 'input', 'link', 'meta', 'area', 'base', 'col', 'embed', 'keygen', 'menuitem', 'param', 'source', 'track', 'wbr'];
+        foreach ($voids as $void) {
+            $object = new Element($void);
+            $html = $object->render();
+            $this->assertEquals('<' . $void . '>', $html);
+        }
+    }
 }

@@ -3,6 +3,8 @@ namespace Teach\Adapters\HTML;
 
 final class Element implements RenderableInterface
 {
+    const VOIDS = ['br', 'hr', 'img', 'input', 'link', 'meta', 'area', 'base', 'col', 'embed', 'keygen', 'menuitem', 'param', 'source', 'track', 'wbr'];
+    
     private $tagName;
     private $attributes = array();
     
@@ -35,11 +37,14 @@ final class Element implements RenderableInterface
             $attributeHTML = ' ' . join(' ', $this->attributes);
         }
 
-        $childrenHTML = '';
-        foreach ($this->children as $child) {
-            $childrenHTML .= $child->render();
-        }
+        $html = '<' . $this->tagName . $attributeHTML . '>';
+        if (in_array($this->tagName, self::VOIDS) === false) {
+            foreach ($this->children as $child) {
+                $html .= $child->render();
+            }
         
-        return '<' . $this->tagName . $attributeHTML . '>' . $childrenHTML . '</' . $this->tagName . '>';
+            $html .= '</' . $this->tagName . '>';
+        }
+        return $html;
     }
 }
