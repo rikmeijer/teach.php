@@ -5,10 +5,12 @@ final class Fase
 {
 
     private $caption;
+    private $werkvorm;
 
-    public function __construct($caption)
+    public function __construct($caption, array $werkvorm)
     {
         $this->caption = $caption;
+        $this->werkvorm = $werkvorm;
     }
 
     /**
@@ -33,7 +35,8 @@ final class Fase
                         [],
                         [
                             
-                            ['th', 'werkvorm']
+                            ['th', 'werkvorm'],
+                            ['td', $this->werkvorm['werkvorm']]
                         ]
                     ]
                 ]
