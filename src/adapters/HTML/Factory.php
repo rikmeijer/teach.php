@@ -18,12 +18,36 @@ final class Factory
         }
         
         foreach ($elements as $childTagname => $elementDefinition) {
-            if (is_string($elementDefinition)) {
-                $element->append(new Text($elementDefinition));
-            } else {
-                $element->append($this->createElement($childTagname, $elementDefinition[0], $elementDefinition[1]));
-            }
+            $element->append($this->convertDefinition($childTagname, $elementDefinition));
         }
         return $element;
+    }
+
+    private function createText($text)
+    {
+        return new Text($text);
+    }
+
+    /**
+     *
+     * @param array $elementDefinition            
+     * @return RenderableInterface
+     */
+    private function convertDefinition($elementIdentifier, $elementDefinition)
+    {
+        if (is_string($elementDefinition)) {
+            return $this->createText($elementDefinition);
+        } else {
+            return $this->createElement($elementIdentifier, $elementDefinition[0], $elementDefinition[1]);
+        }
+    }
+
+    public function makeHTML(array $elements)
+    {
+        $html = '';
+        foreach ($elements as $elementIdentifier => $elementDefinition) {
+            $html .= $this->convertDefinition($elementIdentifier, $elementDefinition)->render();
+        }
+        return $html;
     }
 }
