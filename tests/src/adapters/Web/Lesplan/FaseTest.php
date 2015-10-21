@@ -61,6 +61,7 @@ class FaseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("meervoudige-intelligenties", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::ATTRIBUTES]['class']);
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals(Fase::MI_VERBAAL_LINGUISTISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::ATTRIBUTES]['id']);
 
         $row = $html[0][HTMLFactory::CHILDREN][4];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
