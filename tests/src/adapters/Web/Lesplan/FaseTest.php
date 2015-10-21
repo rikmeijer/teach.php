@@ -62,6 +62,7 @@ class FaseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals(Fase::MI_VERBAAL_LINGUISTISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals('selected', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::ATTRIBUTES]['class']);
         $this->assertEquals('VL', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
@@ -86,10 +87,12 @@ class FaseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][6][HTMLFactory::TAG]);
         $this->assertEquals(Fase::MI_INTERPERSOONLIJK, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][6][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals('selected', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][6][HTMLFactory::ATTRIBUTES]['class']);
         $this->assertEquals('IR', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][6][HTMLFactory::CHILDREN][0]);
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][7][HTMLFactory::TAG]);
         $this->assertEquals(Fase::MI_INTRAPERSOONLIJK, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][7][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals('selected', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][7][HTMLFactory::ATTRIBUTES]['class']);
         $this->assertEquals('IA', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][0]);
 
         $row = $html[0][HTMLFactory::CHILDREN][4];

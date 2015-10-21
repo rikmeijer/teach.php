@@ -42,6 +42,9 @@ final class Fase
         $intelligentieListItems = array();
         foreach (self::INTELLIGENTIES as $intelligentieIdentifier => $intelligentieLable) {
             $intelligentieListItems[] = ['li', ['id' => $intelligentieIdentifier], [$intelligentieLable]];
+            if (in_array($intelligentieIdentifier, $this->werkvorm['intelligenties'])) {
+                $intelligentieListItems[count($intelligentieListItems) - 1][1]['class'] = 'selected';
+            }
         }
         
         
