@@ -6,6 +6,12 @@ final class Element
     private $tagName;
     private $attributes = array();
     
+    /**
+     * 
+     * @var Element[]
+     */
+    private $children = array();
+    
     public function __construct($tagName)
     {
         $this->tagName = $tagName;
@@ -16,6 +22,11 @@ final class Element
         $this->attributes[] = $attributeIdentifier . '="' . $attributeValue . '"';
     }
     
+    public function child(Element $child)
+    {
+        $this->children[] = $child;
+    }
+    
     public function render()
     {
         if (count($this->attributes) === 0) {
@@ -23,6 +34,12 @@ final class Element
         } else {
             $attributeHTML = ' ' . join(' ', $this->attributes);
         }
-        return '<' . $this->tagName . $attributeHTML . '></' . $this->tagName . '>';
+
+        $childrenHTML = '';
+        foreach ($this->children as $child) {
+            $childrenHTML .= $child->render();
+        }
+        
+        return '<' . $this->tagName . $attributeHTML . '>' . $childrenHTML . '</' . $this->tagName . '>';
     }
 }
