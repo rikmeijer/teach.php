@@ -3,11 +3,11 @@ namespace Teach\Adapters\Web\Lesplan;
 
 use \Teach\Adapters\HTML\Factory as HTMLFactory;
 
-class FaseTest extends \PHPUnit_Framework_TestCase
+class ActiviteitTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerateFirstStep()
     {
-        $object = new Fase("Reflecteren", $werkvorm = array(
+        $object = new Activiteit("Reflecteren", $werkvorm = array(
                 "inhoud" => "•	Link leggen naar een programmeeromgeving: niet fysiek, maar virtueel.
 •	Wie kan bedenken wat voor gereedschap erbij programmeren komt kijken?",
                 "werkvorm" => "brainstormen",
@@ -15,9 +15,9 @@ class FaseTest extends \PHPUnit_Framework_TestCase
                 "werkvormsoort" => "discussie",
                 "tijd" => "5",
                 "intelligenties" => array(
-                    Fase::MI_VERBAAL_LINGUISTISCH,
-                    Fase::MI_INTRAPERSOONLIJK,
-                    Fase::MI_INTERPERSOONLIJK
+                    Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    Activiteit::MI_INTRAPERSOONLIJK,
+                    Activiteit::MI_INTERPERSOONLIJK
                 )
             ));
         $html = $object->generateFirstStep();
@@ -61,37 +61,37 @@ class FaseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("meervoudige-intelligenties", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::ATTRIBUTES]['class']);
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals(Fase::MI_VERBAAL_LINGUISTISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals(Activiteit::MI_VERBAAL_LINGUISTISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::ATTRIBUTES]['id']);
         $this->assertEquals('selected', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::ATTRIBUTES]['class']);
         $this->assertEquals('VL', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
-        $this->assertEquals(Fase::MI_LOGISCH_MATHEMATISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals(Activiteit::MI_LOGISCH_MATHEMATISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['id']);
         $this->assertEquals('LM', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][2][HTMLFactory::TAG]);
-        $this->assertEquals(Fase::MI_VISUEEL_RUIMTELIJK, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][2][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals(Activiteit::MI_VISUEEL_RUIMTELIJK, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][2][HTMLFactory::ATTRIBUTES]['id']);
         $this->assertEquals('VR', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0]);
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][3][HTMLFactory::TAG]);
-        $this->assertEquals(Fase::MI_MUZIKAAL_RITMISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][3][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals(Activiteit::MI_MUZIKAAL_RITMISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][3][HTMLFactory::ATTRIBUTES]['id']);
         $this->assertEquals('MR', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][3][HTMLFactory::CHILDREN][0]);
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][4][HTMLFactory::TAG]);
-        $this->assertEquals(Fase::MI_LICHAMELIJK_KINESTHETISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][4][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals(Activiteit::MI_LICHAMELIJK_KINESTHETISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][4][HTMLFactory::ATTRIBUTES]['id']);
         $this->assertEquals('LK', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][4][HTMLFactory::CHILDREN][0]);
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][5][HTMLFactory::TAG]);
-        $this->assertEquals(Fase::MI_NATURALISTISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][5][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals(Activiteit::MI_NATURALISTISCH, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][5][HTMLFactory::ATTRIBUTES]['id']);
         $this->assertEquals('N', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][5][HTMLFactory::CHILDREN][0]);
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][6][HTMLFactory::TAG]);
-        $this->assertEquals(Fase::MI_INTERPERSOONLIJK, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][6][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals(Activiteit::MI_INTERPERSOONLIJK, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][6][HTMLFactory::ATTRIBUTES]['id']);
         $this->assertEquals('selected', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][6][HTMLFactory::ATTRIBUTES]['class']);
         $this->assertEquals('IR', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][6][HTMLFactory::CHILDREN][0]);
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][7][HTMLFactory::TAG]);
-        $this->assertEquals(Fase::MI_INTRAPERSOONLIJK, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][7][HTMLFactory::ATTRIBUTES]['id']);
+        $this->assertEquals(Activiteit::MI_INTRAPERSOONLIJK, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][7][HTMLFactory::ATTRIBUTES]['id']);
         $this->assertEquals('selected', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][7][HTMLFactory::ATTRIBUTES]['class']);
         $this->assertEquals('IA', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][0]);
 

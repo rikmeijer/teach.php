@@ -32,10 +32,10 @@ $lesplan = array(
             'werkvormsoort' => "ijsbreker",
             'tijd' => "5",
             'intelligenties' => array(
-                \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
-                \Teach\Adapters\Web\Lesplan\Fase::MI_VISUEEL_RUIMTELIJK,
-                \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK,
-                \Teach\Adapters\Web\Lesplan\Fase::MI_INTRAPERSOONLIJK
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
             )
         ),
         "Focus" => array(
@@ -45,9 +45,9 @@ $lesplan = array(
             "werkvormsoort" => "docent gecentreerd",
             "tijd" => "4",
             "intelligenties" => array(
-                \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
-                \Teach\Adapters\Web\Lesplan\Fase::MI_LOGISCH_MATHEMATISCH,
-                \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
             )
         ),
         "Voorstellen" => array(
@@ -57,9 +57,9 @@ $lesplan = array(
             "werkvormsoort" => "docent gecentreerd",
             "tijd" => "4",
             "intelligenties" => array(
-                \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
-                \Teach\Adapters\Web\Lesplan\Fase::MI_LOGISCH_MATHEMATISCH,
-                \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
             )
         )
     ),
@@ -72,10 +72,10 @@ $lesplan = array(
                 "werkvormsoort" => "ijsbreker",
                 "tijd" => "5",
                 "intelligenties" => array(
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_VISUEEL_RUIMTELIJK,
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_NATURALISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_NATURALISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                 )
             ),
             "Reflecteren" => array(
@@ -86,9 +86,9 @@ $lesplan = array(
                 "werkvormsoort" => "discussie",
                 "tijd" => "5",
                 "intelligenties" => array(
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTRAPERSOONLIJK,
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK,
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                 )
             ),
             "Conceptualiseren" => array(
@@ -100,9 +100,9 @@ $lesplan = array(
                 "werkvormsoort" => "docentgecentreerd",
                 "tijd" => "5",
                 "intelligenties" => array(
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_VISUEEL_RUIMTELIJK,
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                 )
             ),
             "Toepassen" => array(
@@ -114,8 +114,8 @@ $lesplan = array(
                 "werkvormsoort" => "individuele werkopdracht",
                 "tijd" => "15",
                 "intelligenties" => array(
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTRAPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
                 )
             )
         ),
@@ -127,8 +127,8 @@ $lesplan = array(
                 "werkvormsoort" => "ijsbreker",
                 "tijd" => "5",
                 "intelligenties" => array(
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                 )
             ),
             "Reflecteren" => array(
@@ -138,10 +138,10 @@ $lesplan = array(
                 "werkvormsoort" => "discussie",
                 "tijd" => "5",
                 "intelligenties" => array(
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_LOGISCH_MATHEMATISCH,
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTRAPERSOONLIJK,
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK,
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                 )
             ),
             "Conceptualiseren" => array(
@@ -151,9 +151,9 @@ $lesplan = array(
                 "werkvormsoort" => "docentgecentreerd",
                 "tijd" => "10",
                 "intelligenties" => array(
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_VISUEEL_RUIMTELIJK,
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                 )
             ),
             "Toepassen" => array(
@@ -163,8 +163,8 @@ $lesplan = array(
                 "werkvormsoort" => "individuele werkopdracht",
                 "tijd" => "30",
                 "intelligenties" => array(
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Fase::MI_INTRAPERSOONLIJK
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
                 )
             )
         )
@@ -179,8 +179,8 @@ $lesplan = array(
             "werkvormsoort" => "docentgecentreerd",
             "tijd" => "2",
             "intelligenties" => array(
-                \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
-                \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
             )
         ),
         "Evaluatie" => array(
@@ -190,8 +190,8 @@ $lesplan = array(
             "werkvormsoort" => "ijsbreker",
             "tijd" => "3",
             "intelligenties" => array(
-                \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
-                \Teach\Adapters\Web\Lesplan\Fase::MI_INTERPERSOONLIJK
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
             )
         ),
         "Pakkend slot" => array(
@@ -201,17 +201,17 @@ $lesplan = array(
             "werkvormsoort" => "docentgecentreerd",
             "tijd" => "1",
             "intelligenties" => array(
-                \Teach\Adapters\Web\Lesplan\Fase::MI_VERBAAL_LINGUISTISCH,
-                \Teach\Adapters\Web\Lesplan\Fase::MI_VISUEEL_RUIMTELIJK,
-                \Teach\Adapters\Web\Lesplan\Fase::MI_INTRAPERSOONLIJK
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
             )
         )
     )
 );
 
-function renderFase($naam, array $werkvorm)
+function renderActiviteit($naam, array $werkvorm)
 {
-    $fase = new \Teach\Adapters\Web\Lesplan\Fase($naam, $werkvorm);
+    $fase = new \Teach\Adapters\Web\Lesplan\Activiteit($naam, $werkvorm);
     $factory = new \Teach\Adapters\HTML\Factory();
     print $factory->makeHTML($fase->generateFirstStep());
 }
@@ -284,8 +284,8 @@ foreach (array_keys($lesplan['Kern']) as $themaIdentifier) {
  <section>
   <h2>Introductie</h2>
 		<?php
-foreach ($lesplan['Introductie'] as $faseIdentifier => $fase) {
-    renderFase($faseIdentifier, $fase);
+foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteit) {
+    renderActiviteit($activiteitIdentifier, $activiteit);
 }
 ?>
     </section>
@@ -297,8 +297,8 @@ $themaCounter = 1;
 foreach ($lesplan['Kern'] as $themaIdentifier => $thema) {
     ?><section>
    <h3>Thema <?=$themaCounter;?>: <?=htmlentities($themaIdentifier);?></h3><?php
-    foreach ($thema as $faseIdentifier => $fase) {
-        renderFase($faseIdentifier, $fase);
+    foreach ($thema as $activiteitIdentifier => $activiteit) {
+        renderActiviteit($activiteitIdentifier, $activiteit);
     }
     $themaCounter ++;
     ?></section><?php
@@ -309,8 +309,8 @@ foreach ($lesplan['Kern'] as $themaIdentifier => $thema) {
  <section>
   <h2>Afsluiting</h2>
 		<?php
-foreach ($lesplan['Afsluiting'] as $faseIdentifier => $fase) {
-    renderFase($faseIdentifier, $fase);
+foreach ($lesplan['Afsluiting'] as $activiteitIdentifier => $activiteit) {
+    renderActiviteit($activiteitIdentifier, $activiteit);
 }
 ?>
     </section>

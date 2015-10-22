@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters\Web\Lesplan;
 
-final class Fase
+final class Activiteit
 {
 
     const MI_VERBAAL_LINGUISTISCH = "verbaal-linguistisch";
