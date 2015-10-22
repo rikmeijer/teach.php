@@ -213,7 +213,7 @@ function renderActiviteit($naam, array $werkvorm)
 {
     $fase = new \Teach\Adapters\Web\Lesplan\Activiteit($naam, $werkvorm);
     $factory = new \Teach\Adapters\HTML\Factory();
-    print $factory->makeHTML($fase->generateFirstStep());
+    print $factory->makeHTML($fase->generateSecondStep());
 }
 
 ?>

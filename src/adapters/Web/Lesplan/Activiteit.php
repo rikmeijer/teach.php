@@ -37,7 +37,7 @@ final class Activiteit
      *
      * @return array
      */
-    public function generateFirstStep()
+    public function generateSecondStep()
     {
         $intelligentieListItems = array();
         foreach (self::INTELLIGENTIES as $intelligentieIdentifier => $intelligentieLable) {
