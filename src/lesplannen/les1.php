@@ -76,8 +76,10 @@ return [
                 ]
             ],
             "Reflecteren" => [
-                "inhoud" => "•	Link leggen naar een programmeeromgeving: niet fysiek, maar virtueel.
-•	Wie kan bedenken wat voor gereedschap erbij programmeren komt kijken?",
+                "inhoud" => [
+                    "Link leggen naar een programmeeromgeving: niet fysiek, maar virtueel.",
+                    "Wie kan bedenken wat voor gereedschap erbij programmeren komt kijken?"
+                 ],
                 "werkvorm" => "brainstormen",
                 "organisatievorm" => "plenair",
                 "werkvormsoort" => "discussie",
@@ -89,9 +91,11 @@ return [
                 ]
             ],
             "Conceptualiseren" => [
-                "inhoud" => "•	Kort uitleggen wat IDE/eclipse is (programmeeromgeving]/waarvoor het wordt gebruikt. 
-•	Korte demo ter kennismaking
-•	Wat zijn de randvoorwaarden van de installatie?",
+                "inhoud" => [
+                    "Kort uitleggen wat IDE/eclipse is (programmeeromgeving]/waarvoor het wordt gebruikt.",
+                    "Korte demo ter kennismaking",
+                    "Wat zijn de randvoorwaarden van de installatie?"
+                ],
                 "werkvorm" => "presentatie (visueel ondersteunen, laatste sheet met randvoorwaarden open laten]",
                 "organisatievorm" => "plenair",
                 "werkvormsoort" => "docentgecentreerd",
@@ -103,10 +107,12 @@ return [
                 ]
             ],
             "Toepassen" => [
-                "inhoud" => "•	Student installeert zelf eclipse
-•	Aanvullende opdracht (capaciteit]: importeren voorbeeldproject van blackboard of een nieuw project aanmaken
-•	Na 10min controleren of dit bij iedereen is gelukt",
-                "werkvorm" => "verwerkingsopdracht",
+                "inhoud" => [
+                    "Student installeert zelf eclipse",
+                    "Aanvullende opdracht (capaciteit]: importeren voorbeeldproject van blackboard of een nieuw project aanmaken",
+                    "Na 10min controleren of dit bij iedereen is gelukt",
+                "werkvorm" => "verwerkingsopdracht"
+                ],
                 "organisatievorm" => "plenair",
                 "werkvormsoort" => "individuele werkopdracht",
                 "tijd" => "15",
@@ -168,9 +174,11 @@ return [
     ],
     'Afsluiting' => [
         "Huiswerk" => [
-            "inhoud" => "-	Challenge voor eerstvolgende les maken
--	Practicum opdrachten thuis afronden
--	Huiswerk maken als extra oefening",
+            "inhoud" => [
+                "Challenge voor eerstvolgende les maken",
+                "Practicum opdrachten thuis afronden",
+                "Huiswerk maken als extra oefening"
+            ],
             "werkvorm" => "presentatie",
             "organisatievorm" => "plenair",
             "werkvormsoort" => "docentgecentreerd",
