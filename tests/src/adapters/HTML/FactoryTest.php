@@ -13,6 +13,13 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<a>Hello World</a>', $html);
     }
 
+    public function testCreateText()
+    {
+        $object = new Factory();
+        $html = $object->createText('Hello World')->render();
+        $this->assertEquals('Hello World', $html);
+    }
+
     public function testCreateElementWithMultipleChildren()
     {
         $object = new Factory();
@@ -61,7 +68,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testMakeHTMLFrom()
     {
-        $mock = $this->getMock('\Teach\Adapters\HTML\LayoutableInterface', array('generateHTMLLayout'));
+        $mockbuilder = $this->getMockBuilder('\Teach\Adapters\HTML\LayoutableInterface');
+        $mockbuilder->setMockClassName('DummyHTML');
+        $mockbuilder->setMethods(array('generateHTMLLayout'));
+        $mock = $mockbuilder->getMock();
         $mock->method('generateHTMLLayout')->willReturn([
             'Hello World',
             [

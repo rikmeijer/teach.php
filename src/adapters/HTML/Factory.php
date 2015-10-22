@@ -28,7 +28,7 @@ final class Factory
         return $element;
     }
 
-    private function createText($text)
+    public function createText($text)
     {
         return new Text($text);
     }

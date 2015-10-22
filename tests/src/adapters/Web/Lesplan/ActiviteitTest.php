@@ -5,7 +5,7 @@ use \Teach\Adapters\HTML\Factory as HTMLFactory;
 
 class ActiviteitTest extends \PHPUnit_Framework_TestCase
 {
-    public function testGenerateFirstStep()
+    public function testGenerateHTMLLayout()
     {
         $object = new Activiteit("Reflecteren", $werkvorm = array(
                 "inhoud" => "•	Link leggen naar een programmeeromgeving: niet fysiek, maar virtueel.
