@@ -57,4 +57,9 @@ final class Factory
         }
         return $html;
     }
+    
+    public function makeHTMLFrom(LayoutableInterface $layoutable)
+    {
+        return $this->makeHTML($layoutable->generateHTMLLayout());
+    }
 }
