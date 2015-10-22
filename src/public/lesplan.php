@@ -2,8 +2,21 @@
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 $applicationBootstrap();
 
-$onderdelen = array(
+$lesplan = array(
+    'opleiding' => 'HBO-informatica (voltijd)', // <!--  del>deeltijd</del>/-->
+    'vak' => 'Programmeren 1',
+    'les' => 'Blok 1 / Week 1 / Les 1',
     'Beginsituatie' => array(
+        'doelgroep' => array(
+            'beschrijving' => 'eerstejaars HBO-studenten',
+            'ervaring' => 'geen', // <!--  del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
+            'grootte' => '16 personen'
+        ),
+        'starttijd' => '08:45',
+        'eindtijd' => '10:20',
+        'duur' => '95 minuten',
+        'ruimte' => 'beschikking over vaste computers',
+        'overige' => 'nvt',
         'media' => array(
             'filmfragment matrix',
             'rode en groene briefjes/post-its voor feedback',
@@ -213,44 +226,44 @@ function renderFase($naam, array $werkvorm)
 </head>
 <body>
  <header>
-  <h1>Lesplan programmeren</h1>
+  <h1>Lesplan <?=htmlentities($lesplan['vak']);?></h1>
  </header>
  <section>
-  <h2>Blok 1 / Week 1 / Les 1</h2>
+  <h2><?=htmlentities($lesplan['les']);?></h2>
   <h3>Beginsituatie</h3>
   <table class="two-columns">
    <tr>
     <th>doelgroep</th>
-    <td>eerstejaars HBO-studenten</td>
+    <td><?=htmlentities($lesplan['Beginsituatie']['doelgroep']['beschrijving']);?></td>
     <th>opleiding</th>
-    <td>HBO-informatica (<!--  del>deeltijd</del>/-->voltijd)
+    <td><?=htmlentities($lesplan['opleiding']);?>
     </td>
    </tr>
    <tr>
     <th>ervaring</th>
-    <td><!--  del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen</td>
+    <td><?=htmlentities($lesplan['Beginsituatie']['doelgroep']['ervaring']);?></td>
     <th>groepsgrootte</th>
-    <td>ca. 16 personen</td>
+    <td><?=htmlentities($lesplan['Beginsituatie']['doelgroep']['grootte']);?></td>
    </tr>
    <tr>
     <th>tijd</th>
-    <td>van <strong>8:45</strong> tot <strong>10:20</strong> (45
-     minuten)
-    </td>
+    <td colspan="3">van <strong><?=htmlentities($lesplan['Beginsituatie']['starttijd']);?></strong> tot <strong><?=htmlentities($lesplan['Beginsituatie']['eindtijd']);?></strong> (<?=htmlentities($lesplan['Beginsituatie']['duur']);?>)</td>
+   </tr>
+   <tr>
     <th>ruimte</th>
-    <td>beschikking over vaste computers</td>
+    <td colspan="3"><?=htmlentities($lesplan['Beginsituatie']['ruimte']);?></td>
    </tr>
    <tr>
     <th>overige</th>
-    <td colspan="3">nvt</td>
+    <td colspan="3"><?=htmlentities($lesplan['Beginsituatie']['overige']);?></td>
    </tr>
   </table>
    <?php 
-   if (count($onderdelen['Beginsituatie']['media']) > 0) {
+   if (count($lesplan['Beginsituatie']['media']) > 0) {
        ?>
       <h3>Benodigde media</h3>
       <ul><?php
-        foreach ($onderdelen['Beginsituatie']['media'] as $mediaIdentifier) {
+        foreach ($lesplan['Beginsituatie']['media'] as $mediaIdentifier) {
             ?><li><?=htmlentities($mediaIdentifier  ); ?></li><?php
         }
         ?></ul>
@@ -262,7 +275,7 @@ function renderFase($naam, array $werkvorm)
   <p>Na afloop van de les kan de student:</p>
   <ol>
 			<?php
-foreach (array_keys($onderdelen['Kern']) as $themaIdentifier) {
+foreach (array_keys($lesplan['Kern']) as $themaIdentifier) {
     ?><li><?=htmlentities($themaIdentifier); ?></li><?php
 }
 ?>
@@ -271,7 +284,7 @@ foreach (array_keys($onderdelen['Kern']) as $themaIdentifier) {
  <section>
   <h2>Introductie</h2>
 		<?php
-foreach ($onderdelen['Introductie'] as $faseIdentifier => $fase) {
+foreach ($lesplan['Introductie'] as $faseIdentifier => $fase) {
     renderFase($faseIdentifier, $fase);
 }
 ?>
@@ -281,7 +294,7 @@ foreach ($onderdelen['Introductie'] as $faseIdentifier => $fase) {
   <h2>Kern</h2>
 		<?php
 $themaCounter = 1;
-foreach ($onderdelen['Kern'] as $themaIdentifier => $thema) {
+foreach ($lesplan['Kern'] as $themaIdentifier => $thema) {
     ?><section>
    <h3>Thema <?=$themaCounter;?>: <?=htmlentities($themaIdentifier);?></h3><?php
     foreach ($thema as $faseIdentifier => $fase) {
@@ -296,7 +309,7 @@ foreach ($onderdelen['Kern'] as $themaIdentifier => $thema) {
  <section>
   <h2>Afsluiting</h2>
 		<?php
-foreach ($onderdelen['Afsluiting'] as $faseIdentifier => $fase) {
+foreach ($lesplan['Afsluiting'] as $faseIdentifier => $fase) {
     renderFase($faseIdentifier, $fase);
 }
 ?>
