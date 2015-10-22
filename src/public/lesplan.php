@@ -1,8 +1,17 @@
 <?php
+if (array_key_exists('lesplan', $_GET) === false) {
+    http_response_code(400);
+    exit;
+}
+
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 $lesplanLocator = $applicationBootstrap();
 
-$lesplan = $lesplanLocator('les1');
+$lesplan = $lesplanLocator($_GET['lesplan']);
+if ($lesplan === null) {
+    http_response_code(404);
+    exit;
+}
 
 function renderActiviteit($naam, array $werkvorm)
 {

@@ -8,6 +8,10 @@ return function() {
     $applicationBootstrap();
     
     return function($lesplanIdentifier) {
-        return include __DIR__ . DIRECTORY_SEPARATOR . 'lesplannen' . DIRECTORY_SEPARATOR . $lesplanIdentifier . '.php';
+        $filename = __DIR__ . DIRECTORY_SEPARATOR . 'lesplannen' . DIRECTORY_SEPARATOR . $lesplanIdentifier . '.php';
+        if (file_exists($filename) === false) {
+            return null;
+        }
+        return include $filename;
     };
 };
