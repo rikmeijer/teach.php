@@ -38,6 +38,10 @@ table th {
 	width: 20%;
 }
 
+table td ul {
+	margin: 0;
+}
+
 ul.meervoudige-intelligenties {
 	list-style: none;
 	margin: 0;
