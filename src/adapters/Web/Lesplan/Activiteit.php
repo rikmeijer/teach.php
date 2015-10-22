@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters\Web\Lesplan;
 
-final class Activiteit
+final class Activiteit implements LayoutableInterface
 {
 
     const MI_VERBAAL_LINGUISTISCH = "verbaal-linguistisch";
@@ -37,7 +37,7 @@ final class Activiteit
      *
      * @return array
      */
-    public function generateSecondStep()
+    public function generateHTMLLayout()
     {
         $intelligentieListItems = array();
         foreach (self::INTELLIGENTIES as $intelligentieIdentifier => $intelligentieLable) {
