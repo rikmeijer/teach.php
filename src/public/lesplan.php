@@ -3,6 +3,14 @@ $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootst
 $applicationBootstrap();
 
 $onderdelen = array(
+    'Beginsituatie' => array(
+        'media' => array(
+            'filmfragment matrix',
+            'rode en groene briefjes/post-its voor feedback',
+            'presentatie',
+            'voorbeeldproject voor aanvullende feedback',
+        )
+    ),
     'Introductie' => array(
         "Activerende opening" => array(
             'inhoud' => 'Scené uit de matrix tonen waarop wordt gezegd: "I don\'t even see the code". Wie kent deze film? Een ervaren programmeur zal een vergelijkbaar gevoel hebben bij code: programmeren is een visualisatie kunnen uitdrukken in code en vice versa.',
@@ -215,13 +223,12 @@ function renderFase($naam, array $werkvorm)
     <th>doelgroep</th>
     <td>eerstejaars HBO-studenten</td>
     <th>opleiding</th>
-    <td>HBO-informatica (<del>deeltijd</del>/voltijd)
+    <td>HBO-informatica (<!--  del>deeltijd</del>/-->voltijd)
     </td>
    </tr>
    <tr>
     <th>ervaring</th>
-    <td><del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>,
-     geen</td>
+    <td><!--  del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen</td>
     <th>groepsgrootte</th>
     <td>ca. 16 personen</td>
    </tr>
@@ -238,13 +245,19 @@ function renderFase($naam, array $werkvorm)
     <td colspan="3">nvt</td>
    </tr>
   </table>
-  <h3>Benodigde media</h3>
-  <ul>
-   <li>filmfragment matrix</li>
-   <li>rode en groene briefjes/post-its voor feedback</li>
-   <li>presentatie</li>
-   <li>voorbeeldproject voor aanvullende feedback</li>
-  </ul>
+   <?php 
+   if (count($onderdelen['Beginsituatie']['media']) > 0) {
+       ?>
+      <h3>Benodigde media</h3>
+      <ul><?php
+        foreach ($onderdelen['Beginsituatie']['media'] as $mediaIdentifier) {
+            ?><li><?=htmlentities($mediaIdentifier  ); ?></li><?php
+        }
+        ?></ul>
+       <?php
+   }
+   
+   ?>
   <h3>Leerdoelen</h3>
   <p>Na afloop van de les kan de student:</p>
   <ol>
