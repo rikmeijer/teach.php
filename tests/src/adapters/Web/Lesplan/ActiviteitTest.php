@@ -103,4 +103,37 @@ class ActiviteitTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('3', $row[HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['colspan']);
         $this->assertEquals($werkvorm['inhoud'], $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
     }
+
+    public function testGenerateHTMLLayoutWithArrayAsContent()
+    {
+        $object = new Activiteit("Reflecteren", $werkvorm = array(
+            "inhoud" => [
+                "Link leggen naar een programmeeromgeving: niet fysiek, maar virtueel.",
+                "Wie kan bedenken wat voor gereedschap erbij programmeren komt kijken?"
+            ],
+            "werkvorm" => "brainstormen",
+            "organisatievorm" => "plenair",
+            "werkvormsoort" => "discussie",
+            "tijd" => "5",
+            "intelligenties" => array(
+                Activiteit::MI_VERBAAL_LINGUISTISCH,
+                Activiteit::MI_INTRAPERSOONLIJK,
+                Activiteit::MI_INTERPERSOONLIJK
+            )
+        ));
+        $html = $object->generateHTMLLayout();
+        
+        $row = $html[0][HTMLFactory::CHILDREN][4];
+        $this->assertEquals("tr", $row[HTMLFactory::TAG]);
+        $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals("inhoud", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
+        $this->assertEquals('3', $row[HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['colspan']);
+        
+        $this->assertEquals('ul', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals('li', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals("Link leggen naar een programmeeromgeving: niet fysiek, maar virtueel.", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals('li', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
+        $this->assertEquals("Wie kan bedenken wat voor gereedschap erbij programmeren komt kijken?", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
+    }
 }
