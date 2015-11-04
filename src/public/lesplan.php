@@ -20,6 +20,8 @@ function renderActiviteit($naam, array $werkvorm)
     print $factory->makeHTMLFrom($fase);
 }
 
+$factory = new \Teach\Adapters\HTML\Factory();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -89,8 +91,9 @@ foreach (array_keys($lesplan['Kern']) as $themaIdentifier) {
  <section>
   <h2>Introductie</h2>
 		<?php
-foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteit) {
-    renderActiviteit($activiteitIdentifier, $activiteit);
+foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
+    $activiteit = new \Teach\Adapters\Web\Lesplan\Activiteit($activiteitIdentifier, $activiteitDefinition);
+    print $factory->makeHTMLFrom($activiteit);
 }
 ?>
     </section>
@@ -98,7 +101,6 @@ foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteit) {
  <section>
   <h2>Kern</h2>
 		<?php
-    $factory = new \Teach\Adapters\HTML\Factory();
 $themaCounter = 1;
 foreach ($lesplan['Kern'] as $themaIdentifier => $themaDefinition) {
     $thema = new \Teach\Adapters\Web\Lesplan\Thema('Thema ' . $themaCounter . ': ' . $themaIdentifier);
@@ -108,7 +110,7 @@ foreach ($lesplan['Kern'] as $themaIdentifier => $themaDefinition) {
     print $factory->makeHTMLFrom($thema);
     $themaCounter++;
 }
-?>    	
+?>
 	</section>
  
  <section>
