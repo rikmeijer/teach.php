@@ -84,8 +84,6 @@ foreach (array_keys($lesplan['Kern']) as $themaIdentifier) {
  </section>
 <?php
 		$introductie = $lesplanFactory->createFase('Introductie');
-		
-		
 foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
     $activiteit = $lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
     $introductie->addOnderdeel($activiteit);
@@ -104,17 +102,14 @@ foreach ($lesplan['Kern'] as $themaIdentifier => $themaDefinition) {
 }
     print $HTMLfactory->makeHTMLFrom($kern);
     
-    
-    
-?>
- <section>
-  <h2>Afsluiting</h2>
-		<?php
-foreach ($lesplan['Afsluiting'] as $activiteitIdentifier => $activiteitDefinition) {
+
+    $afsluiting = $lesplanFactory->createFase('Afsluiting');
+    foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
     $activiteit = $lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
-    print $HTMLfactory->makeHTMLFrom($activiteit);
-}
+        $afsluiting->addOnderdeel($activiteit);
+    }
+    print $HTMLfactory->makeHTMLFrom($afsluiting);
+    
 ?>
-    </section>
 </body>
 </html>
