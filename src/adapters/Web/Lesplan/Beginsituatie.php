@@ -20,12 +20,12 @@ final class Beginsituatie implements \Teach\Adapters\HTML\LayoutableInterface
         
         return [
             ['h3', 'Beginsituatie'],
-//             [
-//                 'table',
-//                 [
-//                     'class' => 'two-columns'
-//                 ],
-//                 [
+            [
+                'table',
+                [
+                    'class' => 'two-columns'
+                ],
+                [
 //                     [
 //                         'caption',
 //                         $this->caption
@@ -116,8 +116,8 @@ final class Beginsituatie implements \Teach\Adapters\HTML\LayoutableInterface
 //                             ]
 //                         ]
 //                     ]
-//                 ]
-//             ]
+                ]
+            ]
         ]
         ;
     }
