@@ -32,14 +32,21 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
      */
     private $leerdoelen;
     
-    public function __construct($vak, $les, Lesplan\Beginsituatie $beginsituatie, array $media, array $leerdoelen, Lesplan\Fase $introductie)
+    public function __construct($vak, $les, Lesplan\Beginsituatie $beginsituatie, array $media, Lesplan\Fase $introductie, array $kernThemas, Lesplan\Fase $aflsluiting)
     {
         $this->vak = $vak;
         $this->les = $les;
         $this->beginsituatie = $beginsituatie;
         $this->media = $media;
         $this->introductie = $introductie;
-        $this->leerdoelen = $leerdoelen;
+        $this->leerdoelen = [];
+        $kern = new Lesplan\Fase('Kern');
+        foreach ($kernThemas as $themaIdentifier => $thema) {
+            $this->leerdoelen[] = $themaIdentifier;
+            $kern->addOnderdeel($thema);
+        };
+        $this->introductie->chainTo($kern);
+        $kern->chainTo($aflsluiting);
     }
 
     /**

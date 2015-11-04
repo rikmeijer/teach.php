@@ -7,20 +7,6 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerateHTMLLayout()
     {
-        $kernThemas = [
-            "Zelfstandig eclipse installeren" => new Lesplan\Thema("Thema 1: Zelfstandig eclipse installeren"), 
-            "Java-code lezen en uitleggen wat er gebeurt" => new Lesplan\Thema("Thema 2: Java-code lezen en uitleggen wat er gebeurt")
-        ];
-        $leerdoelen = [];
-        $kern = new Lesplan\Fase('Kern');
-        foreach ($kernThemas as $themaIdentifier => $thema) {
-            $leerdoelen[] = $themaIdentifier;
-            $kern->addOnderdeel($thema);
-        };
-        $introductie = new Lesplan\Fase("Introductie");
-        $introductie->chainTo($kern);
-        $kern->chainTo(new Lesplan\Fase("Afsluiting"));
-        
         $beginsituatie = new Lesplan\Beginsituatie('HBO-informatica (voltijd)', [
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
@@ -36,7 +22,10 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [
             'filmfragment matrix',
             'countdown timer voor toepassingsfases (optioneel)'
-        ], $leerdoelen, $introductie);
+        ], new Lesplan\Fase("Introductie"), [
+            "Zelfstandig eclipse installeren" => new Lesplan\Thema("Thema 1: Zelfstandig eclipse installeren"), 
+            "Java-code lezen en uitleggen wat er gebeurt" => new Lesplan\Thema("Thema 2: Java-code lezen en uitleggen wat er gebeurt")
+        ], new Lesplan\Fase("Afsluiting"));
         
         $html = $object->generateHTMLLayout();
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
@@ -108,13 +97,7 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt'
         ]);
-        
-        $introductie = new Lesplan\Fase("Introductie");
-        $kern = new Lesplan\Fase('Kern');
-        $kern->chainTo(new Lesplan\Fase("Afsluiting"));
-        $introductie->chainTo($kern);
-        
-        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [], [], $introductie);
+        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [], new Lesplan\Fase("Introductie"), [], new Lesplan\Fase("Afsluiting"));
     
         $html = $object->generateHTMLLayout();
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
