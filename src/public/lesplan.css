@@ -1,18 +1,28 @@
 @CHARSET "UTF-8";
 
+/**
+ColorBlender.com pallette
+HTML #F5421E	#A82D14		#F5AD1D 	#A87714		#0A0A0A		#F5F5F5
+Please adhere to above color codes
+**/
+
 body {
 	font-family: sans-serif;
 	font-size: 12pt;
 	line-height: 1.5em;
+	background-color: #ffffff;
 }
 
 body header {
 	text-align: center;
 }
 
+body section h2 {
+	color: #F5AD1D;
+}
 
 body section h3 {
-	color: #ff6600;
+	color: #F5421E;
 }
 
 table {
@@ -23,8 +33,11 @@ table {
 }
 
 table caption {
-	color: #aa6600;
-	border-bottom: 1px solid #aa6600;
+	color: #A82D14;
+	border-bottom: 1px solid #A82D14;
+	text-align: left;
+	line-height: 2em;
+	font-weight: bold;
 }
 
 table td, table th {
@@ -34,7 +47,7 @@ table td, table th {
 
 table th {
 	text-align: right;
-	background-color: #f6f6f6;
+	background-color: #F5F5F5;
 	width: 20%;
 }
 
@@ -60,7 +73,7 @@ ul.meervoudige-intelligenties li.selected {
 hr {
 	border: 0;
 	height: 1px;
-	background: #333;
+	background: #F5AD1D;
 }
 
 @media print {
