@@ -85,6 +85,7 @@ foreach (array_keys($lesplan['Kern']) as $themaIdentifier) {
 ?>
 		</ol>
  </section>
+ <hr />
  <section>
   <h2>Introductie</h2>
 		<?php
