@@ -82,15 +82,16 @@ foreach (array_keys($lesplan['Kern']) as $themaIdentifier) {
 ?>
 		</ol>
  </section>
- <section>
-  <h2>Introductie</h2>
-		<?php
+<?php
+		$introductie = $lesplanFactory->createFase('Introductie');
+		
+		
 foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
     $activiteit = $lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
-    print $HTMLfactory->makeHTMLFrom($activiteit);
+    $introductie->addOnderdeel($activiteit);
 }
+    print $HTMLfactory->makeHTMLFrom($introductie);
 ?>
-    </section>
  <section>
   <h2>Kern</h2>
 		<?php
