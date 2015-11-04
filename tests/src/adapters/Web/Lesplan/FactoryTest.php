@@ -40,4 +40,25 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $layout = $object->createFase("Kern")->generateHTMLLayout();
         $this->assertEquals("Kern", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
     }
+
+
+
+    public function testCreateBeginsituatie()
+    {
+        $object = new Factory();
+        $layout = $object->createBeginsituatie("Opleding", [
+            'doelgroep' => [
+                'beschrijving' => 'eerstejaars HBO-studenten',
+                'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
+                'grootte' => '16 personen'
+            ],
+            'starttijd' => '08:45',
+            'eindtijd' => '10:20',
+            'duur' => '95',
+            'ruimte' => 'beschikking over vaste computers',
+            'overige' => 'nvt'
+        ])->generateHTMLLayout();
+        $this->assertEquals('h3', $layout[0][HTMLFactory::TAG]);
+        $this->assertEquals("Beginsituatie", $layout[0][HTMLFactory::TEXT]);
+    }
 }

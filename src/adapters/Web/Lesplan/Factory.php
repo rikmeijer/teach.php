@@ -34,4 +34,15 @@ final class Factory
     {
         return new Fase($title);
     }
+
+    /**
+     * 
+     * @param string $opleiding
+     * @param array $beginsituatie
+     * @return \Teach\Adapters\Web\Lesplan\Beginsituatie
+     */
+    public function createBeginsituatie($opleiding, array $beginsituatie)
+    {
+        return new Beginsituatie($opleiding, $beginsituatie);
+    }
 }
