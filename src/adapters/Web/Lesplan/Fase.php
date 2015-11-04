@@ -1,7 +1,6 @@
 <?php
 namespace Teach\Adapters\Web\Lesplan;
 
-use Teach\Adapters\HTML\DummyLayout;
 final class Fase implements \Teach\Adapters\HTML\LayoutableInterface
 {
 
@@ -22,7 +21,6 @@ final class Fase implements \Teach\Adapters\HTML\LayoutableInterface
     public function __construct($title)
     {
         $this->title = $title;
-        $this->sibling = new DummyLayout();
     }
     
     public function chainTo(\Teach\Adapters\HTML\LayoutableInterface $sibling)
@@ -46,6 +44,12 @@ final class Fase implements \Teach\Adapters\HTML\LayoutableInterface
             $onderdelenHTML = array_merge($onderdelenHTML, $onderdeel->generateHTMLLayout());
         }
         
+        if ($this->sibling === null) {
+            $siblingHTML = [];
+        } else {
+            $siblingHTML = $this->sibling->generateHTMLLayout();
+        }
+        
         return array_merge([
             [
                 'section',
@@ -57,6 +61,6 @@ final class Fase implements \Teach\Adapters\HTML\LayoutableInterface
                     ]
                 ], $onderdelenHTML)
             ]
-        ], $this->sibling->generateHTMLLayout());
+        ], $siblingHTML);
     }
 }
