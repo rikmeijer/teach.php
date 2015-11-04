@@ -65,7 +65,7 @@ if (count($lesplan['Beginsituatie']['media']) > 0) {
       <h3>Benodigde media</h3>
   <ul><?php
     foreach ($lesplan['Beginsituatie']['media'] as $mediaIdentifier) {
-        ?><li><?=htmlentities($mediaIdentifier  ); ?></li><?php
+        ?><li><?=htmlentities($mediaIdentifier); ?></li><?php
     }
     ?></ul>
        <?php
@@ -96,7 +96,7 @@ foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteitDefiniti
 		<?php
 $themaCounter = 1;
 foreach ($lesplan['Kern'] as $themaIdentifier => $themaDefinition) {
-    $thema = new \Teach\Adapters\Web\Lesplan\Thema('Thema ' . $themaCounter . ': ' . $themaIdentifier);
+    $thema = $lesplanFactory->createThema('Thema ' . $themaCounter . ': ' . $themaIdentifier);
     foreach ($themaDefinition as $activiteitIdentifier => $activiteitDefinition) {
         $thema->addActiviteit($lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition));
     }
