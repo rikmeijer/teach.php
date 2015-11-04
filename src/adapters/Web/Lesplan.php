@@ -19,6 +19,12 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
      * @var string[]
      */
     private $media;
+
+    /**
+     *
+     * @var \Teach\Adapters\Web\Lesplan\Fase
+     */
+    private $introductie;
     
     /**
      * 
@@ -26,12 +32,13 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
      */
     private $kern;
     
-    public function __construct($vak, $les, Lesplan\Beginsituatie $beginsituatie, array $media, array $kern)
+    public function __construct($vak, $les, Lesplan\Beginsituatie $beginsituatie, array $media, Lesplan\Fase $introductie, array $kern)
     {
         $this->vak = $vak;
         $this->les = $les;
         $this->beginsituatie = $beginsituatie;
         $this->media = $media;
+        $this->introductie = $introductie;
         $this->kern = $kern;
     }
 
@@ -67,7 +74,7 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
             ];
         }
         
-        return [
+        return array_merge([
             [
                 'header',
                 [],
@@ -87,7 +94,8 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
                         $this->les
                     ]
                 ], $this->beginsituatie->generateHTMLLayout(), $benodigdeMediaHTMLLayout, $leerdoelenHTMLLayout)
-            ]
-        ];
+            ],
+            
+        ], $this->introductie->generateHTMLLayout());
     }
 }

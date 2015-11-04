@@ -27,15 +27,13 @@ $lesplanFactory = new \Teach\Adapters\Web\Lesplan\Factory();
 <body>
 <?php 
 $beginsituatie = $lesplanFactory->createBeginsituatie($lesplanDefinition['opleiding'], $lesplanDefinition['Beginsituatie']);
-$lesplan = new \Teach\Adapters\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media'], array_keys($lesplanDefinition['Kern']));
-print $HTMLfactory->makeHTMLFrom($lesplan);
-
 $introductie = $lesplanFactory->createFase('Introductie');
 foreach ($lesplanDefinition['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
     $activiteit = $lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
     $introductie->addOnderdeel($activiteit);
 }
-print $HTMLfactory->makeHTMLFrom($introductie);
+$lesplan = new \Teach\Adapters\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media'], $introductie, array_keys($lesplanDefinition['Kern']));
+print $HTMLfactory->makeHTMLFrom($lesplan);
 
 $kern = $lesplanFactory->createFase('Kern');
 $themaCounter = 1;

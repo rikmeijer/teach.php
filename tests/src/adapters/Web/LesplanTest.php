@@ -22,7 +22,7 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [
             'filmfragment matrix',
             'countdown timer voor toepassingsfases (optioneel)'
-        ], ["Zelfstandig eclipse installeren", "Java-code lezen en uitleggen wat er gebeurt"]);
+        ], new Lesplan\Fase("Introductie"), ["Zelfstandig eclipse installeren", "Java-code lezen en uitleggen wat er gebeurt"]);
         
         $html = $object->generateHTMLLayout();
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
@@ -56,6 +56,11 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Zelfstandig eclipse installeren', $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
         $this->assertEquals("li", $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals('Java-code lezen en uitleggen wat er gebeurt', $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
+        
+
+        $this->assertEquals('section', $html[2][HTMLFactory::TAG]);
+        $this->assertEquals("h2", $html[2][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals("Introductie", $html[2][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
 
     }
 
@@ -73,7 +78,7 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt'
         ]);
-        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [], []);
+        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [], new Lesplan\Fase("Introductie"), []);
     
         $html = $object->generateHTMLLayout();
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
