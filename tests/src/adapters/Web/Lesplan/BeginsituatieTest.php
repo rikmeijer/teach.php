@@ -64,7 +64,21 @@ class BeginsituatieTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals('3', $row[HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['colspan']);
         $this->assertEquals('van <strong>08:45</strong> tot <strong>10:20</strong> (95 minuten)', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
+
+        $row = $html[1][HTMLFactory::CHILDREN][3];
+        $this->assertEquals("tr", $row[HTMLFactory::TAG]);
+        $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals("ruimte", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
+        $this->assertEquals('3', $row[HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['colspan']);
+        $this->assertEquals('beschikking over vaste computers', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
         
-        
+        $row = $html[1][HTMLFactory::CHILDREN][4];
+        $this->assertEquals("tr", $row[HTMLFactory::TAG]);
+        $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals("overige", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
+        $this->assertEquals('3', $row[HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['colspan']);
+        $this->assertEquals('nvt', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
     }
 }

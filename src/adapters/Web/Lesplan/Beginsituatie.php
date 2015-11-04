@@ -91,23 +91,40 @@ final class Beginsituatie implements \Teach\Adapters\HTML\LayoutableInterface
                             ]
                         ]
                     ],
-//                     [
-//                         'tr',
-//                         [],
-//                         [
-//                             [
-//                                 'th',
-//                                 'inhoud'
-//                             ],
-//                             [
-//                                 'td',
-//                                 [
-//                                     'colspan' => '3'
-//                                 ],
-//                                 $inhoudChildren
-//                             ]
-//                         ]
-//                     ]
+                    [
+                        'tr',
+                        [],
+                        [
+                            [
+                                'th',
+                                'ruimte'
+                            ],
+                            [
+                                'td',
+                                [
+                                    'colspan' => '3'
+                                ],
+                                [$this->beginsituatie['ruimte']]
+                            ]
+                        ]
+                    ],
+                    [
+                        'tr',
+                        [],
+                        [
+                            [
+                                'th',
+                                'overige'
+                            ],
+                            [
+                                'td',
+                                [
+                                    'colspan' => '3'
+                                ],
+                                [$this->beginsituatie['overige']]
+                            ]
+                        ]
+                    ]
                 ]
             ]
         ]
