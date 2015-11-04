@@ -30,36 +30,9 @@ $lesplanFactory = new \Teach\Adapters\Web\Lesplan\Factory();
  </header>
  <section>
   <h2><?=htmlentities($lesplan['les']);?></h2>
-  <h3>Beginsituatie</h3>
-  <table class="two-columns">
-   <tr>
-    <th>doelgroep</th>
-    <td><?=htmlentities($lesplan['Beginsituatie']['doelgroep']['beschrijving']);?></td>
-    <th>opleiding</th>
-    <td><?=htmlentities($lesplan['opleiding']);?>
-    </td>
-   </tr>
-   <tr>
-    <th>ervaring</th>
-    <td><?=htmlentities($lesplan['Beginsituatie']['doelgroep']['ervaring']);?></td>
-    <th>groepsgrootte</th>
-    <td><?=htmlentities($lesplan['Beginsituatie']['doelgroep']['grootte']);?></td>
-   </tr>
-   <tr>
-    <th>tijd</th>
-    <td colspan="3">van <strong><?=htmlentities($lesplan['Beginsituatie']['starttijd']);?></strong>
-     tot <strong><?=htmlentities($lesplan['Beginsituatie']['eindtijd']);?></strong> (<?=htmlentities($lesplan['Beginsituatie']['duur']);?>)</td>
-   </tr>
-   <tr>
-    <th>ruimte</th>
-    <td colspan="3"><?=htmlentities($lesplan['Beginsituatie']['ruimte']);?></td>
-   </tr>
-   <tr>
-    <th>overige</th>
-    <td colspan="3"><?=htmlentities($lesplan['Beginsituatie']['overige']);?></td>
-   </tr>
-  </table>
-   <?php
+  <?php 
+  $beginsituatie = new \Teach\Adapters\Web\Lesplan\Beginsituatie($lesplan['opleiding'], $lesplan['Beginsituatie']);
+    print $HTMLfactory->makeHTMLFrom($beginsituatie);
 if (count($lesplan['Beginsituatie']['media']) > 0) {
     ?>
       <h3>Benodigde media</h3>

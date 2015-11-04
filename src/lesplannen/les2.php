@@ -11,7 +11,7 @@ return [
         ],
         'starttijd' => '08:45',
         'eindtijd' => '10:20',
-        'duur' => '95 minuten',
+        'duur' => '95',
         'ruimte' => 'beschikking over vaste computers',
         'overige' => 'nvt',
         'media' => []

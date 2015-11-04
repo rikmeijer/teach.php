@@ -86,7 +86,7 @@ final class Beginsituatie implements \Teach\Adapters\HTML\LayoutableInterface
                                     'colspan' => '3'
                                 ],
                                 [
-                                    'van <strong>' . $this->beginsituatie['starttijd'] . '</strong> tot <strong>' . $this->beginsituatie['eindtijd'] . '</strong> (' . $this->beginsituatie['duur'] . ' minuten)'
+                                    'van ' . $this->beginsituatie['starttijd'] . ' tot ' . $this->beginsituatie['eindtijd'] . ' (' . $this->beginsituatie['duur'] . ' minuten)'
                                 ]
                             ]
                         ]
