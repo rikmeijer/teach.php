@@ -97,15 +97,15 @@ foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteit) {
  <section>
   <h2>Kern</h2>
 		<?php
+    $factory = new \Teach\Adapters\HTML\Factory();
 $themaCounter = 1;
-foreach ($lesplan['Kern'] as $themaIdentifier => $thema) {
-    ?><section>
-   <h3>Thema <?=$themaCounter;?>: <?=htmlentities($themaIdentifier);?></h3><?php
-    foreach ($thema as $activiteitIdentifier => $activiteit) {
-        renderActiviteit($activiteitIdentifier, $activiteit);
+foreach ($lesplan['Kern'] as $themaIdentifier => $themaDefinition) {
+    $thema = new \Teach\Adapters\Web\Lesplan\Thema('Thema ' . $themaCounter . ': ' . $themaIdentifier);
+    foreach ($themaDefinition as $activiteitIdentifier => $activiteitDefinition) {
+        $thema->addActiviteit(new \Teach\Adapters\Web\Lesplan\Activiteit($activiteitIdentifier, $activiteitDefinition));
     }
-    $themaCounter ++;
-    ?></section><?php
+    print $factory->makeHTMLFrom($thema);
+    $themaCounter++;
 }
 ?>    	
 	</section>
