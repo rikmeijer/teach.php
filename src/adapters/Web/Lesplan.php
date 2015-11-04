@@ -42,7 +42,7 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
             ];
         }
         
-        $benodigdeMeidaHTMLLayout = [
+        $benodigdeMediaHTMLLayout = [
             ['h3', 'Benodigde media'],
             ['ul', [], $benodigdeMediaListItems]
         ];
@@ -66,7 +66,7 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
                         'h2',
                         $this->les
                     ]
-                ], $this->beginsituatie->generateHTMLLayout(), $benodigdeMeidaHTMLLayout)
+                ], $this->beginsituatie->generateHTMLLayout(), $benodigdeMediaHTMLLayout)
             ]
         ];
     }
