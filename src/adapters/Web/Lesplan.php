@@ -34,18 +34,19 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
      */
     public function generateHTMLLayout()
     {
-        $benodigdeMediaListItems = [];
-        foreach ($this->media as $benodigdMedium) {
-            $benodigdeMediaListItems[] = [
-                'li',
-                $benodigdMedium
-            ];
+        $benodigdeMediaHTMLLayout = [];
+        if (count($this->media) > 0) {
+            $benodigdeMediaListItems = [];
+            foreach ($this->media as $benodigdMedium) {
+                $benodigdeMediaListItems[] = [
+                    'li',
+                    $benodigdMedium
+                ];
+            }
+            
+            $benodigdeMediaHTMLLayout[] = ['h3', 'Benodigde media'];
+            $benodigdeMediaHTMLLayout[] = ['ul', [], $benodigdeMediaListItems];
         }
-        
-        $benodigdeMediaHTMLLayout = [
-            ['h3', 'Benodigde media'],
-            ['ul', [], $benodigdeMediaListItems]
-        ];
         
         $leerdoelenHTMLLayout = [
             ['h3', 'Leerdoelen'],
