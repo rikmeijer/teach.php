@@ -8,7 +8,7 @@ class BeginsituatieTest extends \PHPUnit_Framework_TestCase
 
     public function testGenerateHTMLLayout()
     {
-        $object = new Beginsituatie([
+        $object = new Beginsituatie('HBO-informatica (voltijd)', [
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
@@ -34,5 +34,16 @@ class BeginsituatieTest extends \PHPUnit_Framework_TestCase
         
         $this->assertEquals('table', $html[1][HTMLFactory::TAG]);
         $this->assertEquals('two-columns', $html[1][HTMLFactory::ATTRIBUTES]['class']);
+        
+        $row = $html[1][HTMLFactory::CHILDREN][0];
+        $this->assertEquals("tr", $row[HTMLFactory::TAG]);
+        $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals("doelgroep", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
+        $this->assertEquals("eerstejaars HBO-studenten", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
+        $this->assertEquals("th", $row[HTMLFactory::CHILDREN][2][HTMLFactory::TAG]);
+        $this->assertEquals("opleiding", $row[HTMLFactory::CHILDREN][2][HTMLFactory::TEXT]);
+        $this->assertEquals("td", $row[HTMLFactory::CHILDREN][3][HTMLFactory::TAG]);
+        $this->assertEquals("HBO-informatica (voltijd)", $row[HTMLFactory::CHILDREN][3][HTMLFactory::TEXT]);
     }
 }

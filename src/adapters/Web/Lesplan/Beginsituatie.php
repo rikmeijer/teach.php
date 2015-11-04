@@ -3,11 +3,13 @@ namespace Teach\Adapters\Web\Lesplan;
 
 final class Beginsituatie implements \Teach\Adapters\HTML\LayoutableInterface
 {
-
+    private $opleiding;
+    
     private $beginsituatie;
 
-    public function __construct(array $beginsituatie)
+    public function __construct($opleiding, array $beginsituatie)
     {
+        $this->opleiding = $opleiding;
         $this->beginsituatie = $beginsituatie;
     }
 
@@ -26,32 +28,28 @@ final class Beginsituatie implements \Teach\Adapters\HTML\LayoutableInterface
                     'class' => 'two-columns'
                 ],
                 [
-//                     [
-//                         'caption',
-//                         $this->caption
-//                     ],
-//                     [
-//                         'tr',
-//                         [],
-//                         [
-//                             [
-//                                 'th',
-//                                 'werkvorm'
-//                             ],
-//                             [
-//                                 'td',
-//                                 $this->werkvorm['werkvorm']
-//                             ],
-//                             [
-//                                 'th',
-//                                 'organisatievorm'
-//                             ],
-//                             [
-//                                 'td',
-//                                 $this->werkvorm['organisatievorm']
-//                             ]
-//                         ]
-//                     ],
+                    [
+                        'tr',
+                        [],
+                        [
+                            [
+                                'th',
+                                'doelgroep'
+                            ],
+                            [
+                                'td',
+                                $this->beginsituatie['doelgroep']['beschrijving']
+                            ],
+                            [
+                                'th',
+                                'opleiding'
+                            ],
+                            [
+                                'td',
+                                $this->opleiding
+                            ]
+                        ]
+                    ],
 //                     [
 //                         'tr',
 //                         [],
