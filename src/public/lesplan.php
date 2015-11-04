@@ -25,7 +25,7 @@ $lesplanFactory = new \Teach\Adapters\Web\Lesplan\Factory();
 <link rel="stylesheet" type="text/css" href="lesplan.css">
 </head>
 <body>
-<?php 
+<?php
 $beginsituatie = $lesplanFactory->createBeginsituatie($lesplanDefinition['opleiding'], $lesplanDefinition['Beginsituatie']);
 $introductie = $lesplanFactory->createFase('Introductie');
 foreach ($lesplanDefinition['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
