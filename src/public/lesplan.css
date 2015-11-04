@@ -7,7 +7,7 @@ Please adhere to above color codes
 **/
 
 body {
-	font-family: sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12pt;
 	line-height: 1.5em;
 	background-color: #ffffff;
@@ -15,6 +15,10 @@ body {
 
 body header {
 	text-align: center;
+}
+
+body > section {
+	border-top: 1px solid #F5AD1D;
 }
 
 body section h2 {
@@ -70,14 +74,8 @@ ul.meervoudige-intelligenties li.selected {
 	display:inline;
 }
 
-hr {
-	border: 0;
-	height: 1px;
-	background: #F5AD1D;
-}
-
 @media print {
-	body header, hr {
+	body > header, body > section {
 		page-break-after: always;
 	}
 }

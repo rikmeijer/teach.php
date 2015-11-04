@@ -85,7 +85,7 @@ foreach (array_keys($lesplan['Kern']) as $themaIdentifier) {
 ?>
 		</ol>
  </section>
- <hr />
+ 
  <section>
   <h2>Introductie</h2>
 		<?php
@@ -94,7 +94,7 @@ foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteit) {
 }
 ?>
     </section>
- <hr />
+ 
  <section>
   <h2>Kern</h2>
 		<?php
@@ -110,7 +110,7 @@ foreach ($lesplan['Kern'] as $themaIdentifier => $themaDefinition) {
 }
 ?>    	
 	</section>
- <hr />
+ 
  <section>
   <h2>Afsluiting</h2>
 		<?php
