@@ -13,7 +13,8 @@ if ($lesplan === null) {
     exit();
 }
 
-$factory = new \Teach\Adapters\HTML\Factory();
+$HTMLfactory = new \Teach\Adapters\HTML\Factory();
+$lesplanFactory = new \Teach\Adapters\Web\Lesplan\Factory();
 
 ?>
 <!DOCTYPE html>
@@ -85,8 +86,8 @@ foreach (array_keys($lesplan['Kern']) as $themaIdentifier) {
   <h2>Introductie</h2>
 		<?php
 foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
-    $activiteit = new \Teach\Adapters\Web\Lesplan\Activiteit($activiteitIdentifier, $activiteitDefinition);
-    print $factory->makeHTMLFrom($activiteit);
+    $activiteit = $lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
+    print $HTMLfactory->makeHTMLFrom($activiteit);
 }
 ?>
     </section>
@@ -97,9 +98,9 @@ $themaCounter = 1;
 foreach ($lesplan['Kern'] as $themaIdentifier => $themaDefinition) {
     $thema = new \Teach\Adapters\Web\Lesplan\Thema('Thema ' . $themaCounter . ': ' . $themaIdentifier);
     foreach ($themaDefinition as $activiteitIdentifier => $activiteitDefinition) {
-        $thema->addActiviteit(new \Teach\Adapters\Web\Lesplan\Activiteit($activiteitIdentifier, $activiteitDefinition));
+        $thema->addActiviteit($lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition));
     }
-    print $factory->makeHTMLFrom($thema);
+    print $HTMLfactory->makeHTMLFrom($thema);
     $themaCounter ++;
 }
 ?>
@@ -108,8 +109,8 @@ foreach ($lesplan['Kern'] as $themaIdentifier => $themaDefinition) {
   <h2>Afsluiting</h2>
 		<?php
 foreach ($lesplan['Afsluiting'] as $activiteitIdentifier => $activiteitDefinition) {
-    $activiteit = new \Teach\Adapters\Web\Lesplan\Activiteit($activiteitIdentifier, $activiteitDefinition);
-    print $factory->makeHTMLFrom($activiteit);
+    $activiteit = $lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
+    print $HTMLfactory->makeHTMLFrom($activiteit);
 }
 ?>
     </section>
