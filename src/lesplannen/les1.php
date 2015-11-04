@@ -16,6 +16,8 @@ return [
         'overige' => 'nvt',
         'media' => [
             'filmfragment matrix',
+            'countdown timer voor toepassingsfases (optioneel)',
+            'voorbeeld IKEA-handleiding + uitgewerkte pseudo-code',
             'rode en groene briefjes/post-its voor feedback',
             'presentatie',
             'voorbeeldproject voor aanvullende feedback',
@@ -151,7 +153,7 @@ return [
                 ]
             ],
             "Conceptualiseren" => [
-                "inhoud" => "Tonen pseudo-code bij vorig recept of handleiding (bijv. IKEA handleiding]",
+                "inhoud" => "Tonen pseudo-code bij vorig recept of handleiding (bijv. IKEA handleiding)",
                 "werkvorm" => "demonstratie",
                 "organisatievorm" => "plenair",
                 "werkvormsoort" => "docentgecentreerd",
