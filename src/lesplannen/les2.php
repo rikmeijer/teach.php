@@ -14,10 +14,8 @@ return [
         'duur' => '95',
         'ruimte' => 'beschikking over vaste computers',
         'overige' => 'nvt',
-        'media' => []
-
-        
     ],
+    'media' => [],
     'Introductie' => [
         "Activerende opening" => [
             'inhoud' => '',

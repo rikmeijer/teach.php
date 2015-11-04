@@ -7,8 +7,8 @@ if (array_key_exists('lesplan', $_GET) === false) {
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 $lesplanLocator = $applicationBootstrap();
 
-$lesplan = $lesplanLocator($_GET['lesplan']);
-if ($lesplan === null) {
+$lesplanDefinition = $lesplanLocator($_GET['lesplan']);
+if ($lesplanDefinition === null) {
     http_response_code(404);
     exit();
 }
@@ -25,19 +25,20 @@ $lesplanFactory = new \Teach\Adapters\Web\Lesplan\Factory();
 <link rel="stylesheet" type="text/css" href="lesplan.css">
 </head>
 <body>
- <header>
-  <h1>Lesplan <?=htmlentities($lesplan['vak']);?></h1>
- </header>
+<?php 
+$lesplan = new \Teach\Adapters\Web\Lesplan('Lesplan ' . $lesplanDefinition['vak']);
+print $HTMLfactory->makeHTMLFrom($lesplan);
+?>
  <section>
-  <h2><?=htmlentities($lesplan['les']);?></h2>
+  <h2><?=htmlentities($lesplanDefinition['les']);?></h2>
   <?php 
-  $beginsituatie = new \Teach\Adapters\Web\Lesplan\Beginsituatie($lesplan['opleiding'], $lesplan['Beginsituatie']);
+  $beginsituatie = new \Teach\Adapters\Web\Lesplan\Beginsituatie($lesplanDefinition['opleiding'], $lesplanDefinition['Beginsituatie']);
     print $HTMLfactory->makeHTMLFrom($beginsituatie);
-if (count($lesplan['Beginsituatie']['media']) > 0) {
+if (count($lesplanDefinition['media']) > 0) {
     ?>
       <h3>Benodigde media</h3>
   <ul><?php
-    foreach ($lesplan['Beginsituatie']['media'] as $mediaIdentifier) {
+    foreach ($lesplanDefinition['media'] as $mediaIdentifier) {
         ?><li><?=htmlentities($mediaIdentifier); ?></li><?php
     }
     ?></ul>
@@ -49,7 +50,7 @@ if (count($lesplan['Beginsituatie']['media']) > 0) {
   <p>Na afloop van de les kan de student:</p>
   <ol>
 			<?php
-foreach (array_keys($lesplan['Kern']) as $themaIdentifier) {
+foreach (array_keys($lesplanDefinition['Kern']) as $themaIdentifier) {
     ?><li><?=htmlentities($themaIdentifier); ?></li><?php
 }
 ?>
@@ -57,7 +58,7 @@ foreach (array_keys($lesplan['Kern']) as $themaIdentifier) {
  </section>
 <?php
 $introductie = $lesplanFactory->createFase('Introductie');
-foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
+foreach ($lesplanDefinition['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
     $activiteit = $lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
     $introductie->addOnderdeel($activiteit);
 }
@@ -65,7 +66,7 @@ print $HTMLfactory->makeHTMLFrom($introductie);
 
 $kern = $lesplanFactory->createFase('Kern');
 $themaCounter = 1;
-foreach ($lesplan['Kern'] as $themaIdentifier => $themaDefinition) {
+foreach ($lesplanDefinition['Kern'] as $themaIdentifier => $themaDefinition) {
     $thema = $lesplanFactory->createThema('Thema ' . $themaCounter . ': ' . $themaIdentifier);
     foreach ($themaDefinition as $activiteitIdentifier => $activiteitDefinition) {
         $thema->addActiviteit($lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition));
@@ -76,7 +77,7 @@ foreach ($lesplan['Kern'] as $themaIdentifier => $themaDefinition) {
 print $HTMLfactory->makeHTMLFrom($kern);
 
 $afsluiting = $lesplanFactory->createFase('Afsluiting');
-foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
+foreach ($lesplanDefinition['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
     $activiteit = $lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
     $afsluiting->addOnderdeel($activiteit);
 }

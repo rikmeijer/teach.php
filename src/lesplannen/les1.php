@@ -13,15 +13,15 @@ return [
         'eindtijd' => '10:20',
         'duur' => '95',
         'ruimte' => 'beschikking over vaste computers',
-        'overige' => 'nvt',
-        'media' => [
-            'filmfragment matrix',
-            'countdown timer voor toepassingsfases (optioneel)',
-            'voorbeeld IKEA-handleiding + uitgewerkte pseudo-code',
-            'rode en groene briefjes/post-its voor feedback',
-            'presentatie',
-            'voorbeeldproject voor aanvullende feedback'
-        ]
+        'overige' => 'nvt'
+    ],
+    'media' => [
+        'filmfragment matrix',
+        'countdown timer voor toepassingsfases (optioneel)',
+        'voorbeeld IKEA-handleiding + uitgewerkte pseudo-code',
+        'rode en groene briefjes/post-its voor feedback',
+        'presentatie',
+        'voorbeeldproject voor aanvullende feedback'
     ],
     'Introductie' => [
         "Activerende opening" => [
