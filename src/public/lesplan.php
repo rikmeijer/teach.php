@@ -91,21 +91,22 @@ foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteitDefiniti
     $introductie->addOnderdeel($activiteit);
 }
     print $HTMLfactory->makeHTMLFrom($introductie);
-?>
- <section>
-  <h2>Kern</h2>
-		<?php
+
+    $kern = $lesplanFactory->createFase('Kern');
 $themaCounter = 1;
 foreach ($lesplan['Kern'] as $themaIdentifier => $themaDefinition) {
     $thema = $lesplanFactory->createThema('Thema ' . $themaCounter . ': ' . $themaIdentifier);
     foreach ($themaDefinition as $activiteitIdentifier => $activiteitDefinition) {
         $thema->addActiviteit($lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition));
     }
-    print $HTMLfactory->makeHTMLFrom($thema);
+    $kern->addOnderdeel($thema);
     $themaCounter ++;
 }
+    print $HTMLfactory->makeHTMLFrom($kern);
+    
+    
+    
 ?>
-	</section>
  <section>
   <h2>Afsluiting</h2>
 		<?php
