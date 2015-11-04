@@ -24,4 +24,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         ])->generateHTMLLayout();
         $this->assertEquals("Activerende opening", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
     }
+    
+
+    public function testCreateThema()
+    {
+        $object = new Factory();
+        $layout = $object->createThema("Thema caption here")->generateHTMLLayout();
+        $this->assertEquals("Thema caption here", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+    }
 }

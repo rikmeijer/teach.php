@@ -13,4 +13,15 @@ final class Factory
     {
         return new Activiteit($caption, $werkvorm);
     }
+    
+
+    /**
+     * 
+     * @param string $title
+     * @return \Teach\Adapters\Web\Lesplan\Thema
+     */
+    public function createThema($title)
+    {
+        return new Thema($title);
+    }
 }
