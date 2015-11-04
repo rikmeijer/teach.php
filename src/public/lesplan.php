@@ -27,7 +27,7 @@ $lesplanFactory = new \Teach\Adapters\Web\Lesplan\Factory();
 <body>
 <?php 
 $beginsituatie = $lesplanFactory->createBeginsituatie($lesplanDefinition['opleiding'], $lesplanDefinition['Beginsituatie']);
-$lesplan = new \Teach\Adapters\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie);
+$lesplan = new \Teach\Adapters\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media']);
 print $HTMLfactory->makeHTMLFrom($lesplan);
 ?>
  <section>

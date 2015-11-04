@@ -17,17 +17,12 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             'eindtijd' => '10:20',
             'duur' => '95',
             'ruimte' => 'beschikking over vaste computers',
-            'overige' => 'nvt',
-            'media' => [
-                'filmfragment matrix',
-                'countdown timer voor toepassingsfases (optioneel)',
-                'voorbeeld IKEA-handleiding + uitgewerkte pseudo-code',
-                'rode en groene briefjes/post-its voor feedback',
-                'presentatie',
-                'voorbeeldproject voor aanvullende feedback'
-            ]
+            'overige' => 'nvt'
         ]);
-        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie);
+        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [
+            'filmfragment matrix',
+            'countdown timer voor toepassingsfases (optioneel)'
+        ]);
         
         $html = $object->generateHTMLLayout();
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
@@ -40,6 +35,16 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('h3', $html[1][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals("Beginsituatie", $html[1][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
+        
+        $this->assertEquals('h3', $html[1][HTMLFactory::CHILDREN][3][HTMLFactory::TAG]);
+        $this->assertEquals("Benodigde media", $html[1][HTMLFactory::CHILDREN][3][HTMLFactory::TEXT]);
+        $this->assertEquals("ul", $html[1][HTMLFactory::CHILDREN][4][HTMLFactory::TAG]);
+
+        $this->assertEquals("li", $html[1][HTMLFactory::CHILDREN][4][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals('filmfragment matrix', $html[1][HTMLFactory::CHILDREN][4][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("li", $html[1][HTMLFactory::CHILDREN][4][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
+        $this->assertEquals('countdown timer voor toepassingsfases (optioneel)', $html[1][HTMLFactory::CHILDREN][4][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
+
     }
 
 //     public function testGenerateHTMLLayoutOnderdelen()

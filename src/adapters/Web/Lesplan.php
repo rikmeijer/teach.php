@@ -14,11 +14,18 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
      */
     private $beginsituatie;
     
-    public function __construct($vak, $les, Lesplan\Beginsituatie $beginsituatie)
+    /**
+     * 
+     * @var string[]
+     */
+    private $media;
+    
+    public function __construct($vak, $les, Lesplan\Beginsituatie $beginsituatie, array $media)
     {
         $this->vak = $vak;
         $this->les = $les;
         $this->beginsituatie = $beginsituatie;
+        $this->media = $media;
     }
 
     /**
@@ -27,6 +34,19 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
      */
     public function generateHTMLLayout()
     {
+        $benodigdeMediaListItems = [];
+        foreach ($this->media as $benodigdMedium) {
+            $benodigdeMediaListItems[] = [
+                'li',
+                $benodigdMedium
+            ];
+        }
+        
+        $benodigdeMeidaHTMLLayout = [
+            ['h3', 'Benodigde media'],
+            ['ul', [], $benodigdeMediaListItems]
+        ];
+        
         return [
             [
                 'header',
@@ -46,7 +66,7 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
                         'h2',
                         $this->les
                     ]
-                ], $this->beginsituatie->generateHTMLLayout())
+                ], $this->beginsituatie->generateHTMLLayout(), $benodigdeMeidaHTMLLayout)
             ]
         ];
     }
