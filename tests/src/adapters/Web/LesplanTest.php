@@ -7,11 +7,16 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerateHTMLLayout()
     {
-        $object = new Lesplan("Lesplan Programmeren 1");
+        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1');
+        
         $html = $object->generateHTMLLayout();
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals("Lesplan Programmeren 1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+
+        $this->assertEquals('section', $html[1][HTMLFactory::TAG]);
+        $this->assertEquals("h2", $html[1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals("Blok 1 / Week 1 / Les 1", $html[1][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
     }
 
 //     public function testGenerateHTMLLayoutOnderdelen()

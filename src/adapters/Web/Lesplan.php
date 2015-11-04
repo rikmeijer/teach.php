@@ -4,11 +4,14 @@ namespace Teach\Adapters\Web;
 final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
 {
 
-    private $title;
+    private $vak;
 
-    public function __construct($title)
+    private $les;
+    
+    public function __construct($vak, $les)
     {
-        $this->title = $title;
+        $this->vak = $vak;
+        $this->les = $les;
     }
 
     /**
@@ -24,7 +27,17 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
                 [
                     [
                         'h1',
-                        $this->title
+                        'Lesplan ' . $this->vak
+                    ]
+                ]
+            ],
+            [
+                'section',
+                [],
+                [
+                    [
+                        'h2',
+                        $this->les
                     ]
                 ]
             ]

@@ -26,7 +26,7 @@ $lesplanFactory = new \Teach\Adapters\Web\Lesplan\Factory();
 </head>
 <body>
 <?php 
-$lesplan = new \Teach\Adapters\Web\Lesplan('Lesplan ' . $lesplanDefinition['vak']);
+$lesplan = new \Teach\Adapters\Web\Lesplan('Lesplan ' . $lesplanDefinition['vak'], $lesplanDefinition['les']);
 print $HTMLfactory->makeHTMLFrom($lesplan);
 ?>
  <section>
