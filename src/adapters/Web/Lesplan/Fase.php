@@ -12,9 +12,20 @@ final class Fase implements \Teach\Adapters\HTML\LayoutableInterface
      */
     private $onderdelen = array();
 
+    /**
+     *
+     * @var \Teach\Adapters\HTML\LayoutableInterface
+     */
+    private $sibling;
+
     public function __construct($title)
     {
         $this->title = $title;
+    }
+    
+    public function chainTo(\Teach\Adapters\HTML\LayoutableInterface $sibling)
+    {
+        $this->sibling = $sibling;
     }
     
     public function addOnderdeel(\Teach\Adapters\HTML\LayoutableInterface $onderdeel)
@@ -33,7 +44,13 @@ final class Fase implements \Teach\Adapters\HTML\LayoutableInterface
             $onderdelenHTML = array_merge($onderdelenHTML, $onderdeel->generateHTMLLayout());
         }
         
-        return [
+        if ($this->sibling === null) {
+            $siblingHTML = [];
+        } else {
+            $siblingHTML = $this->sibling->generateHTMLLayout();
+        }
+        
+        return array_merge([
             [
                 'section',
                 [],
@@ -44,7 +61,6 @@ final class Fase implements \Teach\Adapters\HTML\LayoutableInterface
                     ]
                 ], $onderdelenHTML)
             ]
-        ]
-        ;
+        ], $siblingHTML);
     }
 }
