@@ -32,20 +32,15 @@ foreach ($lesplanDefinition['Introductie'] as $activiteitIdentifier => $activite
     $activiteit = $lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
     $introductie->addOnderdeel($activiteit);
 }
-$lesplan = new \Teach\Adapters\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media'], $introductie, array_keys($lesplanDefinition['Kern']));
-print $HTMLfactory->makeHTMLFrom($lesplan);
-
-$kern = $lesplanFactory->createFase('Kern');
-$themaCounter = 1;
+$kern = [];
 foreach ($lesplanDefinition['Kern'] as $themaIdentifier => $themaDefinition) {
-    $thema = $lesplanFactory->createThema('Thema ' . $themaCounter . ': ' . $themaIdentifier);
+    $kern[$themaIdentifier] = $lesplanFactory->createThema('Thema ' . (count($kern) + 1) . ': ' . $themaIdentifier);
     foreach ($themaDefinition as $activiteitIdentifier => $activiteitDefinition) {
-        $thema->addActiviteit($lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition));
+        $kern[$themaIdentifier]->addActiviteit($lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition));
     }
-    $kern->addOnderdeel($thema);
-    $themaCounter ++;
 }
-print $HTMLfactory->makeHTMLFrom($kern);
+$lesplan = new \Teach\Adapters\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media'], $introductie, $kern);
+print $HTMLfactory->makeHTMLFrom($lesplan);
 
 $afsluiting = $lesplanFactory->createFase('Afsluiting');
 foreach ($lesplanDefinition['Afsluiting'] as $activiteitIdentifier => $activiteitDefinition) {
