@@ -24,4 +24,14 @@ final class Factory
     {
         return new Thema($title);
     }
+
+    /**
+     * 
+     * @param string $title
+     * @return \Teach\Adapters\Web\Lesplan\Fase
+     */
+    public function createFase($title)
+    {
+        return new Fase($title);
+    }
 }
