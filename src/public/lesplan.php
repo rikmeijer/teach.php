@@ -13,13 +13,6 @@ if ($lesplan === null) {
     exit;
 }
 
-function renderActiviteit($naam, array $werkvorm)
-{
-    $fase = new \Teach\Adapters\Web\Lesplan\Activiteit($naam, $werkvorm);
-    $factory = new \Teach\Adapters\HTML\Factory();
-    print $factory->makeHTMLFrom($fase);
-}
-
 $factory = new \Teach\Adapters\HTML\Factory();
 
 ?>
