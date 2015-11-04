@@ -40,7 +40,7 @@ return [
             "werkvorm" => "presentatie",
             "organisatievorm" => "plenair",
             "werkvormsoort" => "docent gecentreerd",
-            "tijd" => "4",
+            "tijd" => "3",
             "intelligenties" => [
                 \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
                 \Teach\Adapters\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
@@ -52,7 +52,7 @@ return [
             "werkvorm" => "presentatie",
             "organisatievorm" => "plenair",
             "werkvormsoort" => "docent gecentreerd",
-            "tijd" => "4",
+            "tijd" => "2",
             "intelligenties" => [
                 \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
                 \Teach\Adapters\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
@@ -115,7 +115,7 @@ return [
                 "werkvorm" => "verwerkingsopdracht",
                 "organisatievorm" => "plenair",
                 "werkvormsoort" => "individuele werkopdracht",
-                "tijd" => "15",
+                "tijd" => "18",
                 "intelligenties" => [
                     \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
                     \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
