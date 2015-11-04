@@ -1,6 +1,6 @@
 <?php
 return [
-    'opleiding' => 'HBO-informatica (voltijd]', // <!-- del>deeltijd</del>/-->
+    'opleiding' => 'HBO-informatica (voltijd)', // <!-- del>deeltijd</del>/-->
     'vak' => 'Programmeren 1',
     'les' => 'Blok 1 / Week 1 / Les 1',
     'Beginsituatie' => [
