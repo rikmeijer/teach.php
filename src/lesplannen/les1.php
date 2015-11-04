@@ -1,12 +1,12 @@
 <?php
 return [
-    'opleiding' => 'HBO-informatica (voltijd]', // <!--  del>deeltijd</del>/-->
+    'opleiding' => 'HBO-informatica (voltijd]', // <!-- del>deeltijd</del>/-->
     'vak' => 'Programmeren 1',
     'les' => 'Blok 1 / Week 1 / Les 1',
     'Beginsituatie' => [
         'doelgroep' => [
             'beschrijving' => 'eerstejaars HBO-studenten',
-            'ervaring' => 'geen', // <!--  del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
+            'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
             'grootte' => '16 personen'
         ],
         'starttijd' => '08:45',
@@ -20,7 +20,7 @@ return [
             'voorbeeld IKEA-handleiding + uitgewerkte pseudo-code',
             'rode en groene briefjes/post-its voor feedback',
             'presentatie',
-            'voorbeeldproject voor aanvullende feedback',
+            'voorbeeldproject voor aanvullende feedback'
         ]
     ],
     'Introductie' => [
@@ -84,7 +84,7 @@ return [
                     "Wat valt er op aan deze werkplaatsen?",
                     "Link leggen naar een programmeeromgeving: niet fysiek, maar virtueel.",
                     "Wie kan bedenken wat voor gereedschap erbij programmeren komt kijken?"
-                 ],
+                ],
                 "werkvorm" => "brainstormen",
                 "organisatievorm" => "plenair",
                 "werkvormsoort" => "discussie",
@@ -168,7 +168,7 @@ return [
                 "inhoud" => [
                     "SIMPEL: uitleggen wat de code doet",
                     "BASIS: schrijven pseudo-code",
-                    "COMPLEX: zelf code schrijven, als voorschot op volgende week (extra uitdaging).",
+                    "COMPLEX: zelf code schrijven, als voorschot op volgende week (extra uitdaging)."
                 ],
                 "werkvorm" => "verwerkingsopdracht",
                 "organisatievorm" => "plenair",

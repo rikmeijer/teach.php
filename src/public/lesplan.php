@@ -1,7 +1,7 @@
 <?php
 if (array_key_exists('lesplan', $_GET) === false) {
     http_response_code(400);
-    exit;
+    exit();
 }
 
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
@@ -10,7 +10,7 @@ $lesplanLocator = $applicationBootstrap();
 $lesplan = $lesplanLocator($_GET['lesplan']);
 if ($lesplan === null) {
     http_response_code(404);
-    exit;
+    exit();
 }
 
 $factory = new \Teach\Adapters\HTML\Factory();
@@ -46,7 +46,8 @@ $factory = new \Teach\Adapters\HTML\Factory();
    </tr>
    <tr>
     <th>tijd</th>
-    <td colspan="3">van <strong><?=htmlentities($lesplan['Beginsituatie']['starttijd']);?></strong> tot <strong><?=htmlentities($lesplan['Beginsituatie']['eindtijd']);?></strong> (<?=htmlentities($lesplan['Beginsituatie']['duur']);?>)</td>
+    <td colspan="3">van <strong><?=htmlentities($lesplan['Beginsituatie']['starttijd']);?></strong>
+     tot <strong><?=htmlentities($lesplan['Beginsituatie']['eindtijd']);?></strong> (<?=htmlentities($lesplan['Beginsituatie']['duur']);?>)</td>
    </tr>
    <tr>
     <th>ruimte</th>
@@ -57,19 +58,19 @@ $factory = new \Teach\Adapters\HTML\Factory();
     <td colspan="3"><?=htmlentities($lesplan['Beginsituatie']['overige']);?></td>
    </tr>
   </table>
-   <?php 
-   if (count($lesplan['Beginsituatie']['media']) > 0) {
-       ?>
+   <?php
+if (count($lesplan['Beginsituatie']['media']) > 0) {
+    ?>
       <h3>Benodigde media</h3>
-      <ul><?php
-        foreach ($lesplan['Beginsituatie']['media'] as $mediaIdentifier) {
-            ?><li><?=htmlentities($mediaIdentifier  ); ?></li><?php
-        }
-        ?></ul>
+  <ul><?php
+    foreach ($lesplan['Beginsituatie']['media'] as $mediaIdentifier) {
+        ?><li><?=htmlentities($mediaIdentifier  ); ?></li><?php
+    }
+    ?></ul>
        <?php
-   }
-   
-   ?>
+}
+
+?>
   <h3>Leerdoelen</h3>
   <p>Na afloop van de les kan de student:</p>
   <ol>
@@ -80,7 +81,6 @@ foreach (array_keys($lesplan['Kern']) as $themaIdentifier) {
 ?>
 		</ol>
  </section>
- 
  <section>
   <h2>Introductie</h2>
 		<?php
@@ -90,7 +90,6 @@ foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteitDefiniti
 }
 ?>
     </section>
- 
  <section>
   <h2>Kern</h2>
 		<?php
@@ -101,11 +100,10 @@ foreach ($lesplan['Kern'] as $themaIdentifier => $themaDefinition) {
         $thema->addActiviteit(new \Teach\Adapters\Web\Lesplan\Activiteit($activiteitIdentifier, $activiteitDefinition));
     }
     print $factory->makeHTMLFrom($thema);
-    $themaCounter++;
+    $themaCounter ++;
 }
 ?>
 	</section>
- 
  <section>
   <h2>Afsluiting</h2>
 		<?php

@@ -1,12 +1,12 @@
 <?php
 return [
-    'opleiding' => 'HBO-informatica (voltijd]', // <!--  del>deeltijd</del>/-->
+    'opleiding' => 'HBO-informatica (voltijd]', // <!-- del>deeltijd</del>/-->
     'vak' => 'Programmeren 1',
     'les' => 'Blok 1 / Week 2 / Les 1',
     'Beginsituatie' => [
         'doelgroep' => [
             'beschrijving' => 'eerstejaars HBO-studenten',
-            'ervaring' => 'geen', // <!--  del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
+            'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
             'grootte' => '16 personen'
         ],
         'starttijd' => '08:45',
@@ -14,9 +14,9 @@ return [
         'duur' => '95 minuten',
         'ruimte' => 'beschikking over vaste computers',
         'overige' => 'nvt',
-        'media' => [
+        'media' => []
 
-        ]
+        
     ],
     'Introductie' => [
         "Activerende opening" => [
@@ -129,7 +129,7 @@ return [
                     "Wat is het effect van een keuze?: je neemt een alternatief pad",
                     "Is software rechtlijning? Volgt het altijd maar één route?",
                     "Kun je in code keuzes maken? Op basis waarvan?: condities"
-                 ],
+                ],
                 "werkvorm" => "brainstormen",
                 "organisatievorm" => "groepswerk",
                 "werkvormsoort" => "discussie",

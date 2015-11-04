@@ -5,14 +5,21 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
 {
 
     const MI_VERBAAL_LINGUISTISCH = "verbaal-linguistisch";
+
     const MI_LOGISCH_MATHEMATISCH = "logisch-mathematisch";
+
     const MI_VISUEEL_RUIMTELIJK = "visueel-ruimtelijk";
+
     const MI_MUZIKAAL_RITMISCH = "muzikaal-ritmisch";
+
     const MI_LICHAMELIJK_KINESTHETISCH = "lichamelijk-kinesthetisch";
+
     const MI_NATURALISTISCH = "naturalistisch";
+
     const MI_INTERPERSOONLIJK = "interpersoonlijk";
+
     const MI_INTRAPERSOONLIJK = "intrapersoonlijk";
-    
+
     const INTELLIGENTIES = [
         self::MI_VERBAAL_LINGUISTISCH => 'VL',
         self::MI_LOGISCH_MATHEMATISCH => "LM",
@@ -25,6 +32,7 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
     ];
 
     private $caption;
+
     private $werkvorm;
 
     public function __construct($caption, array $werkvorm)
@@ -41,7 +49,15 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
     {
         $intelligentieListItems = array();
         foreach (self::INTELLIGENTIES as $intelligentieIdentifier => $intelligentieLable) {
-            $intelligentieListItem = ['li', ['id' => $intelligentieIdentifier], [$intelligentieLable]];
+            $intelligentieListItem = [
+                'li',
+                [
+                    'id' => $intelligentieIdentifier
+                ],
+                [
+                    $intelligentieLable
+                ]
+            ];
             if (in_array($intelligentieIdentifier, $this->werkvorm['intelligenties'])) {
                 $intelligentieListItem[1]['class'] = 'selected';
             }
@@ -52,13 +68,19 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
         if (is_string($this->werkvorm['inhoud'])) {
             $inhoudChildren[] = $this->werkvorm['inhoud'];
         } elseif (is_array($this->werkvorm['inhoud'])) {
-            $inhoudList = ['ul', [], []];
+            $inhoudList = [
+                'ul',
+                [],
+                []
+            ];
             foreach ($this->werkvorm['inhoud'] as $inhoudItem) {
-                $inhoudList[2][] = ['li', $inhoudItem];
+                $inhoudList[2][] = [
+                    'li',
+                    $inhoudItem
+                ];
             }
             $inhoudChildren[] = $inhoudList;
         }
-        
         
         return [
             [
@@ -74,44 +96,92 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
                     [
                         'tr',
                         [],
-                        [   
-                            ['th', 'werkvorm'],
-                            ['td', $this->werkvorm['werkvorm']],
-                            ['th', 'organisatievorm'],
-                            ['td', $this->werkvorm['organisatievorm']]
+                        [
+                            [
+                                'th',
+                                'werkvorm'
+                            ],
+                            [
+                                'td',
+                                $this->werkvorm['werkvorm']
+                            ],
+                            [
+                                'th',
+                                'organisatievorm'
+                            ],
+                            [
+                                'td',
+                                $this->werkvorm['organisatievorm']
+                            ]
                         ]
                     ],
                     [
                         'tr',
                         [],
-                        [   
-                            ['th', 'tijd'],
-                            ['td', $this->werkvorm['tijd'] . ' minuten'],
-                            ['th', 'soort werkvorm'],
-                            ['td', $this->werkvorm['werkvormsoort']]
+                        [
+                            [
+                                'th',
+                                'tijd'
+                            ],
+                            [
+                                'td',
+                                $this->werkvorm['tijd'] . ' minuten'
+                            ],
+                            [
+                                'th',
+                                'soort werkvorm'
+                            ],
+                            [
+                                'td',
+                                $this->werkvorm['werkvormsoort']
+                            ]
                         ]
                     ],
                     [
                         'tr',
                         [],
-                        [   
-                            ['th', 'intelligenties'],
-                            ['td', ['colspan' => '3'], [
-                                ['ul', ['class' => "meervoudige-intelligenties"], $intelligentieListItems]
-                            ]]
+                        [
+                            [
+                                'th',
+                                'intelligenties'
+                            ],
+                            [
+                                'td',
+                                [
+                                    'colspan' => '3'
+                                ],
+                                [
+                                    [
+                                        'ul',
+                                        [
+                                            'class' => "meervoudige-intelligenties"
+                                        ],
+                                        $intelligentieListItems
+                                    ]
+                                ]
+                            ]
                         ]
                     ],
                     [
                         'tr',
                         [],
-                        [   
-                            ['th', 'inhoud'],
-                            ['td', ['colspan' => '3'], $inhoudChildren]
+                        [
+                            [
+                                'th',
+                                'inhoud'
+                            ],
+                            [
+                                'td',
+                                [
+                                    'colspan' => '3'
+                                ],
+                                $inhoudChildren
+                            ]
                         ]
                     ]
                 ]
             ]
-            
-        ];
+        ]
+        ;
     }
 }
