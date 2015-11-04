@@ -22,7 +22,7 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [
             'filmfragment matrix',
             'countdown timer voor toepassingsfases (optioneel)'
-        ]);
+        ], ["Zelfstandig eclipse installeren", "Java-code lezen en uitleggen wat er gebeurt"]);
         
         $html = $object->generateHTMLLayout();
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
@@ -48,6 +48,14 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('h3', $html[1][HTMLFactory::CHILDREN][5][HTMLFactory::TAG]);
         $this->assertEquals("Leerdoelen", $html[1][HTMLFactory::CHILDREN][5][HTMLFactory::TEXT]);
         $this->assertEquals("p", $html[1][HTMLFactory::CHILDREN][6][HTMLFactory::TAG]);
+        $this->assertEquals("Na afloop van de les kan de student:", $html[1][HTMLFactory::CHILDREN][6][HTMLFactory::TEXT]);
+        
+        $this->assertEquals("ol", $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::TAG]);
+
+        $this->assertEquals("li", $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals('Zelfstandig eclipse installeren', $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("li", $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
+        $this->assertEquals('Java-code lezen en uitleggen wat er gebeurt', $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
 
     }
 
@@ -65,7 +73,7 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt'
         ]);
-        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, []);
+        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [], []);
     
         $html = $object->generateHTMLLayout();
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);

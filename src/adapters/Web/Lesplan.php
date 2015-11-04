@@ -20,12 +20,19 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
      */
     private $media;
     
-    public function __construct($vak, $les, Lesplan\Beginsituatie $beginsituatie, array $media)
+    /**
+     * 
+     * @var string[]
+     */
+    private $kern;
+    
+    public function __construct($vak, $les, Lesplan\Beginsituatie $beginsituatie, array $media, array $kern)
     {
         $this->vak = $vak;
         $this->les = $les;
         $this->beginsituatie = $beginsituatie;
         $this->media = $media;
+        $this->kern = $kern;
     }
 
     /**
@@ -37,10 +44,10 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
         $benodigdeMediaHTMLLayout = [];
         if (count($this->media) > 0) {
             $benodigdeMediaListItems = [];
-            foreach ($this->media as $benodigdMedium) {
+            foreach ($this->media as $thema) {
                 $benodigdeMediaListItems[] = [
                     'li',
-                    $benodigdMedium
+                    $thema
                 ];
             }
             
@@ -50,9 +57,15 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
         
         $leerdoelenHTMLLayout = [
             ['h3', 'Leerdoelen'],
-            ['p']
-            
+            ['p', 'Na afloop van de les kan de student:'],
+            ['ol', [],[]]
         ];
+        foreach ($this->kern as $thema) {
+            $leerdoelenHTMLLayout[2][2][] = [
+                'li',
+                $thema
+            ];
+        }
         
         return [
             [

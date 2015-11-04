@@ -27,34 +27,9 @@ $lesplanFactory = new \Teach\Adapters\Web\Lesplan\Factory();
 <body>
 <?php 
 $beginsituatie = $lesplanFactory->createBeginsituatie($lesplanDefinition['opleiding'], $lesplanDefinition['Beginsituatie']);
-$lesplan = new \Teach\Adapters\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media']);
+$lesplan = new \Teach\Adapters\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media'], array_keys($lesplanDefinition['Kern']));
 print $HTMLfactory->makeHTMLFrom($lesplan);
-?>
- <section>
-  <?php
-if (count($lesplanDefinition['media']) > 0) {
-    ?>
-      <h3>Benodigde media</h3>
-  <ul><?php
-    foreach ($lesplanDefinition['media'] as $mediaIdentifier) {
-        ?><li><?=htmlentities($mediaIdentifier); ?></li><?php
-    }
-    ?></ul>
-       <?php
-}
 
-?>
-  <h3>Leerdoelen</h3>
-  <p>Na afloop van de les kan de student:</p>
-  <ol>
-			<?php
-foreach (array_keys($lesplanDefinition['Kern']) as $themaIdentifier) {
-    ?><li><?=htmlentities($themaIdentifier); ?></li><?php
-}
-?>
-		</ol>
- </section>
-<?php
 $introductie = $lesplanFactory->createFase('Introductie');
 foreach ($lesplanDefinition['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
     $activiteit = $lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
