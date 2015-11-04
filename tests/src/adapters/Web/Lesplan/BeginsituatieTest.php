@@ -16,7 +16,7 @@ class BeginsituatieTest extends \PHPUnit_Framework_TestCase
             ],
             'starttijd' => '08:45',
             'eindtijd' => '10:20',
-            'duur' => '95 minuten',
+            'duur' => '95',
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt',
             'media' => [
@@ -56,5 +56,15 @@ class BeginsituatieTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("groepsgrootte", $row[HTMLFactory::CHILDREN][2][HTMLFactory::TEXT]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][3][HTMLFactory::TAG]);
         $this->assertEquals("16 personen", $row[HTMLFactory::CHILDREN][3][HTMLFactory::TEXT]);
+        
+        $row = $html[1][HTMLFactory::CHILDREN][2];
+        $this->assertEquals("tr", $row[HTMLFactory::TAG]);
+        $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals("tijd", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
+        $this->assertEquals('3', $row[HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['colspan']);
+        $this->assertEquals('van <strong>08:45</strong> tot <strong>10:20</strong> (95 minuten)', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
+        
+        
     }
 }

@@ -72,31 +72,25 @@ final class Beginsituatie implements \Teach\Adapters\HTML\LayoutableInterface
                             ]
                         ]
                     ],
-//                     [
-//                         'tr',
-//                         [],
-//                         [
-//                             [
-//                                 'th',
-//                                 'intelligenties'
-//                             ],
-//                             [
-//                                 'td',
-//                                 [
-//                                     'colspan' => '3'
-//                                 ],
-//                                 [
-//                                     [
-//                                         'ul',
-//                                         [
-//                                             'class' => "meervoudige-intelligenties"
-//                                         ],
-//                                         $intelligentieListItems
-//                                     ]
-//                                 ]
-//                             ]
-//                         ]
-//                     ],
+                    [
+                        'tr',
+                        [],
+                        [
+                            [
+                                'th',
+                                'tijd'
+                            ],
+                            [
+                                'td',
+                                [
+                                    'colspan' => '3'
+                                ],
+                                [
+                                    'van <strong>' . $this->beginsituatie['starttijd'] . '</strong> tot <strong>' . $this->beginsituatie['eindtijd'] . '</strong> (' . $this->beginsituatie['duur'] . ' minuten)'
+                                ]
+                            ]
+                        ]
+                    ],
 //                     [
 //                         'tr',
 //                         [],
