@@ -48,7 +48,7 @@ foreach ($lesplanDefinition['Kern'] as $themaIdentifier => $themaDefinition) {
 print $HTMLfactory->makeHTMLFrom($kern);
 
 $afsluiting = $lesplanFactory->createFase('Afsluiting');
-foreach ($lesplanDefinition['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
+foreach ($lesplanDefinition['Afsluiting'] as $activiteitIdentifier => $activiteitDefinition) {
     $activiteit = $lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
     $afsluiting->addOnderdeel($activiteit);
 }
