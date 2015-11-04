@@ -77,6 +77,8 @@ return [
             ],
             "Reflecteren" => [
                 "inhoud" => [
+                    "5 minuten brainstormen om te reflecteren op de voorgaande afbeeldingen.",
+                    "De uiteindelijke vraag om te beantwoorden: 'Hoe zou een werkplaats voor een programmeur eruit zien?'",
                     "Wat valt er op aan deze werkplaatsen?",
                     "Link leggen naar een programmeeromgeving: niet fysiek, maar virtueel.",
                     "Wie kan bedenken wat voor gereedschap erbij programmeren komt kijken?"
