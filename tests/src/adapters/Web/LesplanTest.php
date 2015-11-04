@@ -45,6 +45,10 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("li", $html[1][HTMLFactory::CHILDREN][4][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals('countdown timer voor toepassingsfases (optioneel)', $html[1][HTMLFactory::CHILDREN][4][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
 
+        $this->assertEquals('h3', $html[1][HTMLFactory::CHILDREN][5][HTMLFactory::TAG]);
+        $this->assertEquals("Leerdoelen", $html[1][HTMLFactory::CHILDREN][5][HTMLFactory::TEXT]);
+        $this->assertEquals("p", $html[1][HTMLFactory::CHILDREN][6][HTMLFactory::TAG]);
+
     }
 
 //     public function testGenerateHTMLLayoutOnderdelen()

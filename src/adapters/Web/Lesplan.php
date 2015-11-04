@@ -47,6 +47,12 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
             ['ul', [], $benodigdeMediaListItems]
         ];
         
+        $leerdoelenHTMLLayout = [
+            ['h3', 'Leerdoelen'],
+            ['p']
+            
+        ];
+        
         return [
             [
                 'header',
@@ -66,7 +72,7 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
                         'h2',
                         $this->les
                     ]
-                ], $this->beginsituatie->generateHTMLLayout(), $benodigdeMediaHTMLLayout)
+                ], $this->beginsituatie->generateHTMLLayout(), $benodigdeMediaHTMLLayout, $leerdoelenHTMLLayout)
             ]
         ];
     }
