@@ -25,10 +25,16 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
      * @var \Teach\Adapters\Web\Lesplan\Fase
      */
     private $introductie;
+
+    /**
+     *
+     * @var string[]
+     */
+    private $leerdoelen;
     
     /**
      * 
-     * @var string[]
+     * @var \Teach\Adapters\Web\Lesplan\Fase
      */
     private $kern;
     
@@ -39,7 +45,12 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
         $this->beginsituatie = $beginsituatie;
         $this->media = $media;
         $this->introductie = $introductie;
-        $this->kern = $kern;
+        $this->leerdoelen = [];
+        $this->kern = new Lesplan\Fase('Kern');
+        foreach ($kern as $themaIdentifier => $thema) {
+            $this->leerdoelen[] = $themaIdentifier;
+            $this->kern->addOnderdeel($thema);
+        };
     }
 
     /**
@@ -67,11 +78,8 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
             ['p', 'Na afloop van de les kan de student:'],
             ['ol', [],[]]
         ];
-        foreach ($this->kern as $themaIdentifier => $thema) {
-            $leerdoelenHTMLLayout[2][2][] = [
-                'li',
-                $themaIdentifier
-            ];
+        foreach ($this->leerdoelen as $leerdoel) {
+            $leerdoelenHTMLLayout[2][2][] = ['li', $leerdoel];
         }
         
         return array_merge([
@@ -96,6 +104,9 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
                 ], $this->beginsituatie->generateHTMLLayout(), $benodigdeMediaHTMLLayout, $leerdoelenHTMLLayout)
             ],
             
-        ], $this->introductie->generateHTMLLayout());
+        ], 
+            $this->introductie->generateHTMLLayout(),
+            $this->kern->generateHTMLLayout()
+            );
     }
 }

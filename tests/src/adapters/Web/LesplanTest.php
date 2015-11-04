@@ -23,8 +23,8 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             'filmfragment matrix',
             'countdown timer voor toepassingsfases (optioneel)'
         ], new Lesplan\Fase("Introductie"), [
-            "Zelfstandig eclipse installeren" => new Lesplan\Thema("Zelfstandig eclipse installeren"), 
-            "Java-code lezen en uitleggen wat er gebeurt" => new Lesplan\Thema("Java-code lezen en uitleggen wat er gebeurt")
+            "Zelfstandig eclipse installeren" => new Lesplan\Thema("Thema 1: Zelfstandig eclipse installeren"), 
+            "Java-code lezen en uitleggen wat er gebeurt" => new Lesplan\Thema("Thema 2: Java-code lezen en uitleggen wat er gebeurt")
         ]);
         
         $html = $object->generateHTMLLayout();
@@ -64,6 +64,18 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('section', $html[2][HTMLFactory::TAG]);
         $this->assertEquals("h2", $html[2][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals("Introductie", $html[2][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        
+        $this->assertEquals('section', $html[3][HTMLFactory::TAG]);
+        $this->assertEquals("h2", $html[3][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals("Kern", $html[3][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        
+        $this->assertEquals('section', $html[3][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
+        $this->assertEquals("h3", $html[3][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals("Thema 1: Zelfstandig eclipse installeren", $html[3][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        
+        $this->assertEquals('section', $html[3][HTMLFactory::CHILDREN][2][HTMLFactory::TAG]);
+        $this->assertEquals("h3", $html[3][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals("Thema 2: Java-code lezen en uitleggen wat er gebeurt", $html[3][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
 
     }
 
