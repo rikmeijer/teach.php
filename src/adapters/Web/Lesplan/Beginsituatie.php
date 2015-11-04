@@ -50,28 +50,28 @@ final class Beginsituatie implements \Teach\Adapters\HTML\LayoutableInterface
                             ]
                         ]
                     ],
-//                     [
-//                         'tr',
-//                         [],
-//                         [
-//                             [
-//                                 'th',
-//                                 'tijd'
-//                             ],
-//                             [
-//                                 'td',
-//                                 $this->werkvorm['tijd'] . ' minuten'
-//                             ],
-//                             [
-//                                 'th',
-//                                 'soort werkvorm'
-//                             ],
-//                             [
-//                                 'td',
-//                                 $this->werkvorm['werkvormsoort']
-//                             ]
-//                         ]
-//                     ],
+                    [
+                        'tr',
+                        [],
+                        [
+                            [
+                                'th',
+                                'ervaring'
+                            ],
+                            [
+                                'td',
+                                $this->beginsituatie['doelgroep']['ervaring']
+                            ],
+                            [
+                                'th',
+                                'groepsgrootte'
+                            ],
+                            [
+                                'td',
+                                $this->beginsituatie['doelgroep']['grootte']
+                            ]
+                        ]
+                    ],
 //                     [
 //                         'tr',
 //                         [],

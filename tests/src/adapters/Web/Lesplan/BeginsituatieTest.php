@@ -45,5 +45,16 @@ class BeginsituatieTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("opleiding", $row[HTMLFactory::CHILDREN][2][HTMLFactory::TEXT]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][3][HTMLFactory::TAG]);
         $this->assertEquals("HBO-informatica (voltijd)", $row[HTMLFactory::CHILDREN][3][HTMLFactory::TEXT]);
+
+        $row = $html[1][HTMLFactory::CHILDREN][1];
+        $this->assertEquals("tr", $row[HTMLFactory::TAG]);
+        $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals("ervaring", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
+        $this->assertEquals("geen", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
+        $this->assertEquals("th", $row[HTMLFactory::CHILDREN][2][HTMLFactory::TAG]);
+        $this->assertEquals("groepsgrootte", $row[HTMLFactory::CHILDREN][2][HTMLFactory::TEXT]);
+        $this->assertEquals("td", $row[HTMLFactory::CHILDREN][3][HTMLFactory::TAG]);
+        $this->assertEquals("16 personen", $row[HTMLFactory::CHILDREN][3][HTMLFactory::TEXT]);
     }
 }
