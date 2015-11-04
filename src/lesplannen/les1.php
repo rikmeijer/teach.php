@@ -77,6 +77,7 @@ return [
             ],
             "Reflecteren" => [
                 "inhoud" => [
+                    "Wat valt er op aan deze werkplaatsen?",
                     "Link leggen naar een programmeeromgeving: niet fysiek, maar virtueel.",
                     "Wie kan bedenken wat voor gereedschap erbij programmeren komt kijken?"
                  ],
