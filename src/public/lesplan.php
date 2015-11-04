@@ -26,14 +26,12 @@ $lesplanFactory = new \Teach\Adapters\Web\Lesplan\Factory();
 </head>
 <body>
 <?php 
-$lesplan = new \Teach\Adapters\Web\Lesplan('Lesplan ' . $lesplanDefinition['vak'], $lesplanDefinition['les']);
+$beginsituatie = $lesplanFactory->createBeginsituatie($lesplanDefinition['opleiding'], $lesplanDefinition['Beginsituatie']);
+$lesplan = new \Teach\Adapters\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie);
 print $HTMLfactory->makeHTMLFrom($lesplan);
 ?>
  <section>
-  <h2><?=htmlentities($lesplanDefinition['les']);?></h2>
-  <?php 
-  $beginsituatie = $lesplanFactory->createBeginsituatie($lesplanDefinition['opleiding'], $lesplanDefinition['Beginsituatie']);
-    print $HTMLfactory->makeHTMLFrom($beginsituatie);
+  <?php
 if (count($lesplanDefinition['media']) > 0) {
     ?>
       <h3>Benodigde media</h3>

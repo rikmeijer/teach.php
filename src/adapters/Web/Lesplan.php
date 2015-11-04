@@ -8,10 +8,17 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
 
     private $les;
     
-    public function __construct($vak, $les)
+    /**
+     * 
+     * @var \Teach\Adapters\Web\Lesplan\Beginsituatie
+     */
+    private $beginsituatie;
+    
+    public function __construct($vak, $les, Lesplan\Beginsituatie $beginsituatie)
     {
         $this->vak = $vak;
         $this->les = $les;
+        $this->beginsituatie = $beginsituatie;
     }
 
     /**
@@ -34,12 +41,12 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
             [
                 'section',
                 [],
-                [
+                array_merge([
                     [
                         'h2',
                         $this->les
                     ]
-                ]
+                ], $this->beginsituatie->generateHTMLLayout())
             ]
         ];
     }
