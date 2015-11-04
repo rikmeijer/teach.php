@@ -38,7 +38,13 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
      */
     private $kern;
     
-    public function __construct($vak, $les, Lesplan\Beginsituatie $beginsituatie, array $media, Lesplan\Fase $introductie, array $kern)
+    /**
+     *
+     * @var \Teach\Adapters\Web\Lesplan\Fase
+     */
+    private $afsluiting;
+    
+    public function __construct($vak, $les, Lesplan\Beginsituatie $beginsituatie, array $media, Lesplan\Fase $introductie, array $kern, Lesplan\Fase $aflsluiting)
     {
         $this->vak = $vak;
         $this->les = $les;
@@ -51,6 +57,7 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
             $this->leerdoelen[] = $themaIdentifier;
             $this->kern->addOnderdeel($thema);
         };
+        $this->afsluiting = $aflsluiting;
     }
 
     /**
@@ -106,7 +113,8 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
             
         ], 
             $this->introductie->generateHTMLLayout(),
-            $this->kern->generateHTMLLayout()
+            $this->kern->generateHTMLLayout(),
+            $this->afsluiting->generateHTMLLayout()
             );
     }
 }

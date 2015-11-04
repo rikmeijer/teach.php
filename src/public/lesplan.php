@@ -39,15 +39,13 @@ foreach ($lesplanDefinition['Kern'] as $themaIdentifier => $themaDefinition) {
         $kern[$themaIdentifier]->addActiviteit($lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition));
     }
 }
-$lesplan = new \Teach\Adapters\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media'], $introductie, $kern);
-print $HTMLfactory->makeHTMLFrom($lesplan);
-
 $afsluiting = $lesplanFactory->createFase('Afsluiting');
 foreach ($lesplanDefinition['Afsluiting'] as $activiteitIdentifier => $activiteitDefinition) {
     $activiteit = $lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
     $afsluiting->addOnderdeel($activiteit);
 }
-print $HTMLfactory->makeHTMLFrom($afsluiting);
+$lesplan = new \Teach\Adapters\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media'], $introductie, $kern, $afsluiting);
+print $HTMLfactory->makeHTMLFrom($lesplan);
 
 ?>
 </body>

@@ -25,7 +25,7 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         ], new Lesplan\Fase("Introductie"), [
             "Zelfstandig eclipse installeren" => new Lesplan\Thema("Thema 1: Zelfstandig eclipse installeren"), 
             "Java-code lezen en uitleggen wat er gebeurt" => new Lesplan\Thema("Thema 2: Java-code lezen en uitleggen wat er gebeurt")
-        ]);
+        ], new Lesplan\Fase("Afsluiting"));
         
         $html = $object->generateHTMLLayout();
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
@@ -77,6 +77,10 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("h3", $html[3][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals("Thema 2: Java-code lezen en uitleggen wat er gebeurt", $html[3][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
 
+
+        $this->assertEquals('section', $html[4][HTMLFactory::TAG]);
+        $this->assertEquals("h2", $html[4][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals("Afsluiting", $html[4][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
     }
 
     public function testGenerateHTMLLayoutNoMedia()
@@ -93,7 +97,7 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt'
         ]);
-        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [], new Lesplan\Fase("Introductie"), []);
+        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [], new Lesplan\Fase("Introductie"), [], new Lesplan\Fase("Afsluiting"));
     
         $html = $object->generateHTMLLayout();
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
