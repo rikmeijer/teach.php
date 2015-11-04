@@ -28,20 +28,4 @@ class FaseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("h3", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals("Thema 1: zelf de motor reviseren", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
     }
-
-    public function testGenerateHTMLLayoutWithChainedFase()
-    {
-        $fase1 = new Fase("Kern");
-        $fase2 = new Fase("Afsluiting");
-        $fase1->chainTo($fase2);
-        $html = $fase1->generateHTMLLayout();
-        $this->assertEquals('section', $html[0][HTMLFactory::TAG]);
-        $this->assertEquals("h2", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Kern", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
-        
-        $this->assertEquals('section', $html[1][HTMLFactory::TAG]);
-        $this->assertEquals("h2", $html[1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Afsluiting", $html[1][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
-    }
-    
 }
