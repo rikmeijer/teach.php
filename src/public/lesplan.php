@@ -32,7 +32,7 @@ print $HTMLfactory->makeHTMLFrom($lesplan);
  <section>
   <h2><?=htmlentities($lesplanDefinition['les']);?></h2>
   <?php 
-  $beginsituatie = new \Teach\Adapters\Web\Lesplan\Beginsituatie($lesplanDefinition['opleiding'], $lesplanDefinition['Beginsituatie']);
+  $beginsituatie = $lesplanFactory->createBeginsituatie($lesplanDefinition['opleiding'], $lesplanDefinition['Beginsituatie']);
     print $HTMLfactory->makeHTMLFrom($beginsituatie);
 if (count($lesplanDefinition['media']) > 0) {
     ?>
