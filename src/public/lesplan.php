@@ -116,8 +116,9 @@ foreach ($lesplan['Kern'] as $themaIdentifier => $themaDefinition) {
  <section>
   <h2>Afsluiting</h2>
 		<?php
-foreach ($lesplan['Afsluiting'] as $activiteitIdentifier => $activiteit) {
-    renderActiviteit($activiteitIdentifier, $activiteit);
+foreach ($lesplan['Afsluiting'] as $activiteitIdentifier => $activiteitDefinition) {
+    $activiteit = new \Teach\Adapters\Web\Lesplan\Activiteit($activiteitIdentifier, $activiteitDefinition);
+    print $factory->makeHTMLFrom($activiteit);
 }
 ?>
     </section>
