@@ -83,14 +83,14 @@ foreach (array_keys($lesplan['Kern']) as $themaIdentifier) {
 		</ol>
  </section>
 <?php
-		$introductie = $lesplanFactory->createFase('Introductie');
+$introductie = $lesplanFactory->createFase('Introductie');
 foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
     $activiteit = $lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
     $introductie->addOnderdeel($activiteit);
 }
-    print $HTMLfactory->makeHTMLFrom($introductie);
+print $HTMLfactory->makeHTMLFrom($introductie);
 
-    $kern = $lesplanFactory->createFase('Kern');
+$kern = $lesplanFactory->createFase('Kern');
 $themaCounter = 1;
 foreach ($lesplan['Kern'] as $themaIdentifier => $themaDefinition) {
     $thema = $lesplanFactory->createThema('Thema ' . $themaCounter . ': ' . $themaIdentifier);
@@ -100,16 +100,15 @@ foreach ($lesplan['Kern'] as $themaIdentifier => $themaDefinition) {
     $kern->addOnderdeel($thema);
     $themaCounter ++;
 }
-    print $HTMLfactory->makeHTMLFrom($kern);
-    
+print $HTMLfactory->makeHTMLFrom($kern);
 
-    $afsluiting = $lesplanFactory->createFase('Afsluiting');
-    foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
+$afsluiting = $lesplanFactory->createFase('Afsluiting');
+foreach ($lesplan['Introductie'] as $activiteitIdentifier => $activiteitDefinition) {
     $activiteit = $lesplanFactory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
-        $afsluiting->addOnderdeel($activiteit);
-    }
-    print $HTMLfactory->makeHTMLFrom($afsluiting);
-    
+    $afsluiting->addOnderdeel($activiteit);
+}
+print $HTMLfactory->makeHTMLFrom($afsluiting);
+
 ?>
 </body>
 </html>
