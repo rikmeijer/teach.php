@@ -67,10 +67,10 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
             ['p', 'Na afloop van de les kan de student:'],
             ['ol', [],[]]
         ];
-        foreach ($this->kern as $thema) {
+        foreach ($this->kern as $themaIdentifier => $thema) {
             $leerdoelenHTMLLayout[2][2][] = [
                 'li',
-                $thema
+                $themaIdentifier
             ];
         }
         

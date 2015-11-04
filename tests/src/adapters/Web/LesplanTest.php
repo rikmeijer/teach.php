@@ -22,7 +22,10 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [
             'filmfragment matrix',
             'countdown timer voor toepassingsfases (optioneel)'
-        ], new Lesplan\Fase("Introductie"), ["Zelfstandig eclipse installeren", "Java-code lezen en uitleggen wat er gebeurt"]);
+        ], new Lesplan\Fase("Introductie"), [
+            "Zelfstandig eclipse installeren" => new Lesplan\Thema("Zelfstandig eclipse installeren"), 
+            "Java-code lezen en uitleggen wat er gebeurt" => new Lesplan\Thema("Java-code lezen en uitleggen wat er gebeurt")
+        ]);
         
         $html = $object->generateHTMLLayout();
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
