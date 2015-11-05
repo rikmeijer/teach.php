@@ -83,4 +83,18 @@ final class Factory
     {
         return new Beginsituatie($opleiding, $beginsituatie);
     }
+    
+    /**
+     * 
+     * @param array $lesplanDefinition
+     * @return \Teach\Adapters\Web\Lesplan
+     */
+    public function createLesplan(array $lesplanDefinition)
+    {
+        $beginsituatie = $this->createBeginsituatie($lesplanDefinition['opleiding'], $lesplanDefinition['Beginsituatie']);
+        $introductie = $this->createFaseWithActiviteiten('Introductie', $lesplanDefinition['Introductie']);
+        $kern = $this->createKern($lesplanDefinition['Kern']);
+        $afsluiting = $this->createFaseWithActiviteiten('Afsluiting', $lesplanDefinition['Afsluiting']);
+        return new \Teach\Adapters\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media'], array_keys($lesplanDefinition['Kern']), $introductie, $kern, $afsluiting);
+    }
 }

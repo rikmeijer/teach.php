@@ -26,12 +26,7 @@ $lesplanFactory = new \Teach\Adapters\Web\Lesplan\Factory();
 </head>
 <body>
 <?php
-$beginsituatie = $lesplanFactory->createBeginsituatie($lesplanDefinition['opleiding'], $lesplanDefinition['Beginsituatie']);
-$introductie = $lesplanFactory->createFaseWithActiviteiten('Introductie', $lesplanDefinition['Introductie']);
-$kern = $lesplanFactory->createKern($lesplanDefinition['Kern']);
-$afsluiting = $lesplanFactory->createFaseWithActiviteiten('Afsluiting', $lesplanDefinition['Afsluiting']);
-$lesplan = new \Teach\Adapters\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media'], array_keys($lesplanDefinition['Kern']), $introductie, $kern, $afsluiting);
-print $HTMLfactory->makeHTMLFrom($lesplan);
+print $HTMLfactory->makeHTMLFrom($lesplanFactory->createLesplan($lesplanDefinition));
 
 ?>
 </body>
