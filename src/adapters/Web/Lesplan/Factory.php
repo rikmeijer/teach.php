@@ -39,6 +39,11 @@ final class Factory
     {
         return new Fase($title);
     }
+    
+    public function createKern()
+    {
+        return $this->createFase("Kern");
+    }
 
     /**
      * 

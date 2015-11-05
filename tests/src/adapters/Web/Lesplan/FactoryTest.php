@@ -63,6 +63,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("Kern", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
     }
 
+    public function testCreateKern()
+    {
+        $object = new Factory();
+        $layout = $object->createKern()->generateHTMLLayout();
+        $this->assertEquals("Kern", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+    }
 
 
     public function testCreateBeginsituatie()

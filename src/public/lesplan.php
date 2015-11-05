@@ -34,7 +34,7 @@ foreach ($lesplanDefinition['Introductie'] as $activiteitIdentifier => $activite
 }
 
 $themaCount = 0;
-$kern = $lesplanFactory->createFase('Kern');
+$kern = $lesplanFactory->createKern();
 foreach ($lesplanDefinition['Kern'] as $themaIdentifier => $themaDefinition) {
     $thema = $lesplanFactory->createThema('Thema ' . (++$themaCount) . ': ' . $themaIdentifier, $themaDefinition);
     $kern->addOnderdeel($thema);
