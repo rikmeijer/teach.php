@@ -60,7 +60,7 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
      *
      * @return array
      */
-    public function generateHTMLLayout()
+    public function generateHTMLLayout(\Teach\Adapters\HTML\Factory $factory)
     {
         $benodigdeMediaHTMLLayout = [];
         if (count($this->media) > 0) {
@@ -104,13 +104,13 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
                         'h2',
                         $this->les
                     ]
-                ], $this->beginsituatie->generateHTMLLayout(), $benodigdeMediaHTMLLayout, $leerdoelenHTMLLayout)
+                ], $this->beginsituatie->generateHTMLLayout($factory), $benodigdeMediaHTMLLayout, $leerdoelenHTMLLayout)
             ],
             
         ], 
-            $this->introductie->generateHTMLLayout(),
-            $this->kern->generateHTMLLayout(),
-            $this->afsluiting->generateHTMLLayout()
+            $this->introductie->generateHTMLLayout($factory),
+            $this->kern->generateHTMLLayout($factory),
+            $this->afsluiting->generateHTMLLayout($factory)
             );
     }
 }

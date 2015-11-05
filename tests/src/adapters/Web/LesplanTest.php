@@ -30,7 +30,7 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         
         $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, $media, $leerdoelen, new Lesplan\Fase("Introductie"), new Lesplan\Fase('Kern'), new Lesplan\Fase("Afsluiting"));
         
-        $html = $object->generateHTMLLayout();
+        $html = $object->generateHTMLLayout(new HTMLFactory());
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals("Lesplan Programmeren 1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
@@ -93,7 +93,7 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         $kern = new Lesplan\Fase('Kern');
         $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [], [], new Lesplan\Fase("Introductie"), $kern, new Lesplan\Fase("Afsluiting"));
     
-        $html = $object->generateHTMLLayout();
+        $html = $object->generateHTMLLayout(new HTMLFactory());
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals("Lesplan Programmeren 1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);

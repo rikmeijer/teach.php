@@ -20,7 +20,7 @@ class ActiviteitTest extends \PHPUnit_Framework_TestCase
                     Activiteit::MI_INTERPERSOONLIJK
                 )
             ));
-        $html = $object->generateHTMLLayout();
+        $html = $object->generateHTMLLayout(new HTMLFactory());
         $this->assertEquals('table', $html[0][HTMLFactory::TAG]);
         $this->assertEquals('two-columns', $html[0][HTMLFactory::ATTRIBUTES]['class']);
         $this->assertEquals("caption", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
@@ -121,7 +121,7 @@ class ActiviteitTest extends \PHPUnit_Framework_TestCase
                 Activiteit::MI_INTERPERSOONLIJK
             )
         ));
-        $html = $object->generateHTMLLayout();
+        $html = $object->generateHTMLLayout(new HTMLFactory());
         
         $row = $html[0][HTMLFactory::CHILDREN][4];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);

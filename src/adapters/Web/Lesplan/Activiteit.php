@@ -45,7 +45,7 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
      *
      * @return array
      */
-    public function generateHTMLLayout()
+    public function generateHTMLLayout(\Teach\Adapters\HTML\Factory $factory)
     {
         $intelligentieListItems = array();
         foreach (self::INTELLIGENTIES as $intelligentieIdentifier => $intelligentieLable) {

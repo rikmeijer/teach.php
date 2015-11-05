@@ -17,7 +17,7 @@ final class Beginsituatie implements \Teach\Adapters\HTML\LayoutableInterface
      *
      * @return array
      */
-    public function generateHTMLLayout()
+    public function generateHTMLLayout(\Teach\Adapters\HTML\Factory $factory)
     {
         
         return [
