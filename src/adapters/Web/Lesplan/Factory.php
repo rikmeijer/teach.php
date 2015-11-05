@@ -40,9 +40,15 @@ final class Factory
         return new Fase($title);
     }
     
-    public function createKern()
+    public function createKern(array $themas)
     {
-        return $this->createFase("Kern");
+        $kern = $this->createFase("Kern");
+        $themaCount = 0;
+        foreach ($themas as $themaIdentifier => $themaDefinition) {
+            $thema = $this->createThema('Thema ' . (++$themaCount) . ': ' . $themaIdentifier, $themaDefinition);
+            $kern->addOnderdeel($thema);
+        }
+        return $kern;
     }
 
     /**
