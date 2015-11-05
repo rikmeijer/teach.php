@@ -23,17 +23,12 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             'filmfragment matrix',
             'countdown timer voor toepassingsfases (optioneel)'
         ];
-        $leerdoelen = [];
-        $kernOnderdelen = [
-            "Zelfstandig eclipse installeren" => new Lesplan\Thema("Thema 1: Zelfstandig eclipse installeren"), 
-            "Java-code lezen en uitleggen wat er gebeurt" => new Lesplan\Thema("Thema 2: Java-code lezen en uitleggen wat er gebeurt")
+        $leerdoelen = [
+            "Zelfstandig eclipse installeren",
+            "Java-code lezen en uitleggen wat er gebeurt"
         ];
-        $kern = new Lesplan\Fase('Kern');
-        foreach ($kernOnderdelen as $themaIdentifier => $thema) {
-            $leerdoelen[] = $themaIdentifier;
-            $kern->addOnderdeel($thema);
-        };
-        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, $media, $leerdoelen, new Lesplan\Fase("Introductie"), $kern, new Lesplan\Fase("Afsluiting"));
+        
+        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, $media, $leerdoelen, new Lesplan\Fase("Introductie"), new Lesplan\Fase('Kern'), new Lesplan\Fase("Afsluiting"));
         
         $html = $object->generateHTMLLayout();
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
@@ -62,13 +57,12 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("Na afloop van de les kan de student:", $html[1][HTMLFactory::CHILDREN][6][HTMLFactory::TEXT]);
         
         $this->assertEquals("ol", $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::TAG]);
-
+        
         $this->assertEquals("li", $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals('Zelfstandig eclipse installeren', $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
         $this->assertEquals("li", $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals('Java-code lezen en uitleggen wat er gebeurt', $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
         
-
         $this->assertEquals('section', $html[2][HTMLFactory::TAG]);
         $this->assertEquals("h2", $html[2][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals("Introductie", $html[2][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
@@ -77,15 +71,6 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("h2", $html[3][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals("Kern", $html[3][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
         
-        $this->assertEquals('section', $html[3][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
-        $this->assertEquals("h3", $html[3][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Thema 1: Zelfstandig eclipse installeren", $html[3][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
-        
-        $this->assertEquals('section', $html[3][HTMLFactory::CHILDREN][2][HTMLFactory::TAG]);
-        $this->assertEquals("h3", $html[3][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Thema 2: Java-code lezen en uitleggen wat er gebeurt", $html[3][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
-
-
         $this->assertEquals('section', $html[4][HTMLFactory::TAG]);
         $this->assertEquals("h2", $html[4][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals("Afsluiting", $html[4][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
