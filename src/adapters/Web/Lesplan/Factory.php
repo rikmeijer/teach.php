@@ -39,7 +39,29 @@ final class Factory
     {
         return new Fase($title);
     }
+
+    /**
+     * 
+     * @param string $title
+     * @param array $activiteitDefinitions
+     * @return \Teach\Adapters\Web\Lesplan\Fase
+     */
+    public function createFaseWithActiviteiten($title, array $activiteitDefinitions)
+    {
+        $fase = $this->createFase($title);
+        foreach ($activiteitDefinitions as $activiteitIdentifier => $activiteitDefinition) {
+            $activiteit = $this->createActiviteit($activiteitIdentifier, $activiteitDefinition);
+            $fase->addOnderdeel($activiteit);
+        }
+        return $fase;
+    }
     
+    
+    /**
+     * 
+     * @param array $themas
+     * @return \Teach\Adapters\Web\Lesplan\Fase
+     */
     public function createKern(array $themas)
     {
         $kern = $this->createFase("Kern");
