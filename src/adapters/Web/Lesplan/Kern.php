@@ -20,6 +20,12 @@ final class Kern implements \Teach\Adapters\HTML\LayoutableInterface
         $this->fase = $fase;
     }
 
+    public function addThema($themaIdentifier, Thema $thema)
+    {
+        $this->themas[$themaIdentifier] = $thema;
+        $this->fase->addOnderdeel($thema);
+    }
+    
     /**
      *
      * @return array
