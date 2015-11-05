@@ -9,13 +9,8 @@ class KernTest extends \PHPUnit_Framework_TestCase
     {
         $object = new Kern(new Fase("Kern"));
         $object->addThema("Zelfstandig eclipse installeren", new Thema("Thema 1: Zelfstandig eclipse installeren"));
-        
-//         
-// $object->
-//             , 
-//             "Java-code lezen en uitleggen wat er gebeurt" => new Lesplan\Thema("Thema 2: Java-code lezen en uitleggen wat er gebeurt")
-//         ], new Lesplan\Fase("Afsluiting"));
-        
+        $object->addThema("Java-code lezen en uitleggen wat er gebeurt", new Thema("Thema 2: Java-code lezen en uitleggen wat er gebeurt"));
+
         $html = $object->generateHTMLLayout();
         $this->assertEquals('section', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h2", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
@@ -25,8 +20,8 @@ class KernTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("h3", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals("Thema 1: Zelfstandig eclipse installeren", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
         
-//         $this->assertEquals('section', $html[3][HTMLFactory::CHILDREN][2][HTMLFactory::TAG]);
-//         $this->assertEquals("h3", $html[3][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-//         $this->assertEquals("Thema 2: Java-code lezen en uitleggen wat er gebeurt", $html[3][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals('section', $html[0][HTMLFactory::CHILDREN][2][HTMLFactory::TAG]);
+        $this->assertEquals("h3", $html[0][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
+        $this->assertEquals("Thema 2: Java-code lezen en uitleggen wat er gebeurt", $html[0][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
     }
 }
