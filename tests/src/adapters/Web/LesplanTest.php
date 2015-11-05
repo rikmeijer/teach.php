@@ -19,13 +19,21 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt'
         ]);
-        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [
+        $media = [
             'filmfragment matrix',
             'countdown timer voor toepassingsfases (optioneel)'
-        ], new Lesplan\Fase("Introductie"), [
+        ];
+        $leerdoelen = [];
+        $kernOnderdelen = [
             "Zelfstandig eclipse installeren" => new Lesplan\Thema("Thema 1: Zelfstandig eclipse installeren"), 
             "Java-code lezen en uitleggen wat er gebeurt" => new Lesplan\Thema("Thema 2: Java-code lezen en uitleggen wat er gebeurt")
-        ], new Lesplan\Fase("Afsluiting"));
+        ];
+        $kern = new Lesplan\Fase('Kern');
+        foreach ($kernOnderdelen as $themaIdentifier => $thema) {
+            $leerdoelen[] = $themaIdentifier;
+            $kern->addOnderdeel($thema);
+        };
+        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, $media, $leerdoelen, new Lesplan\Fase("Introductie"), $kern, new Lesplan\Fase("Afsluiting"));
         
         $html = $object->generateHTMLLayout();
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
@@ -97,7 +105,8 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt'
         ]);
-        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [], new Lesplan\Fase("Introductie"), [], new Lesplan\Fase("Afsluiting"));
+        $kern = new Lesplan\Fase('Kern');
+        $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, [], [], new Lesplan\Fase("Introductie"), $kern, new Lesplan\Fase("Afsluiting"));
     
         $html = $object->generateHTMLLayout();
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
