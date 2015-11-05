@@ -18,11 +18,16 @@ final class Factory
     /**
      * 
      * @param string $title
+     * @param \Teach\Adapters\Web\Lesplan\Activiteit[]
      * @return \Teach\Adapters\Web\Lesplan\Thema
      */
-    public function createThema($title)
+    public function createThema($title, array $activiteiten)
     {
-        return new Thema($title);
+        $thema = new Thema($title);
+        foreach ($activiteiten as $activiteitIdentifier => $activiteitDefinition) {
+            $thema->addActiviteit($this->createActiviteit($activiteitIdentifier, $activiteitDefinition));
+        }
+        return $thema;
     }
 
     /**
