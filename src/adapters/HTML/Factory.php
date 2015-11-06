@@ -79,6 +79,19 @@ final class Factory
             $cellsHTML[] = [self::TAG => 'th', self::TEXT => $header];
             $cellsHTML[] = [self::TAG => 'td', self::TEXT => $value];
         }
+        
+        if (count($cellsHTML) < $columnCount) {
+            $cellsHTML[count($cellsHTML) - 1] = [
+                self::TAG => $cellsHTML[count($cellsHTML) - 1][self::TAG],
+                self::ATTRIBUTES => [
+                    'colspan' => (string)($columnCount - (count($cellsHTML) - 1))
+                ],
+                self::CHILDREN => [
+                    $cellsHTML[count($cellsHTML) - 1][self::TEXT]
+                ]
+            ];
+        }
+        
         return [self::TAG => 'tr', self::ATTRIBUTES => [], self::CHILDREN => $cellsHTML];
     }
 }
