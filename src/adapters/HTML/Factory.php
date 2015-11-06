@@ -72,7 +72,7 @@ final class Factory
         return $this->makeHTML($layoutable->generateHTMLLayout($this));
     }
     
-    public function makeTableRow($columnCount, array $data)
+    public function makeTableRow($expectedCellCount, array $data)
     {
         $cellsHTML = [];
         foreach ($data as $header => $value) {
@@ -80,14 +80,16 @@ final class Factory
             $cellsHTML[] = [self::TAG => 'td', self::TEXT => $value];
         }
         
-        if (count($cellsHTML) < $columnCount) {
-            $cellsHTML[count($cellsHTML) - 1] = [
-                self::TAG => $cellsHTML[count($cellsHTML) - 1][self::TAG],
+        $actualCellCount = count($cellsHTML);
+        if ($actualCellCount < $expectedCellCount) {
+            $lastCellIndex = $actualCellCount - 1;
+            $cellsHTML[$lastCellIndex] = [
+                self::TAG => $cellsHTML[$lastCellIndex][self::TAG],
                 self::ATTRIBUTES => [
-                    'colspan' => (string)($columnCount - (count($cellsHTML) - 1))
+                    'colspan' => (string)($expectedCellCount - $lastCellIndex) // last cell must also be included in span
                 ],
                 self::CHILDREN => [
-                    $cellsHTML[count($cellsHTML) - 1][self::TEXT]
+                    $cellsHTML[$lastCellIndex][self::TEXT]
                 ]
             ];
         }
