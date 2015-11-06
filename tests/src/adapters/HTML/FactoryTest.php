@@ -91,8 +91,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testMakeTableRow()
     {
         $object = new Factory();
-        $html = $object->makeTableRow();
+        $html = $object->makeTableRow(["inhoud" => "bladiebla"]);
         $this->assertEquals('tr', $html[Factory::TAG]);
+        $this->assertEquals('th', $html[Factory::CHILDREN][0][Factory::TAG]);
+        $this->assertEquals('inhoud', $html[Factory::CHILDREN][0][Factory::TEXT]);
+        $this->assertEquals('td', $html[Factory::CHILDREN][1][Factory::TAG]);
+        $this->assertEquals('bladiebla', $html[Factory::CHILDREN][1][Factory::TEXT]);
         
     }
 }

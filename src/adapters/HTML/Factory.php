@@ -72,8 +72,13 @@ final class Factory
         return $this->makeHTML($layoutable->generateHTMLLayout($this));
     }
     
-    public function makeTableRow()
+    public function makeTableRow(array $data)
     {
-        return [self::TAG => 'tr'];
+        $cellsHTML = [];
+        foreach ($data as $header => $value) {
+            $cellsHTML[] = [self::TAG => 'th', self::TEXT => $header];
+            $cellsHTML[] = [self::TAG => 'td', self::TEXT => $value];
+        }
+        return [self::TAG => 'tr', self::ATTRIBUTES => [], self::CHILDREN => $cellsHTML];
     }
 }
