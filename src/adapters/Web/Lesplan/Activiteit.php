@@ -93,50 +93,14 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
                         'caption',
                         $this->caption
                     ],
-                    [
-                        'tr',
-                        [],
-                        [
-                            [
-                                'th',
-                                'werkvorm'
-                            ],
-                            [
-                                'td',
-                                $this->werkvorm['werkvorm']
-                            ],
-                            [
-                                'th',
-                                'organisatievorm'
-                            ],
-                            [
-                                'td',
-                                $this->werkvorm['organisatievorm']
-                            ]
-                        ]
-                    ],
-                    [
-                        'tr',
-                        [],
-                        [
-                            [
-                                'th',
-                                'tijd'
-                            ],
-                            [
-                                'td',
-                                $this->werkvorm['tijd'] . ' minuten'
-                            ],
-                            [
-                                'th',
-                                'soort werkvorm'
-                            ],
-                            [
-                                'td',
-                                $this->werkvorm['werkvormsoort']
-                            ]
-                        ]
-                    ],
+                    $factory->makeTableRow(4, [
+                        'werkvorm' => $this->werkvorm['werkvorm'],
+                        'organisatievorm' => $this->werkvorm['organisatievorm']
+                    ]),
+                    $factory->makeTableRow(4, [
+                        'tijd' => $this->werkvorm['tijd'] . ' minuten',
+                        'soort werkvorm' => $this->werkvorm['werkvormsoort']
+                    ]),
                     [
                         'tr',
                         [],
