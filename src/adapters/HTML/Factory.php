@@ -72,7 +72,7 @@ final class Factory
         return $this->makeHTML($layoutable->generateHTMLLayout($this));
     }
     
-    public function makeTableRow(array $data)
+    public function makeTableRow($columnCount, array $data)
     {
         $cellsHTML = [];
         foreach ($data as $header => $value) {
