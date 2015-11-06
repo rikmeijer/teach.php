@@ -71,4 +71,9 @@ final class Factory
     {
         return $this->makeHTML($layoutable->generateHTMLLayout($this));
     }
+    
+    public function makeTableRow()
+    {
+        return [self::TAG => 'tr'];
+    }
 }

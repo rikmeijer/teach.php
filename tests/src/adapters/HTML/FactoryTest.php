@@ -87,4 +87,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $html = $object->makeHTMLFrom($mock);
         $this->assertEquals('Hello World<li src="bla.gif"></li>', $html);
     }
+    
+    public function testMakeTableRow()
+    {
+        $object = new Factory();
+        $html = $object->makeTableRow();
+        $this->assertEquals('tr', $html[Factory::TAG]);
+        
+    }
 }
