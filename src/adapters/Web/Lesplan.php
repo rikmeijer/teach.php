@@ -64,16 +64,8 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
     {
         $benodigdeMediaHTMLLayout = [];
         if (count($this->media) > 0) {
-            $benodigdeMediaListItems = [];
-            foreach ($this->media as $thema) {
-                $benodigdeMediaListItems[] = [
-                    'li',
-                    $thema
-                ];
-            }
-            
             $benodigdeMediaHTMLLayout[] = ['h3', 'Benodigde media'];
-            $benodigdeMediaHTMLLayout[] = ['ul', [], $benodigdeMediaListItems];
+            $benodigdeMediaHTMLLayout[] = $factory->makeUnorderedList($this->media);
         }
         
         $leerdoelenHTMLLayout = [
