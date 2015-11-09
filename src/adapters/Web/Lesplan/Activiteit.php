@@ -101,51 +101,20 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
                         'tijd' => $this->werkvorm['tijd'] . ' minuten',
                         'soort werkvorm' => $this->werkvorm['werkvormsoort']
                     ]),
-                    [
-                        'tr',
-                        [],
-                        [
+                    $factory->makeTableRow(4, [
+                        'intelligenties' => [[
+                            'ul',
                             [
-                                'th',
-                                'intelligenties'
+                                'class' => "meervoudige-intelligenties"
                             ],
-                            [
-                                'td',
-                                [
-                                    'colspan' => '3'
-                                ],
-                                [
-                                    [
-                                        'ul',
-                                        [
-                                            'class' => "meervoudige-intelligenties"
-                                        ],
-                                        $intelligentieListItems
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ],
-                    [
-                        'tr',
-                        [],
-                        [
-                            [
-                                'th',
-                                'inhoud'
-                            ],
-                            [
-                                'td',
-                                [
-                                    'colspan' => '3'
-                                ],
-                                $inhoudChildren
-                            ]
-                        ]
-                    ]
+                            $intelligentieListItems
+                        ]]
+                    ]),
+                    $factory->makeTableRow(4, [
+                        'inhoud' => $inhoudChildren
+                    ])
                 ]
             ]
-        ]
-        ;
+        ];
     }
 }
