@@ -64,12 +64,12 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
     {
         $benodigdeMediaHTMLLayout = [];
         if (count($this->media) > 0) {
-            $benodigdeMediaHTMLLayout[] = ['h3', 'Benodigde media'];
+            $benodigdeMediaHTMLLayout[] = $factory->makeHeader3('Benodigde media');
             $benodigdeMediaHTMLLayout[] = $factory->makeUnorderedList($this->media);
         }
         
         $leerdoelenHTMLLayout = [
-            ['h3', 'Leerdoelen'],
+            $factory->makeHeader3('Leerdoelen'),
             ['p', 'Na afloop van de les kan de student:'],
             $factory->makeOrderedList($this->leerdoelen)
         ];
@@ -79,20 +79,14 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
                 'header',
                 [],
                 [
-                    [
-                        'h1',
-                        'Lesplan ' . $this->vak
-                    ]
+                    $factory->makeHeader1('Lesplan ' . $this->vak)
                 ]
             ],
             [
                 'section',
                 [],
                 array_merge([
-                    [
-                        'h2',
-                        $this->les
-                    ]
+                    $factory->makeHeader2($this->les)
                 ], $this->beginsituatie->generateHTMLLayout($factory), $benodigdeMediaHTMLLayout, $leerdoelenHTMLLayout)
             ],
             
