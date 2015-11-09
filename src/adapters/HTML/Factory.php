@@ -125,7 +125,10 @@ final class Factory
             $expectedCellCount = max($expectedCellCount, count($row) * 2); // key/value both give a cell (th/td)
         }
             
-        $tableChildrenHTML = [$this->makeHTMLText('caption', $caption)];
+        $tableChildrenHTML = [];
+        if ($caption !== null) {
+            $tableChildrenHTML[] = $this->makeHTMLText('caption', $caption);
+        }
         foreach ($rows as $row) {
             $tableChildrenHTML[] = $this->makeTableRow($expectedCellCount, $row);
         }

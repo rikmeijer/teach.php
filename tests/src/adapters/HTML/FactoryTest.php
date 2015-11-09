@@ -213,4 +213,22 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('3', $html[Factory::CHILDREN][2][Factory::CHILDREN][1][Factory::ATTRIBUTES]['colspan']);
     }
+
+    public function testMakeTableNoCaption()
+    {
+        $object = new Factory();
+        $html = $object->makeTable(null, [
+            [
+                "inhoud" => [
+                    [
+                        'span',
+                        "bladiebla"
+                    ]
+                ]
+            ]
+        ]
+            );
+        $this->assertEquals('table', $html[Factory::TAG]);
+        $this->assertEquals('tr', $html[Factory::CHILDREN][0][Factory::TAG]);
+    }
 }
