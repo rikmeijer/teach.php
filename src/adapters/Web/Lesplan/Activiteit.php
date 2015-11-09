@@ -68,7 +68,9 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
                     'soort werkvorm' => $this->werkvorm['werkvormsoort']
                 ],
                 [
-                    'intelligenties' => [$intelligentieHTML]
+                    'intelligenties' => [
+                        $intelligentieHTML
+                    ]
                 ],
                 [
                     'inhoud' => $inhoudChildren
