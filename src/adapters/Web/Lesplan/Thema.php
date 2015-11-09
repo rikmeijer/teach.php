@@ -34,14 +34,7 @@ final class Thema implements \Teach\Adapters\HTML\LayoutableInterface
         }
         
         return [
-            [
-                'section',
-                [],
-                array_merge([
-                    $factory->makeHeader3($this->title)
-                ], $activiteitenHTML)
-            ]
-        ]
-        ;
+            $factory->makeSection($factory->makeHeader3($this->title), $activiteitenHTML)
+        ];
     }
 }
