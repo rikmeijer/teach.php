@@ -70,7 +70,7 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
         
         $leerdoelenHTMLLayout = [
             $factory->makeHeader3('Leerdoelen'),
-            ['p', 'Na afloop van de les kan de student:'],
+            $factory->makeParagraph('Na afloop van de les kan de student:'),
             $factory->makeOrderedList($this->leerdoelen)
         ];
         
