@@ -68,36 +68,30 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
         }
         
         return [
-            [
-                'table',
-                [],
+            $factory->makeTable($this->caption, [
                 [
-                    [
-                        'caption',
-                        $this->caption
-                    ],
-                    $factory->makeTableRow(4, [
-                        'werkvorm' => $this->werkvorm['werkvorm'],
-                        'organisatievorm' => $this->werkvorm['organisatievorm']
-                    ]),
-                    $factory->makeTableRow(4, [
-                        'tijd' => $this->werkvorm['tijd'] . ' minuten',
-                        'soort werkvorm' => $this->werkvorm['werkvormsoort']
-                    ]),
-                    $factory->makeTableRow(4, [
-                        'intelligenties' => [[
+                    'werkvorm' => $this->werkvorm['werkvorm'],
+                    'organisatievorm' => $this->werkvorm['organisatievorm']
+                ],
+                [
+                    'tijd' => $this->werkvorm['tijd'] . ' minuten',
+                    'soort werkvorm' => $this->werkvorm['werkvormsoort']
+                ],
+                [
+                    'intelligenties' => [
+                        [
                             'ul',
                             [
                                 'class' => "meervoudige-intelligenties"
                             ],
                             $intelligentieListItems
-                        ]]
-                    ]),
-                    $factory->makeTableRow(4, [
-                        'inhoud' => $inhoudChildren
-                    ])
+                        ]
+                    ]
+                ],
+                [
+                    'inhoud' => $inhoudChildren
                 ]
-            ]
+            ])
         ];
     }
 }
