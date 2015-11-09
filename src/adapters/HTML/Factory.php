@@ -109,23 +109,24 @@ final class Factory
         return $this->makeHTMLElement('tr', [], $cellsHTML);
     }
     
-    public function makeUnorderedList(array $listitems)
+    private function makeList($tag, array $listitems)
     {
         $listitemsHTML = [];
         foreach ($listitems as $listitem) {
             $listitemsHTML[] = $this->makeHTMLText('li', $listitem);
         }
-        return $this->makeHTMLElement('ul', [], $listitemsHTML);
+        return $this->makeHTMLElement($tag, [], $listitemsHTML);
+    }
+    
+    public function makeUnorderedList(array $listitems)
+    {
+        return $this->makeList('ul', $listitems);
     }
 
 
     public function makeOrderedList(array $listitems)
     {
-        $listitemsHTML = [];
-        foreach ($listitems as $listitem) {
-            $listitemsHTML[] = $this->makeHTMLText('li', $listitem);
-        }
-        return $this->makeHTMLElement('ol', [], $listitemsHTML);
+        return $this->makeList('ol', $listitems);
     }
     
     public function makeTable($caption, array $rows)
