@@ -71,11 +71,8 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
         $leerdoelenHTMLLayout = [
             ['h3', 'Leerdoelen'],
             ['p', 'Na afloop van de les kan de student:'],
-            ['ol', [],[]]
+            $factory->makeOrderedList($this->leerdoelen)
         ];
-        foreach ($this->leerdoelen as $leerdoel) {
-            $leerdoelenHTMLLayout[2][2][] = ['li', $leerdoel];
-        }
         
         return array_merge([
             [
