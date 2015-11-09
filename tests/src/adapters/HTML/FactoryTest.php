@@ -171,27 +171,46 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('li', $html[Factory::CHILDREN][2][Factory::TAG]);
         $this->assertEquals('C', $html[Factory::CHILDREN][2][Factory::TEXT]);
     }
-    
+
     public function testMakeTable()
     {
         $object = new Factory();
-        $html = $object->makeTable('Activerende opening', [[
-            "inhoud" => [
-                [
-                    'span',
-                    "bladiebla"
+        $html = $object->makeTable('Activerende opening', [
+            [
+                "inhoud" => [
+                    [
+                        'span',
+                        "bladiebla"
+                    ]
+                ],
+                "werkvorm" => [
+                    [
+                        'span',
+                        "bladiebla"
+                    ]
+                ]
+            ],[
+                "inhoud" => [
+                    [
+                        'span',
+                        "bladiebla"
+                    ]
                 ]
             ]
-        ]]);
+        ]
+        );
         $this->assertEquals('table', $html[Factory::TAG]);
         $this->assertEquals('caption', $html[Factory::CHILDREN][0][Factory::TAG]);
         $this->assertEquals('Activerende opening', $html[Factory::CHILDREN][0][Factory::TEXT]);
-
+        
         $this->assertEquals('tr', $html[Factory::CHILDREN][1][Factory::TAG]);
         $this->assertEquals('th', $html[Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::TAG]);
         $this->assertEquals('inhoud', $html[Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::TEXT]);
         $this->assertEquals('td', $html[Factory::CHILDREN][1][Factory::CHILDREN][1][Factory::TAG]);
         $this->assertEquals('span', $html[Factory::CHILDREN][1][Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::TAG]);
         $this->assertEquals('bladiebla', $html[Factory::CHILDREN][1][Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::TEXT]);
+        
+
+        $this->assertEquals('3', $html[Factory::CHILDREN][2][Factory::CHILDREN][1][Factory::ATTRIBUTES]['colspan']);
     }
 }
