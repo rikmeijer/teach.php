@@ -111,6 +111,10 @@ final class Factory
     
     public function makeUnorderedList(array $listitems)
     {
-        return $this->makeHTMLElement('ul', [], []);
+        $listitemsHTML = [];
+        foreach ($listitems as $listitem) {
+            $listitemsHTML[] = $this->makeHTMLText('li', $listitem);
+        }
+        return $this->makeHTMLElement('ul', [], $listitemsHTML);
     }
 }
