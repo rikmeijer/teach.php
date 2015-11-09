@@ -140,4 +140,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('bladiebla', $html[Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::TEXT]);
     
     }
+    
+    public function testMakeUnorderedList()
+    {
+        $object = new Factory();
+        $html = $object->makeUnorderedList(["A", "B", "C"]);
+        $this->assertEquals('ul', $html[Factory::TAG]);
+        
+    }
 }

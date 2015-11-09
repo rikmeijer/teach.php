@@ -108,4 +108,9 @@ final class Factory
         
         return $this->makeHTMLElement('tr', [], $cellsHTML);
     }
+    
+    public function makeUnorderedList(array $listitems)
+    {
+        return $this->makeHTMLElement('ul', [], []);
+    }
 }
