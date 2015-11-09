@@ -21,10 +21,7 @@ final class Beginsituatie implements \Teach\Adapters\HTML\LayoutableInterface
     public function generateHTMLLayout(\Teach\Adapters\HTML\Factory $factory)
     {
         return [
-            [
-                'h3',
-                'Beginsituatie'
-            ],
+            $factory->makeHeader3('Beginsituatie'),
             $factory->makeTable(null, [
                 [
                     'doelgroep' => $this->beginsituatie['doelgroep']['beschrijving'],
