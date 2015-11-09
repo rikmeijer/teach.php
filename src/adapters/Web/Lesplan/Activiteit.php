@@ -56,7 +56,7 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
                     [
                         $intelligentieLable
                     ]
-                ];;
+                ];
             }
         }
         
@@ -64,18 +64,7 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
         if (is_string($this->werkvorm['inhoud'])) {
             $inhoudChildren[] = $this->werkvorm['inhoud'];
         } elseif (is_array($this->werkvorm['inhoud'])) {
-            $inhoudList = [
-                'ul',
-                [],
-                []
-            ];
-            foreach ($this->werkvorm['inhoud'] as $inhoudItem) {
-                $inhoudList[2][] = [
-                    'li',
-                    $inhoudItem
-                ];
-            }
-            $inhoudChildren[] = $inhoudList;
+            $inhoudChildren[] = $factory->makeUnorderedList($this->werkvorm['inhoud']);
         }
         
         return [
