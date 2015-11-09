@@ -77,7 +77,11 @@ final class Factory
         $cellsHTML = [];
         foreach ($data as $header => $value) {
             $cellsHTML[] = [self::TAG => 'th', self::TEXT => $header];
-            $cellsHTML[] = [self::TAG => 'td', self::TEXT => $value];
+            if (is_string($value)) {
+                $cellsHTML[] = [self::TAG => 'td', self::TEXT => $value];
+            } else {
+                $cellsHTML[] = [self::TAG => 'td', self::ATTRIBUTES => [], self::CHILDREN => $value];
+            }
         }
         
         $actualCellCount = count($cellsHTML);
