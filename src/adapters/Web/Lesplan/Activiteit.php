@@ -49,19 +49,18 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
     {
         $intelligentieListItems = array();
         foreach (self::INTELLIGENTIES as $intelligentieIdentifier => $intelligentieLable) {
-            $intelligentieListItem = [
-                'li',
-                [
-                    'id' => $intelligentieIdentifier
-                ],
-                [
-                    $intelligentieLable
-                ]
-            ];
             if (in_array($intelligentieIdentifier, $this->werkvorm['intelligenties'])) {
-                $intelligentieListItem[1]['class'] = 'selected';
+                $intelligentieListItems[] = [
+                    'li',
+                    [
+                        'id' => $intelligentieIdentifier,
+                        'class' => 'selected'
+                    ],
+                    [
+                        $intelligentieLable
+                    ]
+                ];;
             }
-            $intelligentieListItems[] = $intelligentieListItem;
         }
         
         $inhoudChildren = [];
