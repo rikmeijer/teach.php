@@ -38,7 +38,7 @@ final class Fase implements \Teach\Adapters\HTML\LayoutableInterface
                 'section',
                 [],
                 array_merge([
-                    $this->makeHeader2($this->title)
+                    $factory->makeHeader2($this->title)
                 ], $onderdelenHTML)
             ]
         ]
