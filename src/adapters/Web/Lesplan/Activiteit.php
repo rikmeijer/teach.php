@@ -47,18 +47,8 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
      */
     public function generateHTMLLayout(\Teach\Adapters\HTML\Factory $factory)
     {
-        $intelligentieListItems = array();
-        foreach (self::INTELLIGENTIES as $intelligentieIdentifier => $intelligentieLable) {
-            if (in_array($intelligentieIdentifier, $this->werkvorm['intelligenties'])) {
-                $intelligentieListItems[] = [
-                    'li',
-                    [],
-                    [
-                        $intelligentieLable
-                    ]
-                ];
-            }
-        }
+        $intelligentieHTML = $factory->makeUnorderedList(array_intersect_key(self::INTELLIGENTIES, array_flip($this->werkvorm['intelligenties'])));
+        $intelligentieHTML[\Teach\Adapters\HTML\Factory::ATTRIBUTES]['class'] = 'meervoudige-intelligenties';
         
         $inhoudChildren = [];
         if (is_string($this->werkvorm['inhoud'])) {
@@ -78,15 +68,7 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
                     'soort werkvorm' => $this->werkvorm['werkvormsoort']
                 ],
                 [
-                    'intelligenties' => [
-                        [
-                            'ul',
-                            [
-                                'class' => "meervoudige-intelligenties"
-                            ],
-                            $intelligentieListItems
-                        ]
-                    ]
+                    'intelligenties' => [$intelligentieHTML]
                 ],
                 [
                     'inhoud' => $inhoudChildren

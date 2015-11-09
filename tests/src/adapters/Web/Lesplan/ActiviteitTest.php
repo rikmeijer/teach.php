@@ -61,13 +61,13 @@ class ActiviteitTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(3, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN]);
         
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals('VL', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
+        $this->assertEquals('VL', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]); // CHILDREN][0]);
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
-        $this->assertEquals('IR', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
+        $this->assertEquals('IR', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]); // CHILDREN][0]);
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][2][HTMLFactory::TAG]);
-        $this->assertEquals('IA', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0]);
+        $this->assertEquals('IA', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][2][HTMLFactory::TEXT]); // CHILDREN][0]);
 
         $row = $html[0][HTMLFactory::CHILDREN][4];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
