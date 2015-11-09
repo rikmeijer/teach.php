@@ -117,4 +117,9 @@ final class Factory
         }
         return $this->makeHTMLElement('ul', [], $listitemsHTML);
     }
+    
+    public function makeTable($caption, array $rows)
+    {
+        return $this->makeHTMLElement('table', [], []);
+    }
 }

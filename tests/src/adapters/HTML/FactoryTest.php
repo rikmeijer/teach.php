@@ -171,4 +171,18 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('li', $html[Factory::CHILDREN][2][Factory::TAG]);
         $this->assertEquals('C', $html[Factory::CHILDREN][2][Factory::TEXT]);
     }
+    
+    public function testMakeTable()
+    {
+        $object = new Factory();
+        $html = $object->makeTable('Activerende opening', [
+            "inhoud" => [
+                [
+                    'span',
+                    "bladiebla"
+                ]
+            ]
+        ]);
+        $this->assertEquals('table', $html[Factory::TAG]);
+    }
 }
