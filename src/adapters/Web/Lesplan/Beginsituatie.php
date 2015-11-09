@@ -24,9 +24,7 @@ final class Beginsituatie implements \Teach\Adapters\HTML\LayoutableInterface
             ['h3', 'Beginsituatie'],
             [
                 'table',
-                [
-                    'class' => 'two-columns'
-                ],
+                [],
                 [
                     [
                         'tr',

@@ -70,9 +70,7 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
         return [
             [
                 'table',
-                [
-                    'class' => 'two-columns'
-                ],
+                [],
                 [
                     [
                         'caption',

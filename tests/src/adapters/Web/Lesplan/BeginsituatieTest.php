@@ -33,7 +33,6 @@ class BeginsituatieTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("Beginsituatie", $html[0][HTMLFactory::TEXT]);
         
         $this->assertEquals('table', $html[1][HTMLFactory::TAG]);
-        $this->assertEquals('two-columns', $html[1][HTMLFactory::ATTRIBUTES]['class']);
         
         $row = $html[1][HTMLFactory::CHILDREN][0];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
