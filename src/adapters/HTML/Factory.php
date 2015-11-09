@@ -72,15 +72,25 @@ final class Factory
         return $this->makeHTML($layoutable->generateHTMLLayout($this));
     }
     
+    private function makeHTMLText($tag, $text)
+    {
+        return [self::TAG => $tag, self::TEXT => $text];
+    }
+    
+    private function makeHTMLElement($tag, array $attributes, array $children)
+    {
+        return [self::TAG => $tag, self::ATTRIBUTES => $attributes, self::CHILDREN => $children];
+    }
+    
     public function makeTableRow($expectedCellCount, array $data)
     {
         $cellsHTML = [];
         foreach ($data as $header => $value) {
-            $cellsHTML[] = [self::TAG => 'th', self::TEXT => $header];
+            $cellsHTML[] = $this->makeHTMLText('th', $header);
             if (is_string($value)) {
-                $cellsHTML[] = [self::TAG => 'td', self::TEXT => $value];
+                $cellsHTML[] = $this->makeHTMLText('td', $value);
             } else {
-                $cellsHTML[] = [self::TAG => 'td', self::ATTRIBUTES => [], self::CHILDREN => $value];
+                $cellsHTML[] = $this->makeHTMLElement('td', [], $value);
             }
         }
         
@@ -92,18 +102,10 @@ final class Factory
             if (count($cellsHTML[$lastCellIndex]) === 3) {
                 $cellsHTML[$lastCellIndex][self::ATTRIBUTES]['colspan'] = $colspan;
             } else {
-                $cellsHTML[$lastCellIndex] = [
-                    self::TAG => $cellsHTML[$lastCellIndex][self::TAG],
-                    self::ATTRIBUTES => [
-                        'colspan' => $colspan
-                    ],
-                    self::CHILDREN => [
-                        $cellsHTML[$lastCellIndex][self::TEXT]
-                    ]
-                ];
+                $cellsHTML[$lastCellIndex] = $this->makeHTMLElement($cellsHTML[$lastCellIndex][self::TAG], ['colspan' => $colspan], [$cellsHTML[$lastCellIndex][self::TEXT]]);
             }
         }
         
-        return [self::TAG => 'tr', self::ATTRIBUTES => [], self::CHILDREN => $cellsHTML];
+        return $this->makeHTMLElement('tr', [], $cellsHTML);
     }
 }
