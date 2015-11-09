@@ -184,5 +184,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
         $this->assertEquals('table', $html[Factory::TAG]);
+        $this->assertEquals('caption', $html[Factory::CHILDREN][0][Factory::TAG]);
+        $this->assertEquals('Activerende opening', $html[Factory::CHILDREN][0][Factory::TEXT]);
     }
 }

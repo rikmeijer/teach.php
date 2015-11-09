@@ -120,6 +120,8 @@ final class Factory
     
     public function makeTable($caption, array $rows)
     {
-        return $this->makeHTMLElement('table', [], []);
+        return $this->makeHTMLElement('table', [], [
+            $this->makeHTMLText('caption', $caption)
+        ]);
     }
 }
