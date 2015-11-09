@@ -87,15 +87,21 @@ final class Factory
         $actualCellCount = count($cellsHTML);
         if ($actualCellCount < $expectedCellCount) {
             $lastCellIndex = $actualCellCount - 1;
-            $cellsHTML[$lastCellIndex] = [
-                self::TAG => $cellsHTML[$lastCellIndex][self::TAG],
-                self::ATTRIBUTES => [
-                    'colspan' => (string)($expectedCellCount - $lastCellIndex) // last cell must also be included in span
-                ],
-                self::CHILDREN => [
-                    $cellsHTML[$lastCellIndex][self::TEXT]
-                ]
-            ];
+            $colspan = (string)($expectedCellCount - $lastCellIndex); // last cell must also be included in span
+            
+            if (count($cellsHTML[$lastCellIndex]) === 3) {
+                $cellsHTML[$lastCellIndex][self::ATTRIBUTES]['colspan'] = $colspan;
+            } else {
+                $cellsHTML[$lastCellIndex] = [
+                    self::TAG => $cellsHTML[$lastCellIndex][self::TAG],
+                    self::ATTRIBUTES => [
+                        'colspan' => $colspan
+                    ],
+                    self::CHILDREN => [
+                        $cellsHTML[$lastCellIndex][self::TEXT]
+                    ]
+                ];
+            }
         }
         
         return [self::TAG => 'tr', self::ATTRIBUTES => [], self::CHILDREN => $cellsHTML];
