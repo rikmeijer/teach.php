@@ -151,4 +151,14 @@ final class Factory
     {
         return $this->makeHTMLText('h1', $text);
     }
+    
+    public function makeHeader2($text)
+    {
+        return $this->makeHTMLText('h2', $text);
+    }
+    
+    public function makeHeader3($text)
+    {
+        return $this->makeHTMLText('h3', $text);
+    }
 }
