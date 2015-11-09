@@ -52,10 +52,7 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
             if (in_array($intelligentieIdentifier, $this->werkvorm['intelligenties'])) {
                 $intelligentieListItems[] = [
                     'li',
-                    [
-                        'id' => $intelligentieIdentifier,
-                        'class' => 'selected'
-                    ],
+                    [],
                     [
                         $intelligentieLable
                     ]
