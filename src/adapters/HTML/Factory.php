@@ -146,4 +146,9 @@ final class Factory
         
         return $this->makeHTMLElement('table', [], $tableChildrenHTML);
     }
+    
+    public function makeHeader1($text)
+    {
+        return $this->makeHTMLText('h1', $text);
+    }
 }
