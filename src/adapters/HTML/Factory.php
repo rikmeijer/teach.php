@@ -117,6 +117,16 @@ final class Factory
         }
         return $this->makeHTMLElement('ul', [], $listitemsHTML);
     }
+
+
+    public function makeOrderedList(array $listitems)
+    {
+        $listitemsHTML = [];
+        foreach ($listitems as $listitem) {
+            $listitemsHTML[] = $this->makeHTMLText('li', $listitem);
+        }
+        return $this->makeHTMLElement('ol', [], $listitemsHTML);
+    }
     
     public function makeTable($caption, array $rows)
     {
