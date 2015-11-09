@@ -62,17 +62,15 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
      */
     public function generateHTMLLayout(\Teach\Adapters\HTML\Factory $factory)
     {
-        $benodigdeMediaHTMLLayout = [];
+        $beginsituatieHTMLLayout = $this->beginsituatie->generateHTMLLayout($factory);
         if (count($this->media) > 0) {
-            $benodigdeMediaHTMLLayout[] = $factory->makeHeader3('Benodigde media');
-            $benodigdeMediaHTMLLayout[] = $factory->makeUnorderedList($this->media);
+            $beginsituatieHTMLLayout[] = $factory->makeHeader3('Benodigde media');
+            $beginsituatieHTMLLayout[] = $factory->makeUnorderedList($this->media);
         }
         
-        $leerdoelenHTMLLayout = [
-            $factory->makeHeader3('Leerdoelen'),
-            $factory->makeParagraph('Na afloop van de les kan de student:'),
-            $factory->makeOrderedList($this->leerdoelen)
-        ];
+        $beginsituatieHTMLLayout[] = $factory->makeHeader3('Leerdoelen');
+        $beginsituatieHTMLLayout[] = $factory->makeParagraph('Na afloop van de les kan de student:');
+        $beginsituatieHTMLLayout[] = $factory->makeOrderedList($this->leerdoelen);
         
         return array_merge([
             [
@@ -82,7 +80,7 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
                     $factory->makeHeader1('Lesplan ' . $this->vak)
                 ]
             ],
-            $factory->makeSection($factory->makeHeader2($this->les), array_merge($this->beginsituatie->generateHTMLLayout($factory), $benodigdeMediaHTMLLayout, $leerdoelenHTMLLayout))
+            $factory->makeSection($factory->makeHeader2($this->les), $beginsituatieHTMLLayout)
         ], 
             $this->introductie->generateHTMLLayout($factory),
             $this->kern->generateHTMLLayout($factory),
