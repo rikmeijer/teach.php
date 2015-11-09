@@ -161,4 +161,10 @@ final class Factory
     {
         return $this->makeHTMLText('h3', $text);
     }
+    
+    public function makeSection(array $header, array $contents)
+    {
+        \array_unshift($contents, $header);
+        return $this->makeHTMLElement('section', [], $contents);
+    }
 }
