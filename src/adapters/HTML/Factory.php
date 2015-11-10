@@ -72,11 +72,6 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
         return $this->makeHTML($layoutable->generateLayout ($this));
     }
     
-    private function makeHTMLText($tag, $text)
-    {
-        return [self::TAG => $tag, self::ATTRIBUTES => [], self::CHILDREN => [$text]];
-    }
-    
     private function makeHTMLElement($tag, array $attributes, array $children)
     {
         return [self::TAG => $tag, self::ATTRIBUTES => $attributes, self::CHILDREN => $children];
@@ -86,9 +81,9 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
     {
         $cellsHTML = [];
         foreach ($data as $header => $value) {
-            $cellsHTML[] = $this->makeHTMLText('th', $header);
+            $cellsHTML[] = $this->makeHTMLElement('th', [], [$header]);
             if (is_string($value)) {
-                $cellsHTML[] = $this->makeHTMLText('td', $value);
+                $cellsHTML[] = $this->makeHTMLElement('td', [], [$value]);
             } else {
                 $cellsHTML[] = $this->makeHTMLElement('td', [], $value);
             }
@@ -113,7 +108,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
     {
         $listitemsHTML = [];
         foreach ($listitems as $listitem) {
-            $listitemsHTML[] = $this->makeHTMLText('li', $listitem);
+            $listitemsHTML[] = $this->makeHTMLElement('li', [], [$listitem]);
         }
         return $this->makeHTMLElement($tag, [], $listitemsHTML);
     }
@@ -138,7 +133,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
             
         $tableChildrenHTML = [];
         if ($caption !== null) {
-            $tableChildrenHTML[] = $this->makeHTMLText('caption', $caption);
+            $tableChildrenHTML[] = $this->makeHTMLElement('caption', [], [$caption]);
         }
         foreach ($rows as $row) {
             $tableChildrenHTML[] = $this->makeTableRow($expectedCellCount, $row);
@@ -149,22 +144,22 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
     
     public function makeHeader1($text)
     {
-        return $this->makeHTMLText('h1', $text);
+        return $this->makeHTMLElement('h1', [], [$text]);
     }
     
     public function makeHeader2($text)
     {
-        return $this->makeHTMLText('h2', $text);
+        return $this->makeHTMLElement('h2', [], [$text]);
     }
     
     public function makeHeader3($text)
     {
-        return $this->makeHTMLText('h3', $text);
+        return $this->makeHTMLElement('h3', [], [$text]);
     }
     
     public function makeParagraph($text)
     {
-        return $this->makeHTMLText('p', $text);
+        return $this->makeHTMLElement('p', [], [$text]);
     }
     
     public function makePageHeader(array $header)
