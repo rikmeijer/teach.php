@@ -98,6 +98,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('th', $html[Factory::CHILDREN][0][Factory::TAG]);
         $this->assertEquals('inhoud', $html[Factory::CHILDREN][0][Factory::CHILDREN][0]);
         $this->assertEquals('td', $html[Factory::CHILDREN][1][Factory::TAG]);
+        $this->assertEquals('inhoud', $html[Factory::CHILDREN][1][Factory::ATTRIBUTES]['id']);
         $this->assertEquals('bladiebla', $html[Factory::CHILDREN][1][Factory::CHILDREN][0]);
     }
 
