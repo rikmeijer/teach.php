@@ -66,10 +66,6 @@ ul.meervoudige-intelligenties {
 
 ul.meervoudige-intelligenties li {
 	padding: 0 5px;
-	display: none;
-}
-
-ul.meervoudige-intelligenties li.selected {
 	display: inline;
 }
 
