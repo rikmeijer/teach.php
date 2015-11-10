@@ -23,37 +23,37 @@ class ActiviteitTest extends \PHPUnit_Framework_TestCase
         $html = $object->generateLayout (new HTMLFactory());
         $this->assertEquals('table', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("caption", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Reflecteren", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Reflecteren", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
 
         $row = $html[0][HTMLFactory::CHILDREN][1];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
         $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("werkvorm", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("werkvorm", $row[HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
-        $this->assertEquals("brainstormen", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
+        $this->assertEquals("brainstormen", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
         
         $this->assertEquals("th", $row[HTMLFactory::CHILDREN][2][HTMLFactory::TAG]);
-        $this->assertEquals("organisatievorm", $row[HTMLFactory::CHILDREN][2][HTMLFactory::TEXT]);
+        $this->assertEquals("organisatievorm", $row[HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][3][HTMLFactory::TAG]);
-        $this->assertEquals("plenair", $row[HTMLFactory::CHILDREN][3][HTMLFactory::TEXT]);
+        $this->assertEquals("plenair", $row[HTMLFactory::CHILDREN][3][HTMLFactory::CHILDREN][0]);
 
         $row = $html[0][HTMLFactory::CHILDREN][2];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
         $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("tijd", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("tijd", $row[HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
-        $this->assertEquals("5 minuten", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
+        $this->assertEquals("5 minuten", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
         
         $this->assertEquals("th", $row[HTMLFactory::CHILDREN][2][HTMLFactory::TAG]);
-        $this->assertEquals("soort werkvorm", $row[HTMLFactory::CHILDREN][2][HTMLFactory::TEXT]);
+        $this->assertEquals("soort werkvorm", $row[HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][3][HTMLFactory::TAG]);
-        $this->assertEquals("discussie", $row[HTMLFactory::CHILDREN][3][HTMLFactory::TEXT]);
+        $this->assertEquals("discussie", $row[HTMLFactory::CHILDREN][3][HTMLFactory::CHILDREN][0]);
         
 
         $row = $html[0][HTMLFactory::CHILDREN][3];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
         $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("intelligenties", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("intelligenties", $row[HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals('3', $row[HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['colspan']);
         $this->assertEquals("ul", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
@@ -61,18 +61,18 @@ class ActiviteitTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(3, $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN]);
         
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals('VL', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]); // CHILDREN][0]);
+        $this->assertEquals('VL', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]); // CHILDREN][0]);
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
-        $this->assertEquals('IR', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]); // CHILDREN][0]);
+        $this->assertEquals('IR', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]); // CHILDREN][0]);
 
         $this->assertEquals("li", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][2][HTMLFactory::TAG]);
-        $this->assertEquals('IA', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][2][HTMLFactory::TEXT]); // CHILDREN][0]);
+        $this->assertEquals('IA', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0]); // CHILDREN][0]);
 
         $row = $html[0][HTMLFactory::CHILDREN][4];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
         $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("inhoud", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("inhoud", $row[HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals('3', $row[HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['colspan']);
         $this->assertEquals($werkvorm['inhoud'], $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
@@ -100,14 +100,14 @@ class ActiviteitTest extends \PHPUnit_Framework_TestCase
         $row = $html[0][HTMLFactory::CHILDREN][4];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
         $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("inhoud", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("inhoud", $row[HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals('3', $row[HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['colspan']);
         
         $this->assertEquals('ul', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals('li', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Link leggen naar een programmeeromgeving: niet fysiek, maar virtueel.", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Link leggen naar een programmeeromgeving: niet fysiek, maar virtueel.", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         $this->assertEquals('li', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
-        $this->assertEquals("Wie kan bedenken wat voor gereedschap erbij programmeren komt kijken?", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
+        $this->assertEquals("Wie kan bedenken wat voor gereedschap erbij programmeren komt kijken?", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
     }
 }

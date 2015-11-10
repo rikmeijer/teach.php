@@ -74,7 +74,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
     
     private function makeHTMLText($tag, $text)
     {
-        return [self::TAG => $tag, self::TEXT => $text];
+        return [self::TAG => $tag, self::ATTRIBUTES => [], self::CHILDREN => [$text]];
     }
     
     private function makeHTMLElement($tag, array $attributes, array $children)
@@ -102,7 +102,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
             if (count($cellsHTML[$lastCellIndex]) === 3) {
                 $cellsHTML[$lastCellIndex][self::ATTRIBUTES]['colspan'] = $colspan;
             } else {
-                $cellsHTML[$lastCellIndex] = $this->makeHTMLElement($cellsHTML[$lastCellIndex][self::TAG], ['colspan' => $colspan], [$cellsHTML[$lastCellIndex][self::TEXT]]);
+                $cellsHTML[$lastCellIndex] = $this->makeHTMLElement($cellsHTML[$lastCellIndex][self::TAG], ['colspan' => $colspan], [$cellsHTML[$lastCellIndex][self::CHILDREN][0]]);
             }
         }
         

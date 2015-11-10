@@ -22,7 +22,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
             ]
         ])->generateLayout (new HTMLFactory());
-        $this->assertEquals("Activerende opening", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Activerende opening", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
     }
 
     public function testCreateThema()
@@ -43,12 +43,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 ]
             ]
         ])->generateLayout (new HTMLFactory());
-        $this->assertEquals("Thema caption here", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Thema caption here", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         
         $row = $layout[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][4];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
         $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("inhoud", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("inhoud", $row[HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals('3', $row[HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['colspan']);
         $this->assertEquals('bla die bla', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
@@ -58,7 +58,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     {
         $object = new Factory();
         $layout = $object->createFase("Kern")->generateLayout (new HTMLFactory());
-        $this->assertEquals("Kern", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Kern", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
     }
 
     public function testCreateFaseWithActiviteiten()
@@ -79,12 +79,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 ]
             ]
         ])->generateLayout (new HTMLFactory());
-        $this->assertEquals("Introductie", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Introductie", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         
         $row = $layout[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][4];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
         $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("inhoud", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("inhoud", $row[HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals('3', $row[HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['colspan']);
         $this->assertEquals('bla die bla', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
@@ -110,14 +110,14 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 ]
             ]
         ])->generateLayout (new HTMLFactory());
-        $this->assertEquals("Kern", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Kern", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         
-        $this->assertEquals("Thema 1: Thema caption here", $layout[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Thema 1: Thema caption here", $layout[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         
         $row = $layout[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][4];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
         $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("inhoud", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("inhoud", $row[HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals('3', $row[HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['colspan']);
         $this->assertEquals('bla die bla', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
@@ -139,7 +139,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             'overige' => 'nvt'
         ])->generateLayout (new HTMLFactory());
         $this->assertEquals('h3', $layout[0][HTMLFactory::TAG]);
-        $this->assertEquals("Beginsituatie", $layout[0][HTMLFactory::TEXT]);
+        $this->assertEquals("Beginsituatie", $layout[0][HTMLFactory::CHILDREN][0]);
     }
 
     public function testCreateLesplan()
@@ -372,7 +372,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
             $this->assertEquals('header', $layout[0][HTMLFactory::TAG]);
             $this->assertEquals("h1", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-            $this->assertEquals("Lesplan Programmeren 1", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+            $this->assertEquals("Lesplan Programmeren 1", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         ;
     }
 }

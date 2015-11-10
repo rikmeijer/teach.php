@@ -11,7 +11,7 @@ class FaseTest extends \PHPUnit_Framework_TestCase
         $html = $object->generateLayout (new HTMLFactory());
         $this->assertEquals('section', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h2", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Kern", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Kern", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
     }
 
     public function testGenerateHTMLLayoutOnderdelen()
@@ -22,10 +22,10 @@ class FaseTest extends \PHPUnit_Framework_TestCase
         $html = $object->generateLayout (new HTMLFactory());
         $this->assertEquals('section', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h2", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Kern", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Kern", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         
         $this->assertEquals('section', $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals("h3", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Thema 1: zelf de motor reviseren", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Thema 1: zelf de motor reviseren", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
     }
 }

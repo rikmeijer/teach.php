@@ -30,50 +30,50 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         
         $object = new Lesplan("Programmeren 1", 'Blok 1 / Week 1 / Les 1', $beginsituatie, $media, $leerdoelen, new Lesplan\Fase("Introductie"), new Lesplan\Fase('Kern'), new Lesplan\Fase("Afsluiting"));
         
-        $html = $object->generateLayout (new HTMLFactory());
+        $html = $object->generateLayout(new HTMLFactory());
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Lesplan Programmeren 1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Lesplan Programmeren 1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
 
         $this->assertEquals('section', $html[1][HTMLFactory::TAG]);
         $this->assertEquals("h2", $html[1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Blok 1 / Week 1 / Les 1", $html[1][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Blok 1 / Week 1 / Les 1", $html[1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
 
         $this->assertEquals('h3', $html[1][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
-        $this->assertEquals("Beginsituatie", $html[1][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
+        $this->assertEquals("Beginsituatie", $html[1][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
         
         $this->assertEquals('h3', $html[1][HTMLFactory::CHILDREN][3][HTMLFactory::TAG]);
-        $this->assertEquals("Benodigde media", $html[1][HTMLFactory::CHILDREN][3][HTMLFactory::TEXT]);
+        $this->assertEquals("Benodigde media", $html[1][HTMLFactory::CHILDREN][3][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("ul", $html[1][HTMLFactory::CHILDREN][4][HTMLFactory::TAG]);
 
         $this->assertEquals("li", $html[1][HTMLFactory::CHILDREN][4][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals('filmfragment matrix', $html[1][HTMLFactory::CHILDREN][4][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals('filmfragment matrix', $html[1][HTMLFactory::CHILDREN][4][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("li", $html[1][HTMLFactory::CHILDREN][4][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
-        $this->assertEquals('countdown timer voor toepassingsfases (optioneel)', $html[1][HTMLFactory::CHILDREN][4][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
+        $this->assertEquals('countdown timer voor toepassingsfases (optioneel)', $html[1][HTMLFactory::CHILDREN][4][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
 
         $this->assertEquals('h3', $html[1][HTMLFactory::CHILDREN][5][HTMLFactory::TAG]);
-        $this->assertEquals("Leerdoelen", $html[1][HTMLFactory::CHILDREN][5][HTMLFactory::TEXT]);
+        $this->assertEquals("Leerdoelen", $html[1][HTMLFactory::CHILDREN][5][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("p", $html[1][HTMLFactory::CHILDREN][6][HTMLFactory::TAG]);
-        $this->assertEquals("Na afloop van de les kan de student:", $html[1][HTMLFactory::CHILDREN][6][HTMLFactory::TEXT]);
+        $this->assertEquals("Na afloop van de les kan de student:", $html[1][HTMLFactory::CHILDREN][6][HTMLFactory::CHILDREN][0]);
         
         $this->assertEquals("ol", $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::TAG]);
         
         $this->assertEquals("li", $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals('Zelfstandig eclipse installeren', $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals('Zelfstandig eclipse installeren', $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("li", $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
-        $this->assertEquals('Java-code lezen en uitleggen wat er gebeurt', $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
+        $this->assertEquals('Java-code lezen en uitleggen wat er gebeurt', $html[1][HTMLFactory::CHILDREN][7][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
         
         $this->assertEquals('section', $html[2][HTMLFactory::TAG]);
         $this->assertEquals("h2", $html[2][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Introductie", $html[2][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Introductie", $html[2][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         
         $this->assertEquals('section', $html[3][HTMLFactory::TAG]);
         $this->assertEquals("h2", $html[3][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Kern", $html[3][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Kern", $html[3][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         
         $this->assertEquals('section', $html[4][HTMLFactory::TAG]);
         $this->assertEquals("h2", $html[4][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Afsluiting", $html[4][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Afsluiting", $html[4][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
     }
 
     public function testGenerateHTMLLayoutNoMedia()
@@ -96,17 +96,17 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         $html = $object->generateLayout (new HTMLFactory());
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Lesplan Programmeren 1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Lesplan Programmeren 1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
     
         $this->assertEquals('section', $html[1][HTMLFactory::TAG]);
         $this->assertEquals("h2", $html[1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Blok 1 / Week 1 / Les 1", $html[1][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Blok 1 / Week 1 / Les 1", $html[1][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
     
         $this->assertEquals('h3', $html[1][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
-        $this->assertEquals("Beginsituatie", $html[1][HTMLFactory::CHILDREN][1][HTMLFactory::TEXT]);
+        $this->assertEquals("Beginsituatie", $html[1][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
     
         $this->assertEquals('h3', $html[1][HTMLFactory::CHILDREN][3][HTMLFactory::TAG]);
-        $this->assertEquals("Leerdoelen", $html[1][HTMLFactory::CHILDREN][3][HTMLFactory::TEXT]);
+        $this->assertEquals("Leerdoelen", $html[1][HTMLFactory::CHILDREN][3][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("p", $html[1][HTMLFactory::CHILDREN][4][HTMLFactory::TAG]);
     
     }

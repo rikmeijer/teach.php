@@ -11,7 +11,7 @@ class ThemaTest extends \PHPUnit_Framework_TestCase
         $html = $object->generateLayout (new HTMLFactory());
         $this->assertEquals('section', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h3", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Thema 1: zelf de motor reviseren", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Thema 1: zelf de motor reviseren", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
     }
     
 
@@ -35,12 +35,12 @@ class ThemaTest extends \PHPUnit_Framework_TestCase
         $html = $object->generateLayout (new HTMLFactory());
         $this->assertEquals('section', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h3", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Thema 1: zelf de motor reviseren", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("Thema 1: zelf de motor reviseren", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         
         $row = $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][4];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
         $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("inhoud", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
+        $this->assertEquals("inhoud", $row[HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals('3', $row[HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['colspan']);
         $this->assertEquals($werkvorm['inhoud'], $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
