@@ -58,8 +58,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $html = $object->makeHTML([
             'Hello World',
             [
-                'a',
-                'Hello Hello'
+                'a', [], ['Hello Hello']
             ]
         ]);
         $this->assertEquals('Hello World<a>Hello Hello</a>', $html);

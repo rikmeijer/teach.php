@@ -8,8 +8,6 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
 
     const ATTRIBUTES = 1;
 
-    const TEXT = 1;
-
     const CHILDREN = 2;
 
     /**
@@ -45,14 +43,6 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
     {
         if (is_string($elementDefinition)) {
             return $this->createText($elementDefinition);
-        } elseif (is_string($elementDefinition[1])) {
-            return $this->convertDefinition([
-                $elementDefinition[0],
-                [],
-                [
-                    $elementDefinition[1]
-                ]
-            ]);
         } else {
             return $this->createElement($elementDefinition[0], $elementDefinition[1], $elementDefinition[2]);
         }
