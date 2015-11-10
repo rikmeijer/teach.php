@@ -69,7 +69,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
 
     public function makeHTMLFrom(LayoutableInterface $layoutable)
     {
-        return $this->makeHTML($layoutable->generateHTMLLayout($this));
+        return $this->makeHTML($layoutable->generateLayout ($this));
     }
     
     private function makeHTMLText($tag, $text)

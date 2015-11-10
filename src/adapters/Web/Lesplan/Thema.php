@@ -26,11 +26,11 @@ final class Thema implements \Teach\Adapters\HTML\LayoutableInterface
      *
      * @return array
      */
-    public function generateHTMLLayout(\Teach\Adapters\LayoutFactoryInterface $factory)
+    public function generateLayout (\Teach\Adapters\LayoutFactoryInterface $factory)
     {
         $activiteitenHTML = [];
         foreach ($this->activiteiten as $activiteit) {
-            $activiteitenHTML = array_merge($activiteitenHTML, $activiteit->generateHTMLLayout($factory));
+            $activiteitenHTML = array_merge($activiteitenHTML, $activiteit->generateLayout ($factory));
         }
         
         return [

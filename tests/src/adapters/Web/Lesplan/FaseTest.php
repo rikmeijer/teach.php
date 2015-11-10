@@ -8,7 +8,7 @@ class FaseTest extends \PHPUnit_Framework_TestCase
     public function testGenerateHTMLLayout()
     {
         $object = new Fase("Kern");
-        $html = $object->generateHTMLLayout(new HTMLFactory());
+        $html = $object->generateLayout (new HTMLFactory());
         $this->assertEquals('section', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h2", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals("Kern", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
@@ -19,7 +19,7 @@ class FaseTest extends \PHPUnit_Framework_TestCase
         $object = new Fase("Kern");
         
         $object->addOnderdeel(new Thema("Thema 1: zelf de motor reviseren"));
-        $html = $object->generateHTMLLayout(new HTMLFactory());
+        $html = $object->generateLayout (new HTMLFactory());
         $this->assertEquals('section', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h2", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals("Kern", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);

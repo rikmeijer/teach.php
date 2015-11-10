@@ -4,5 +4,5 @@ namespace Teach\Adapters\HTML;
 interface LayoutableInterface
 {
 
-    function generateHTMLLayout(\Teach\Adapters\LayoutFactoryInterface $factory);
+    function generateLayout(\Teach\Adapters\LayoutFactoryInterface $factory);
 }

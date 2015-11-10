@@ -28,7 +28,7 @@ class BeginsituatieTest extends \PHPUnit_Framework_TestCase
                 'voorbeeldproject voor aanvullende feedback'
             ]
         ]);
-        $html = $object->generateHTMLLayout(new HTMLFactory());
+        $html = $object->generateLayout (new HTMLFactory());
         $this->assertEquals('h3', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("Beginsituatie", $html[0][HTMLFactory::TEXT]);
         

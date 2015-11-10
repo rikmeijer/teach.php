@@ -8,7 +8,7 @@ class ThemaTest extends \PHPUnit_Framework_TestCase
     public function testGenerateHTMLLayout()
     {
         $object = new Thema("Thema 1: zelf de motor reviseren");
-        $html = $object->generateHTMLLayout(new HTMLFactory());
+        $html = $object->generateLayout (new HTMLFactory());
         $this->assertEquals('section', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h3", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals("Thema 1: zelf de motor reviseren", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
@@ -32,7 +32,7 @@ class ThemaTest extends \PHPUnit_Framework_TestCase
                     Activiteit::MI_INTERPERSOONLIJK
                 )
             )));
-        $html = $object->generateHTMLLayout(new HTMLFactory());
+        $html = $object->generateLayout (new HTMLFactory());
         $this->assertEquals('section', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h3", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
         $this->assertEquals("Thema 1: zelf de motor reviseren", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);

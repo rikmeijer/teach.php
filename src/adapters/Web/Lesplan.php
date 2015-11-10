@@ -60,9 +60,9 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
      *
      * @return array
      */
-    public function generateHTMLLayout(\Teach\Adapters\LayoutFactoryInterface $factory)
+    public function generateLayout (\Teach\Adapters\LayoutFactoryInterface $factory)
     {
-        $beginsituatieHTMLLayout = $this->beginsituatie->generateHTMLLayout($factory);
+        $beginsituatieHTMLLayout = $this->beginsituatie->generateLayout ($factory);
         if (count($this->media) > 0) {
             $beginsituatieHTMLLayout[] = $factory->makeHeader3('Benodigde media');
             $beginsituatieHTMLLayout[] = $factory->makeUnorderedList($this->media);
@@ -76,9 +76,9 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
             $factory->makePageHeader($factory->makeHeader1('Lesplan ' . $this->vak)),
             $factory->makeSection($factory->makeHeader2($this->les), $beginsituatieHTMLLayout)
         ], 
-            $this->introductie->generateHTMLLayout($factory),
-            $this->kern->generateHTMLLayout($factory),
-            $this->afsluiting->generateHTMLLayout($factory)
+            $this->introductie->generateLayout ($factory),
+            $this->kern->generateLayout ($factory),
+            $this->afsluiting->generateLayout ($factory)
             );
     }
 }

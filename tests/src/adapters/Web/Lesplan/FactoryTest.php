@@ -21,7 +21,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
                 \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
             ]
-        ])->generateHTMLLayout(new HTMLFactory());
+        ])->generateLayout (new HTMLFactory());
         $this->assertEquals("Activerende opening", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
     }
 
@@ -42,7 +42,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                     \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
                 ]
             ]
-        ])->generateHTMLLayout(new HTMLFactory());
+        ])->generateLayout (new HTMLFactory());
         $this->assertEquals("Thema caption here", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
         
         $row = $layout[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][4];
@@ -57,7 +57,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateFase()
     {
         $object = new Factory();
-        $layout = $object->createFase("Kern")->generateHTMLLayout(new HTMLFactory());
+        $layout = $object->createFase("Kern")->generateLayout (new HTMLFactory());
         $this->assertEquals("Kern", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
     }
 
@@ -78,7 +78,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                     \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
                 ]
             ]
-        ])->generateHTMLLayout(new HTMLFactory());
+        ])->generateLayout (new HTMLFactory());
         $this->assertEquals("Introductie", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
         
         $row = $layout[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][4];
@@ -109,7 +109,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                     ]
                 ]
             ]
-        ])->generateHTMLLayout(new HTMLFactory());
+        ])->generateLayout (new HTMLFactory());
         $this->assertEquals("Kern", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
         
         $this->assertEquals("Thema 1: Thema caption here", $layout[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0][HTMLFactory::TEXT]);
@@ -137,7 +137,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             'duur' => '95',
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt'
-        ])->generateHTMLLayout(new HTMLFactory());
+        ])->generateLayout (new HTMLFactory());
         $this->assertEquals('h3', $layout[0][HTMLFactory::TAG]);
         $this->assertEquals("Beginsituatie", $layout[0][HTMLFactory::TEXT]);
     }
@@ -368,7 +368,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                         ]
                     ]
                 ]
-            ])->generateHTMLLayout(new HTMLFactory());
+            ])->generateLayout (new HTMLFactory());
 
             $this->assertEquals('header', $layout[0][HTMLFactory::TAG]);
             $this->assertEquals("h1", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);

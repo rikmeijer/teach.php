@@ -26,11 +26,11 @@ final class Fase implements \Teach\Adapters\HTML\LayoutableInterface
      *
      * @return array
      */
-    public function generateHTMLLayout(\Teach\Adapters\LayoutFactoryInterface $factory)
+    public function generateLayout (\Teach\Adapters\LayoutFactoryInterface $factory)
     {
         $onderdelenHTML = [];
         foreach ($this->onderdelen as $onderdeel) {
-            $onderdelenHTML = array_merge($onderdelenHTML, $onderdeel->generateHTMLLayout($factory));
+            $onderdelenHTML = array_merge($onderdelenHTML, $onderdeel->generateLayout ($factory));
         }
         
         return [

@@ -70,10 +70,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $mockbuilder = $this->getMockBuilder('\Teach\Adapters\HTML\LayoutableInterface');
         $mockbuilder->setMockClassName('DummyHTML');
         $mockbuilder->setMethods(array(
-            'generateHTMLLayout'
+            'generateLayout'
         ));
         $mock = $mockbuilder->getMock();
-        $mock->method('generateHTMLLayout')->willReturn([
+        $mock->method('generateLayout')->willReturn([
             'Hello World',
             [
                 'li',
