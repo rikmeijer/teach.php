@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters\Web;
 
-final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
+final class Lesplan implements \Teach\Adapters\LayoutableInterface
 {
 
     private $vak;

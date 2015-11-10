@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Adapters\HTML;
+namespace Teach\Adapters;
 
 interface LayoutableInterface
 {

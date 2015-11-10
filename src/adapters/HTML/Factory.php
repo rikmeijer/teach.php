@@ -65,9 +65,9 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
             $html .= $this->convertDefinition($elementDefinition)->render();
         }
         return $html;
-    }
+    }   
 
-    public function makeHTMLFrom(LayoutableInterface $layoutable)
+    public function makeHTMLFrom(\Teach\Adapters\LayoutableInterface $layoutable)
     {
         return $this->makeHTML($layoutable->generateLayout ($this));
     }

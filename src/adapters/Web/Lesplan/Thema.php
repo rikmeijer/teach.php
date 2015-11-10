@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters\Web\Lesplan;
 
-final class Thema implements \Teach\Adapters\HTML\LayoutableInterface
+final class Thema implements \Teach\Adapters\LayoutableInterface
 {
 
     private $title;

@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters\Web\Lesplan;
 
-final class Beginsituatie implements \Teach\Adapters\HTML\LayoutableInterface
+final class Beginsituatie implements \Teach\Adapters\LayoutableInterface
 {
 
     private $opleiding;
