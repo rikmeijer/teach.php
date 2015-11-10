@@ -73,13 +73,7 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
         $beginsituatieHTMLLayout[] = $factory->makeOrderedList($this->leerdoelen);
         
         return array_merge([
-            [
-                'header',
-                [],
-                [
-                    $factory->makeHeader1('Lesplan ' . $this->vak)
-                ]
-            ],
+            $factory->makePageHeader($factory->makeHeader1('Lesplan ' . $this->vak)),
             $factory->makeSection($factory->makeHeader2($this->les), $beginsituatieHTMLLayout)
         ], 
             $this->introductie->generateHTMLLayout($factory),
