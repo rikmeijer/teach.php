@@ -102,9 +102,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
     {
         $cellsHTML = [];
         foreach ($data as $header => $value) {
-            $cellsHTML[] = $this->makeHTMLElement('th', [], [
-                $header
-            ]);
+            $cellsHTML[] = $this->makeHTMLElement('th', [], [$header]);
             if (is_string($value)) {
                 $cellsHTML[] = $this->makeHTMLElement('td', ['id' => $header], [$value]);
             } else {
