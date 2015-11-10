@@ -167,6 +167,11 @@ final class Factory
         return $this->makeHTMLText('p', $text);
     }
     
+    public function makePageHeader(array $header)
+    {
+        return $this->makeHTMLElement('header', [], [$header]);
+    }
+    
     public function makeSection(array $header, array $contents)
     {
         \array_unshift($contents, $header);
