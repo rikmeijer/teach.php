@@ -45,7 +45,7 @@ final class Activiteit implements \Teach\Adapters\HTML\LayoutableInterface
      *
      * @return array
      */
-    public function generateHTMLLayout(\Teach\Adapters\HTML\Factory $factory)
+    public function generateHTMLLayout(\Teach\Adapters\LayoutFactoryInterface $factory)
     {
         $intelligentieHTML = $factory->makeUnorderedList(array_intersect_key(self::INTELLIGENTIES, array_flip($this->werkvorm['intelligenties'])));
         $intelligentieHTML[\Teach\Adapters\HTML\Factory::ATTRIBUTES]['class'] = 'meervoudige-intelligenties';

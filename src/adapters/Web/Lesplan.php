@@ -60,7 +60,7 @@ final class Lesplan implements \Teach\Adapters\HTML\LayoutableInterface
      *
      * @return array
      */
-    public function generateHTMLLayout(\Teach\Adapters\HTML\Factory $factory)
+    public function generateHTMLLayout(\Teach\Adapters\LayoutFactoryInterface $factory)
     {
         $beginsituatieHTMLLayout = $this->beginsituatie->generateHTMLLayout($factory);
         if (count($this->media) > 0) {
