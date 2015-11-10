@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters\HTML;
 
-final class Factory
+final class Factory implements \Teach\Adapters\LayoutFactoryInterface
 {
 
     const TAG = 0;
