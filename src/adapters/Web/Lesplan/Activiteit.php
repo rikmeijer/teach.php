@@ -4,31 +4,31 @@ namespace Teach\Adapters\Web\Lesplan;
 final class Activiteit implements \Teach\Adapters\LayoutableInterface
 {
 
-    const MI_VERBAAL_LINGUISTISCH = "verbaal-linguistisch";
+    const MI_VERBAAL_LINGUISTISCH = "VL";
 
-    const MI_LOGISCH_MATHEMATISCH = "logisch-mathematisch";
+    const MI_LOGISCH_MATHEMATISCH = "LM";
 
-    const MI_VISUEEL_RUIMTELIJK = "visueel-ruimtelijk";
+    const MI_VISUEEL_RUIMTELIJK = "VR";
 
-    const MI_MUZIKAAL_RITMISCH = "muzikaal-ritmisch";
+    const MI_MUZIKAAL_RITMISCH = "MR";
 
-    const MI_LICHAMELIJK_KINESTHETISCH = "lichamelijk-kinesthetisch";
+    const MI_LICHAMELIJK_KINESTHETISCH = "LK";
 
-    const MI_NATURALISTISCH = "naturalistisch";
+    const MI_NATURALISTISCH = "N";
 
-    const MI_INTERPERSOONLIJK = "interpersoonlijk";
+    const MI_INTERPERSOONLIJK = "IR";
 
-    const MI_INTRAPERSOONLIJK = "intrapersoonlijk";
+    const MI_INTRAPERSOONLIJK = "IA";
 
     const INTELLIGENTIES = [
-        self::MI_VERBAAL_LINGUISTISCH => 'VL',
-        self::MI_LOGISCH_MATHEMATISCH => "LM",
-        self::MI_VISUEEL_RUIMTELIJK => "VR",
-        self::MI_MUZIKAAL_RITMISCH => "MR",
-        self::MI_LICHAMELIJK_KINESTHETISCH => "LK",
-        self::MI_NATURALISTISCH => "N",
-        self::MI_INTERPERSOONLIJK => "IR",
-        self::MI_INTRAPERSOONLIJK => "IA"
+        self::MI_VERBAAL_LINGUISTISCH,
+        self::MI_LOGISCH_MATHEMATISCH,
+        self::MI_VISUEEL_RUIMTELIJK,
+        self::MI_MUZIKAAL_RITMISCH,
+        self::MI_LICHAMELIJK_KINESTHETISCH,
+        self::MI_NATURALISTISCH,
+        self::MI_INTERPERSOONLIJK,
+        self::MI_INTRAPERSOONLIJK
     ];
 
     private $caption;
@@ -65,7 +65,7 @@ final class Activiteit implements \Teach\Adapters\LayoutableInterface
                     'soort werkvorm' => $this->werkvorm['werkvormsoort']
                 ],
                 [
-                    'intelligenties' => [$factory->makeUnorderedList(array_intersect_key(self::INTELLIGENTIES, array_flip($this->werkvorm['intelligenties'])))]
+                    'intelligenties' => [$factory->makeUnorderedList(array_intersect(self::INTELLIGENTIES, $this->werkvorm['intelligenties']))]
                 ],
                 [
                     'inhoud' => $inhoudChildren
