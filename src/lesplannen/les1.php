@@ -61,14 +61,6 @@ return function (\mysqli $database) {
             module.naam AS vak,
             contactmoment.starttijd AS starttijd,
             contactmoment.eindtijd AS eindtijd,
-            les.activerende_opening_id,
-            les.focus_id,
-            les.voorstellen_id,
-            les.kennismaken_id,
-            les.terugblik_id,
-            les.huiswerk_id,
-            les.evaluatie_id,
-            les.pakkend_slot_id,
             SUM(activiteit.tijd) + (
                 SELECT SUM(activiteit.tijd) 
                 FROM thema 
@@ -80,7 +72,16 @@ return function (\mysqli $database) {
                 )
                 WHERE thema.les_id = les.id
             ) as duur,
-            TIMESTAMPDIFF(MINUTE, contactmoment.starttijd, contactmoment.eindtijd) as beschikbaar
+            TIMESTAMPDIFF(MINUTE, contactmoment.starttijd, contactmoment.eindtijd) as beschikbaar,
+            contactmoment.ruimte,
+            les.activerende_opening_id,
+            les.focus_id,
+            les.voorstellen_id,
+            les.kennismaken_id,
+            les.terugblik_id,
+            les.huiswerk_id,
+            les.evaluatie_id,
+            les.pakkend_slot_id
         FROM contactmoment
         JOIN les ON les.id = contactmoment.les_id
         JOIN module ON module.id = les.module_id
@@ -117,7 +118,7 @@ return function (\mysqli $database) {
             'starttijd' => date('H:i', strtotime($lesplan['starttijd'])),
             'eindtijd' => date('H:i', strtotime($lesplan['eindtijd'])),
             'duur' => $lesplan['duur'],
-            'ruimte' => 'beschikking over vaste computers',
+            'ruimte' => $lesplan['ruimte'],
             'overige' => 'nvt'
         ],
         'media' => [
