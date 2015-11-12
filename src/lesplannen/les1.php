@@ -1,17 +1,39 @@
 <?php
 return function (\mysqli $database) {
+    
+    /** @var $lesplanQueryResult mysqli_result */
+    $lesplanQueryResult = $database->query("
+        SELECT 
+            les.naam AS les,
+            module.naam AS vak,
+            contactmoment.starttijd AS starttijd,
+            contactmoment.eindtijd AS eindtijd
+        FROM contactmoment
+        JOIN les ON les.id = contactmoment.les_id
+        JOIN module ON module.id = les.module_id
+        WHERE 
+            contactmoment.id = 1
+    ");
+    if ($lesplanQueryResult === false) {
+        trigger_error($database->error, E_USER_ERROR);
+    }
+    $lesplan = $lesplanQueryResult->fetch_assoc();
+    if ($lesplan === null) {
+        return null;
+    }
+    
     return [
         'opleiding' => 'HBO-informatica (voltijd)', // <!-- del>deeltijd</del>/-->
-        'vak' => 'Programmeren 1',
-        'les' => 'Blok 1 / Week 1 / Les 1',
+        'vak' => $lesplan['vak'],
+        'les' => $lesplan['les'],
         'Beginsituatie' => [
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
                 'grootte' => '16 personen'
             ],
-            'starttijd' => '08:45',
-            'eindtijd' => '10:20',
+            'starttijd' => date('H:i', strtotime($lesplan['starttijd'])),
+            'eindtijd' => date('H:i', strtotime($lesplan['eindtijd'])),
             'duur' => '95',
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt'
