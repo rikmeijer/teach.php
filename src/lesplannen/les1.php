@@ -7,7 +7,7 @@ return function (\mysqli $database) {
         if ($queryResult === false) {
             trigger_error($database->error, E_USER_ERROR);
         }
-        return $queryResult->fetch_assoc();
+        return $queryResult;
     }
     
     function getActiviteit($database, $id) {
@@ -22,11 +22,36 @@ return function (\mysqli $database) {
             FROM activiteit
             WHERE 
                 id = " . $id . "
-        ");
+        ")->fetch_assoc();
 
         $activiteit['inhoud'] = explode(chr(10), $activiteit['inhoud']);
         $activiteit['intelligenties'] = explode(',', $activiteit['intelligenties']);
         return $activiteit;
+    }
+    
+    function getKern($database, $les_id) {
+        $activiteitQueryResult = query($database, "
+            SELECT 
+                thema.leerdoel,
+                thema.ervaren_id,
+                thema.reflecteren_id,
+                thema.conceptualiseren_id,
+                thema.toepassen_id
+            FROM thema
+            WHERE 
+                thema.les_id = " . $les_id . "
+        ");
+        $kern = [];
+        while ($thema = $activiteitQueryResult->fetch_assoc()) {
+            $kern[$thema["leerdoel"]] = [
+                "Ervaren" => getActiviteit($database, $thema["ervaren_id"]),
+                "Reflecteren" => getActiviteit($database, $thema["reflecteren_id"]),
+                "Conceptualiseren" => getActiviteit($database, $thema["conceptualiseren_id"]),
+                "Toepassen" => getActiviteit($database, $thema["toepassen_id"])
+            ];
+        }
+        return $kern;
+        
     }
     
     /** @var $lesplanQueryResult mysqli_result */
@@ -47,7 +72,7 @@ return function (\mysqli $database) {
         JOIN module ON module.id = les.module_id
         WHERE 
             contactmoment.id = 1
-    ");
+    ")->fetch_assoc();
     if ($lesplan === null) {
         return null;
     }
@@ -81,20 +106,7 @@ return function (\mysqli $database) {
             "Focus" => getActiviteit($database, $lesplan['focus_id']),
             "Voorstellen" => getActiviteit($database, $lesplan['voorstellen_id']),
         ],
-        'Kern' => [
-            "Zelfstandig eclipse installeren" => [
-                "Ervaren" => getActiviteit($database, 4),
-                "Reflecteren" => getActiviteit($database, 5),
-                "Conceptualiseren" => getActiviteit($database, 6),
-                "Toepassen" => getActiviteit($database, 7)
-            ],
-            "Java-code lezen en uitleggen wat er gebeurt" => [
-                "Ervaren" => getActiviteit($database, 8),
-                "Reflecteren" => getActiviteit($database, 9),
-                "Conceptualiseren" => getActiviteit($database, 10),
-                "Toepassen" => getActiviteit($database, 11)
-            ]
-        ],
+        'Kern' => getKern($database, 1),
         'Afsluiting' => [
             "Huiswerk" => getActiviteit($database, $lesplan['huiswerk_id']),
             "Evaluatie" => getActiviteit($database, $lesplan['evaluatie_id']),
