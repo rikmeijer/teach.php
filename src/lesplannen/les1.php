@@ -59,6 +59,9 @@ return function (\mysqli $database) {
         SELECT 
             les.naam AS les,
             module.naam AS vak,
+            doelgroep.grootte AS doelgroep_grootte,
+            doelgroep.ervaring AS doelgroep_ervaring,
+            doelgroep.beschrijving AS doelgroep_beschrijving,
             contactmoment.starttijd AS starttijd,
             contactmoment.eindtijd AS eindtijd,
             SUM(activiteit.tijd) + (
@@ -74,6 +77,7 @@ return function (\mysqli $database) {
             ) as duur,
             TIMESTAMPDIFF(MINUTE, contactmoment.starttijd, contactmoment.eindtijd) as beschikbaar,
             contactmoment.ruimte,
+            les.opmerkingen,
             les.activerende_opening_id,
             les.focus_id,
             les.voorstellen_id,
@@ -85,6 +89,7 @@ return function (\mysqli $database) {
         FROM contactmoment
         JOIN les ON les.id = contactmoment.les_id
         JOIN module ON module.id = les.module_id
+        JOIN doelgroep ON doelgroep.id = les.doelgroep_id
         
         LEFT JOIN activiteit ON activiteit.id IN (
             les.activerende_opening_id,
@@ -111,15 +116,15 @@ return function (\mysqli $database) {
         'les' => $lesplan['les'],
         'Beginsituatie' => [
             'doelgroep' => [
-                'beschrijving' => 'eerstejaars HBO-studenten',
-                'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
-                'grootte' => '16 personen'
+                'beschrijving' => $lesplan['doelgroep_beschrijving'],
+                'ervaring' => $lesplan['doelgroep_ervaring'],
+                'grootte' => $lesplan['doelgroep_grootte'] . ' personen'
             ],
             'starttijd' => date('H:i', strtotime($lesplan['starttijd'])),
             'eindtijd' => date('H:i', strtotime($lesplan['eindtijd'])),
             'duur' => $lesplan['duur'],
             'ruimte' => $lesplan['ruimte'],
-            'overige' => 'nvt'
+            'overige' => $lesplan['opmerkingen']
         ],
         'media' => [
             'filmfragment matrix',
