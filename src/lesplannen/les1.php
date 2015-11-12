@@ -64,14 +64,41 @@ return function (\mysqli $database) {
             les.activerende_opening_id,
             les.focus_id,
             les.voorstellen_id,
+            les.kennismaken_id,
+            les.terugblik_id,
             les.huiswerk_id,
             les.evaluatie_id,
-            les.pakkend_slot_id
+            les.pakkend_slot_id,
+            SUM(activiteit.tijd) + (
+                SELECT SUM(activiteit.tijd) 
+                FROM thema 
+                LEFT JOIN activiteit ON activiteit.id IN (
+                    thema.ervaren_id,
+                    thema.reflecteren_id,
+                    thema.conceptualiseren_id,
+                    thema.toepassen_id
+                )
+                WHERE thema.les_id = les.id
+            ) as duur,
+            TIMESTAMPDIFF(MINUTE, contactmoment.starttijd, contactmoment.eindtijd) as beschikbaar
         FROM contactmoment
         JOIN les ON les.id = contactmoment.les_id
         JOIN module ON module.id = les.module_id
+        
+        LEFT JOIN activiteit ON activiteit.id IN (
+            les.activerende_opening_id,
+            les.focus_id,
+            les.voorstellen_id,
+            les.kennismaken_id,
+            les.terugblik_id,
+            les.huiswerk_id,
+            les.evaluatie_id,
+            les.pakkend_slot_id
+        )
         WHERE 
             contactmoment.id = 1
+        GROUP BY
+            contactmoment.id
     ")->fetch_assoc();
     if ($lesplan === null) {
         return null;
@@ -89,7 +116,7 @@ return function (\mysqli $database) {
             ],
             'starttijd' => date('H:i', strtotime($lesplan['starttijd'])),
             'eindtijd' => date('H:i', strtotime($lesplan['eindtijd'])),
-            'duur' => '95',
+            'duur' => $lesplan['duur'],
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt'
         ],
