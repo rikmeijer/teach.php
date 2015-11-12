@@ -5,13 +5,16 @@
  */
 return function () {
     $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
-    $applicationBootstrap();
+    $resourceFactory = $applicationBootstrap();
     
-    return function ($lesplanIdentifier) {
+    $databaseFactory = $resourceFactory['database'];
+    
+    return function ($lesplanIdentifier) use ($databaseFactory) {
         $filename = __DIR__ . DIRECTORY_SEPARATOR . 'lesplannen' . DIRECTORY_SEPARATOR . $lesplanIdentifier . '.php';
         if (file_exists($filename) === false) {
             return null;
         }
-        return include $filename;
+        $lesplanFactory = include $filename;
+        return $lesplanFactory($databaseFactory());
     };
 };

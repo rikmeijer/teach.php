@@ -13,6 +13,10 @@ return function() {
 	
 	return [
 	    'database' => function() use ($resources) {
+	        if (class_exists('mysqli') === false) {
+	           trigger_error('PHP mysqli extension has not been loaded', E_USER_ERROR);
+	        }
+	        
 	        $database = $resources['database'];
 	        $host = array_key_exists('host', $database) ? $database['host'] : 'localhost';
 	        $user = array_key_exists('user', $database) ? $database['user'] : get_current_user();
