@@ -1,8 +1,34 @@
 <?php
 return function (\mysqli $database) {
     
+    function query($database, $sql)
+    {
+        $queryResult = $database->query($sql);
+        if ($queryResult === false) {
+            trigger_error($database->error, E_USER_ERROR);
+        }
+        return $queryResult->fetch_assoc();
+    }
+    
+    function getActiviteit($database, $id) {
+        $activiteit = query($database, "
+            SELECT 
+                inhoud,
+                werkvorm,
+                organisatievorm,
+                werkvormsoort,
+                tijd,
+                intelligenties
+            FROM activiteit
+            WHERE 
+                id = " . $id . "
+        ");
+        $activiteit['intelligenties'] = explode(',', $activiteit['intelligenties']);
+        return $activiteit;
+    }
+    
     /** @var $lesplanQueryResult mysqli_result */
-    $lesplanQueryResult = $database->query("
+    $lesplan = query($database, "
         SELECT 
             les.naam AS les,
             module.naam AS vak,
@@ -14,10 +40,6 @@ return function (\mysqli $database) {
         WHERE 
             contactmoment.id = 1
     ");
-    if ($lesplanQueryResult === false) {
-        trigger_error($database->error, E_USER_ERROR);
-    }
-    $lesplan = $lesplanQueryResult->fetch_assoc();
     if ($lesplan === null) {
         return null;
     }
@@ -47,19 +69,7 @@ return function (\mysqli $database) {
             'voorbeeldproject voor aanvullende feedback'
         ],
         'Introductie' => [
-            "Activerende opening" => [
-                'inhoud' => 'Scené uit de matrix tonen waarop wordt gezegd: "I don\'t even see the code". Wie kent deze film? Een ervaren programmeur zal een vergelijkbaar gevoel hebben bij code: programmeren is een visualisatie kunnen uitdrukken in code en vice versa.',
-                'werkvorm' => "film",
-                'organisatievorm' => "plenair",
-                'werkvormsoort' => "ijsbreker",
-                'tijd' => "5",
-                'intelligenties' => [
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
-                ]
-            ],
+            "Activerende opening" => getActiviteit($database, 1),
             "Focus" => [
                 "inhoud" => "Visie, Leerdoelen, Programma, Afspraken",
                 "werkvorm" => "presentatie",

@@ -25,7 +25,9 @@ return function() {
 	        $port = array_key_exists('port', $databaseResource) ? $databaseResource['port'] : null;
 	        $socket = array_key_exists('socket', $databaseResource) ? $databaseResource['socket'] : null;
 	        
-	        return new mysqli($host, $user, $password, $database, $port, $socket);
+	        $connection = new mysqli($host, $user, $password, $database, $port, $socket);
+	        $connection->query('SET NAMES utf8');
+	        return $connection;
 	    }
 	];
 };
