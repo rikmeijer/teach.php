@@ -1,17 +1,7 @@
 <?php
 return function (\mysqli $database) {
-    
-    function query($database, $sql)
-    {
-        $queryResult = $database->query($sql);
-        if ($queryResult === false) {
-            trigger_error($database->error, E_USER_ERROR);
-        }
-        return $queryResult;
-    }
-    
     function getMedia($database, $les_id) {
-        $mediaQueryResult = query($database, "
+        $mediaQueryResult = $database->query("
             SELECT DISTINCT media.omschrijving
             FROM les
             LEFT JOIN thema ON thema.les_id = les.id
@@ -34,16 +24,29 @@ return function (\mysqli $database) {
             WHERE
                 les.id = " . $les_id . "
         ");
-
+        
         $media = [];
-        while ($mediaItem = $mediaQueryResult->fetch_assoc()) {
-            $media[] = $mediaItem['omschrijving'];
+        if ($mediaQueryResult !== false) {
+            while ($mediaItem = $mediaQueryResult->fetch_assoc()) {
+                $media[] = $mediaItem['omschrijving'];
+            }
         }
         return $media;
     }
     
+    function getActiviteitDummy() {
+        return [
+            "inhoud" => "",
+            "werkvorm" => "onbekend",
+            "organisatievorm" => "nvt",
+            "werkvormsoort" => "onbekend",
+            "tijd" => "0",
+            "intelligenties" => ""
+        ];
+    }
+    
     function getActiviteit($database, $id) {
-        $activiteit = query($database, "
+        $activiteitQueryResult = $database->query("
             SELECT 
                 inhoud,
                 werkvorm,
@@ -54,15 +57,21 @@ return function (\mysqli $database) {
             FROM activiteit
             WHERE 
                 id = " . $id . "
-        ")->fetch_assoc();
+        ");
 
+        if ($activiteitQueryResult !== false) {
+            $activiteit = $activiteitQueryResult->fetch_assoc();
+        } else {
+            return getActiviteitDummy();
+        }
+        
         $activiteit['inhoud'] = explode(chr(10), $activiteit['inhoud']);
         $activiteit['intelligenties'] = explode(',', $activiteit['intelligenties']);
         return $activiteit;
     }
     
     function getKern($database, $les_id) {
-        $activiteitQueryResult = query($database, "
+        $activiteitQueryResult = $database->query("
             SELECT 
                 thema.leerdoel,
                 thema.ervaren_id,
@@ -74,20 +83,54 @@ return function (\mysqli $database) {
                 thema.les_id = " . $les_id . "
         ");
         $kern = [];
-        while ($thema = $activiteitQueryResult->fetch_assoc()) {
-            $kern[$thema["leerdoel"]] = [
-                "Ervaren" => getActiviteit($database, $thema["ervaren_id"]),
-                "Reflecteren" => getActiviteit($database, $thema["reflecteren_id"]),
-                "Conceptualiseren" => getActiviteit($database, $thema["conceptualiseren_id"]),
-                "Toepassen" => getActiviteit($database, $thema["toepassen_id"])
-            ];
+        if ($activiteitQueryResult !== false) {
+            while ($thema = $activiteitQueryResult->fetch_assoc()) {
+                $kern[$thema["leerdoel"]] = [
+                    "Ervaren" => getActiviteit($database, $thema["ervaren_id"]),
+                    "Reflecteren" => getActiviteit($database, $thema["reflecteren_id"]),
+                    "Conceptualiseren" => getActiviteit($database, $thema["conceptualiseren_id"]),
+                    "Toepassen" => getActiviteit($database, $thema["toepassen_id"])
+                ];
+            }
         }
         return $kern;
         
     }
     
+    function getLesplanDummy() {
+        return [
+        'opleiding' => 'HBO-informatica (voltijd)', // <!-- del>deeltijd</del>/-->
+        'vak' => "onbekend",
+        'les' => "onbekend",
+        'Beginsituatie' => [
+            'doelgroep' => [
+                'beschrijving' => "onbekend",
+                'ervaring' => "onbekend",
+                'grootte' => "onbekend"
+            ],
+            'starttijd' => "onbekend",
+            'eindtijd' => "onbekend",
+            'duur' => "onbekend",
+            'ruimte' => "onbekend",
+            'overige' => "onbekend"
+        ],
+        'media' => [],
+        'Introductie' => [
+            "Activerende opening" => getActiviteitDummy(),
+            "Focus" => getActiviteitDummy(),
+            "Voorstellen" => getActiviteitDummy(),
+        ],
+        'Kern' => [],
+        'Afsluiting' => [
+            "Huiswerk" => getActiviteitDummy(),
+            "Evaluatie" => getActiviteitDummy(),
+            "Pakkend slot" => getActiviteitDummy()
+        ]
+        ];
+    }
+    
     /** @var $lesplanQueryResult mysqli_result */
-    $lesplan = query($database, "
+    $lesplanQueryResult = $database->query("
         SELECT 
             les.id AS lesplan_id,
             les.naam AS les,
@@ -138,9 +181,16 @@ return function (\mysqli $database) {
             contactmoment.id = 1
         GROUP BY
             contactmoment.id
-    ")->fetch_assoc();
-    if ($lesplan === null) {
-        return null;
+    ");
+    
+    
+    if ($lesplanQueryResult === false) {
+        return getLesplanDummy();
+    } else {
+        $lesplan = $lesplanQueryResult->fetch_assoc();
+        if ($lesplan === null) {
+            return getLesplanDummy();
+        }
     }
     
     return [
