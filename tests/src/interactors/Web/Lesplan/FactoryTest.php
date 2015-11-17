@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Adapters\Web\Lesplan;
+namespace Teach\Interactors\Web\Lesplan;
 
 use \Teach\Adapters\HTML\Factory as HTMLFactory;
 
@@ -16,10 +16,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             'werkvormsoort' => "ijsbreker",
             'tijd' => "",
             'intelligenties' => [
-                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
-                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
             ]
         ])->generateLayout (new HTMLFactory());
         $this->assertEquals("Activerende opening", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
@@ -36,10 +36,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 'werkvormsoort' => "ijsbreker",
                 'tijd' => "",
                 'intelligenties' => [
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
                 ]
             ]
         ])->generateLayout (new HTMLFactory());
@@ -72,10 +72,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 'werkvormsoort' => "ijsbreker",
                 'tijd' => "",
                 'intelligenties' => [
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
                 ]
             ]
         ])->generateLayout (new HTMLFactory());
@@ -102,10 +102,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                     'werkvormsoort' => "ijsbreker",
                     'tijd' => "",
                     'intelligenties' => [
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
                     ]
                 ]
             ]
@@ -178,10 +178,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                         'werkvormsoort' => "ijsbreker",
                         'tijd' => "5",
                         'intelligenties' => [
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
                         ]
                     ],
                     "Focus" => [
@@ -191,9 +191,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                         "werkvormsoort" => "docent gecentreerd",
                         "tijd" => "3",
                         "intelligenties" => [
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                         ]
                     ],
                     "Voorstellen" => [
@@ -203,9 +203,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                         "werkvormsoort" => "docent gecentreerd",
                         "tijd" => "2",
                         "intelligenties" => [
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                         ]
                     ]
                 ],
@@ -218,10 +218,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                             "werkvormsoort" => "ijsbreker",
                             "tijd" => "5",
                             "intelligenties" => [
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_NATURALISTISCH,
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_NATURALISTISCH,
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                             ]
                         ],
                         "Reflecteren" => [
@@ -237,9 +237,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                             "werkvormsoort" => "discussie",
                             "tijd" => "5",
                             "intelligenties" => [
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK,
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK,
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                             ]
                         ],
                         "Conceptualiseren" => [
@@ -253,9 +253,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                             "werkvormsoort" => "docentgecentreerd",
                             "tijd" => "5",
                             "intelligenties" => [
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                             ]
                         ],
                         "Toepassen" => [
@@ -269,8 +269,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                             "werkvormsoort" => "individuele werkopdracht",
                             "tijd" => "18",
                             "intelligenties" => [
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
                             ]
                         ]
                     ],
@@ -282,8 +282,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                             "werkvormsoort" => "ijsbreker",
                             "tijd" => "5",
                             "intelligenties" => [
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                             ]
                         ],
                         "Reflecteren" => [
@@ -293,10 +293,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                             "werkvormsoort" => "discussie",
                             "tijd" => "5",
                             "intelligenties" => [
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK,
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK,
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                             ]
                         ],
                         "Conceptualiseren" => [
@@ -306,9 +306,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                             "werkvormsoort" => "docentgecentreerd",
                             "tijd" => "10",
                             "intelligenties" => [
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                             ]
                         ],
                         "Toepassen" => [
@@ -322,8 +322,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                             "werkvormsoort" => "individuele werkopdracht",
                             "tijd" => "30",
                             "intelligenties" => [
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                                \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
                             ]
                         ]
                     ]
@@ -340,8 +340,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                         "werkvormsoort" => "docentgecentreerd",
                         "tijd" => "2",
                         "intelligenties" => [
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                         ]
                     ],
                     "Evaluatie" => [
@@ -351,8 +351,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                         "werkvormsoort" => "ijsbreker",
                         "tijd" => "3",
                         "intelligenties" => [
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                         ]
                     ],
                     "Pakkend slot" => [
@@ -362,9 +362,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                         "werkvormsoort" => "docentgecentreerd",
                         "tijd" => "1",
                         "intelligenties" => [
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                            \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                            \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
                         ]
                     ]
                 ]

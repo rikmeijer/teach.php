@@ -66,7 +66,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testMakeHTMLFrom()
     {
-        $mockbuilder = $this->getMockBuilder('\Teach\Adapters\LayoutableInterface');
+        $mockbuilder = $this->getMockBuilder('\Teach\Interactors\LayoutableInterface');
         $mockbuilder->setMockClassName('DummyHTML');
         $mockbuilder->setMethods(array(
             'generateLayout'

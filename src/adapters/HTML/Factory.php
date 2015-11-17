@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters\HTML;
 
-final class Factory implements \Teach\Adapters\LayoutFactoryInterface
+final class Factory implements \Teach\Interactors\LayoutFactoryInterface
 {
 
     const TAG = 0;
@@ -69,10 +69,10 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
 
     /**
      *
-     * @param \Teach\Adapters\LayoutableInterface $layoutable            
+     * @param \Teach\Interactors\LayoutableInterface $layoutable            
      * @return string
      */
-    public function makeHTMLFrom(\Teach\Adapters\LayoutableInterface $layoutable)
+    public function makeHTMLFrom(\Teach\Interactors\LayoutableInterface $layoutable)
     {
         return $this->makeHTML($layoutable->generateLayout($this));
     }
@@ -96,7 +96,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
      *
      * {@inheritDoc}
      *
-     * @see \Teach\Adapters\LayoutFactoryInterface::makeTableRow()
+     * @see \Teach\Interactors\LayoutFactoryInterface::makeTableRow()
      */
     public function makeTableRow($expectedCellCount, array $data)
     {
@@ -149,7 +149,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
      *
      * {@inheritDoc}
      *
-     * @see \Teach\Adapters\LayoutFactoryInterface::makeUnorderedList()
+     * @see \Teach\Interactors\LayoutFactoryInterface::makeUnorderedList()
      */
     public function makeUnorderedList(array $listitems)
     {
@@ -160,7 +160,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
      *
      * {@inheritDoc}
      *
-     * @see \Teach\Adapters\LayoutFactoryInterface::makeOrderedList()
+     * @see \Teach\Interactors\LayoutFactoryInterface::makeOrderedList()
      */
     public function makeOrderedList(array $listitems)
     {
@@ -171,7 +171,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
      *
      * {@inheritDoc}
      *
-     * @see \Teach\Adapters\LayoutFactoryInterface::makeTable()
+     * @see \Teach\Interactors\LayoutFactoryInterface::makeTable()
      */
     public function makeTable($caption, array $rows)
     {
@@ -197,7 +197,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
      *
      * {@inheritDoc}
      *
-     * @see \Teach\Adapters\LayoutFactoryInterface::makeHeader1()
+     * @see \Teach\Interactors\LayoutFactoryInterface::makeHeader1()
      */
     public function makeHeader1($text)
     {
@@ -210,7 +210,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
      *
      * {@inheritDoc}
      *
-     * @see \Teach\Adapters\LayoutFactoryInterface::makeHeader2()
+     * @see \Teach\Interactors\LayoutFactoryInterface::makeHeader2()
      */
     public function makeHeader2($text)
     {
@@ -223,7 +223,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
      *
      * {@inheritDoc}
      *
-     * @see \Teach\Adapters\LayoutFactoryInterface::makeHeader3()
+     * @see \Teach\Interactors\LayoutFactoryInterface::makeHeader3()
      */
     public function makeHeader3($text)
     {
@@ -236,7 +236,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
      *
      * {@inheritDoc}
      *
-     * @see \Teach\Adapters\LayoutFactoryInterface::makeParagraph()
+     * @see \Teach\Interactors\LayoutFactoryInterface::makeParagraph()
      */
     public function makeParagraph($text)
     {
@@ -249,7 +249,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
      *
      * {@inheritDoc}
      *
-     * @see \Teach\Adapters\LayoutFactoryInterface::makePageHeader()
+     * @see \Teach\Interactors\LayoutFactoryInterface::makePageHeader()
      */
     public function makePageHeader(array $header)
     {
@@ -262,7 +262,7 @@ final class Factory implements \Teach\Adapters\LayoutFactoryInterface
      *
      * {@inheritDoc}
      *
-     * @see \Teach\Adapters\LayoutFactoryInterface::makeSection()
+     * @see \Teach\Interactors\LayoutFactoryInterface::makeSection()
      */
     public function makeSection(array $header, array $contents)
     {

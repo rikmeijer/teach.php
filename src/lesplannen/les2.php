@@ -25,10 +25,10 @@ return function (\mysqli $database) {
                 'werkvormsoort' => "ijsbreker",
                 'tijd' => "",
                 'intelligenties' => [
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
                 ]
             ],
             "Focus" => [
@@ -38,9 +38,9 @@ return function (\mysqli $database) {
                 "werkvormsoort" => "docent gecentreerd",
                 "tijd" => "4",
                 "intelligenties" => [
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                 ]
             ]
         ],
@@ -57,10 +57,10 @@ return function (\mysqli $database) {
                     "werkvormsoort" => "ijsbreker",
                     "tijd" => "2",
                     "intelligenties" => [
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                     ]
                 ],
                 "Reflecteren" => [
@@ -73,10 +73,10 @@ return function (\mysqli $database) {
                     "werkvormsoort" => "discussie",
                     "tijd" => "5",
                     "intelligenties" => [
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                     ]
                 ],
                 "Conceptualiseren" => [
@@ -86,9 +86,9 @@ return function (\mysqli $database) {
                     "werkvormsoort" => "docentgecentreerd",
                     "tijd" => "3",
                     "intelligenties" => [
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                     ]
                 ],
                 "Toepassen" => [
@@ -101,10 +101,10 @@ return function (\mysqli $database) {
                     "werkvormsoort" => "(individuele) werkopdracht",
                     "tijd" => "10",
                     "intelligenties" => [
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                     ]
                 ]
             ],
@@ -118,9 +118,9 @@ return function (\mysqli $database) {
                     "werkvormsoort" => "ijsbreker",
                     "tijd" => "5",
                     "intelligenties" => [
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                     ]
                 ],
                 "Reflecteren" => [
@@ -134,9 +134,9 @@ return function (\mysqli $database) {
                     "werkvormsoort" => "discussie",
                     "tijd" => "5",
                     "intelligenties" => [
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                     ]
                 ],
                 "Conceptualiseren" => [
@@ -151,9 +151,9 @@ return function (\mysqli $database) {
                     "werkvormsoort" => "docentgecentreerd",
                     "tijd" => "5",
                     "intelligenties" => [
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                     ]
                 ],
                 "Toepassen" => [
@@ -166,8 +166,8 @@ return function (\mysqli $database) {
                     "werkvormsoort" => "individuele werkopdracht",
                     "tijd" => "30",
                     "intelligenties" => [
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                        \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                        \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
                     ]
                 ]
             ]
@@ -183,8 +183,8 @@ return function (\mysqli $database) {
                 "werkvormsoort" => "docentgecentreerd",
                 "tijd" => "2",
                 "intelligenties" => [
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                 ]
             ],
             "Evaluatie" => [
@@ -194,8 +194,8 @@ return function (\mysqli $database) {
                 "werkvormsoort" => "ijsbreker",
                 "tijd" => "3",
                 "intelligenties" => [
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                 ]
             ],
             "Pakkend slot" => [
@@ -205,9 +205,9 @@ return function (\mysqli $database) {
                 "werkvormsoort" => "docentgecentreerd",
                 "tijd" => "1",
                 "intelligenties" => [
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                    \Teach\Adapters\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
                 ]
             ]
         ]

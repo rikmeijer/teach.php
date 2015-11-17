@@ -1,7 +1,7 @@
 <?php
-namespace Teach\Adapters\Web\Lesplan;
+namespace Teach\Interactors\Web\Lesplan;
 
-final class Activiteit implements \Teach\Adapters\LayoutableInterface
+final class Activiteit implements \Teach\Interactors\LayoutableInterface
 {
 
     const MI_VERBAAL_LINGUISTISCH = "VL";
@@ -45,7 +45,7 @@ final class Activiteit implements \Teach\Adapters\LayoutableInterface
      *
      * @return array
      */
-    public function generateLayout (\Teach\Adapters\LayoutFactoryInterface $factory)
+    public function generateLayout (\Teach\Interactors\LayoutFactoryInterface $factory)
     {
         $inhoudChildren = [];
         if (is_string($this->werkvorm['inhoud'])) {

@@ -1,7 +1,7 @@
 <?php
-namespace Teach\Adapters\Web\Lesplan;
+namespace Teach\Interactors\Web\Lesplan;
 
-final class Beginsituatie implements \Teach\Adapters\LayoutableInterface
+final class Beginsituatie implements \Teach\Interactors\LayoutableInterface
 {
 
     private $opleiding;
@@ -18,7 +18,7 @@ final class Beginsituatie implements \Teach\Adapters\LayoutableInterface
      *
      * @return array
      */
-    public function generateLayout (\Teach\Adapters\LayoutFactoryInterface $factory)
+    public function generateLayout (\Teach\Interactors\LayoutFactoryInterface $factory)
     {
         return [
             $factory->makeHeader3('Beginsituatie'),

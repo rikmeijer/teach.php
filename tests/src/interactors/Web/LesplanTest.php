@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Adapters\Web;
+namespace Teach\Interactors\Web;
 
 use \Teach\Adapters\HTML\Factory as HTMLFactory;
 

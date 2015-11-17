@@ -1,7 +1,7 @@
 <?php
-namespace Teach\Adapters\Web\Lesplan;
+namespace Teach\Interactors\Web\Lesplan;
 
-final class Thema implements \Teach\Adapters\LayoutableInterface
+final class Thema implements \Teach\Interactors\LayoutableInterface
 {
 
     private $title;
@@ -26,7 +26,7 @@ final class Thema implements \Teach\Adapters\LayoutableInterface
      *
      * @return array
      */
-    public function generateLayout (\Teach\Adapters\LayoutFactoryInterface $factory)
+    public function generateLayout (\Teach\Interactors\LayoutFactoryInterface $factory)
     {
         $activiteitenHTML = [];
         foreach ($this->activiteiten as $activiteit) {

@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Adapters\Web\Lesplan;
+namespace Teach\Interactors\Web\Lesplan;
 
 use \Teach\Adapters\HTML\Factory as HTMLFactory;
 

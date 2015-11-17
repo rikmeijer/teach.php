@@ -14,7 +14,7 @@ if ($lesplanDefinition === null) {
 }
 
 $HTMLfactory = new \Teach\Adapters\HTML\Factory();
-$lesplanFactory = new \Teach\Adapters\Web\Lesplan\Factory();
+$lesplanFactory = new \Teach\Interactors\Web\Lesplan\Factory();
 
 ?>
 <!DOCTYPE html>

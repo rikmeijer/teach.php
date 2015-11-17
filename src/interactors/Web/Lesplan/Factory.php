@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Adapters\Web\Lesplan;
+namespace Teach\Interactors\Web\Lesplan;
 
 final class Factory
 {
@@ -7,7 +7,7 @@ final class Factory
      * 
      * @param string $caption
      * @param array $werkvorm
-     * @return \Teach\Adapters\Web\Lesplan\Activiteit
+     * @return \Teach\Interactors\Web\Lesplan\Activiteit
      */
     public function createActiviteit($caption, array $werkvorm)
     {
@@ -18,8 +18,8 @@ final class Factory
     /**
      * 
      * @param string $title
-     * @param \Teach\Adapters\Web\Lesplan\Activiteit[]
-     * @return \Teach\Adapters\Web\Lesplan\Thema
+     * @param \Teach\Interactors\Web\Lesplan\Activiteit[]
+     * @return \Teach\Interactors\Web\Lesplan\Thema
      */
     public function createThema($title, array $activiteiten)
     {
@@ -33,7 +33,7 @@ final class Factory
     /**
      * 
      * @param string $title
-     * @return \Teach\Adapters\Web\Lesplan\Fase
+     * @return \Teach\Interactors\Web\Lesplan\Fase
      */
     public function createFase($title)
     {
@@ -44,7 +44,7 @@ final class Factory
      * 
      * @param string $title
      * @param array $activiteitDefinitions
-     * @return \Teach\Adapters\Web\Lesplan\Fase
+     * @return \Teach\Interactors\Web\Lesplan\Fase
      */
     public function createFaseWithActiviteiten($title, array $activiteitDefinitions)
     {
@@ -60,7 +60,7 @@ final class Factory
     /**
      * 
      * @param array $themas
-     * @return \Teach\Adapters\Web\Lesplan\Fase
+     * @return \Teach\Interactors\Web\Lesplan\Fase
      */
     public function createKern(array $themas)
     {
@@ -77,7 +77,7 @@ final class Factory
      * 
      * @param string $opleiding
      * @param array $beginsituatie
-     * @return \Teach\Adapters\Web\Lesplan\Beginsituatie
+     * @return \Teach\Interactors\Web\Lesplan\Beginsituatie
      */
     public function createBeginsituatie($opleiding, array $beginsituatie)
     {
@@ -87,7 +87,7 @@ final class Factory
     /**
      * 
      * @param array $lesplanDefinition
-     * @return \Teach\Adapters\Web\Lesplan
+     * @return \Teach\Interactors\Web\Lesplan
      */
     public function createLesplan(array $lesplanDefinition)
     {
@@ -95,6 +95,6 @@ final class Factory
         $introductie = $this->createFaseWithActiviteiten('Introductie', $lesplanDefinition['Introductie']);
         $kern = $this->createKern($lesplanDefinition['Kern']);
         $afsluiting = $this->createFaseWithActiviteiten('Afsluiting', $lesplanDefinition['Afsluiting']);
-        return new \Teach\Adapters\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media'], array_keys($lesplanDefinition['Kern']), $introductie, $kern, $afsluiting);
+        return new \Teach\Interactors\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media'], array_keys($lesplanDefinition['Kern']), $introductie, $kern, $afsluiting);
     }
 }

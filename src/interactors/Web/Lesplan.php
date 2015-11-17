@@ -1,7 +1,7 @@
 <?php
-namespace Teach\Adapters\Web;
+namespace Teach\Interactors\Web;
 
-final class Lesplan implements \Teach\Adapters\LayoutableInterface
+final class Lesplan implements \Teach\Interactors\LayoutableInterface
 {
 
     private $vak;
@@ -10,7 +10,7 @@ final class Lesplan implements \Teach\Adapters\LayoutableInterface
     
     /**
      * 
-     * @var \Teach\Adapters\Web\Lesplan\Beginsituatie
+     * @var \Teach\Interactors\Web\Lesplan\Beginsituatie
      */
     private $beginsituatie;
     
@@ -22,7 +22,7 @@ final class Lesplan implements \Teach\Adapters\LayoutableInterface
 
     /**
      *
-     * @var \Teach\Adapters\Web\Lesplan\Fase
+     * @var \Teach\Interactors\Web\Lesplan\Fase
      */
     private $introductie;
 
@@ -34,13 +34,13 @@ final class Lesplan implements \Teach\Adapters\LayoutableInterface
     
     /**
      * 
-     * @var \Teach\Adapters\Web\Lesplan\Fase
+     * @var \Teach\Interactors\Web\Lesplan\Fase
      */
     private $kern;
     
     /**
      *
-     * @var \Teach\Adapters\Web\Lesplan\Fase
+     * @var \Teach\Interactors\Web\Lesplan\Fase
      */
     private $afsluiting;
     
@@ -60,7 +60,7 @@ final class Lesplan implements \Teach\Adapters\LayoutableInterface
      *
      * @return array
      */
-    public function generateLayout (\Teach\Adapters\LayoutFactoryInterface $factory)
+    public function generateLayout (\Teach\Interactors\LayoutFactoryInterface $factory)
     {
         $beginsituatieHTMLLayout = $this->beginsituatie->generateLayout ($factory);
         if (count($this->media) > 0) {
