@@ -10,6 +10,38 @@ return function (\mysqli $database) {
         return $queryResult;
     }
     
+    function getMedia($database, $les_id) {
+        $mediaQueryResult = query($database, "
+            SELECT
+                DISTINCT activiteitmedia.omschrijving
+            FROM les
+            LEFT JOIN thema ON thema.les_id = les.id
+            LEFT JOIN activiteit ON activiteit.id IN (
+                les.activerende_opening_id,
+                les.focus_id,
+                les.voorstellen_id,
+                les.kennismaken_id,
+                les.terugblik_id,
+                les.huiswerk_id,
+                les.evaluatie_id,
+                les.pakkend_slot_id,
+                thema.ervaren_id,
+                thema.reflecteren_id,
+                thema.conceptualiseren_id,
+                thema.toepassen_id
+            )
+            JOIN activiteitmedia ON activiteitmedia.activiteit_id = activiteit.id
+            WHERE
+                les.id = " . $les_id . "
+        ");
+
+        $media = [];
+        while ($mediaItem = $mediaQueryResult->fetch_assoc()) {
+            $media[] = $mediaItem['omschrijving'];
+        }
+        return $media;
+    }
+    
     function getActiviteit($database, $id) {
         $activiteit = query($database, "
             SELECT 
@@ -57,6 +89,7 @@ return function (\mysqli $database) {
     /** @var $lesplanQueryResult mysqli_result */
     $lesplan = query($database, "
         SELECT 
+            les.id AS lesplan_id,
             les.naam AS les,
             module.naam AS vak,
             doelgroep.grootte AS doelgroep_grootte,
@@ -126,14 +159,7 @@ return function (\mysqli $database) {
             'ruimte' => $lesplan['ruimte'],
             'overige' => $lesplan['opmerkingen']
         ],
-        'media' => [
-            'filmfragment matrix',
-            'countdown timer voor toepassingsfases (optioneel)',
-            'voorbeeld IKEA-handleiding + uitgewerkte pseudo-code',
-            'rode en groene briefjes/post-its voor feedback',
-            'presentatie',
-            'voorbeeldproject voor aanvullende feedback'
-        ],
+        'media' => getMedia($database, $lesplan['lesplan_id']),
         'Introductie' => [
             "Activerende opening" => getActiviteit($database, $lesplan['activerende_opening_id']),
             "Focus" => getActiviteit($database, $lesplan['focus_id']),
