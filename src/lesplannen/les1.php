@@ -1,6 +1,8 @@
 <?php
 return function (\mysqli $database) {
-    function getMedia($database, $les_id) {
+
+    function getMedia($database, $les_id)
+    {
         $mediaQueryResult = $database->query("
             SELECT DISTINCT media.omschrijving
             FROM les
@@ -33,8 +35,9 @@ return function (\mysqli $database) {
         }
         return $media;
     }
-    
-    function getActiviteitDummy() {
+
+    function getActiviteitDummy()
+    {
         return [
             "inhoud" => "",
             "werkvorm" => "onbekend",
@@ -44,8 +47,9 @@ return function (\mysqli $database) {
             "intelligenties" => ""
         ];
     }
-    
-    function getActiviteit($database, $id) {
+
+    function getActiviteit($database, $id)
+    {
         $activiteitQueryResult = $database->query("
             SELECT 
                 inhoud,
@@ -58,7 +62,7 @@ return function (\mysqli $database) {
             WHERE 
                 id = " . $id . "
         ");
-
+        
         if ($activiteitQueryResult !== false) {
             $activiteit = $activiteitQueryResult->fetch_assoc();
         } else {
@@ -69,8 +73,9 @@ return function (\mysqli $database) {
         $activiteit['intelligenties'] = explode(',', $activiteit['intelligenties']);
         return $activiteit;
     }
-    
-    function getKern($database, $les_id) {
+
+    function getKern($database, $les_id)
+    {
         $activiteitQueryResult = $database->query("
             SELECT 
                 thema.leerdoel,
@@ -94,43 +99,45 @@ return function (\mysqli $database) {
             }
         }
         return $kern;
-        
     }
-    
-    function getContactmomentDummy() {
+
+    function getContactmomentDummy()
+    {
         return [
-        'opleiding' => 'HBO-informatica (voltijd)', // <!-- del>deeltijd</del>/-->
-        'vak' => "onbekend",
-        'les' => "onbekend",
-        'Beginsituatie' => [
-            'doelgroep' => [
-                'beschrijving' => "onbekend",
-                'ervaring' => "onbekend",
-                'grootte' => "onbekend"
+            'opleiding' => 'HBO-informatica (voltijd)', // <!-- del>deeltijd</del>/-->
+            'vak' => "onbekend",
+            'les' => "onbekend",
+            'Beginsituatie' => [
+                'doelgroep' => [
+                    'beschrijving' => "onbekend",
+                    'ervaring' => "onbekend",
+                    'grootte' => "onbekend"
+                ],
+                'starttijd' => "onbekend",
+                'eindtijd' => "onbekend",
+                'duur' => "onbekend",
+                'ruimte' => "onbekend",
+                'overige' => "onbekend"
             ],
-            'starttijd' => "onbekend",
-            'eindtijd' => "onbekend",
-            'duur' => "onbekend",
-            'ruimte' => "onbekend",
-            'overige' => "onbekend"
-        ],
-        'media' => [],
-        'Introductie' => [
-            "Activerende opening" => getActiviteitDummy(),
-            "Focus" => getActiviteitDummy(),
-            "Voorstellen" => getActiviteitDummy(),
-        ],
-        'Kern' => [],
-        'Afsluiting' => [
-            "Huiswerk" => getActiviteitDummy(),
-            "Evaluatie" => getActiviteitDummy(),
-            "Pakkend slot" => getActiviteitDummy()
-        ]
+            'media' => [],
+            'Introductie' => [
+                "Activerende opening" => getActiviteitDummy(),
+                "Focus" => getActiviteitDummy(),
+                "Voorstellen" => getActiviteitDummy()
+            ],
+            'Kern' => [],
+            'Afsluiting' => [
+                "Huiswerk" => getActiviteitDummy(),
+                "Evaluatie" => getActiviteitDummy(),
+                "Pakkend slot" => getActiviteitDummy()
+            ]
         ];
     }
-    
-    /** @var $contactmomentQueryResult mysqli_result */
-    $contactmomentQueryResult = $database->query("
+
+    function getContactmoment($database, $contactmoment_id)
+    {
+        /** @var $contactmomentQueryResult mysqli_result */
+        $contactmomentQueryResult = $database->query("
         SELECT 
             les.id AS lesplan_id,
             les.naam AS les,
@@ -178,48 +185,50 @@ return function (\mysqli $database) {
             les.pakkend_slot_id
         )
         WHERE 
-            contactmoment.id = 1
+            contactmoment.id = " . $contactmoment_id . "
         GROUP BY
             contactmoment.id
     ");
-    
-    
-    if ($contactmomentQueryResult === false) {
-        return getContactmomentDummy();
-    } else {
-        $contactmoment = $contactmomentQueryResult->fetch_assoc();
-        if ($contactmoment === null) {
+        
+        if ($contactmomentQueryResult === false) {
             return getContactmomentDummy();
+        } else {
+            $contactmoment = $contactmomentQueryResult->fetch_assoc();
+            if ($contactmoment === null) {
+                return getContactmomentDummy();
+            }
         }
+        
+        return [
+            'opleiding' => 'HBO-informatica (voltijd)', // <!-- del>deeltijd</del>/-->
+            'vak' => $contactmoment['vak'],
+            'les' => $contactmoment['les'],
+            'Beginsituatie' => [
+                'doelgroep' => [
+                    'beschrijving' => $contactmoment['doelgroep_beschrijving'],
+                    'ervaring' => $contactmoment['doelgroep_ervaring'],
+                    'grootte' => $contactmoment['doelgroep_grootte'] . ' personen'
+                ],
+                'starttijd' => date('H:i', strtotime($contactmoment['starttijd'])),
+                'eindtijd' => date('H:i', strtotime($contactmoment['eindtijd'])),
+                'duur' => $contactmoment['duur'],
+                'ruimte' => $contactmoment['ruimte'],
+                'overige' => $contactmoment['opmerkingen']
+            ],
+            'media' => getMedia($database, $contactmoment['lesplan_id']),
+            'Introductie' => [
+                "Activerende opening" => getActiviteit($database, $contactmoment['activerende_opening_id']),
+                "Focus" => getActiviteit($database, $contactmoment['focus_id']),
+                "Voorstellen" => getActiviteit($database, $contactmoment['voorstellen_id'])
+            ],
+            'Kern' => getKern($database, $contactmoment['lesplan_id']),
+            'Afsluiting' => [
+                "Huiswerk" => getActiviteit($database, $contactmoment['huiswerk_id']),
+                "Evaluatie" => getActiviteit($database, $contactmoment['evaluatie_id']),
+                "Pakkend slot" => getActiviteit($database, $contactmoment['pakkend_slot_id'])
+            ]
+        ];
     }
     
-    return [
-        'opleiding' => 'HBO-informatica (voltijd)', // <!-- del>deeltijd</del>/-->
-        'vak' => $contactmoment['vak'],
-        'les' => $contactmoment['les'],
-        'Beginsituatie' => [
-            'doelgroep' => [
-                'beschrijving' => $contactmoment['doelgroep_beschrijving'],
-                'ervaring' => $contactmoment['doelgroep_ervaring'],
-                'grootte' => $contactmoment['doelgroep_grootte'] . ' personen'
-            ],
-            'starttijd' => date('H:i', strtotime($contactmoment['starttijd'])),
-            'eindtijd' => date('H:i', strtotime($contactmoment['eindtijd'])),
-            'duur' => $contactmoment['duur'],
-            'ruimte' => $contactmoment['ruimte'],
-            'overige' => $contactmoment['opmerkingen']
-        ],
-        'media' => getMedia($database, $contactmoment['lesplan_id']),
-        'Introductie' => [
-            "Activerende opening" => getActiviteit($database, $contactmoment['activerende_opening_id']),
-            "Focus" => getActiviteit($database, $contactmoment['focus_id']),
-            "Voorstellen" => getActiviteit($database, $contactmoment['voorstellen_id']),
-        ],
-        'Kern' => getKern($database, 1),
-        'Afsluiting' => [
-            "Huiswerk" => getActiviteit($database, $contactmoment['huiswerk_id']),
-            "Evaluatie" => getActiviteit($database, $contactmoment['evaluatie_id']),
-            "Pakkend slot" => getActiviteit($database, $contactmoment['pakkend_slot_id'])
-        ]
-    ];
+    return getContactmoment($database, 1);
 };
