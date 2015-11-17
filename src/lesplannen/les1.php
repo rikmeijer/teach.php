@@ -12,8 +12,7 @@ return function (\mysqli $database) {
     
     function getMedia($database, $les_id) {
         $mediaQueryResult = query($database, "
-            SELECT
-                DISTINCT activiteitmedia.omschrijving
+            SELECT DISTINCT media.omschrijving
             FROM les
             LEFT JOIN thema ON thema.les_id = les.id
             LEFT JOIN activiteit ON activiteit.id IN (
@@ -31,6 +30,7 @@ return function (\mysqli $database) {
                 thema.toepassen_id
             )
             JOIN activiteitmedia ON activiteitmedia.activiteit_id = activiteit.id
+            JOIN media ON media.id = activiteitmedia.media_id
             WHERE
                 les.id = " . $les_id . "
         ");
