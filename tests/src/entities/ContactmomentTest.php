@@ -9,7 +9,29 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateLesplan()
     {
-        $object = new Contactmoment();
+        $object = new Contactmoment([
+            "lesplan_id" => "1",
+            "opleiding" => 'HBO-informatica (voltijd)',
+            "les" => "",
+            "vak" => "",
+            "doelgroep_grootte" => "",
+            "doelgroep_ervaring" => "",
+            "doelgroep_beschrijving" => "",
+            "starttijd" => "",
+            "eindtijd" => "",
+            "duur" => "",
+            "beschikbaar" => "",
+            "ruimte" => "",
+            "opmerkingen" => "",
+            "activerende_opening_id" => "",
+            "focus_id" => "",
+            "voorstellen_id" => "",
+            "kennismaken_id" => "",
+            "terugblik_id" => "",
+            "huiswerk_id" => "",
+            "evaluatie_id" => "",
+            "pakkend_slot_id" => ""
+        ]);
         $factory = new \Teach\Interactors\Web\Lesplan\Factory();
         $lesplanlayout = $object->createLesplan($factory);
         $this->assertInstanceOf('\Teach\Interactors\Web\Lesplan', $lesplanlayout);
