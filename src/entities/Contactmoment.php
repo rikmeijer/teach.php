@@ -1,6 +1,6 @@
 <?php
 namespace Teach\Entities;
 
-class Lesplan
+class Contactmoment
 {
 }
