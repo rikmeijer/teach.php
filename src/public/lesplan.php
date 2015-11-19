@@ -1,5 +1,5 @@
 <?php
-if (array_key_exists('lesplan', $_GET) === false) {
+if (array_key_exists('contactmoment', $_GET) === false) {
     http_response_code(400);
     exit();
 }
@@ -7,7 +7,7 @@ if (array_key_exists('lesplan', $_GET) === false) {
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 $lesplanLocator = $applicationBootstrap();
 
-$lesplanDefinition = $lesplanLocator($_GET['lesplan']);
+$lesplanDefinition = $lesplanLocator($_GET['contactmoment']);
 if ($lesplanDefinition === null) {
     http_response_code(404);
     exit();
