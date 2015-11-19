@@ -29,8 +29,10 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {}
 
-    public function testMe()
+    public function testCreateLesplan()
     {
-        $this->assertTrue(true);
+        $factory = new \Teach\Interactors\Web\Lesplan\Factory();
+        $lesplanlayout = $this->object->createLesplan($factory);
+        $this->assertInstanceOf('\Teach\Interactors\Web\Lesplan', $lesplanlayout);
     }
 }
