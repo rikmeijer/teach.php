@@ -10,9 +10,9 @@ class Contactmoment
      */
     private $contactmoment;
 
-    public function __construct(\PDO $database, $identifier)
+    public function __construct(Factory $factory, $identifier)
     {
-        $contactmomentQueryResult = $database->query("
+        $contactmomenten = $factory->query("
             SELECT 
                 'HBO-informatica (voltijd)' AS opleiding,
                 les.id AS lesplan_id,
@@ -65,9 +65,10 @@ class Contactmoment
             GROUP BY
                 contactmoment.id
         ");
-        $this->contactmoment = $contactmomentQueryResult->fetch(\PDO::FETCH_ASSOC);
-        if ($this->contactmoment === false) {
+        if (count($contactmomenten) == 0) {
             $this->contactmoment = $this->getDummy();
+        } else {
+            $this->contactmoment = $contactmomenten[0];
         }
     }
 

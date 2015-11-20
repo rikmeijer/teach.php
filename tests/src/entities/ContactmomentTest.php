@@ -29,7 +29,8 @@ class ContactmomentTest extends \PHPUnit_Extensions_Database_TestCase
     
     public function testCreateLesplan()
     {   
-        $object = new Contactmoment($this->pdo, '1');
+        $factory = new Factory($this->pdo);
+        $object = $factory->createContactmoment('1');
         $factory = new \Teach\Interactors\Web\Lesplan\Factory();
         $lesplanlayout = $object->createLesplan($factory);
         $this->assertInstanceOf('\Teach\Interactors\Web\Lesplan', $lesplanlayout);

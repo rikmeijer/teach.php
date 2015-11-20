@@ -53,4 +53,10 @@ class FactoryTest extends \PHPUnit_Extensions_Database_TestCase
         $this->assertEquals('1', $contactmomenten[0]['les_id']);
         
     }
+    
+    public function testCreateContactmoment()
+    {
+        $object = new Factory(self::$pdo);
+        $this->assertInstanceOf('\Teach\Entities\Contactmoment', $object->createContactmoment('1'));
+    }
 }

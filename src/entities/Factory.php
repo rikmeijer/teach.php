@@ -20,4 +20,8 @@ class Factory
         return $this->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
     
+    public function createContactmoment($identifier)
+    {
+        return new Contactmoment($this, $identifier);
+    }
 }
