@@ -110,38 +110,6 @@ return function () {
             return $kern;
         }
     
-        function getContactmomentDummy()
-        {
-            return [
-                'opleiding' => 'HBO-informatica (voltijd)', // <!-- del>deeltijd</del>/-->
-                'vak' => "onbekend",
-                'les' => "onbekend",
-                'Beginsituatie' => [
-                    'doelgroep' => [
-                        'beschrijving' => "onbekend",
-                        'ervaring' => "onbekend",
-                        'grootte' => "onbekend"
-                    ],
-                    'starttijd' => "onbekend",
-                    'eindtijd' => "onbekend",
-                    'duur' => "onbekend",
-                    'ruimte' => "onbekend",
-                    'overige' => "onbekend"
-                ],
-                'media' => [],
-                'Introductie' => [
-                    "Activerende opening" => getActiviteitDummy(),
-                    "Focus" => getActiviteitDummy(),
-                    "Voorstellen" => getActiviteitDummy()
-                ],
-                'Kern' => [],
-                'Afsluiting' => [
-                    "Huiswerk" => getActiviteitDummy(),
-                    "Evaluatie" => getActiviteitDummy(),
-                    "Pakkend slot" => getActiviteitDummy()
-                ]
-            ];
-        }
     
         function getContactmoment($database, $contactmoment_id)
         {

@@ -9,9 +9,8 @@ class Contactmoment
      */
     private $contactmoment;
     
-    public function __construct(\mysqli $database, $identifier)
+    public function __construct(\PDO $database, $identifier)
     {
-            /** @var $contactmomentQueryResult mysqli_result */
             $contactmomentQueryResult = $database->query("
             SELECT 
                 'HBO-informatica (voltijd)' AS opleiding,
@@ -65,8 +64,40 @@ class Contactmoment
             GROUP BY
                 contactmoment.id
         ");
-        $this->contactmoment = $contactmomentQueryResult->fetch_assoc();
+        $this->contactmoment = $contactmomentQueryResult->fetch(\PDO::FETCH_ASSOC);
+        if ($this->contactmoment === false) {
+            $this->contactmoment = $this->getDummy();
+        }
     }
+    
+
+    private function getDummy()
+    {
+        return [             
+            "opleiding" => 'HBO-informatica (voltijd)',
+             "lesplan_id" => "onbekend",
+             "les" => "onbekend",
+             "vak" => "onbekend",
+             "doelgroep_grootte" => "onbekend",
+             "doelgroep_ervaring" => "onbekend",
+             "doelgroep_beschrijving" => "onbekend",
+             "starttijd" => "onbekend",
+             "eindtijd" => "onbekend",
+             "duur" => "onbekend",
+             "beschikbaar" => "onbekend",
+             "ruimte" => "onbekend",
+             "opmerkingen" => "",
+             "activerende_opening_id" => null,
+             "focus_id" => null,
+             "voorstellen_id" => null,
+             "kennismaken_id" => null,
+             "terugblik_id" => null,
+             "huiswerk_id" => null,
+             "evaluatie_id" => null,
+             "pakkend_slot_id" => null
+        ];
+    }
+
     
     public function createLesplan(\Teach\Interactors\Web\Lesplan\Factory $factory)
     {
