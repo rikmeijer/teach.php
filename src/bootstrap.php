@@ -145,60 +145,6 @@ return function () {
     
         function getContactmoment($database, $contactmoment_id)
         {
-            /** @var $contactmomentQueryResult mysqli_result */
-            $contactmomentQueryResult = $database->query("
-            SELECT 
-                'HBO-informatica (voltijd)' AS opleiding,
-                les.id AS lesplan_id,
-                les.naam AS les,
-                module.naam AS vak,
-                doelgroep.grootte AS doelgroep_grootte,
-                doelgroep.ervaring AS doelgroep_ervaring,
-                doelgroep.beschrijving AS doelgroep_beschrijving,
-                contactmoment.starttijd AS starttijd,
-                contactmoment.eindtijd AS eindtijd,
-                SUM(activiteit.tijd) + (
-                    SELECT SUM(activiteit.tijd) 
-                    FROM thema 
-                    LEFT JOIN activiteit ON activiteit.id IN (
-                        thema.ervaren_id,
-                        thema.reflecteren_id,
-                        thema.conceptualiseren_id,
-                        thema.toepassen_id
-                    )
-                    WHERE thema.les_id = les.id
-                ) as duur,
-                TIMESTAMPDIFF(MINUTE, contactmoment.starttijd, contactmoment.eindtijd) as beschikbaar,
-                contactmoment.ruimte,
-                les.opmerkingen,
-                les.activerende_opening_id,
-                les.focus_id,
-                les.voorstellen_id,
-                les.kennismaken_id,
-                les.terugblik_id,
-                les.huiswerk_id,
-                les.evaluatie_id,
-                les.pakkend_slot_id
-            FROM contactmoment
-            JOIN les ON les.id = contactmoment.les_id
-            JOIN module ON module.id = les.module_id
-            JOIN doelgroep ON doelgroep.id = les.doelgroep_id
-            
-            LEFT JOIN activiteit ON activiteit.id IN (
-                les.activerende_opening_id,
-                les.focus_id,
-                les.voorstellen_id,
-                les.kennismaken_id,
-                les.terugblik_id,
-                les.huiswerk_id,
-                les.evaluatie_id,
-                les.pakkend_slot_id
-            )
-            WHERE 
-                contactmoment.id = " . $contactmoment_id . "
-            GROUP BY
-                contactmoment.id
-        ");
             
             if ($contactmomentQueryResult === false) {
                 return getContactmomentDummy();
