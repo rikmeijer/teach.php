@@ -7,14 +7,13 @@ if (array_key_exists('contactmoment', $_GET) === false) {
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 $lesplanLocator = $applicationBootstrap();
 
-$lesplanDefinition = $lesplanLocator($_GET['contactmoment']);
-if ($lesplanDefinition === null) {
+$lesplan = $lesplanLocator($_GET['contactmoment']);
+if ($lesplan === null) {
     http_response_code(404);
     exit();
 }
 
 $HTMLfactory = new \Teach\Adapters\HTML\Factory();
-$lesplanFactory = new \Teach\Interactors\Web\Lesplan\Factory();
 
 ?>
 <!DOCTYPE html>
@@ -26,7 +25,7 @@ $lesplanFactory = new \Teach\Interactors\Web\Lesplan\Factory();
 </head>
 <body>
 <?php
-print $HTMLfactory->makeHTMLFrom($lesplanFactory->createLesplan($lesplanDefinition));
+print $HTMLfactory->makeHTMLFrom($lesplan);
 
 ?>
 </body>

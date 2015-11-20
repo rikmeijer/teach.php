@@ -148,6 +148,7 @@ return function () {
             /** @var $contactmomentQueryResult mysqli_result */
             $contactmomentQueryResult = $database->query("
             SELECT 
+                'HBO-informatica (voltijd)' AS opleiding,
                 les.id AS lesplan_id,
                 les.naam AS les,
                 module.naam AS vak,
@@ -207,7 +208,9 @@ return function () {
                     return getContactmomentDummy();
                 }
             }
-            
+
+            $contactmomentEntity = new Teach\Entities\Contactmoment($contactmoment);
+            return $contactmomentEntity->createLesplan(new \Teach\Interactors\Web\Lesplan\Factory());
             return [
                 'opleiding' => 'HBO-informatica (voltijd)', // <!-- del>deeltijd</del>/-->
                 'vak' => $contactmoment['vak'],
@@ -237,6 +240,7 @@ return function () {
                     "Pakkend slot" => getActiviteit($database, $contactmoment['pakkend_slot_id'])
                 ]
             ];
+            
         }
         
         return getContactmoment($databaseFactory(), $contactmomentIdentifier);
