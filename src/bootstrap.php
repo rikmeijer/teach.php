@@ -123,8 +123,6 @@ return function () {
                 }
             }
 
-            $contactmomentEntity = new Teach\Entities\Contactmoment($contactmoment);
-            return $contactmomentEntity->createLesplan(new \Teach\Interactors\Web\Lesplan\Factory());
             return [
                 'opleiding' => 'HBO-informatica (voltijd)', // <!-- del>deeltijd</del>/-->
                 'vak' => $contactmoment['vak'],
@@ -156,7 +154,8 @@ return function () {
             ];
             
         }
-        
-        return getContactmoment($databaseFactory(), $contactmomentIdentifier);
+
+        $contactmomentEntity = new Teach\Entities\Contactmoment($databaseFactory(), $contactmomentIdentifier);
+        return $contactmomentEntity->createLesplan(new \Teach\Interactors\Web\Lesplan\Factory());
     };
 };
