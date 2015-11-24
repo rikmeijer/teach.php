@@ -108,6 +108,15 @@ class Contactmoment
 
     public function createLesplan(\Teach\Interactors\Web\Lesplan\Factory $factory)
     {
+        $introductie = [
+                "Activerende opening" => $this->factory->getActiviteit($this->contactmoment['activerende_opening_id']),
+                "Focus" => $this->factory->getActiviteit($this->contactmoment['focus_id']),
+        ];
+        if ($this->contactmoment['voorstellen_id'] !== null) {
+            $introductie["Voorstellen"] = $this->factory->getActiviteit($this->contactmoment['voorstellen_id']);
+        }
+        
+        
         return $factory->createLesplan([
             'opleiding' => $this->contactmoment['opleiding'],
             'vak' => $this->contactmoment['vak'],
@@ -125,11 +134,7 @@ class Contactmoment
                 'overige' => $this->contactmoment['opmerkingen']
             ],
             "media" => $this->factory->getMedia($this->contactmoment['lesplan_id']),
-            'Introductie' => [
-                "Activerende opening" => $this->factory->getActiviteit($this->contactmoment['activerende_opening_id']),
-                "Focus" => $this->factory->getActiviteit($this->contactmoment['focus_id']),
-                "Voorstellen" => $this->factory->getActiviteit($this->contactmoment['voorstellen_id'])
-            ],
+            'Introductie' => $introductie,
             'Kern' => $this->factory->getKern($this->contactmoment['lesplan_id']),
             'Afsluiting' => [
                 "Huiswerk" => $this->factory->getActiviteit($this->contactmoment['huiswerk_id']),
