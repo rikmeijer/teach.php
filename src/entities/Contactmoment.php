@@ -5,6 +5,12 @@ class Contactmoment
 {
 
     /**
+     * 
+     * @var Factory
+     */
+    private $factory;
+    
+    /**
      *
      * @var array contactmoment record
      */
@@ -12,6 +18,7 @@ class Contactmoment
 
     public function __construct(Factory $factory, $identifier)
     {
+        $this->factory = $factory;
         $contactmomenten = $factory->query("
             SELECT 
                 'HBO-informatica (voltijd)' AS opleiding,
@@ -117,10 +124,18 @@ class Contactmoment
                 'ruimte' => $this->contactmoment['ruimte'],
                 'overige' => $this->contactmoment['opmerkingen']
             ],
-            "media" => [],
-            "Introductie" => [],
-            "Kern" => [],
-            "Afsluiting" => []
+            "media" => $this->factory->getMedia($this->contactmoment['lesplan_id']),
+            'Introductie' => [
+                "Activerende opening" => $this->factory->getActiviteit($this->contactmoment['activerende_opening_id']),
+                "Focus" => $this->factory->getActiviteit($this->contactmoment['focus_id']),
+                "Voorstellen" => $this->factory->getActiviteit($this->contactmoment['voorstellen_id'])
+            ],
+            'Kern' => $this->factory->getKern($this->contactmoment['lesplan_id']),
+            'Afsluiting' => [
+                "Huiswerk" => $this->factory->getActiviteit($this->contactmoment['huiswerk_id']),
+                "Evaluatie" => $this->factory->getActiviteit($this->contactmoment['evaluatie_id']),
+                "Pakkend slot" => $this->factory->getActiviteit($this->contactmoment['pakkend_slot_id'])
+            ]
         ]);
     }
 }
