@@ -1,19 +1,30 @@
 @CHARSET "UTF-8";
 
+
+
 /**
 ColorBlender.com pallette
 HTML #F5421E	#A82D14		#F5AD1D 	#A87714		#0A0A0A		#F5F5F5
 Please adhere to above color codes
 **/
+@page {
+    size: A4 portrait;
+    margin: 25mm 10mm; /* change the margins as you want them to be. */
+}
+
 body {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12pt;
 	line-height: 1.5em;
 	background-color: #ffffff;
+
 }
 
 body header {
 	text-align: center;
+}
+body header h1 {
+	color: rgb(199, 0, 43);
 }
 
 body>section {
@@ -29,7 +40,7 @@ body section h3 {
 }
 
 table {
-	width: 210mm;
+	width: 100%;
 	border-spacing: 0;
 	margin-bottom: 1em;
 	table-layout: fixed;
@@ -70,6 +81,9 @@ table td#intelligenties ul li {
 }
 
 @media print {
+	body {
+		background-image: url(/background.png);
+	}
 	body>header, body>section {
 		page-break-after: always;
 	}
