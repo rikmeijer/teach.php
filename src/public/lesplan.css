@@ -11,17 +11,24 @@ Please adhere to above color codes
     size: A4 portrait;
     margin: 25mm 10mm; /* change the margins as you want them to be. */
 }
-
+html, body {
+	margin: 0;
+	padding:0;
+}
 body {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 12pt;
 	line-height: 1.5em;
-	background-color: #ffffff;
+	background: #ffffff;
 
 }
 
 body header {
 	text-align: center;
+	border-top: 20px solid rgb(199, 0, 43);
+	height: 84px;
+	background: url(/avans_logo.png) no-repeat 100% 10%;
+	width: 100%;
 }
 body header h1 {
 	color: rgb(199, 0, 43);
@@ -61,7 +68,7 @@ table td, table th {
 
 table th {
 	text-align: right;
-	background-color: rgb(255, 192, 206) ;
+	color: rgb(199, 0, 43);
 	width: 20%;
 }
 
@@ -85,6 +92,7 @@ table td#intelligenties ul li {
 		background-image: url(/background.png);
 	}
 	body>header, body>section {
+		
 		page-break-after: always;
 	}
 }
