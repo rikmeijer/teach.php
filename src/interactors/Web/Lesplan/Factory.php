@@ -58,8 +58,9 @@ final class Factory
     
     /**
      * 
-     * @param array $activiteitDefinitions
-     * @return \Teach\Interactors\Web\Lesplan\Fase
+     * @param Activiteit $activerendeOpening
+     * @param Activiteit $focus
+     * @param Activiteit $voorstellen
      */
     public function createIntroductie(Activiteit $activerendeOpening, Activiteit $focus, Activiteit $voorstellen)
     {
@@ -67,6 +68,15 @@ final class Factory
         $fase->addOnderdeel($activerendeOpening);
         $fase->addOnderdeel($focus);
         $fase->addOnderdeel($voorstellen);
+        return $fase;
+    }
+
+    public function createAfsluiting(Activiteit $huiswerk, Activiteit $feedback, Activiteit $pakkendSlot)
+    {
+        $fase = $this->createFase("Afsluiting");
+        $fase->addOnderdeel($huiswerk);
+        $fase->addOnderdeel($feedback);
+        $fase->addOnderdeel($pakkendSlot);
         return $fase;
     }
     

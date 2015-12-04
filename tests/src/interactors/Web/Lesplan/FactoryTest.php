@@ -179,11 +179,56 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
                 \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
             ]
-        ]))
-            ->generateLayout(new HTMLFactory());
+        ]))->generateLayout(new HTMLFactory());
         $this->assertEquals("Introductie", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
     }
 
+    public function testCreateAfsluiting()
+    {
+        $object = new Factory();
+        $layout = $object->createAfsluiting(
+            $object->createActiviteit("Huiswerk", [
+                "inhoud" => [
+                    "Challenge voor eerstvolgende les maken",
+                    "Practicum opdrachten thuis afronden",
+                    "Huiswerk maken als extra oefening"
+                ],
+                "werkvorm" => "presentatie",
+                "organisatievorm" => "plenair",
+                "werkvormsoort" => "docentgecentreerd",
+                "tijd" => "2",
+                "intelligenties" => [
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                ]
+            ]),
+            $object->createActiviteit("Evaluatie", [
+                "inhoud" => "Verzamelen feedback papiertjes",
+                "werkvorm" => "nabespreking",
+                "organisatievorm" => "plenair",
+                "werkvormsoort" => "ijsbreker",
+                "tijd" => "3",
+                "intelligenties" => [
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+                ]
+            ]),
+            $object->createActiviteit("Pakkend slot", [
+                "inhoud" => "Foto; gerelateerd aan keuzes/condities. Misschien foto van blauwe/rode pil Matrix.",
+                "werkvorm" => "presentatie",
+                "organisatievorm" => "plenair",
+                "werkvormsoort" => "docentgecentreerd",
+                "tijd" => "1",
+                "intelligenties" => [
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
+                ]
+            ])
+        )->generateLayout(new HTMLFactory());
+        $this->assertEquals("Afsluiting", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
+    }
+    
     public function testCreateLesplan()
     {
         $object = new Factory();
