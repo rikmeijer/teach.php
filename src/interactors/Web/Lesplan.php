@@ -5,32 +5,19 @@ final class Lesplan implements \Teach\Interactors\LayoutableInterface
 {
 
     private $vak;
-
-    private $les;
     
     /**
      * 
-     * @var \Teach\Interactors\Web\Lesplan\Beginsituatie
+     * @var \Teach\Interactors\Web\Contactmoment
      */
-    private $beginsituatie;
+    private $contactmoment;
     
-    /**
-     * 
-     * @var string[]
-     */
-    private $media;
-
     /**
      *
      * @var \Teach\Interactors\Web\Lesplan\Fase
      */
     private $introductie;
-
-    /**
-     *
-     * @var string[]
-     */
-    private $leerdoelen;
+    
     
     /**
      * 
@@ -44,14 +31,11 @@ final class Lesplan implements \Teach\Interactors\LayoutableInterface
      */
     private $afsluiting;
     
-    public function __construct($vak, $les, Lesplan\Beginsituatie $beginsituatie, array $media, array $leerdoelen, Lesplan\Fase $introductie, Lesplan\Fase $kern, Lesplan\Fase $aflsluiting)
+    public function __construct($vak, Contactmoment $contactmoment, Lesplan\Fase $introductie, Lesplan\Fase $kern, Lesplan\Fase $aflsluiting)
     {
         $this->vak = $vak;
-        $this->les = $les;
-        $this->beginsituatie = $beginsituatie;
-        $this->media = $media;
+        $this->contactmoment = $contactmoment;
         $this->introductie = $introductie;
-        $this->leerdoelen = $leerdoelen;
         $this->kern = $kern;
         $this->afsluiting = $aflsluiting;
     }
@@ -62,20 +46,10 @@ final class Lesplan implements \Teach\Interactors\LayoutableInterface
      */
     public function generateLayout (\Teach\Interactors\LayoutFactoryInterface $factory)
     {
-        $beginsituatieHTMLLayout = $this->beginsituatie->generateLayout ($factory);
-        if (count($this->media) > 0) {
-            $beginsituatieHTMLLayout[] = $factory->makeHeader3('Benodigde media');
-            $beginsituatieHTMLLayout[] = $factory->makeUnorderedList($this->media);
-        }
-        
-        $beginsituatieHTMLLayout[] = $factory->makeHeader3('Leerdoelen');
-        $beginsituatieHTMLLayout[] = $factory->makeParagraph('Na afloop van de les kan de student:');
-        $beginsituatieHTMLLayout[] = $factory->makeOrderedList($this->leerdoelen);
-        
         return array_merge([
             $factory->makePageHeader($factory->makeHeader1('Lesplan ' . $this->vak)),
-            $factory->makeSection($factory->makeHeader2($this->les), $beginsituatieHTMLLayout)
         ], 
+            $this->contactmoment->generateLayout($factory),
             $this->introductie->generateLayout ($factory),
             $this->kern->generateLayout ($factory),
             $this->afsluiting->generateLayout ($factory)

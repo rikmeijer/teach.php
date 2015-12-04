@@ -95,6 +95,7 @@ final class Factory
         $introductie = $this->createFaseWithActiviteiten('Introductie', $lesplanDefinition['Introductie']);
         $kern = $this->createKern($lesplanDefinition['Kern']);
         $afsluiting = $this->createFaseWithActiviteiten('Afsluiting', $lesplanDefinition['Afsluiting']);
-        return new \Teach\Interactors\Web\Lesplan($lesplanDefinition['vak'], $lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media'], array_keys($lesplanDefinition['Kern']), $introductie, $kern, $afsluiting);
+        $contactmoment = new \Teach\Interactors\Web\Contactmoment($lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media'], array_keys($lesplanDefinition['Kern']));
+        return new \Teach\Interactors\Web\Lesplan($lesplanDefinition['vak'], $contactmoment, $introductie, $kern, $afsluiting);
     }
 }
