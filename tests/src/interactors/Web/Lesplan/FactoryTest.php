@@ -400,8 +400,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             ]
         ];
         $kern = $object->createKern($kernDefinition);
-        $afsluiting = $object->createFaseWithActiviteiten('Afsluiting', [
-            "Huiswerk" => [
+        $afsluiting = $object->createAfsluiting(
+            $object->createActiviteit("Huiswerk", [
                 "inhoud" => [
                     "Challenge voor eerstvolgende les maken",
                     "Practicum opdrachten thuis afronden",
@@ -415,8 +415,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                     \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
                     \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                 ]
-            ],
-            "Evaluatie" => [
+            ]),
+            $object->createActiviteit("Evaluatie", [
                 "inhoud" => "Verzamelen feedback papiertjes",
                 "werkvorm" => "nabespreking",
                 "organisatievorm" => "plenair",
@@ -426,8 +426,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                     \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
                     \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                 ]
-            ],
-            "Pakkend slot" => [
+            ]),
+            $object->createActiviteit("Pakkend slot", [
                 "inhoud" => "Foto; gerelateerd aan keuzes/condities. Misschien foto van blauwe/rode pil Matrix.",
                 "werkvorm" => "presentatie",
                 "organisatievorm" => "plenair",
@@ -438,8 +438,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                     \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
                     \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
                 ]
-            ]
-        ]);
+            ])
+        );
         $contactmoment = $object->createContactmoment('Blok 1 / Week 1 / Les 1', $beginsituatie, [
             'filmfragment matrix',
             'countdown timer voor toepassingsfases (optioneel)',

@@ -48,11 +48,11 @@ class Contactmoment
         ]);
         $contactmoment = $factory->createContactmoment($this->contactmoment['les'], $beginsituatie, $this->factory->getMedia($this->contactmoment['lesplan_id']), $leerdoelen);
         
-        $afsluiting = $factory->createFaseWithActiviteiten("Afsluiting", [
-            "Huiswerk" => $this->factory->getActiviteit($this->contactmoment['huiswerk_id']),
-            "Evaluatie" => $this->factory->getActiviteit($this->contactmoment['evaluatie_id']),
-            "Pakkend slot" => $this->factory->getActiviteit($this->contactmoment['pakkend_slot_id'])
-        ]);
+        $afsluiting = $factory->createAfsluiting(
+            $factory->createActiviteit("Huiswerk", $this->factory->getActiviteit($this->contactmoment['huiswerk_id'])),
+            $factory->createActiviteit("Evaluatie", $this->factory->getActiviteit($this->contactmoment['evaluatie_id'])),
+            $factory->createActiviteit("Pakkend slot", $this->factory->getActiviteit($this->contactmoment['pakkend_slot_id']))
+        );
         
         return $factory->createLesplan($this->contactmoment['vak'], $contactmoment, $introductie, $kern, $afsluiting);
     }
