@@ -61,35 +61,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("Kern", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
     }
 
-    public function testCreateFaseWithActiviteiten()
-    {
-        $object = new Factory();
-        $layout = $object->createFaseWithActiviteiten("Introductie", [
-            "Activerende opening" => [
-                'inhoud' => 'bla die bla',
-                'werkvorm' => "",
-                'organisatievorm' => "plenair",
-                'werkvormsoort' => "ijsbreker",
-                'tijd' => "",
-                'intelligenties' => [
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
-                ]
-            ]
-        ])->generateLayout(new HTMLFactory());
-        $this->assertEquals("Introductie", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
-        
-        $row = $layout[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][4];
-        $this->assertEquals("tr", $row[HTMLFactory::TAG]);
-        $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("inhoud", $row[HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
-        $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
-        $this->assertEquals('3', $row[HTMLFactory::CHILDREN][1][HTMLFactory::ATTRIBUTES]['colspan']);
-        $this->assertEquals('bla die bla', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
-    }
-
     public function testCreateKern()
     {
         $object = new Factory();
