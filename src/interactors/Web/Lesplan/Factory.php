@@ -107,7 +107,7 @@ final class Factory
     /**
      * 
      * @param array $lesplanDefinition
-     * @return \Teach\Interactors\Web\Lesplan
+     * @return \Teach\Interactors\LayoutableInterface
      */
     public function createLesplan($vak, Contactmoment $contactmoment, Fase $introductie, Fase $kern, Fase $afsluiting)
     {
