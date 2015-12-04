@@ -28,7 +28,7 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             "Java-code lezen en uitleggen wat er gebeurt"
         ];
 
-        $contactmoment = new Contactmoment('Blok 1 / Week 1 / Les 1', $beginsituatie, $media, $leerdoelen);
+        $contactmoment = new Lesplan\Contactmoment('Blok 1 / Week 1 / Les 1', $beginsituatie, $media, $leerdoelen);
         $object = new Lesplan("Programmeren 1", $contactmoment, new Lesplan\Fase("Introductie"), new Lesplan\Fase('Kern'), new Lesplan\Fase("Afsluiting"));
         
         $html = $object->generateLayout(new HTMLFactory());

@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Interactors\Web;
+namespace Teach\Interactors\Web\Lesplan;
 
 use \Teach\Adapters\HTML\Factory as HTMLFactory;
 
@@ -7,7 +7,7 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerateHTMLLayout()
     {
-        $beginsituatie = new Lesplan\Beginsituatie('HBO-informatica (voltijd)', [
+        $beginsituatie = new Beginsituatie('HBO-informatica (voltijd)', [
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
@@ -62,7 +62,7 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
 
     public function testGenerateHTMLLayoutNoMedia()
     {
-        $beginsituatie = new Lesplan\Beginsituatie('HBO-informatica (voltijd)', [
+        $beginsituatie = new Beginsituatie('HBO-informatica (voltijd)', [
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen

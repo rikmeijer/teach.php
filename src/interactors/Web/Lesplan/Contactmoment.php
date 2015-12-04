@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Interactors\Web;
+namespace Teach\Interactors\Web\Lesplan;
 
 final class Contactmoment implements \Teach\Interactors\LayoutableInterface
 {
@@ -24,7 +24,7 @@ final class Contactmoment implements \Teach\Interactors\LayoutableInterface
     private $leerdoelen;
     
     
-    public function __construct($les, Lesplan\Beginsituatie $beginsituatie, array $media, array $leerdoelen)
+    public function __construct($les, Beginsituatie $beginsituatie, array $media, array $leerdoelen)
     {
         $this->les = $les;
         $this->beginsituatie = $beginsituatie;

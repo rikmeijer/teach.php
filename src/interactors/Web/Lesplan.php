@@ -8,7 +8,7 @@ final class Lesplan implements \Teach\Interactors\LayoutableInterface
     
     /**
      * 
-     * @var \Teach\Interactors\Web\Contactmoment
+     * @var \Teach\Interactors\Web\Lesplan\Contactmoment
      */
     private $contactmoment;
     
@@ -31,7 +31,7 @@ final class Lesplan implements \Teach\Interactors\LayoutableInterface
      */
     private $afsluiting;
     
-    public function __construct($vak, Contactmoment $contactmoment, Lesplan\Fase $introductie, Lesplan\Fase $kern, Lesplan\Fase $aflsluiting)
+    public function __construct($vak, Lesplan\Contactmoment $contactmoment, Lesplan\Fase $introductie, Lesplan\Fase $kern, Lesplan\Fase $aflsluiting)
     {
         $this->vak = $vak;
         $this->contactmoment = $contactmoment;
