@@ -5,11 +5,11 @@ class Contactmoment
 {
 
     /**
-     * 
+     *
      * @var Factory
      */
     private $factory;
-    
+
     /**
      *
      * @var array contactmoment record
@@ -24,38 +24,39 @@ class Contactmoment
 
     public function createLesplan(\Teach\Interactors\Web\Lesplan\Factory $factory)
     {
-        $introductie = [
-                "Activerende opening" => $this->factory->getActiviteit($this->contactmoment['activerende_opening_id']),
-                "Focus" => $this->factory->getActiviteit($this->contactmoment['focus_id']),
+        $introductieFases = [
+            "Activerende opening" => $this->factory->getActiviteit($this->contactmoment['activerende_opening_id']),
+            "Focus" => $this->factory->getActiviteit($this->contactmoment['focus_id'])
         ];
         if ($this->contactmoment['voorstellen_id'] !== null) {
-            $introductie["Voorstellen"] = $this->factory->getActiviteit($this->contactmoment['voorstellen_id']);
+            $introductieFases["Voorstellen"] = $this->factory->getActiviteit($this->contactmoment['voorstellen_id']);
         }
+        $introductie = $factory->createFaseWithActiviteiten("Introductie", $introductieFases);
         
-        return $factory->createLesplan([
-            'opleiding' => $this->contactmoment['opleiding'],
-            'vak' => $this->contactmoment['vak'],
-            'les' => $this->contactmoment['les'],
-            'Beginsituatie' => [
-                'doelgroep' => [
-                    'beschrijving' => $this->contactmoment['doelgroep_beschrijving'],
-                    'ervaring' => $this->contactmoment['doelgroep_ervaring'],
-                    'grootte' => $this->contactmoment['doelgroep_grootte'] . ' personen'
-                ],
-                'starttijd' => date('H:i', strtotime($this->contactmoment['starttijd'])),
-                'eindtijd' => date('H:i', strtotime($this->contactmoment['eindtijd'])),
-                'duur' => $this->contactmoment['duur'],
-                'ruimte' => $this->contactmoment['ruimte'],
-                'overige' => $this->contactmoment['opmerkingen']
+        $kernDefinition = $this->factory->getKern($this->contactmoment['lesplan_id']);
+        $leerdoelen = array_keys($kernDefinition);
+        $kern = $factory->createKern($kernDefinition);
+        
+        $beginsituatie = $factory->createBeginsituatie($this->contactmoment['opleiding'], [
+            'doelgroep' => [
+                'beschrijving' => $this->contactmoment['doelgroep_beschrijving'],
+                'ervaring' => $this->contactmoment['doelgroep_ervaring'],
+                'grootte' => $this->contactmoment['doelgroep_grootte'] . ' personen'
             ],
-            "media" => $this->factory->getMedia($this->contactmoment['lesplan_id']),
-            'Introductie' => $introductie,
-            'Kern' => $this->factory->getKern($this->contactmoment['lesplan_id']),
-            'Afsluiting' => [
-                "Huiswerk" => $this->factory->getActiviteit($this->contactmoment['huiswerk_id']),
-                "Evaluatie" => $this->factory->getActiviteit($this->contactmoment['evaluatie_id']),
-                "Pakkend slot" => $this->factory->getActiviteit($this->contactmoment['pakkend_slot_id'])
-            ]
+            'starttijd' => date('H:i', strtotime($this->contactmoment['starttijd'])),
+            'eindtijd' => date('H:i', strtotime($this->contactmoment['eindtijd'])),
+            'duur' => $this->contactmoment['duur'],
+            'ruimte' => $this->contactmoment['ruimte'],
+            'overige' => $this->contactmoment['opmerkingen']
         ]);
+        $contactmoment = $factory->createContactmoment($this->contactmoment['les'], $beginsituatie, $this->factory->getMedia($this->contactmoment['lesplan_id']), $leerdoelen);
+        
+        $afsluiting = $factory->createFaseWithActiviteiten("Afsluiting", [
+            "Huiswerk" => $this->factory->getActiviteit($this->contactmoment['huiswerk_id']),
+            "Evaluatie" => $this->factory->getActiviteit($this->contactmoment['evaluatie_id']),
+            "Pakkend slot" => $this->factory->getActiviteit($this->contactmoment['pakkend_slot_id'])
+        ]);
+        
+        return $factory->createLesplan($this->contactmoment['vak'], $contactmoment, $introductie, $kern, $afsluiting);
     }
 }

@@ -86,16 +86,24 @@ final class Factory
     
     /**
      * 
+     * @param string $les
+     * @param Beginsituatie $beginsituatie
+     * @param array $media
+     * @param array $leerdoelen
+     * @return \Teach\Interactors\Web\Lesplan\Contactmoment
+     */
+    public function createContactmoment($les, Beginsituatie $beginsituatie, array $media, array $leerdoelen)
+    {
+        return new Contactmoment($les, $beginsituatie, $media, $leerdoelen);
+    }
+    
+    /**
+     * 
      * @param array $lesplanDefinition
      * @return \Teach\Interactors\Web\Lesplan
      */
-    public function createLesplan(array $lesplanDefinition)
+    public function createLesplan($vak, Contactmoment $contactmoment, Fase $introductie, Fase $kern, Fase $afsluiting)
     {
-        $beginsituatie = $this->createBeginsituatie($lesplanDefinition['opleiding'], $lesplanDefinition['Beginsituatie']);
-        $introductie = $this->createFaseWithActiviteiten('Introductie', $lesplanDefinition['Introductie']);
-        $kern = $this->createKern($lesplanDefinition['Kern']);
-        $afsluiting = $this->createFaseWithActiviteiten('Afsluiting', $lesplanDefinition['Afsluiting']);
-        $contactmoment = new Contactmoment($lesplanDefinition['les'], $beginsituatie, $lesplanDefinition['media'], array_keys($lesplanDefinition['Kern']));
-        return new \Teach\Interactors\Web\Lesplan($lesplanDefinition['vak'], $contactmoment, $introductie, $kern, $afsluiting);
+        return new \Teach\Interactors\Web\Lesplan($vak, $contactmoment, $introductie, $kern, $afsluiting);
     }
 }

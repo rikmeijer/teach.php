@@ -31,13 +31,13 @@ final class Lesplan implements \Teach\Interactors\LayoutableInterface
      */
     private $afsluiting;
     
-    public function __construct($vak, Lesplan\Contactmoment $contactmoment, Lesplan\Fase $introductie, Lesplan\Fase $kern, Lesplan\Fase $aflsluiting)
+    public function __construct($vak, Lesplan\Contactmoment $contactmoment, Lesplan\Fase $introductie, Lesplan\Fase $kern, Lesplan\Fase $afsluiting)
     {
         $this->vak = $vak;
         $this->contactmoment = $contactmoment;
         $this->introductie = $introductie;
         $this->kern = $kern;
-        $this->afsluiting = $aflsluiting;
+        $this->afsluiting = $afsluiting;
     }
 
     /**
