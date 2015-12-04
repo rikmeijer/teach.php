@@ -141,7 +141,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('h3', $layout[0][HTMLFactory::TAG]);
         $this->assertEquals("Beginsituatie", $layout[0][HTMLFactory::CHILDREN][0]);
     }
-    
+
     public function testCreateIntroductie()
     {
         $object = new Factory();
@@ -179,7 +179,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
                 \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
             ]
-        ]))->generateLayout(new HTMLFactory());
+        ]))
+            ->generateLayout(new HTMLFactory());
         $this->assertEquals("Introductie", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
     }
 
@@ -199,45 +200,41 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt'
         ]);
-        $introductie = $object->createFaseWithActiviteiten('Introductie', [
-            "Activerende opening" => [
-                'inhoud' => 'Scené uit de matrix tonen waarop wordt gezegd: "I don\'t even see the code". Wie kent deze film? Een ervaren programmeur zal een vergelijkbaar gevoel hebben bij code: programmeren is een visualisatie kunnen uitdrukken in code en vice versa.',
-                'werkvorm' => "film",
-                'organisatievorm' => "plenair",
-                'werkvormsoort' => "ijsbreker",
-                'tijd' => "5",
-                'intelligenties' => [
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
-                ]
-            ],
-            "Focus" => [
-                "inhoud" => "Visie, Leerdoelen, Programma, Afspraken",
-                "werkvorm" => "presentatie",
-                "organisatievorm" => "plenair",
-                "werkvormsoort" => "docent gecentreerd",
-                "tijd" => "3",
-                "intelligenties" => [
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
-                ]
-            ],
-            "Voorstellen" => [
-                "inhoud" => "Voorstellen Docent",
-                "werkvorm" => "presentatie",
-                "organisatievorm" => "plenair",
-                "werkvormsoort" => "docent gecentreerd",
-                "tijd" => "2",
-                "intelligenties" => [
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
-                ]
+        $introductie = $object->createIntroductie($object->createActiviteit("Activerende opening", [
+            'inhoud' => 'Scené uit de matrix tonen waarop wordt gezegd: "I don\'t even see the code". Wie kent deze film? Een ervaren programmeur zal een vergelijkbaar gevoel hebben bij code: programmeren is een visualisatie kunnen uitdrukken in code en vice versa.',
+            'werkvorm' => "film",
+            'organisatievorm' => "plenair",
+            'werkvormsoort' => "ijsbreker",
+            'tijd' => "5",
+            'intelligenties' => [
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
             ]
-        ]);
+        ]), $object->createActiviteit("Focus", [
+            "inhoud" => "Visie, Leerdoelen, Programma, Afspraken",
+            "werkvorm" => "presentatie",
+            "organisatievorm" => "plenair",
+            "werkvormsoort" => "docent gecentreerd",
+            "tijd" => "3",
+            "intelligenties" => [
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+            ]
+        ]), $object->createActiviteit("Voorstellen", [
+            "inhoud" => "Voorstellen Docent",
+            "werkvorm" => "presentatie",
+            "organisatievorm" => "plenair",
+            "werkvormsoort" => "docent gecentreerd",
+            "tijd" => "2",
+            "intelligenties" => [
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+            ]
+        ]));
         $kernDefinition = [
             "Zelfstandig eclipse installeren" => [
                 "Ervaren" => [
@@ -414,5 +411,4 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("Lesplan Programmeren 1", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         ;
     }
-    
 }
