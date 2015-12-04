@@ -20,7 +20,7 @@ class Factory
         return $this->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function createContactmoment($identifier)
+    private function getContactmoment($identifier)
     {
         $contactmomenten = $this->query("
             SELECT
@@ -76,33 +76,62 @@ class Factory
                 contactmoment.id
         ");
         if (count($contactmomenten) > 0) {
-            $contactmoment = $contactmomenten[0];
-        } else {
-            $contactmoment = [
-                "opleiding" => 'HBO-informatica (voltijd)',
-                "lesplan_id" => "onbekend",
-                "les" => "onbekend",
-                "vak" => "onbekend",
-                "doelgroep_grootte" => "onbekend",
-                "doelgroep_ervaring" => "onbekend",
-                "doelgroep_beschrijving" => "onbekend",
-                "starttijd" => "onbekend",
-                "eindtijd" => "onbekend",
-                "duur" => "onbekend",
-                "beschikbaar" => "onbekend",
-                "ruimte" => "onbekend",
-                "opmerkingen" => "",
-                "activerende_opening_id" => null,
-                "focus_id" => null,
-                "voorstellen_id" => null,
-                "kennismaken_id" => null,
-                "terugblik_id" => null,
-                "huiswerk_id" => null,
-                "evaluatie_id" => null,
-                "pakkend_slot_id" => null
-            ];
+            return $contactmomenten[0];
         }
-        return new Contactmoment($this, $contactmoment);
+        return [
+            "opleiding" => 'HBO-informatica (voltijd)',
+            "lesplan_id" => "onbekend",
+            "les" => "onbekend",
+            "vak" => "onbekend",
+            "doelgroep_grootte" => "onbekend",
+            "doelgroep_ervaring" => "onbekend",
+            "doelgroep_beschrijving" => "onbekend",
+            "starttijd" => "onbekend",
+            "eindtijd" => "onbekend",
+            "duur" => "onbekend",
+            "beschikbaar" => "onbekend",
+            "ruimte" => "onbekend",
+            "opmerkingen" => "",
+            "activerende_opening_id" => null,
+            "focus_id" => null,
+            "voorstellen_id" => null,
+            "kennismaken_id" => null,
+            "terugblik_id" => null,
+            "huiswerk_id" => null,
+            "evaluatie_id" => null,
+            "pakkend_slot_id" => null
+        ];
+    }
+
+    /**
+     * 
+     * @param string $identifier
+     * @return \Teach\Entities\Contactmoment
+     */
+    public function createContactmoment($identifier)
+    {
+        return new Contactmoment($this, $this->getContactmoment($identifier));
+    }
+
+    /**
+     * 
+     * @param string $contactmoment_id
+     */
+    public function getBeginsituatie($contactmoment_id)
+    {
+        $contactmoment = $this->getContactmoment($contactmoment_id);
+        return [
+            'doelgroep' => [
+                'beschrijving' => $contactmoment['doelgroep_beschrijving'],
+                'ervaring' => $contactmoment['doelgroep_ervaring'],
+                'grootte' => $contactmoment['doelgroep_grootte'] . ' personen'
+            ],
+            'starttijd' => date('H:i', strtotime($contactmoment['starttijd'])),
+            'eindtijd' => date('H:i', strtotime($contactmoment['eindtijd'])),
+            'duur' => $contactmoment['duur'],
+            'ruimte' => $contactmoment['ruimte'],
+            'overige' => $contactmoment['opmerkingen']
+        ];
     }
 
     public function getMedia($les_id)
