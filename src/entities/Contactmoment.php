@@ -32,7 +32,6 @@ class Contactmoment
             $introductie["Voorstellen"] = $this->factory->getActiviteit($this->contactmoment['voorstellen_id']);
         }
         
-        
         return $factory->createLesplan([
             'opleiding' => $this->contactmoment['opleiding'],
             'vak' => $this->contactmoment['vak'],
