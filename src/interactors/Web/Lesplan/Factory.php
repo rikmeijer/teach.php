@@ -56,6 +56,15 @@ final class Factory
         return $fase;
     }
     
+    /**
+     * 
+     * @param array $activiteitDefinitions
+     * @return \Teach\Interactors\Web\Lesplan\Fase
+     */
+    public function createIntroductie(array $activiteitDefinitions)
+    {
+        return $this->createFaseWithActiviteiten("Introductie", $activiteitDefinitions);
+    }
     
     /**
      * 
