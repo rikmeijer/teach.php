@@ -113,27 +113,6 @@ class Factory
         return new Contactmoment($this, $this->getContactmoment($identifier));
     }
 
-    /**
-     * 
-     * @param string $contactmoment_id
-     */
-    public function getBeginsituatie($contactmoment_id)
-    {
-        $contactmoment = $this->getContactmoment($contactmoment_id);
-        return [
-            'doelgroep' => [
-                'beschrijving' => $contactmoment['doelgroep_beschrijving'],
-                'ervaring' => $contactmoment['doelgroep_ervaring'],
-                'grootte' => $contactmoment['doelgroep_grootte'] . ' personen'
-            ],
-            'starttijd' => date('H:i', strtotime($contactmoment['starttijd'])),
-            'eindtijd' => date('H:i', strtotime($contactmoment['eindtijd'])),
-            'duur' => $contactmoment['duur'],
-            'ruimte' => $contactmoment['ruimte'],
-            'overige' => $contactmoment['opmerkingen']
-        ];
-    }
-
     public function getMedia($les_id)
     {
         $mediaQueryResult = $this->pdo->query("

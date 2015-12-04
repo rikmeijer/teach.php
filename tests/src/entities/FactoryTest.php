@@ -19,18 +19,4 @@ class FactoryTest extends \Teach\EntitiesTest
         $object = new Factory(self::$pdo);
         $this->assertInstanceOf('\Teach\Entities\Contactmoment', $object->createContactmoment('1'));
     }
-
-    public function testGetBeginsituatie()
-    {
-        $object = new Factory(self::$pdo);
-        $beginsituatie = $object->getBeginsituatie('1');
-        $this->assertEquals('eerstejaars HBO-studenten', $beginsituatie['doelgroep']['beschrijving']);
-        $this->assertEquals('geen', $beginsituatie['doelgroep']['ervaring']);
-        $this->assertEquals('16 personen', $beginsituatie['doelgroep']['grootte']);
-        $this->assertEquals('08:45', $beginsituatie['starttijd']);
-        $this->assertEquals('10:20', $beginsituatie['eindtijd']);
-        $this->assertEquals('95', $beginsituatie['duur']);
-        $this->assertEquals('beschikking over vaste computers', $beginsituatie['ruimte']);
-        $this->assertEquals('nvt', $beginsituatie['overige']);
-    }
 }
