@@ -145,45 +145,41 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateIntroductie()
     {
         $object = new Factory();
-        $layout = $object->createIntroductie([
-            "Activerende opening" => [
-                'inhoud' => 'Scené uit de matrix tonen waarop wordt gezegd: "I don\'t even see the code". Wie kent deze film? Een ervaren programmeur zal een vergelijkbaar gevoel hebben bij code: programmeren is een visualisatie kunnen uitdrukken in code en vice versa.',
-                'werkvorm' => "film",
-                'organisatievorm' => "plenair",
-                'werkvormsoort' => "ijsbreker",
-                'tijd' => "5",
-                'intelligenties' => [
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
-                ]
-            ],
-            "Focus" => [
-                "inhoud" => "Visie, Leerdoelen, Programma, Afspraken",
-                "werkvorm" => "presentatie",
-                "organisatievorm" => "plenair",
-                "werkvormsoort" => "docent gecentreerd",
-                "tijd" => "3",
-                "intelligenties" => [
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
-                ]
-            ],
-            "Voorstellen" => [
-                "inhoud" => "Voorstellen Docent",
-                "werkvorm" => "presentatie",
-                "organisatievorm" => "plenair",
-                "werkvormsoort" => "docent gecentreerd",
-                "tijd" => "2",
-                "intelligenties" => [
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
-                    \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
-                ]
+        $layout = $object->createIntroductie($object->createActiviteit("Activerende opening", [
+            'inhoud' => 'Scené uit de matrix tonen waarop wordt gezegd: "I don\'t even see the code". Wie kent deze film? Een ervaren programmeur zal een vergelijkbaar gevoel hebben bij code: programmeren is een visualisatie kunnen uitdrukken in code en vice versa.',
+            'werkvorm' => "film",
+            'organisatievorm' => "plenair",
+            'werkvormsoort' => "ijsbreker",
+            'tijd' => "5",
+            'intelligenties' => [
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VISUEEL_RUIMTELIJK,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTRAPERSOONLIJK
             ]
-        ])->generateLayout(new HTMLFactory());
+        ]), $object->createActiviteit("Focus", [
+            "inhoud" => "Visie, Leerdoelen, Programma, Afspraken",
+            "werkvorm" => "presentatie",
+            "organisatievorm" => "plenair",
+            "werkvormsoort" => "docent gecentreerd",
+            "tijd" => "3",
+            "intelligenties" => [
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+            ]
+        ]), $object->createActiviteit("Voorstellen", [
+            "inhoud" => "Voorstellen Docent",
+            "werkvorm" => "presentatie",
+            "organisatievorm" => "plenair",
+            "werkvormsoort" => "docent gecentreerd",
+            "tijd" => "2",
+            "intelligenties" => [
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
+                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
+            ]
+        ]))->generateLayout(new HTMLFactory());
         $this->assertEquals("Introductie", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
     }
 

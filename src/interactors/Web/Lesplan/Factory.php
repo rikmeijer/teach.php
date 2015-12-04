@@ -61,9 +61,13 @@ final class Factory
      * @param array $activiteitDefinitions
      * @return \Teach\Interactors\Web\Lesplan\Fase
      */
-    public function createIntroductie(array $activiteitDefinitions)
+    public function createIntroductie(Activiteit $activerendeOpening, Activiteit $focus, Activiteit $voorstellen)
     {
-        return $this->createFaseWithActiviteiten("Introductie", $activiteitDefinitions);
+        $fase = $this->createFase("Introductie");
+        $fase->addOnderdeel($activerendeOpening);
+        $fase->addOnderdeel($focus);
+        $fase->addOnderdeel($voorstellen);
+        return $fase;
     }
     
     /**
