@@ -79,17 +79,6 @@ final class Factory
         }
         return $kern;
     }
-
-    /**
-     * 
-     * @param string $opleiding
-     * @param array $beginsituatie
-     * @return \Teach\Interactors\Web\Lesplan\Beginsituatie
-     */
-    public function createBeginsituatie($opleiding, array $beginsituatie)
-    {
-        return new Beginsituatie($opleiding, $beginsituatie);
-    }
     
     /**
      * 
