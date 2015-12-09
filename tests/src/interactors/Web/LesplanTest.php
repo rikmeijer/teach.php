@@ -28,12 +28,14 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt'
         ], $media, $leerdoelen);
-        $object = new Lesplan("Programmeren 1", $contactmoment, new Lesplan\Fase("Introductie"), new Lesplan\Fase('Kern'), new Lesplan\Fase("Afsluiting"));
+        $object = new Lesplan("HBO-informatica (voltijd)", "Programmeren 1", $contactmoment, new Lesplan\Fase("Introductie"), new Lesplan\Fase('Kern'), new Lesplan\Fase("Afsluiting"));
         
         $html = $object->generateLayout(new HTMLFactory());
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("Lesplan Programmeren 1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
+//         $this->assertEquals("Lesplan Programmeren 1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
+//         $this->assertEquals("h2", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
+//         $this->assertEquals("HBO-informatica (voltijd)", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
 
         $this->assertEquals('section', $html[1][HTMLFactory::TAG]);
         $this->assertEquals("h2", $html[1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);

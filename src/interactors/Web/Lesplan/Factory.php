@@ -96,11 +96,15 @@ final class Factory
     
     /**
      * 
-     * @param array $lesplanDefinition
-     * @return \Teach\Interactors\LayoutableInterface
+     * @param string $opleiding
+     * @param string $vak
+     * @param Contactmoment $contactmoment
+     * @param Fase $introductie
+     * @param Fase $kern
+     * @param Fase $afsluiting
      */
-    public function createLesplan($vak, Contactmoment $contactmoment, Fase $introductie, Fase $kern, Fase $afsluiting)
+    public function createLesplan($opleiding, $vak, Contactmoment $contactmoment, Fase $introductie, Fase $kern, Fase $afsluiting)
     {
-        return new \Teach\Interactors\Web\Lesplan($vak, $contactmoment, $introductie, $kern, $afsluiting);
+        return new \Teach\Interactors\Web\Lesplan($opleiding, $vak, $contactmoment, $introductie, $kern, $afsluiting);
     }
 }

@@ -59,6 +59,6 @@ class Contactmoment
         
         $afsluiting = $factory->createAfsluiting($factory->createActiviteit("Huiswerk", $this->factory->getActiviteit($this->contactmoment['huiswerk_id'])), $factory->createActiviteit("Evaluatie", $this->factory->getActiviteit($this->contactmoment['evaluatie_id'])), $factory->createActiviteit("Pakkend slot", $this->factory->getActiviteit($this->contactmoment['pakkend_slot_id'])));
         
-        return $factory->createLesplan($this->contactmoment['vak'], $contactmoment, $introductie, $kern, $afsluiting);
+        return $factory->createLesplan($this->contactmoment['opleiding'], $this->contactmoment['vak'], $contactmoment, $introductie, $kern, $afsluiting);
     }
 }

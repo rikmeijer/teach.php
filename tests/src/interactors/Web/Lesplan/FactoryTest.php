@@ -400,7 +400,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             'voorbeeldproject voor aanvullende feedback'
         ], array_keys($kernDefinition));
         
-        $layout = $object->createLesplan('Programmeren 1', $contactmoment, $introductie, $kern, $afsluiting)->generateLayout(new HTMLFactory());
+        $layout = $object->createLesplan('HBO-informatica (voltijd)', 'Programmeren 1', $contactmoment, $introductie, $kern, $afsluiting)->generateLayout(new HTMLFactory());
         
         $this->assertEquals('header', $layout[0][HTMLFactory::TAG]);
         $this->assertEquals("h1", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);

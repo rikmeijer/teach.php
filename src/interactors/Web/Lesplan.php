@@ -4,6 +4,16 @@ namespace Teach\Interactors\Web;
 final class Lesplan implements \Teach\Interactors\LayoutableInterface
 {
 
+    /**
+     * 
+     * @var string
+     */
+    private $opleiding;
+
+    /**
+     *
+     * @var string
+     */
     private $vak;
     
     /**
@@ -31,8 +41,9 @@ final class Lesplan implements \Teach\Interactors\LayoutableInterface
      */
     private $afsluiting;
     
-    public function __construct($vak, Lesplan\Contactmoment $contactmoment, Lesplan\Fase $introductie, Lesplan\Fase $kern, Lesplan\Fase $afsluiting)
+    public function __construct($opleiding, $vak, Lesplan\Contactmoment $contactmoment, Lesplan\Fase $introductie, Lesplan\Fase $kern, Lesplan\Fase $afsluiting)
     {
+        $this->opleiding = $opleiding;
         $this->vak = $vak;
         $this->contactmoment = $contactmoment;
         $this->introductie = $introductie;
