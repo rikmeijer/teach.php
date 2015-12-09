@@ -7,7 +7,16 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerateHTMLLayout()
     {
-        $beginsituatie = new Lesplan\Beginsituatie('HBO-informatica (voltijd)', [
+        $media = [
+            'filmfragment matrix',
+            'countdown timer voor toepassingsfases (optioneel)'
+        ];
+        $leerdoelen = [
+            "Zelfstandig eclipse installeren",
+            "Java-code lezen en uitleggen wat er gebeurt"
+        ];
+
+        $contactmoment = new Lesplan\Contactmoment('Blok 1 / Week 1 / Les 1', 'HBO-informatica (voltijd)', [
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
@@ -18,17 +27,7 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             'duur' => '95',
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt'
-        ]);
-        $media = [
-            'filmfragment matrix',
-            'countdown timer voor toepassingsfases (optioneel)'
-        ];
-        $leerdoelen = [
-            "Zelfstandig eclipse installeren",
-            "Java-code lezen en uitleggen wat er gebeurt"
-        ];
-
-        $contactmoment = new Lesplan\Contactmoment('Blok 1 / Week 1 / Les 1', $beginsituatie, $media, $leerdoelen);
+        ], $media, $leerdoelen);
         $object = new Lesplan("Programmeren 1", $contactmoment, new Lesplan\Fase("Introductie"), new Lesplan\Fase('Kern'), new Lesplan\Fase("Afsluiting"));
         
         $html = $object->generateLayout(new HTMLFactory());

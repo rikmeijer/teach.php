@@ -3,7 +3,17 @@ namespace Teach\Interactors\Web\Lesplan;
 
 final class Contactmoment implements \Teach\Interactors\LayoutableInterface
 {
+    /**
+     * 
+     * @var string
+     */
     private $les;
+
+    /**
+     * 
+     * @var string
+     */
+    private $opleiding;
     
     /**
      * 
@@ -24,9 +34,10 @@ final class Contactmoment implements \Teach\Interactors\LayoutableInterface
     private $leerdoelen;
     
     
-    public function __construct($les, Beginsituatie $beginsituatie, array $media, array $leerdoelen)
+    public function __construct($les, $opleiding, array $beginsituatie, array $media, array $leerdoelen)
     {
         $this->les = $les;
+        $this->opleiding = $opleiding;
         $this->beginsituatie = $beginsituatie;
         $this->media = $media;
         $this->leerdoelen = $leerdoelen;
@@ -38,7 +49,28 @@ final class Contactmoment implements \Teach\Interactors\LayoutableInterface
      */
     public function generateLayout (\Teach\Interactors\LayoutFactoryInterface $factory)
     {
-        $beginsituatieHTMLLayout = $this->beginsituatie->generateLayout ($factory);
+        $beginsituatieHTMLLayout = [
+            $factory->makeHeader3('Beginsituatie'),
+            $factory->makeTable(null, [
+                [
+                    'doelgroep' => $this->beginsituatie['doelgroep']['beschrijving'],
+                    'opleiding' => $this->opleiding
+                ],
+                [
+                    'ervaring' => $this->beginsituatie['doelgroep']['ervaring'],
+                    'groepsgrootte' => $this->beginsituatie['doelgroep']['grootte']
+                ],
+                [
+                    'tijd' => 'van ' . $this->beginsituatie['starttijd'] . ' tot ' . $this->beginsituatie['eindtijd'] . ' (' . $this->beginsituatie['duur'] . ' minuten)'
+                ],
+                [
+                    'ruimte' => $this->beginsituatie['ruimte']
+                ],
+                [
+                    'overige' => $this->beginsituatie['overige']
+                ]
+            ])
+        ];
         if (count($this->media) > 0) {
             $beginsituatieHTMLLayout[] = $factory->makeHeader3('Benodigde media');
             $beginsituatieHTMLLayout[] = $factory->makeUnorderedList($this->media);

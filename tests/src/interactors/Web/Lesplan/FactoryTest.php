@@ -94,25 +94,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('bla die bla', $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
     }
 
-    public function testCreateBeginsituatie()
-    {
-        $object = new Factory();
-        $layout = $object->createBeginsituatie("Opleding", [
-            'doelgroep' => [
-                'beschrijving' => 'eerstejaars HBO-studenten',
-                'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
-                'grootte' => '16 personen'
-            ],
-            'starttijd' => '08:45',
-            'eindtijd' => '10:20',
-            'duur' => '95',
-            'ruimte' => 'beschikking over vaste computers',
-            'overige' => 'nvt'
-        ])->generateLayout(new HTMLFactory());
-        $this->assertEquals('h3', $layout[0][HTMLFactory::TAG]);
-        $this->assertEquals("Beginsituatie", $layout[0][HTMLFactory::CHILDREN][0]);
-    }
-
     public function testCreateIntroductie()
     {
         $object = new Factory();
@@ -204,18 +185,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     {
         $object = new Factory();
         
-        $beginsituatie = $object->createBeginsituatie('HBO-informatica (voltijd)', [
-            'doelgroep' => [
-                'beschrijving' => 'eerstejaars HBO-studenten',
-                'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
-                'grootte' => '16 personen'
-            ],
-            'starttijd' => '08:45',
-            'eindtijd' => '10:20',
-            'duur' => '95',
-            'ruimte' => 'beschikking over vaste computers',
-            'overige' => 'nvt'
-        ]);
         $introductie = $object->createIntroductie($object->createActiviteit("Activerende opening", [
             'inhoud' => 'Scené uit de matrix tonen waarop wordt gezegd: "I don\'t even see the code". Wie kent deze film? Een ervaren programmeur zal een vergelijkbaar gevoel hebben bij code: programmeren is een visualisatie kunnen uitdrukken in code en vice versa.',
             'werkvorm' => "film",
@@ -411,7 +380,18 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 ]
             ])
         );
-        $contactmoment = $object->createContactmoment('Blok 1 / Week 1 / Les 1', $beginsituatie, [
+        $contactmoment = $object->createContactmoment('Blok 1 / Week 1 / Les 1', 'HBO-informatica (voltijd)', [
+            'doelgroep' => [
+                'beschrijving' => 'eerstejaars HBO-studenten',
+                'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
+                'grootte' => '16 personen'
+            ],
+            'starttijd' => '08:45',
+            'eindtijd' => '10:20',
+            'duur' => '95',
+            'ruimte' => 'beschikking over vaste computers',
+            'overige' => 'nvt'
+        ], [
             'filmfragment matrix',
             'countdown timer voor toepassingsfases (optioneel)',
             'voorbeeld IKEA-handleiding + uitgewerkte pseudo-code',

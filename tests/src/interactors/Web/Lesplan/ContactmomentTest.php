@@ -7,7 +7,16 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerateHTMLLayout()
     {
-        $beginsituatie = new Beginsituatie('HBO-informatica (voltijd)', [
+        $media = [
+            'filmfragment matrix',
+            'countdown timer voor toepassingsfases (optioneel)'
+        ];
+        $leerdoelen = [
+            "Zelfstandig eclipse installeren",
+            "Java-code lezen en uitleggen wat er gebeurt"
+        ];
+        
+        $object = new Contactmoment('Blok 1 / Week 1 / Les 1', 'HBO-informatica (voltijd)', [
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
@@ -26,18 +35,7 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
                 'presentatie',
                 'voorbeeldproject voor aanvullende feedback'
             ]
-            ]
-        );
-        $media = [
-            'filmfragment matrix',
-            'countdown timer voor toepassingsfases (optioneel)'
-        ];
-        $leerdoelen = [
-            "Zelfstandig eclipse installeren",
-            "Java-code lezen en uitleggen wat er gebeurt"
-        ];
-        
-        $object = new Contactmoment('Blok 1 / Week 1 / Les 1', $beginsituatie, $media, $leerdoelen);
+            ], $media, $leerdoelen);
         
         $html = $object->generateLayout(new HTMLFactory());
         $this->assertEquals('section', $html[0][HTMLFactory::TAG]);
@@ -119,7 +117,7 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
 
     public function testGenerateHTMLLayoutNoMedia()
     {
-        $beginsituatie = new Beginsituatie('HBO-informatica (voltijd)', [
+        $object = new Contactmoment('Blok 1 / Week 1 / Les 1', 'HBO-informatica (voltijd)', [
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
@@ -130,8 +128,7 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
             'duur' => '95',
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt'
-        ]);
-        $object = new Contactmoment('Blok 1 / Week 1 / Les 1', $beginsituatie, [], []);
+        ], [], []);
     
         $html = $object->generateLayout (new HTMLFactory());
     
