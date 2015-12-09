@@ -19,7 +19,7 @@ interface LayoutFactoryInterface
     
     public function makeParagraph($text);
     
-    public function makePageHeader(array $header);
+    public function makePageHeader(array $title, array $subtitle);
     
     public function makeSection(array $header, array $contents);
 }

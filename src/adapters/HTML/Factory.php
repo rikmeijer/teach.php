@@ -251,10 +251,11 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
      *
      * @see \Teach\Interactors\LayoutFactoryInterface::makePageHeader()
      */
-    public function makePageHeader(array $header)
+    public function makePageHeader(array $title, array $subtitle)
     {
         return $this->makeHTMLElement('header', [], [
-            $header
+            $title,
+            $subtitle
         ]);
     }
 

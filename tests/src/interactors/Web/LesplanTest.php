@@ -33,9 +33,9 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         $html = $object->generateLayout(new HTMLFactory());
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);
         $this->assertEquals("h1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-//         $this->assertEquals("Lesplan Programmeren 1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
-//         $this->assertEquals("h2", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
-//         $this->assertEquals("HBO-informatica (voltijd)", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
+        $this->assertEquals("Lesplan Programmeren 1", $html[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
+        $this->assertEquals("h2", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
+        $this->assertEquals("HBO-informatica (voltijd)", $html[0][HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
 
         $this->assertEquals('section', $html[1][HTMLFactory::TAG]);
         $this->assertEquals("h2", $html[1][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);

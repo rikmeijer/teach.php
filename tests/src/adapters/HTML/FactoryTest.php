@@ -280,9 +280,11 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testMakePageHeader()
     {
         $object = new Factory();
-        $html = $object->makePageHeader($object->makeHeader1('Title'));
+        $html = $object->makePageHeader($object->makeHeader1('Title'), $object->makeHeader2('Subtitle'));
         $this->assertEquals('header', $html[Factory::TAG]);
         $this->assertEquals('h1', $html[Factory::CHILDREN][0][Factory::TAG]);
         $this->assertEquals('Title', $html[Factory::CHILDREN][0][Factory::CHILDREN][0]);
+        $this->assertEquals('h2', $html[Factory::CHILDREN][1][Factory::TAG]);
+        $this->assertEquals('Subtitle', $html[Factory::CHILDREN][1][Factory::CHILDREN][0]);
     }
 }

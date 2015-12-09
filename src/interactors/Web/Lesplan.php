@@ -58,7 +58,7 @@ final class Lesplan implements \Teach\Interactors\LayoutableInterface
     public function generateLayout (\Teach\Interactors\LayoutFactoryInterface $factory)
     {
         return array_merge([
-            $factory->makePageHeader($factory->makeHeader1('Lesplan ' . $this->vak)),
+            $factory->makePageHeader($factory->makeHeader1('Lesplan ' . $this->vak), $factory->makeHeader2($this->opleiding)),
         ], 
             $this->contactmoment->generateLayout($factory),
             $this->introductie->generateLayout ($factory),
