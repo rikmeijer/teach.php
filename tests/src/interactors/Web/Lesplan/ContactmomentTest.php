@@ -16,7 +16,7 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
             "Java-code lezen en uitleggen wat er gebeurt"
         ];
         
-        $object = new Contactmoment('Blok 1 / Week 1 / Les 1', 'HBO-informatica (voltijd)', [
+        $object = new Contactmoment('Blok 1 / Week 1 / Les 1', [
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
@@ -54,20 +54,16 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
         $this->assertEquals("eerstejaars HBO-studenten", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("th", $row[HTMLFactory::CHILDREN][2][HTMLFactory::TAG]);
-        $this->assertEquals("opleiding", $row[HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0]);
+        $this->assertEquals("ervaring", $row[HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][3][HTMLFactory::TAG]);
-        $this->assertEquals("HBO-informatica (voltijd)", $row[HTMLFactory::CHILDREN][3][HTMLFactory::CHILDREN][0]);
+        $this->assertEquals("geen", $row[HTMLFactory::CHILDREN][3][HTMLFactory::CHILDREN][0]);
     
         $row = $html[0][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][1];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
         $this->assertEquals("th", $row[HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);
-        $this->assertEquals("ervaring", $row[HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
+        $this->assertEquals("groepsgrootte", $row[HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
         $this->assertEquals("td", $row[HTMLFactory::CHILDREN][1][HTMLFactory::TAG]);
-        $this->assertEquals("geen", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
-        $this->assertEquals("th", $row[HTMLFactory::CHILDREN][2][HTMLFactory::TAG]);
-        $this->assertEquals("groepsgrootte", $row[HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][0]);
-        $this->assertEquals("td", $row[HTMLFactory::CHILDREN][3][HTMLFactory::TAG]);
-        $this->assertEquals("16 personen", $row[HTMLFactory::CHILDREN][3][HTMLFactory::CHILDREN][0]);
+        $this->assertEquals("16 personen", $row[HTMLFactory::CHILDREN][1][HTMLFactory::CHILDREN][0]);
     
         $row = $html[0][HTMLFactory::CHILDREN][2][HTMLFactory::CHILDREN][2];
         $this->assertEquals("tr", $row[HTMLFactory::TAG]);
@@ -117,7 +113,7 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
 
     public function testGenerateHTMLLayoutNoMedia()
     {
-        $object = new Contactmoment('Blok 1 / Week 1 / Les 1', 'HBO-informatica (voltijd)', [
+        $object = new Contactmoment('Blok 1 / Week 1 / Les 1', [
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen

@@ -16,7 +16,7 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             "Java-code lezen en uitleggen wat er gebeurt"
         ];
 
-        $contactmoment = new Lesplan\Contactmoment('Blok 1 / Week 1 / Les 1', 'HBO-informatica (voltijd)', [
+        $contactmoment = new Lesplan\Contactmoment('Blok 1 / Week 1 / Les 1', [
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen

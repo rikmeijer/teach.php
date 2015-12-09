@@ -8,12 +8,6 @@ final class Contactmoment implements \Teach\Interactors\LayoutableInterface
      * @var string
      */
     private $les;
-
-    /**
-     * 
-     * @var string
-     */
-    private $opleiding;
     
     /**
      * 
@@ -34,10 +28,9 @@ final class Contactmoment implements \Teach\Interactors\LayoutableInterface
     private $leerdoelen;
     
     
-    public function __construct($les, $opleiding, array $beginsituatie, array $media, array $leerdoelen)
+    public function __construct($les, array $beginsituatie, array $media, array $leerdoelen)
     {
         $this->les = $les;
-        $this->opleiding = $opleiding;
         $this->beginsituatie = $beginsituatie;
         $this->media = $media;
         $this->leerdoelen = $leerdoelen;
@@ -54,10 +47,9 @@ final class Contactmoment implements \Teach\Interactors\LayoutableInterface
             $factory->makeTable(null, [
                 [
                     'doelgroep' => $this->beginsituatie['doelgroep']['beschrijving'],
-                    'opleiding' => $this->opleiding
+                    'ervaring' => $this->beginsituatie['doelgroep']['ervaring']
                 ],
                 [
-                    'ervaring' => $this->beginsituatie['doelgroep']['ervaring'],
                     'groepsgrootte' => $this->beginsituatie['doelgroep']['grootte']
                 ],
                 [

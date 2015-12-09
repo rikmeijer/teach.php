@@ -55,7 +55,7 @@ class Contactmoment
         $leerdoelen = array_keys($kernDefinition);
         $kern = $factory->createKern($kernDefinition);
         
-        $contactmoment = $factory->createContactmoment($this->contactmoment['les'], $this->contactmoment['opleiding'], $this->getBeginsituatie(), $this->factory->getMedia($this->contactmoment['lesplan_id']), $leerdoelen);
+        $contactmoment = $factory->createContactmoment($this->contactmoment['les'], $this->getBeginsituatie(), $this->factory->getMedia($this->contactmoment['lesplan_id']), $leerdoelen);
         
         $afsluiting = $factory->createAfsluiting($factory->createActiviteit("Huiswerk", $this->factory->getActiviteit($this->contactmoment['huiswerk_id'])), $factory->createActiviteit("Evaluatie", $this->factory->getActiviteit($this->contactmoment['evaluatie_id'])), $factory->createActiviteit("Pakkend slot", $this->factory->getActiviteit($this->contactmoment['pakkend_slot_id'])));
         

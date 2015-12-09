@@ -380,7 +380,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 ]
             ])
         );
-        $contactmoment = $object->createContactmoment('Blok 1 / Week 1 / Les 1', 'HBO-informatica (voltijd)', [
+        $contactmoment = $object->createContactmoment('Blok 1 / Week 1 / Les 1', [
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
