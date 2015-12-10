@@ -380,7 +380,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 ]
             ])
         );
-        $contactmoment = $object->createContactmoment('Blok 1 / Week 1 / Les 1', [
+        $contactmoment = $object->createContactmoment([
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
@@ -400,7 +400,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             'voorbeeldproject voor aanvullende feedback'
         ], array_keys($kernDefinition));
         
-        $layout = $object->createLesplan('HBO-informatica (voltijd)', 'Programmeren 1', $contactmoment, $introductie, $kern, $afsluiting)->generateLayout(new HTMLFactory());
+        $layout = $object->createLesplan('HBO-informatica (voltijd)', 'Programmeren 1', 'Blok 1 / Week 1 / Les 1', $contactmoment, $introductie, $kern, $afsluiting)->generateLayout(new HTMLFactory());
         
         $this->assertEquals('header', $layout[0][HTMLFactory::TAG]);
         $this->assertEquals("h1", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::TAG]);

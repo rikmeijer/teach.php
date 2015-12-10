@@ -16,7 +16,7 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             "Java-code lezen en uitleggen wat er gebeurt"
         ];
 
-        $contactmoment = new Lesplan\Contactmoment('Blok 1 / Week 1 / Les 1', [
+        $contactmoment = new Lesplan\Contactmoment([
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
@@ -28,7 +28,7 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt'
         ], $media, $leerdoelen);
-        $object = new Lesplan("HBO-informatica (voltijd)", "Programmeren 1", $contactmoment, new Lesplan\Fase("Introductie"), new Lesplan\Fase('Kern'), new Lesplan\Fase("Afsluiting"));
+        $object = new Lesplan("HBO-informatica (voltijd)", "Programmeren 1", 'Blok 1 / Week 1 / Les 1', $contactmoment, new Lesplan\Fase("Introductie"), new Lesplan\Fase('Kern'), new Lesplan\Fase("Afsluiting"));
         
         $html = $object->generateLayout(new HTMLFactory());
         $this->assertEquals('header', $html[0][HTMLFactory::TAG]);

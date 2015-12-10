@@ -5,12 +5,6 @@ final class Contactmoment implements \Teach\Interactors\LayoutableInterface
 {
     /**
      * 
-     * @var string
-     */
-    private $les;
-    
-    /**
-     * 
      * @var \Teach\Interactors\Web\Lesplan\Beginsituatie
      */
     private $beginsituatie;
@@ -28,9 +22,8 @@ final class Contactmoment implements \Teach\Interactors\LayoutableInterface
     private $leerdoelen;
     
     
-    public function __construct($les, array $beginsituatie, array $media, array $leerdoelen)
+    public function __construct(array $beginsituatie, array $media, array $leerdoelen)
     {
-        $this->les = $les;
         $this->beginsituatie = $beginsituatie;
         $this->media = $media;
         $this->leerdoelen = $leerdoelen;

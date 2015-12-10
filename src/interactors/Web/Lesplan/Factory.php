@@ -82,29 +82,29 @@ final class Factory
     
     /**
      * 
-     * @param string $les
      * @param string $opleiding
      * @param array $beginsituatie
      * @param array $media
      * @param array $leerdoelen
      * @return \Teach\Interactors\Web\Lesplan\Contactmoment
      */
-    public function createContactmoment($les, array $beginsituatie, array $media, array $leerdoelen)
+    public function createContactmoment(array $beginsituatie, array $media, array $leerdoelen)
     {
-        return new Contactmoment($les, $beginsituatie, $media, $leerdoelen);
+        return new Contactmoment($beginsituatie, $media, $leerdoelen);
     }
     
     /**
      * 
      * @param string $opleiding
      * @param string $vak
+     * @param string $les
      * @param Contactmoment $contactmoment
      * @param Fase $introductie
      * @param Fase $kern
      * @param Fase $afsluiting
      */
-    public function createLesplan($opleiding, $vak, Contactmoment $contactmoment, Fase $introductie, Fase $kern, Fase $afsluiting)
+    public function createLesplan($opleiding, $vak, $les, Contactmoment $contactmoment, Fase $introductie, Fase $kern, Fase $afsluiting)
     {
-        return new \Teach\Interactors\Web\Lesplan($opleiding, $vak, $contactmoment, $introductie, $kern, $afsluiting);
+        return new \Teach\Interactors\Web\Lesplan($opleiding, $vak, $les, $contactmoment, $introductie, $kern, $afsluiting);
     }
 }

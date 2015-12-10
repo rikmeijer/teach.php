@@ -16,7 +16,7 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
             "Java-code lezen en uitleggen wat er gebeurt"
         ];
         
-        $object = new Contactmoment('Blok 1 / Week 1 / Les 1', [
+        $object = new Contactmoment([
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
@@ -110,7 +110,7 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
 
     public function testGenerateHTMLLayoutNoMedia()
     {
-        $object = new Contactmoment('Blok 1 / Week 1 / Les 1', [
+        $object = new Contactmoment([
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
