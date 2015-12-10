@@ -72,6 +72,6 @@ final class Contactmoment implements \Teach\Interactors\LayoutableInterface
         $beginsituatieHTMLLayout[] = $factory->makeParagraph('Na afloop van de les kan de student:');
         $beginsituatieHTMLLayout[] = $factory->makeOrderedList($this->leerdoelen);
         
-        return [$factory->makeSection($factory->makeHeader2($this->les), $beginsituatieHTMLLayout)];
+        return $beginsituatieHTMLLayout;
     }
 }
