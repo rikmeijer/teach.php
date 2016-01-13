@@ -115,6 +115,9 @@ class Factory
 
     public function getMedia($les_id)
     {
+        if ($les_id === null) {
+            return [];
+        }
         $mediaQueryResult = $this->pdo->query("
                 SELECT DISTINCT media.omschrijving
                 FROM les
@@ -162,6 +165,9 @@ class Factory
 
     public function getActiviteit($id)
     {
+        if ($id === null) {
+            return $this->getActiviteitDummy();
+        }
         $activiteitQueryResult = $this->pdo->query("
                 SELECT 
                     inhoud,
@@ -188,6 +194,9 @@ class Factory
 
     public function getKern($les_id)
     {
+        if ($les_id === null) {
+            return [];
+        }
         $activiteitQueryResult = $this->pdo->query("
                 SELECT 
                     thema.leerdoel,
