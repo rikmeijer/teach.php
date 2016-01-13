@@ -46,12 +46,11 @@ final class Factory
      * @param Activiteit $focus
      * @param Activiteit $voorstellen
      */
-    public function createIntroductie(Activiteit $activerendeOpening, Activiteit $focus, Activiteit $voorstellen)
+    public function createIntroductie(Activiteit $activerendeOpening, Activiteit $focus)
     {
         $fase = $this->createFase("Introductie");
         $fase->addOnderdeel($activerendeOpening);
         $fase->addOnderdeel($focus);
-        $fase->addOnderdeel($voorstellen);
         return $fase;
     }
 

@@ -120,19 +120,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
                 \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
             ]
-        ]), $object->createActiviteit("Voorstellen", [
-            "inhoud" => "Voorstellen Docent",
-            "werkvorm" => "presentatie",
-            "organisatievorm" => "plenair",
-            "werkvormsoort" => "docent gecentreerd",
-            "tijd" => "2",
-            "intelligenties" => [
-                \Teach\Interactors\Web\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
-                \Teach\Interactors\Web\Lesplan\Activiteit::MI_LOGISCH_MATHEMATISCH,
-                \Teach\Interactors\Web\Lesplan\Activiteit::MI_INTERPERSOONLIJK
-            ]
         ]))->generateLayout(new HTMLFactory());
         $this->assertEquals("Introductie", $layout[0][HTMLFactory::CHILDREN][0][HTMLFactory::CHILDREN][0]);
+        $this->assertCount(3, $layout[0][HTMLFactory::CHILDREN]);
     }
 
     public function testCreateAfsluiting()
