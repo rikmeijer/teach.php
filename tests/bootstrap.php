@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'EnitiesTest.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'EntitiesTest.php';
 
 /* 
  * test specific bootstrapper
