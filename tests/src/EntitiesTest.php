@@ -20,7 +20,7 @@ abstract class EntitiesTest extends \PHPUnit_Extensions_Database_TestCase
     public function getConnection()
     {
         if ($this->connection === null) {
-            self::$pdo = new \PDO('mysql:host=localhost;dbname=teach_test', 'root');
+            self::$pdo = new \PDO('mysql:host=localhost;dbname=teach_test', 'teach_test');
             // clear tables
             $truncates = self::$pdo->query("
                 SELECT Concat('TRUNCATE TABLE ',table_schema,'.',TABLE_NAME, ';')
