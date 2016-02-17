@@ -5,7 +5,7 @@ return function(\Teach\Adapters\HTML\Factory $factory, \Teach\Interactors\Web\Le
     $lines[] = "<html>";
     $lines[] = $factory->renderTemplate(__DIR__ . DIRECTORY_SEPARATOR . "head.php");
     $lines[] = "<body>";
-    $lines[] = $factory->makeHTMLFrom($lesplan);
+    $lines[] = $factory->makeHTML($lesplan->generateLayout($factory));
     $lines[] = "</body>";
     $lines[] = "</html>";
     return join(PHP_EOL, $lines);

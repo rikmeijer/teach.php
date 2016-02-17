@@ -81,30 +81,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Hello World<a>Hello Hello</a>', $html);
     }
 
-    public function testMakeHTMLFrom()
-    {
-        $mockbuilder = $this->getMockBuilder('\Teach\Interactors\LayoutableInterface');
-        $mockbuilder->setMockClassName('DummyHTML');
-        $mockbuilder->setMethods(array(
-            'generateLayout'
-        ));
-        $mock = $mockbuilder->getMock();
-        $mock->method('generateLayout')->willReturn([
-            'Hello World',
-            [
-                'li',
-                [
-                    'src' => "bla.gif"
-                ],
-                []
-            ]
-        ]);
-        
-        $object = new Factory();
-        $html = $object->makeHTMLFrom($mock);
-        $this->assertEquals('Hello World<li src="bla.gif"></li>', $html);
-    }
-
     public function testMakeTableRow()
     {
         $object = new Factory();

@@ -77,16 +77,6 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
 
     /**
      *
-     * @param \Teach\Interactors\LayoutableInterface $layoutable            
-     * @return string
-     */
-    public function makeHTMLFrom(\Teach\Interactors\LayoutableInterface $layoutable)
-    {
-        return $this->makeHTML($layoutable->generateLayout($this));
-    }
-
-    /**
-     *
      * @param string $tag            
      * @param array $attributes            
      * @param array $children            
