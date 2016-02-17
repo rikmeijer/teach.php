@@ -10,7 +10,7 @@ return function(\Teach\Adapters\HTML\Factory $factory, \Teach\Interactors\Web\Le
     $lines[] = "<html>";
     $lines[] = $factory->renderTemplate(__DIR__ . DIRECTORY_SEPARATOR . "head.php");
     $lines[] = "<body>";
-    $lines[] = $factory->makeHTML([$factory->makePageHeader($factory->makeHeader1($variables["lesplanIdentifier"]), $factory->makeHeader2($variables["opleidingIdentifier"]))]);
+    $lines[] = $factory->renderTemplate(__DIR__ . DIRECTORY_SEPARATOR . "header.php", $variables["lesplanIdentifier"], $variables["opleidingIdentifier"]);
     $lines[] = $factory->makeHTML($lesplan->generateLayout($factory));
     $lines[] = "</body>";
     $lines[] = "</html>";
