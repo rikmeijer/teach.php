@@ -91,6 +91,15 @@ final class Lesplan implements \Teach\Interactors\LayoutableInterface
                 case 'contactmoment':
                     $variables[$variableIdentifier] = $this->contactmoment;
                     break;
+                case 'introductie':
+                    $variables[$variableIdentifier] = $this->introductie;
+                    break;
+                case 'kern':
+                    $variables[$variableIdentifier] = $this->kern;
+                    break;
+                case 'afsluiting':
+                    $variables[$variableIdentifier] = $this->afsluiting;
+                    break;
                     
             }
         }

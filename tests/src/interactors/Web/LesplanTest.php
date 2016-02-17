@@ -27,20 +27,25 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
             'ruimte' => 'beschikking over vaste computers',
             'overige' => 'nvt'
         ], $media, $leerdoelen);
-        $object = new Lesplan("HBO-informatica (voltijd)", "Programmeren 1", 'Blok 1 / Week 1 / Les 1', $contactmoment, new Lesplan\Fase("Introductie"), new Lesplan\Fase('Kern'), new Lesplan\Fase("Afsluiting"));
-        
+        $object = new Lesplan("HBO-informatica (voltijd)", "Programmeren 1", 'Blok 1 / Week 1 / Les 1', $contactmoment, $introductie = new Lesplan\Fase("Introductie"), $kern = new Lesplan\Fase('Kern'), $afsluiting = new Lesplan\Fase("Afsluiting"));
         
         $variables = $object->provideTemplateVariables([
             "title",
             "subtitle",        
             "contactmomentTitle",
-            "contactmoment"
+            "contactmoment",
+            "introductie",
+            "kern",
+            "afsluiting",
         ]);
         
         $this->assertEquals("Lesplan Programmeren 1", $variables["title"]);
         $this->assertEquals("HBO-informatica (voltijd)", $variables["subtitle"]);
         $this->assertEquals("Blok 1 / Week 1 / Les 1", $variables["contactmomentTitle"]);
         $this->assertEquals($contactmoment, $variables["contactmoment"]);
+        $this->assertEquals($introductie, $variables["introductie"]);
+        $this->assertEquals($kern, $variables["kern"]);
+        $this->assertEquals($afsluiting, $variables["afsluiting"]);
     }
     
     
