@@ -7,7 +7,7 @@ if (array_key_exists('contactmoment', $_GET) === false) {
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 $lesplanLocator = $applicationBootstrap();
 
-/** @var $lesplan \Teach\Entities\Contactmoment */
+/** @var $lesplan \Teach\Interactors\Web\Lesplan */
 $lesplan = $lesplanLocator($_GET['contactmoment']);
 if ($lesplan === null) {
     http_response_code(404);
@@ -15,19 +15,4 @@ if ($lesplan === null) {
 }
 
 $HTMLfactory = new \Teach\Adapters\HTML\Factory();
-
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Lesplan</title>
-<link rel="stylesheet" type="text/css" href="lesplan.css">
-</head>
-<body>
-<?php
-print $HTMLfactory->makeHTMLFrom($lesplan);
-
-?>
-</body>
-</html>
+print $HTMLfactory->renderTemplate(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'lesplan.php', $lesplan);
