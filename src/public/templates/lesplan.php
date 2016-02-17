@@ -13,7 +13,7 @@ return function(\Teach\Adapters\HTML\Factory $factory, \Teach\Interactors\Web\Le
     $lines[] = $factory->renderTemplate(__DIR__ . DIRECTORY_SEPARATOR . "head.php");
     $lines[] = "<body>";
     $lines[] = $factory->renderTemplate(__DIR__ . DIRECTORY_SEPARATOR . "header.php", $variables["title"], $variables["subtitle"]);
-    $lines[] = $factory->makeHTML([$factory->makeSection($factory->makeHeader2($variables["contactmomentTitle"]), $variables["contactmoment"]->generateLayout($factory))]);
+    $lines[] = $factory->renderTemplate(__DIR__ . DIRECTORY_SEPARATOR . "lesplan" . DIRECTORY_SEPARATOR .  "contactmoment.php", $variables["contactmomentTitle"], $variables["contactmoment"]);
     $lines[] = $factory->makeHTML($lesplan->generateLayout($factory));
     $lines[] = "</body>";
     $lines[] = "</html>";
