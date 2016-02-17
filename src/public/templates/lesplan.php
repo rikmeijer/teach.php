@@ -1,16 +1,12 @@
 <?php
 return function(\Teach\Adapters\HTML\Factory $factory, \Teach\Interactors\Web\Lesplan $lesplan) {
-    return <<<"EOF"
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <meta charset="UTF-8">
-    <title>Lesplan</title>
-    <link rel="stylesheet" type="text/css" href="lesplan.css">
-    </head>
-    <body>
-    {$factory->makeHTMLFrom($lesplan)}
-    </body>
-    </html>
-EOF;
+    $lines = [];
+    $lines[] = "<!DOCTYPE html>";
+    $lines[] = "<html>";
+    $lines[] = $factory->renderTemplate(__DIR__ . DIRECTORY_SEPARATOR . "head.php");
+    $lines[] = "<body>";
+    $lines[] = $factory->makeHTMLFrom($lesplan);
+    $lines[] = "</body>";
+    $lines[] = "</html>";
+    return join(PHP_EOL, $lines);
 };
