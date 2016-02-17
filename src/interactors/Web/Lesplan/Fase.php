@@ -37,4 +37,21 @@ final class Fase implements \Teach\Interactors\LayoutableInterface
             $factory->makeSection($factory->makeHeader2($this->title), $onderdelenHTML)
         ];
     }
+    
+
+    public function provideTemplateVariables(array $variableIdentifiers)
+    {
+        $variables = [];
+        foreach ($variableIdentifiers as $variableIdentifier) {
+            switch ($variableIdentifier) {
+                case 'title':
+                    $variables[$variableIdentifier] = $this->title;
+                    break;
+                case 'onderdelen':
+                    $variables[$variableIdentifier] = $this->onderdelen;
+                    break;
+            }
+        }
+        return $variables;
+    }
 }
