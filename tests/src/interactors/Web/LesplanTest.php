@@ -32,11 +32,15 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         
         $variables = $object->provideTemplateVariables([
             "title",
-            "subtitle"
+            "subtitle",        
+            "contactmomentTitle",
+            "contactmoment"
         ]);
         
         $this->assertEquals("Lesplan Programmeren 1", $variables["title"]);
         $this->assertEquals("HBO-informatica (voltijd)", $variables["subtitle"]);
+        $this->assertEquals("Blok 1 / Week 1 / Les 1", $variables["contactmomentTitle"]);
+        $this->assertEquals($contactmoment, $variables["contactmoment"]);
     }
     
     
