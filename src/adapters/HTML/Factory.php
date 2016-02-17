@@ -10,6 +10,13 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
 
     const CHILDREN = 2;
 
+    
+    public function renderTemplate($filename) {
+        $renderer = require $filename;
+        return $renderer();
+    }
+    
+    
     /**
      *
      * @param array $definition            

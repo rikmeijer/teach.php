@@ -3,6 +3,15 @@ namespace Teach\Adapters\HTML;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
+    public function testRenderTemplate()
+    {
+        $template = tempnam(sys_get_temp_dir(), 'tpl');
+        file_put_contents($template, '<?php return function () { return "<a>Hello World</a>"; };');
+        $object = new Factory();
+        $html = $object->renderTemplate($template);
+        $this->assertEquals('<a>Hello World</a>', $html);
+    }
+    
 
     public function testCreateElement()
     {

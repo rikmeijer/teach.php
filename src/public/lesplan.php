@@ -7,6 +7,7 @@ if (array_key_exists('contactmoment', $_GET) === false) {
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 $lesplanLocator = $applicationBootstrap();
 
+/** @var $lesplan \Teach\Entities\Contactmoment */
 $lesplan = $lesplanLocator($_GET['contactmoment']);
 if ($lesplan === null) {
     http_response_code(404);
