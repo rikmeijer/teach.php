@@ -73,4 +73,17 @@ final class Lesplan implements \Teach\Interactors\LayoutableInterface
             $this->afsluiting->generateLayout ($factory)
             );
     }
+    
+    public function provideTemplateVariables(array $variableIdentifiers)
+    {
+        $variables = [];
+        foreach ($variableIdentifiers as $variableIdentifier) {
+            switch ($variableIdentifier) {
+                case 'lesplanIdentifier':
+                    $variables[$variableIdentifier] = 'Lesplan ' . $this->vak;
+                    break;
+            }
+        }
+        return $variables;
+    }
 }
