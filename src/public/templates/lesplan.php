@@ -19,9 +19,10 @@ return function(\Teach\Adapters\HTML\Factory $factory, \Teach\Interactors\Web\Le
     
     $lesplanTemplateDirectory = __DIR__ . DIRECTORY_SEPARATOR . "lesplan";
     $lines[] = $factory->renderTemplate($lesplanTemplateDirectory . DIRECTORY_SEPARATOR .  "contactmoment.php", $variables["contactmomentTitle"], $variables["contactmoment"]);
-    $lines[] = $factory->renderTemplate($lesplanTemplateDirectory . DIRECTORY_SEPARATOR .  "fase.php", $variables["introductie"]);
-    $lines[] = $factory->renderTemplate($lesplanTemplateDirectory . DIRECTORY_SEPARATOR .  "fase.php", $variables["kern"]);
-    $lines[] = $factory->renderTemplate($lesplanTemplateDirectory . DIRECTORY_SEPARATOR .  "fase.php", $variables["afsluiting"]);
+    
+    $lines[] = $factory->renderTemplate($lesplanTemplateDirectory . DIRECTORY_SEPARATOR .  "fase" . DIRECTORY_SEPARATOR . "introductie.php", $variables["introductie"]);
+    $lines[] = $factory->renderTemplate($lesplanTemplateDirectory . DIRECTORY_SEPARATOR .  "fase" . DIRECTORY_SEPARATOR . "kern.php", $variables["kern"]);
+    $lines[] = $factory->renderTemplate($lesplanTemplateDirectory . DIRECTORY_SEPARATOR .  "fase" . DIRECTORY_SEPARATOR . "afsluiting.php", $variables["afsluiting"]);
     
     $lines[] = "</body>";
     $lines[] = "</html>";
