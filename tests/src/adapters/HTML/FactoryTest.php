@@ -6,7 +6,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testRenderTemplate()
     {
         $template = tempnam(sys_get_temp_dir(), 'tpl');
-        file_put_contents($template, '<?php return function () { return "<a>Hello World</a>"; };');
+        file_put_contents($template, '<?php return function (\Teach\Adapters\HTML\Factory $factory) { return "<a>Hello World</a>"; };');
         $object = new Factory();
         $html = $object->renderTemplate($template);
         $this->assertEquals('<a>Hello World</a>', $html);
@@ -15,7 +15,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testRenderTemplateWithParameters()
     {
         $template = tempnam(sys_get_temp_dir(), 'tpl');
-        file_put_contents($template, '<?php return function ($a, $b) { return "<$a>$b</$a>"; };');
+        file_put_contents($template, '<?php return function (\Teach\Adapters\HTML\Factory $factory, $a, $b) { return "<$a>$b</$a>"; };');
         $object = new Factory();
         $html = $object->renderTemplate($template, "a", "Hello World");
         $this->assertEquals('<a>Hello World</a>', $html);

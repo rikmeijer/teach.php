@@ -14,7 +14,7 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
     public function renderTemplate($filename, ...$templateParameters) {
         $renderer = require $filename;
         
-        return $renderer(...$templateParameters);
+        return $renderer($this, ...$templateParameters);
     }
     
     
