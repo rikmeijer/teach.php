@@ -31,10 +31,12 @@ class LesplanTest extends \PHPUnit_Framework_TestCase
         
         
         $variables = $object->provideTemplateVariables([
-            "lesplanIdentifier"
+            "lesplanIdentifier",
+            "opleidingIdentifier"
         ]);
         
         $this->assertEquals("Lesplan Programmeren 1", $variables["lesplanIdentifier"]);
+        $this->assertEquals("HBO-informatica (voltijd)", $variables["opleidingIdentifier"]);
     }
     
     

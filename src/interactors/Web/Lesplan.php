@@ -82,6 +82,10 @@ final class Lesplan implements \Teach\Interactors\LayoutableInterface
                 case 'lesplanIdentifier':
                     $variables[$variableIdentifier] = 'Lesplan ' . $this->vak;
                     break;
+                case 'opleidingIdentifier':
+                    $variables[$variableIdentifier] = $this->opleiding;
+                    break;
+                    
             }
         }
         return $variables;
