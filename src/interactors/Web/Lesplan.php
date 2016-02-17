@@ -79,10 +79,10 @@ final class Lesplan implements \Teach\Interactors\LayoutableInterface
         $variables = [];
         foreach ($variableIdentifiers as $variableIdentifier) {
             switch ($variableIdentifier) {
-                case 'lesplanIdentifier':
+                case 'title':
                     $variables[$variableIdentifier] = 'Lesplan ' . $this->vak;
                     break;
-                case 'opleidingIdentifier':
+                case 'subtitle':
                     $variables[$variableIdentifier] = $this->opleiding;
                     break;
                     
