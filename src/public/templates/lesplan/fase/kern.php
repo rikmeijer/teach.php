@@ -11,6 +11,6 @@ return function(\Teach\Adapters\HTML\Factory $factory, \Teach\Interactors\Web\Le
         $themasHTML[] = $factory->renderTemplate(__DIR__ . DIRECTORY_SEPARATOR .  "kern" . DIRECTORY_SEPARATOR . "thema.php", $onderdeel);
     }
     
-    
-    return $factory->renderTemplate(dirname(__DIR__) . DIRECTORY_SEPARATOR .  "fase.php", $variables["title"], $variables["onderdelen"]);
+
+    return '<section><h2>' . htmlentities($variables['title']) . '</h2>' . join('', $themasHTML) . '</section>';
 };
