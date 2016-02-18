@@ -84,33 +84,23 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testRenderTable()
     {
         $object = new Factory();
-        $this->assertEquals($object->makeHTML([$object->makeTable('Activerende opening', [
+        $expectedHTML = $object->makeHTML([$object->makeTable('Activerende opening', [
             [
-                "inhoud" => [
-                    ['span', [], ["bladiebla"]]
-                ],
-                "werkvorm" => [
-                    ['span', [], ["bladiebla"]]
-                ]
+                "inhoud" => "bladiebla",
+                "werkvorm" => "bladiebla"
             ],
             [
-                "inhoud" => [
-                    ['span', [], ["bladiebla"]]
-                ]
+                "inhoud" => [$object->makeUnorderedList(['A', 'B', 'C'])]
             ]
-        ])]), $object->renderTable('Activerende opening', [
+        ])]);
+        
+        $this->assertEquals($expectedHTML, $object->renderTable('Activerende opening', [
             [
-                "inhoud" => [
-                    ['span', [], ["bladiebla"]]
-                ],
-                "werkvorm" => [
-                    ['span', [], ["bladiebla"]]
-                ]
+                "inhoud" => "bladiebla",
+                "werkvorm" => "bladiebla"
             ],
             [
-                "inhoud" => [
-                    ['span', [], ["bladiebla"]]
-                ]
+                "inhoud" => ['A', 'B', 'C']
             ]
         ]));
     }
@@ -223,6 +213,20 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('3', $html[Factory::CHILDREN][1][Factory::ATTRIBUTES]['colspan']);
         $this->assertEquals('span', $html[Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::TAG]);
         $this->assertEquals('bladiebla', $html[Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::CHILDREN][0]);
+    }
+    
+    public function testRenderUnorderedList()
+    {
+        $object = new Factory();
+        $this->assertEquals($object->makeHTML([$object->makeUnorderedList([
+            "A",
+            "B",
+            "C"
+        ])]), $object->renderUnorderedList([
+            "A",
+            "B",
+            "C"
+        ]));
     }
 
     public function testMakeUnorderedList()

@@ -19,7 +19,19 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
     
     public function renderTable($caption, array $rows)
     {
+        foreach ($rows as &$row) {
+            foreach ($row as &$cell) {
+                if (is_array($cell)) {
+                    $cell = [$this->makeUnorderedList($cell)];
+                }
+            }
+        }
         return $this->makeHTML([$this->makeTable($caption, $rows)]);
+    }
+    
+    public function renderUnorderedList(array $listitems)
+    {
+        return $this->makeHTML([$this->makeUnorderedList($listitems)]);
     }
     
     /**
