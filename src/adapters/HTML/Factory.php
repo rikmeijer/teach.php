@@ -17,6 +17,10 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
         return $renderer($this, ...$templateParameters);
     }
     
+    public function renderTable($caption, array $rows)
+    {
+        return $this->makeHTML([$this->makeTable($caption, $rows)]);
+    }
     
     /**
      *

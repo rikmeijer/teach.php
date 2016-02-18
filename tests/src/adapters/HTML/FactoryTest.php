@@ -80,6 +80,89 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         ]);
         $this->assertEquals('Hello World<a>Hello Hello</a>', $html);
     }
+    
+    public function testRenderTable()
+    {
+        $object = new Factory();
+        $this->assertEquals($object->makeHTML([$object->makeTable('Activerende opening', [
+            [
+                "inhoud" => [
+                    ['span', [], ["bladiebla"]]
+                ],
+                "werkvorm" => [
+                    ['span', [], ["bladiebla"]]
+                ]
+            ],
+            [
+                "inhoud" => [
+                    ['span', [], ["bladiebla"]]
+                ]
+            ]
+        ])]), $object->renderTable('Activerende opening', [
+            [
+                "inhoud" => [
+                    ['span', [], ["bladiebla"]]
+                ],
+                "werkvorm" => [
+                    ['span', [], ["bladiebla"]]
+                ]
+            ],
+            [
+                "inhoud" => [
+                    ['span', [], ["bladiebla"]]
+                ]
+            ]
+        ]));
+    }
+
+    public function testMakeTable()
+    {
+        $object = new Factory();
+        $html = $object->makeTable('Activerende opening', [
+            [
+                "inhoud" => [
+                    ['span', [], ["bladiebla"]]
+                ],
+                "werkvorm" => [
+                    ['span', [], ["bladiebla"]]
+                ]
+            ],
+            [
+                "inhoud" => [
+                    ['span', [], ["bladiebla"]]
+                ]
+            ]
+        ]);
+        $this->assertEquals('table', $html[Factory::TAG]);
+        $this->assertEquals('caption', $html[Factory::CHILDREN][0][Factory::TAG]);
+        $this->assertEquals('Activerende opening', $html[Factory::CHILDREN][0][Factory::CHILDREN][0]);
+        
+        $this->assertEquals('tr', $html[Factory::CHILDREN][1][Factory::TAG]);
+        $this->assertEquals('th', $html[Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::TAG]);
+        $this->assertEquals('inhoud', $html[Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::CHILDREN][0]);
+        $this->assertEquals('td', $html[Factory::CHILDREN][1][Factory::CHILDREN][1][Factory::TAG]);
+        $this->assertEquals('span', $html[Factory::CHILDREN][1][Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::TAG]);
+        $this->assertEquals('bladiebla', $html[Factory::CHILDREN][1][Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::CHILDREN][0]);
+        
+        $this->assertEquals('3', $html[Factory::CHILDREN][2][Factory::CHILDREN][1][Factory::ATTRIBUTES]['colspan']);
+    }
+
+    public function testMakeTableNoCaption()
+    {
+        $object = new Factory();
+        $html = $object->makeTable(null, [
+            [
+                "inhoud" => [
+                    [
+                        'span',
+                        "bladiebla"
+                    ]
+                ]
+            ]
+        ]);
+        $this->assertEquals('table', $html[Factory::TAG]);
+        $this->assertEquals('tr', $html[Factory::CHILDREN][0][Factory::TAG]);
+    }
 
     public function testMakeTableRow()
     {
@@ -174,55 +257,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('B', $html[Factory::CHILDREN][1][Factory::CHILDREN][0]);
         $this->assertEquals('li', $html[Factory::CHILDREN][2][Factory::TAG]);
         $this->assertEquals('C', $html[Factory::CHILDREN][2][Factory::CHILDREN][0]);
-    }
-
-    public function testMakeTable()
-    {
-        $object = new Factory();
-        $html = $object->makeTable('Activerende opening', [
-            [
-                "inhoud" => [
-                    ['span', [], ["bladiebla"]]
-                ],
-                "werkvorm" => [
-                    ['span', [], ["bladiebla"]]
-                ]
-            ],
-            [
-                "inhoud" => [
-                    ['span', [], ["bladiebla"]]
-                ]
-            ]
-        ]);
-        $this->assertEquals('table', $html[Factory::TAG]);
-        $this->assertEquals('caption', $html[Factory::CHILDREN][0][Factory::TAG]);
-        $this->assertEquals('Activerende opening', $html[Factory::CHILDREN][0][Factory::CHILDREN][0]);
-        
-        $this->assertEquals('tr', $html[Factory::CHILDREN][1][Factory::TAG]);
-        $this->assertEquals('th', $html[Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::TAG]);
-        $this->assertEquals('inhoud', $html[Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::CHILDREN][0]);
-        $this->assertEquals('td', $html[Factory::CHILDREN][1][Factory::CHILDREN][1][Factory::TAG]);
-        $this->assertEquals('span', $html[Factory::CHILDREN][1][Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::TAG]);
-        $this->assertEquals('bladiebla', $html[Factory::CHILDREN][1][Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::CHILDREN][0]);
-        
-        $this->assertEquals('3', $html[Factory::CHILDREN][2][Factory::CHILDREN][1][Factory::ATTRIBUTES]['colspan']);
-    }
-
-    public function testMakeTableNoCaption()
-    {
-        $object = new Factory();
-        $html = $object->makeTable(null, [
-            [
-                "inhoud" => [
-                    [
-                        'span',
-                        "bladiebla"
-                    ]
-                ]
-            ]
-        ]);
-        $this->assertEquals('table', $html[Factory::TAG]);
-        $this->assertEquals('tr', $html[Factory::CHILDREN][0][Factory::TAG]);
     }
 
     public function testMakeHeader1()
