@@ -41,6 +41,37 @@ final class Activiteit implements \Teach\Interactors\LayoutableInterface
         $this->werkvorm = $werkvorm;
     }
 
+    public function provideTemplateVariables(array $variableIdentifiers)
+    {
+        $variables = [];
+        foreach ($variableIdentifiers as $variableIdentifier) {
+            switch ($variableIdentifier) {
+                case 'title':
+                    $variables[$variableIdentifier] = $this->caption;
+                    break;
+                case 'inhoud':
+                    $variables[$variableIdentifier] = $this->werkvorm['inhoud'];
+                    break;
+                case 'werkvorm':
+                    $variables[$variableIdentifier] = $this->werkvorm['werkvorm'];
+                    break;
+                case 'organisatievorm':
+                    $variables[$variableIdentifier] = $this->werkvorm['organisatievorm'];
+                    break;
+                case 'werkvormsoort':
+                    $variables[$variableIdentifier] = $this->werkvorm['werkvormsoort'];
+                    break;
+                case 'tijd':
+                    $variables[$variableIdentifier] = $this->werkvorm['tijd'] . ' minuten';
+                    break;
+                case 'intelligenties':
+                    $variables[$variableIdentifier] = array_values(array_intersect(self::INTELLIGENTIES, $this->werkvorm['intelligenties']));
+                    break;
+            }
+        }
+        return $variables;
+    }
+
     /**
      *
      * @return array
