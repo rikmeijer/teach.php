@@ -1,6 +1,6 @@
 <?php
 return function(\Teach\Adapters\HTML\Factory $factory, $title, $inhoud, $werkvorm, $organisatievorm, $werkvormsoort, $tijd, $intelligenties) {
-    return $factory->renderTable($title, [
+    return $factory->makeTable($title, [
         [
             'werkvorm' => $werkvorm,
             'organisatievorm' => $organisatievorm
@@ -15,5 +15,5 @@ return function(\Teach\Adapters\HTML\Factory $factory, $title, $inhoud, $werkvor
         [
             'inhoud' => $inhoud
         ]
-    ]);
+    ])->render();
 }; 

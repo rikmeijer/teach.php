@@ -17,18 +17,10 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
         return $renderer($this, ...$templateParameters);
     }
     
-    public function renderTable($caption, array $rows)
-    {
-        foreach ($rows as &$row) {
-            foreach ($row as &$cell) {
-                if (is_array($cell)) {
-                    $cell = [$this->makeUnorderedList($cell)];
-                }
-            }
-        }
-        return $this->makeHTML([$this->makeTable($caption, $rows)]);
-    }
-    
+    /**
+     * 
+     * @param array $listitems
+     */
     public function renderUnorderedList(array $listitems)
     {
         $listitemsHTML = [];
@@ -188,6 +180,15 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
      */
     public function makeTable($caption, array $rows)
     {
+        foreach ($rows as &$row) {
+            foreach ($row as &$cell) {
+                if (is_array($cell)) {
+                    $cell = [$this->makeUnorderedList($cell)];
+                }
+            }
+        }
+        unset($row);
+        
         $expectedCellCount = 0;
         foreach ($rows as $row) {
             $expectedCellCount = max($expectedCellCount, count($row) * 2); // key/value both give a cell (th/td)
@@ -195,7 +196,7 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
         
         $tableChildrenHTML = [];
         if ($caption !== null) {
-            $tableChildrenHTML[] = $this->makeHTMLElement('caption', [], [
+            $tableChildrenHTML[] = $this->createElement('caption', [], [
                 $caption
             ]);
         }
@@ -203,6 +204,6 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
             $tableChildrenHTML[] = $this->makeTableRow($expectedCellCount, $row);
         }
         
-        return $this->makeHTMLElement('table', [], $tableChildrenHTML);
+        return $this->createElement('table', [], $tableChildrenHTML);
     }
 }
