@@ -28,6 +28,33 @@ final class Contactmoment implements \Teach\Interactors\LayoutableInterface
         $this->media = $media;
         $this->leerdoelen = $leerdoelen;
     }
+    
+    public function provideTemplateVariables(array $variableIdentifiers)
+    {
+        $variables = [];
+        foreach ($variableIdentifiers as $variableIdentifier) {
+            switch ($variableIdentifier) {
+                case 'doelgroep':
+                    $variables[$variableIdentifier] = $this->beginsituatie['doelgroep'];
+                    break;
+                case 'starttijd':
+                    break;
+                case 'eindtijd':
+                    break;
+                case 'duur':
+                    break;
+                case 'ruimte':
+                    break;
+                case 'overige':
+                    break;
+                case 'media':
+                    break;
+                case 'leerdoelen':
+                    break;
+            }
+        }
+        return $variables;
+    }
 
     /**
      *

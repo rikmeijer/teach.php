@@ -5,6 +5,45 @@ use \Teach\Adapters\HTML\Factory as HTMLFactory;
 
 class ContactmomentTest extends \PHPUnit_Framework_TestCase
 {
+    public function testProvideTemplateVariablesActiviteiten()
+    {
+        $media = [
+            'filmfragment matrix',
+            'countdown timer voor toepassingsfases (optioneel)'
+        ];
+        $leerdoelen = [
+            "Zelfstandig eclipse installeren",
+            "Java-code lezen en uitleggen wat er gebeurt"
+        ];
+        
+        $object = new Contactmoment([
+            'doelgroep' => [
+                'beschrijving' => 'eerstejaars HBO-studenten',
+                'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen
+                'grootte' => '16 personen'
+            ],
+            'starttijd' => '08:45',
+            'eindtijd' => '10:20',
+            'duur' => '95',
+            'ruimte' => 'beschikking over vaste computers',
+            'overige' => 'nvt'
+            ], $media, $leerdoelen);
+        
+        $variables = $object->provideTemplateVariables([
+            'doelgroep',
+            'starttijd',
+            'eindtijd',
+            'duur',
+            'ruimte',
+            'overige',
+            'media',
+            'leerdoelen'
+        ]);
+
+        $this->assertEquals('eerstejaars HBO-studenten', $variables["doelgroep"]["beschrijving"]);
+        // ...
+    }
+    
     public function testGenerateHTMLLayout()
     {
         $media = [
