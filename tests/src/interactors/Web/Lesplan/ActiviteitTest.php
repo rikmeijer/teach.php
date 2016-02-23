@@ -38,7 +38,6 @@ class ActiviteitTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("plenair", $variables["organisatievorm"]);
         $this->assertEquals("discussie", $variables["werkvormsoort"]);
         $this->assertEquals("5 minuten", $variables["tijd"]);
-        var_Dump($variables['intelligenties']);
         $this->assertEquals(Activiteit::MI_VERBAAL_LINGUISTISCH, $variables["intelligenties"][0]);
         $this->assertEquals(Activiteit::MI_INTERPERSOONLIJK, $variables["intelligenties"][1]);
         $this->assertEquals(Activiteit::MI_INTRAPERSOONLIJK, $variables["intelligenties"][2]);
