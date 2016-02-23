@@ -31,7 +31,13 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
     
     public function renderUnorderedList(array $listitems)
     {
-        return $this->makeHTML([$this->makeUnorderedList($listitems)]);
+        $listitemsHTML = [];
+        foreach ($listitems as $listitem) {
+            $listitemsHTML[] = $this->createElement('li', [], [
+                $listitem
+            ]);
+        }
+        return $this->createElement('ul', [], $listitemsHTML)->render();
     }
     
     /**
@@ -48,7 +54,11 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
         }
         
         foreach ($elements as $elementDefinition) {
-            $element->append($this->convertDefinition($elementDefinition));
+            if ($elementDefinition instanceof RenderableInterface) {
+                $element->append($elementDefinition);
+            } else {
+                $element->append($this->convertDefinition($elementDefinition));
+            }
         }
         return $element;
     }
