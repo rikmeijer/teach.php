@@ -174,17 +174,6 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
      *
      * {@inheritDoc}
      *
-     * @see \Teach\Interactors\LayoutFactoryInterface::makeOrderedList()
-     */
-    public function makeOrderedList(array $listitems)
-    {
-        return $this->makeList('ol', $listitems);
-    }
-
-    /**
-     *
-     * {@inheritDoc}
-     *
      * @see \Teach\Interactors\LayoutFactoryInterface::makeTable()
      */
     public function makeTable($caption, array $rows)

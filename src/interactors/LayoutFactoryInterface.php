@@ -7,7 +7,5 @@ interface LayoutFactoryInterface
     
     public function makeUnorderedList(array $listitems);
     
-    public function makeOrderedList(array $listitems);
-    
     public function makeTable($caption, array $rows);
 }

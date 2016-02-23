@@ -246,21 +246,4 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('C', $html[Factory::CHILDREN][2][Factory::CHILDREN][0]);
     }
 
-    public function testMakeOrderedList()
-    {
-        $object = new Factory();
-        $html = $object->makeOrderedList([
-            "A",
-            "B",
-            "C"
-        ]);
-        $this->assertEquals('ol', $html[Factory::TAG]);
-        $this->assertEquals('li', $html[Factory::CHILDREN][0][Factory::TAG]);
-        $this->assertEquals('A', $html[Factory::CHILDREN][0][Factory::CHILDREN][0]);
-        $this->assertEquals('li', $html[Factory::CHILDREN][1][Factory::TAG]);
-        $this->assertEquals('B', $html[Factory::CHILDREN][1][Factory::CHILDREN][0]);
-        $this->assertEquals('li', $html[Factory::CHILDREN][2][Factory::TAG]);
-        $this->assertEquals('C', $html[Factory::CHILDREN][2][Factory::CHILDREN][0]);
-    }
-
 }
