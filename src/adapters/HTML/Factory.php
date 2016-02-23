@@ -142,7 +142,7 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
             }
         }
         
-        return $this->makeHTMLElement('tr', [], $cellsHTML);
+        return $this->createElement('tr', [], $cellsHTML);
     }
 
     /**

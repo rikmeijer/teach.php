@@ -113,13 +113,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $object = new Factory();
         $html = $object->makeTableRow(2, [
             "inhoud" => "bladiebla"
-        ]);
-        $this->assertEquals('tr', $html[Factory::TAG]);
-        $this->assertEquals('th', $html[Factory::CHILDREN][0][Factory::TAG]);
-        $this->assertEquals('inhoud', $html[Factory::CHILDREN][0][Factory::CHILDREN][0]);
-        $this->assertEquals('td', $html[Factory::CHILDREN][1][Factory::TAG]);
-        $this->assertEquals('inhoud', $html[Factory::CHILDREN][1][Factory::ATTRIBUTES]['id']);
-        $this->assertEquals('bladiebla', $html[Factory::CHILDREN][1][Factory::CHILDREN][0]);
+        ])->render();
+        $this->assertEquals('<tr><th>inhoud</th><td id="inhoud">bladiebla</td></tr>', $html);
     }
 
     public function testMakeTableRowWithPreparedChildren()
@@ -129,13 +124,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             "inhoud" => [
                 ['span', [], ["bladiebla"]]
             ]
-        ]);
-        $this->assertEquals('tr', $html[Factory::TAG]);
-        $this->assertEquals('th', $html[Factory::CHILDREN][0][Factory::TAG]);
-        $this->assertEquals('inhoud', $html[Factory::CHILDREN][0][Factory::CHILDREN][0]);
-        $this->assertEquals('td', $html[Factory::CHILDREN][1][Factory::TAG]);
-        $this->assertEquals('span', $html[Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::TAG]);
-        $this->assertEquals('bladiebla', $html[Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::CHILDREN][0]);
+        ])->render();
+        $this->assertEquals('<tr><th>inhoud</th><td id="inhoud"><span>bladiebla</span></td></tr>', $html);
     }
 
     public function testMakeTableRowWithSpanningCell()
@@ -143,13 +133,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $object = new Factory();
         $html = $object->makeTableRow(4, [
             "inhoud" => "bladiebla"
-        ]);
-        $this->assertEquals('tr', $html[Factory::TAG]);
-        $this->assertEquals('th', $html[Factory::CHILDREN][0][Factory::TAG]);
-        $this->assertEquals('inhoud', $html[Factory::CHILDREN][0][Factory::CHILDREN][0]);
-        $this->assertEquals('td', $html[Factory::CHILDREN][1][Factory::TAG]);
-        $this->assertEquals('3', $html[Factory::CHILDREN][1][Factory::ATTRIBUTES]['colspan']);
-        $this->assertEquals('bladiebla', $html[Factory::CHILDREN][1][Factory::CHILDREN][0]);
+        ])->render();
+        $this->assertEquals('<tr><th>inhoud</th><td id="inhoud" colspan="3">bladiebla</td></tr>', $html);
     }
 
     public function testMakeTableRowWithPreparedChildrenAndSpanningCell()
@@ -159,14 +144,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             "inhoud" => [
                 ['span', [], ["bladiebla"]]
             ]
-        ]);
-        $this->assertEquals('tr', $html[Factory::TAG]);
-        $this->assertEquals('th', $html[Factory::CHILDREN][0][Factory::TAG]);
-        $this->assertEquals('inhoud', $html[Factory::CHILDREN][0][Factory::CHILDREN][0]);
-        $this->assertEquals('td', $html[Factory::CHILDREN][1][Factory::TAG]);
-        $this->assertEquals('3', $html[Factory::CHILDREN][1][Factory::ATTRIBUTES]['colspan']);
-        $this->assertEquals('span', $html[Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::TAG]);
-        $this->assertEquals('bladiebla', $html[Factory::CHILDREN][1][Factory::CHILDREN][0][Factory::CHILDREN][0]);
+        ])->render();
+        $this->assertEquals('<tr><th>inhoud</th><td id="inhoud" colspan="3"><span>bladiebla</span></td></tr>', $html);
     }
     
     public function testRenderUnorderedList()
