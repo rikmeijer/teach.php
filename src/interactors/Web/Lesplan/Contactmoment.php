@@ -35,21 +35,31 @@ final class Contactmoment implements \Teach\Interactors\LayoutableInterface
         foreach ($variableIdentifiers as $variableIdentifier) {
             switch ($variableIdentifier) {
                 case 'doelgroep':
-                    $variables[$variableIdentifier] = $this->beginsituatie['doelgroep'];
+                    $variables[$variableIdentifier] = [
+                        'ervaring' => $this->beginsituatie['doelgroep']['ervaring'],
+                        'beschrijving' => $this->beginsituatie['doelgroep']['beschrijving']
+                    ];
                     break;
-                case 'starttijd':
+                case 'groepsgrootte':
+                    $variables[$variableIdentifier] = $this->beginsituatie['doelgroep']['grootte'];
                     break;
-                case 'eindtijd':
-                    break;
-                case 'duur':
+                case 'tijd':
+                    $variables[$variableIdentifier] = 'van ' . $this->beginsituatie['starttijd'] . ' tot ' . $this->beginsituatie['eindtijd'] . ' (' . $this->beginsituatie['duur'] . ' minuten)';
                     break;
                 case 'ruimte':
+                    $variables[$variableIdentifier] = $this->beginsituatie['ruimte'];
                     break;
                 case 'overige':
+                    $variables[$variableIdentifier] = $this->beginsituatie['overige'];
+                    
                     break;
                 case 'media':
+                    $variables[$variableIdentifier] = $this->media;
+                    
                     break;
                 case 'leerdoelen':
+                    $variables[$variableIdentifier] = $this->leerdoelen;
+                    
                     break;
             }
         }

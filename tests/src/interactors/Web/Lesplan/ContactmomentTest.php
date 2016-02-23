@@ -31,19 +31,25 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
         
         $variables = $object->provideTemplateVariables([
             'doelgroep',
-            'starttijd',
-            'eindtijd',
-            'duur',
+            'groepsgrootte',
+            'tijd',
             'ruimte',
             'overige',
             'media',
             'leerdoelen'
         ]);
 
+        $this->assertCount(2, $variables['doelgroep']);
         $this->assertEquals('eerstejaars HBO-studenten', $variables["doelgroep"]["beschrijving"]);
         $this->assertEquals('geen', $variables["doelgroep"]["ervaring"]);
-        $this->assertEquals('16 personen', $variables["doelgroep"]["grootte"]);
-        // ...
+        $this->assertEquals('16 personen', $variables["groepsgrootte"]);
+
+        $this->assertEquals('van 08:45 tot 10:20 (95 minuten)', $variables["tijd"]);
+        $this->assertEquals('beschikking over vaste computers', $variables["ruimte"]);
+        $this->assertEquals('nvt', $variables["overige"]);
+        
+        $this->assertEquals($media, $variables["media"]);
+        $this->assertEquals($leerdoelen, $variables["leerdoelen"]);
     }
     
     public function testGenerateHTMLLayout()
