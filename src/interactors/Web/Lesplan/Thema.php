@@ -22,22 +22,11 @@ final class Thema implements \Teach\Interactors\LayoutableInterface
         $this->activiteiten[] = $activiteit;
     }
 
+
     /**
-     *
+     * @param array $variableIdentifiers
      * @return array
      */
-    public function generateLayout (\Teach\Interactors\LayoutFactoryInterface $factory)
-    {
-        $activiteitenHTML = [];
-        foreach ($this->activiteiten as $activiteit) {
-            $activiteitenHTML = array_merge($activiteitenHTML, $activiteit->generateLayout ($factory));
-        }
-        
-        return [
-            $factory->makeSection($factory->makeHeader3($this->title), $activiteitenHTML)
-        ];
-    }
-
     public function provideTemplateVariables(array $variableIdentifiers)
     {
         $variables = [];

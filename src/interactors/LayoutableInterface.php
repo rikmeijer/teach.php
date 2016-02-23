@@ -4,5 +4,11 @@ namespace Teach\Interactors;
 interface LayoutableInterface
 {
 
-    function generateLayout(LayoutFactoryInterface $factory);
+
+    /**
+     * @param array $variableIdentifiers
+     * @return array
+     */
+    function provideTemplateVariables(array $variableIdentifiers);
+    
 }

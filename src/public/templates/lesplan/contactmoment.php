@@ -10,7 +10,7 @@ return function(\Teach\Adapters\HTML\Factory $factory, string $title, \Teach\Int
         'leerdoelen'
     ]);
     
-    return '<section><h2>' . htmlentities($title) . '</h2><h3>Beginsituatie</h3>' . $factory->renderTable($title, [
+    $html ='<section><h2>' . htmlentities($title) . '</h2><h3>Beginsituatie</h3>' . $factory->renderTable($title, [
                 [
                     'doelgroep' => $variables['doelgroep']['beschrijving'],
                     'ervaring' => $variables['doelgroep']['ervaring']
@@ -27,5 +27,14 @@ return function(\Teach\Adapters\HTML\Factory $factory, string $title, \Teach\Int
                 [
                     'overige' => $variables['overige']
                 ]
-    ]) . '<h3>Media</h3>' . $factory->renderUnorderedList($variables['media']) . '<h3>Leerdoelen</h3><p>Na afloop van de les kan de student:</p>' . $factory->renderUnorderedList($variables['leerdoelen']) . '</section>';
+    ]);
+    
+    if (count($variables['media']) > 0) {
+        $html .= '<h3>Media</h3>' . $factory->renderUnorderedList($variables['media']);
+    }
+    
+    $html .= '<h3>Leerdoelen</h3><p>Na afloop van de les kan de student:</p>' . $factory->renderUnorderedList($variables['leerdoelen']) . '</section>';
+                
+    
+    return $html;
 };

@@ -59,21 +59,9 @@ final class Lesplan implements \Teach\Interactors\LayoutableInterface
     }
 
     /**
-     *
+     * @param array $variableIdentifiers
      * @return array
-     */
-    public function generateLayout (\Teach\Interactors\LayoutFactoryInterface $factory)
-    {
-        return array_merge([
-            $factory->makePageHeader($factory->makeHeader1('Lesplan ' . $this->vak), $factory->makeHeader2($this->opleiding)),
-            $factory->makeSection($factory->makeHeader2($this->les), $this->contactmoment->generateLayout($factory)),
-        ], 
-            $this->introductie->generateLayout ($factory),
-            $this->kern->generateLayout ($factory),
-            $this->afsluiting->generateLayout ($factory)
-            );
-    }
-    
+     */    
     public function provideTemplateVariables(array $variableIdentifiers)
     {
         $variables = [];

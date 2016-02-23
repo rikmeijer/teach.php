@@ -41,6 +41,11 @@ final class Activiteit implements \Teach\Interactors\LayoutableInterface
         $this->werkvorm = $werkvorm;
     }
 
+
+    /**
+     * @param array $variableIdentifiers
+     * @return array
+     */
     public function provideTemplateVariables(array $variableIdentifiers)
     {
         $variables = [];
@@ -72,36 +77,4 @@ final class Activiteit implements \Teach\Interactors\LayoutableInterface
         return $variables;
     }
 
-    /**
-     *
-     * @return array
-     */
-    public function generateLayout (\Teach\Interactors\LayoutFactoryInterface $factory)
-    {
-        $inhoudChildren = [];
-        if (is_string($this->werkvorm['inhoud'])) {
-            $inhoudChildren[] = $this->werkvorm['inhoud'];
-        } elseif (is_array($this->werkvorm['inhoud'])) {
-            $inhoudChildren[] = $factory->makeUnorderedList($this->werkvorm['inhoud']);
-        }
-        
-        return [
-            $factory->makeTable($this->caption, [
-                [
-                    'werkvorm' => $this->werkvorm['werkvorm'],
-                    'organisatievorm' => $this->werkvorm['organisatievorm']
-                ],
-                [
-                    'tijd' => $this->werkvorm['tijd'] . ' minuten',
-                    'soort werkvorm' => $this->werkvorm['werkvormsoort']
-                ],
-                [
-                    'intelligenties' => [$factory->makeUnorderedList(array_intersect(self::INTELLIGENTIES, $this->werkvorm['intelligenties']))]
-                ],
-                [
-                    'inhoud' => $inhoudChildren
-                ]
-            ])
-        ];
-    }
 }

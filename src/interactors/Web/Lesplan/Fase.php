@@ -22,23 +22,11 @@ final class Fase implements \Teach\Interactors\LayoutableInterface
         $this->onderdelen[] = $onderdeel;
     }
 
+
     /**
-     *
+     * @param array $variableIdentifiers
      * @return array
      */
-    public function generateLayout (\Teach\Interactors\LayoutFactoryInterface $factory)
-    {
-        $onderdelenHTML = [];
-        foreach ($this->onderdelen as $onderdeel) {
-            $onderdelenHTML = array_merge($onderdelenHTML, $onderdeel->generateLayout ($factory));
-        }
-        
-        return [
-            $factory->makeSection($factory->makeHeader2($this->title), $onderdelenHTML)
-        ];
-    }
-    
-
     public function provideTemplateVariables(array $variableIdentifiers)
     {
         $variables = [];
