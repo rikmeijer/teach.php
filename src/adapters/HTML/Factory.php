@@ -272,16 +272,4 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
             $subtitle
         ]);
     }
-
-    /**
-     *
-     * {@inheritDoc}
-     *
-     * @see \Teach\Interactors\LayoutFactoryInterface::makeSection()
-     */
-    public function makeSection(array $header, array $contents)
-    {
-        \array_unshift($contents, $header);
-        return $this->makeHTMLElement('section', [], $contents);
-    }
 }
