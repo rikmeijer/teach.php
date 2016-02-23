@@ -84,16 +84,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testRenderTable()
     {
         $object = new Factory();
-        $expectedHTML = $object->makeHTML([$object->makeTable('Activerende opening', [
-            [
-                "inhoud" => "bladiebla",
-                "werkvorm" => "bladiebla"
-            ],
-            [
-                "inhoud" => [$object->makeUnorderedList(['A', 'B', 'C'])]
-            ]
-        ])]);
         
+        $expectedHTML = '<table><caption>Activerende opening</caption><tr><th>inhoud</th><td id="inhoud">bladiebla</td><th>werkvorm</th><td id="werkvorm">bladiebla</td></tr><tr><th>inhoud</th><td id="inhoud" colspan="3"><ul><li>A</li><li>B</li><li>C</li></ul></td></tr></table>';
         $this->assertEquals($expectedHTML, $object->renderTable('Activerende opening', [
             [
                 "inhoud" => "bladiebla",
@@ -218,11 +210,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testRenderUnorderedList()
     {
         $object = new Factory();
-        $this->assertEquals($object->makeHTML([$object->makeUnorderedList([
-            "A",
-            "B",
-            "C"
-        ])]), $object->renderUnorderedList([
+        $expectedHTML = '<ul><li>A</li><li>B</li><li>C</li></ul>';
+        $this->assertEquals($expectedHTML, $object->renderUnorderedList([
             "A",
             "B",
             "C"
