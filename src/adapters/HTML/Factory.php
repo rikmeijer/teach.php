@@ -258,18 +258,4 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
             $text
         ]);
     }
-
-    /**
-     *
-     * {@inheritDoc}
-     *
-     * @see \Teach\Interactors\LayoutFactoryInterface::makePageHeader()
-     */
-    public function makePageHeader(array $title, array $subtitle)
-    {
-        return $this->makeHTMLElement('header', [], [
-            $title,
-            $subtitle
-        ]);
-    }
 }
