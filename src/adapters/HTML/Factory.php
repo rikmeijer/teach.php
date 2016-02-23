@@ -206,43 +206,4 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
         
         return $this->makeHTMLElement('table', [], $tableChildrenHTML);
     }
-
-    /**
-     *
-     * {@inheritDoc}
-     *
-     * @see \Teach\Interactors\LayoutFactoryInterface::makeHeader1()
-     */
-    public function makeHeader1($text)
-    {
-        return $this->makeHTMLElement('h1', [], [
-            $text
-        ]);
-    }
-
-    /**
-     *
-     * {@inheritDoc}
-     *
-     * @see \Teach\Interactors\LayoutFactoryInterface::makeHeader2()
-     */
-    public function makeHeader2($text)
-    {
-        return $this->makeHTMLElement('h2', [], [
-            $text
-        ]);
-    }
-
-    /**
-     *
-     * {@inheritDoc}
-     *
-     * @see \Teach\Interactors\LayoutFactoryInterface::makeHeader3()
-     */
-    public function makeHeader3($text)
-    {
-        return $this->makeHTMLElement('h3', [], [
-            $text
-        ]);
-    }
 }
