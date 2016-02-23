@@ -41,6 +41,8 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertEquals('eerstejaars HBO-studenten', $variables["doelgroep"]["beschrijving"]);
+        $this->assertEquals('geen', $variables["doelgroep"]["ervaring"]);
+        $this->assertEquals('16 personen', $variables["doelgroep"]["grootte"]);
         // ...
     }
     
