@@ -16,6 +16,4 @@ interface LayoutFactoryInterface
     public function makeHeader2($text);
     
     public function makeHeader3($text);
-    
-    public function makeParagraph($text);
 }

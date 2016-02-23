@@ -245,17 +245,4 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
             $text
         ]);
     }
-
-    /**
-     *
-     * {@inheritDoc}
-     *
-     * @see \Teach\Interactors\LayoutFactoryInterface::makeParagraph()
-     */
-    public function makeParagraph($text)
-    {
-        return $this->makeHTMLElement('p', [], [
-            $text
-        ]);
-    }
 }
