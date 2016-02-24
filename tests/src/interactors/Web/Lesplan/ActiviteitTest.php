@@ -1,8 +1,6 @@
 <?php
 namespace Teach\Interactors\Web\Lesplan;
 
-use \Teach\Adapters\HTML\Factory as HTMLFactory;
-
 class ActiviteitTest extends \PHPUnit_Framework_TestCase
 {
     public function testProvideTemplateVariablesOnderdelen()
