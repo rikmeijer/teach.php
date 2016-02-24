@@ -66,35 +66,6 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
 
     /**
      *
-     * @param array $elements            
-     * @return string
-     */
-    public function makeHTML(array $elements)
-    {
-        $html = '';
-        foreach ($elements as $elementDefinition) {
-            $html .= $this->convertDefinition($elementDefinition)->render();
-        }
-        return $html;
-    }
-
-    /**
-     *
-     * @param string $tag            
-     * @param array $attributes            
-     * @param array $children            
-     */
-    private function makeHTMLElement($tag, array $attributes, array $children)
-    {
-        return [
-            self::TAG => $tag,
-            self::ATTRIBUTES => $attributes,
-            self::CHILDREN => $children
-        ];
-    }
-
-    /**
-     *
      * {@inheritDoc}
      *
      * @see \Teach\Interactors\LayoutFactoryInterface::makeTableRow()
