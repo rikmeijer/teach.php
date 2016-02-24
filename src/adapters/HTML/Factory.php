@@ -52,12 +52,18 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
     {
         $cellsHTML = [];
         foreach ($data as $header => $value) {
-            $cellsHTML[] = $this->createElement('th', [], $this->createText($header));
+            $cellHeader = $this->createElementWithoutChildren('th', []);
+            $cellHeader->append($this->createText($header));
+            $cellsHTML[] = $cellHeader;
+            
             if (is_string($value)) {
-                $cellsHTML[] = $this->createElement('td', ['id' => $header], $this->createText($value));
+                $cell = $this->createElementWithoutChildren('td', ['id' => $header]);
+                $cell->append($this->createText($value));
             } else {
-                $cellsHTML[] = $this->createElement('td', ['id' => $header], $this->makeUnorderedList($value));
+                $cell = $this->createElementWithoutChildren('td', ['id' => $header]);
+                $cell->append($this->makeUnorderedList($value));
             }
+            $cellsHTML[] = $cell;
         }
         
         $actualCellCount = count($cellsHTML);
@@ -68,7 +74,9 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
             $cellsHTML[$lastCellIndex]->attribute('colspan', $colspan);
         }
         
-        return $this->createElement('tr', [], ...$cellsHTML);
+        $row = $this->createElementWithoutChildren('tr', []);
+        $row->append(...$cellsHTML);
+        return $row;
     }
 
     /**
@@ -80,9 +88,13 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
     {
         $listitemsHTML = [];
         foreach ($listitems as $listitem) {
-            $listitemsHTML[] = $this->createElement('li', [], $this->createText($listitem));
+            $li = $this->createElementWithoutChildren('li', []);
+            $li->append($this->createText($listitem));
+            $listitemsHTML[] = $li;
         }
-        return $this->createElement($tag, [], ...$listitemsHTML);
+        $list = $this->createElementWithoutChildren($tag, []);
+        $list->append(...$listitemsHTML);
+        return $list;
     }
 
     /**
@@ -108,15 +120,18 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
         foreach ($rows as $row) {
             $expectedCellCount = max($expectedCellCount, count($row) * 2); // key/value both give a cell (th/td)
         }
-        
-        $tableChildrenHTML = [];
+
+        $table = $this->createElementWithoutChildren('table', []);
         if ($caption !== null) {
-            $tableChildrenHTML[] = $this->createElement('caption', [], $this->createText($caption));
-        }
-        foreach ($rows as $row) {
-            $tableChildrenHTML[] = $this->makeTableRow($expectedCellCount, $row);
+            $captionElement = $this->createElementWithoutChildren('caption', []);
+            $captionElement->append($this->createText($caption));
+            $table->append($captionElement);
         }
         
-        return $this->createElement('table', [], ...$tableChildrenHTML);
+        foreach ($rows as $row) {
+            $table->append($this->makeTableRow($expectedCellCount, $row));
+        }
+
+        return $table;
     }
 }
