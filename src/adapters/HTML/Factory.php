@@ -28,10 +28,7 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
     public function createElement($tagName, array $attributes, RenderableInterface ...$elements)
     {
         $element = $this->createElementWithoutChildren($tagName, $attributes);
-        
-        foreach ($elements as $elementDefinition) {
-            $element->append($elementDefinition);
-        }
+        $element->append(...$elements);
         return $element;
     }
 
