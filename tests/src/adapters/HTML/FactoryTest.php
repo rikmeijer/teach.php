@@ -97,7 +97,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         ])->render());
     }
 
-    public function testRenderTableNoCaption()
+    public function testMakeTableNoCaption()
     {
         $object = new Factory();
         $html = $object->makeTable(null, [
