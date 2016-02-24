@@ -153,14 +153,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             "A",
             "B",
             "C"
-        ]);
-        $this->assertEquals('ul', $html[Factory::TAG]);
-        $this->assertEquals('li', $html[Factory::CHILDREN][0][Factory::TAG]);
-        $this->assertEquals('A', $html[Factory::CHILDREN][0][Factory::CHILDREN][0]);
-        $this->assertEquals('li', $html[Factory::CHILDREN][1][Factory::TAG]);
-        $this->assertEquals('B', $html[Factory::CHILDREN][1][Factory::CHILDREN][0]);
-        $this->assertEquals('li', $html[Factory::CHILDREN][2][Factory::TAG]);
-        $this->assertEquals('C', $html[Factory::CHILDREN][2][Factory::CHILDREN][0]);
+        ])->render();
+        $expectedHTML = '<ul><li>A</li><li>B</li><li>C</li></ul>';
+        $this->assertEquals($expectedHTML, $html);
     }
 
 }

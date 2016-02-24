@@ -146,11 +146,11 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
     {
         $listitemsHTML = [];
         foreach ($listitems as $listitem) {
-            $listitemsHTML[] = $this->makeHTMLElement('li', [], [
+            $listitemsHTML[] = $this->createElement('li', [], [
                 $listitem
             ]);
         }
-        return $this->makeHTMLElement($tag, [], $listitemsHTML);
+        return $this->createElement($tag, [], $listitemsHTML);
     }
 
     /**
