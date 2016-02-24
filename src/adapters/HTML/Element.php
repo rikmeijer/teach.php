@@ -43,9 +43,9 @@ final class Element implements RenderableInterface
         $this->attributes[] = $attributeIdentifier . '="' . $attributeValue . '"';
     }
 
-    public function append(RenderableInterface $child)
+    public function append(RenderableInterface ...$children)
     {
-        $this->children[] = $child;
+        $this->children = array_merge($this->children, $children);
     }
 
     public function render()
