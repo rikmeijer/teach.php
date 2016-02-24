@@ -118,11 +118,11 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
     {
         $cellsHTML = [];
         foreach ($data as $header => $value) {
-            $cellsHTML[] = $this->makeHTMLElement('th', [], [$header]);
+            $cellsHTML[] = $this->createElement('th', [], [$this->createText($header)]);
             if (is_string($value)) {
-                $cellsHTML[] = $this->makeHTMLElement('td', ['id' => $header], [$value]);
+                $cellsHTML[] = $this->createElement('td', ['id' => $header], [$this->createText($value)]);
             } else {
-                $cellsHTML[] = $this->makeHTMLElement('td', ['id' => $header], $value);
+                $cellsHTML[] = $this->createElement('td', ['id' => $header], $value);
             }
         }
         
@@ -131,15 +131,7 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
             $lastCellIndex = $actualCellCount - 1;
             $colspan = (string) ($expectedCellCount - $lastCellIndex); // last cell must also be included in span
             
-            if (count($cellsHTML[$lastCellIndex]) === 3) {
-                $cellsHTML[$lastCellIndex][self::ATTRIBUTES]['colspan'] = $colspan;
-            } else {
-                $cellsHTML[$lastCellIndex] = $this->makeHTMLElement($cellsHTML[$lastCellIndex][self::TAG], [
-                    'colspan' => $colspan
-                ], [
-                    $cellsHTML[$lastCellIndex][self::CHILDREN][0]
-                ]);
-            }
+            $cellsHTML[$lastCellIndex]->attribute('colspan', $colspan);
         }
         
         return $this->createElement('tr', [], $cellsHTML);
