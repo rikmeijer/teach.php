@@ -17,12 +17,7 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
         return $renderer($this, ...$templateParameters);
     }
     
-    /**
-     *
-     * @param array $definition            
-     * @return Element
-     */
-    public function createElement($tagName, array $attributes, array $elements)
+    public function createElementWithoutChildren($tagName, array $attributes) 
     {
         $element = new Element($tagName);
         
@@ -30,12 +25,20 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
             $element->attribute($attributeIdentifier, $attributeValue);
         }
         
+        return $element;
+    }
+    
+    /**
+     *
+     * @param array $definition            
+     * @return Element
+     */
+    public function createElement($tagName, array $attributes, RenderableInterface ...$elements)
+    {
+        $element = $this->createElementWithoutChildren($tagName, $attributes);
+        
         foreach ($elements as $elementDefinition) {
-            if ($elementDefinition instanceof RenderableInterface) {
-                $element->append($elementDefinition);
-            } else {
-                $element->append($this->convertDefinition($elementDefinition));
-            }
+            $element->append($elementDefinition);
         }
         return $element;
     }
@@ -74,11 +77,11 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
     {
         $cellsHTML = [];
         foreach ($data as $header => $value) {
-            $cellsHTML[] = $this->createElement('th', [], [$this->createText($header)]);
+            $cellsHTML[] = $this->createElement('th', [], $this->createText($header));
             if (is_string($value)) {
-                $cellsHTML[] = $this->createElement('td', ['id' => $header], [$this->createText($value)]);
+                $cellsHTML[] = $this->createElement('td', ['id' => $header], $this->createText($value));
             } else {
-                $cellsHTML[] = $this->createElement('td', ['id' => $header], [$this->makeUnorderedList($value)]);
+                $cellsHTML[] = $this->createElement('td', ['id' => $header], $this->makeUnorderedList($value));
             }
         }
         
@@ -90,7 +93,7 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
             $cellsHTML[$lastCellIndex]->attribute('colspan', $colspan);
         }
         
-        return $this->createElement('tr', [], $cellsHTML);
+        return $this->createElement('tr', [], ...$cellsHTML);
     }
 
     /**
@@ -102,11 +105,9 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
     {
         $listitemsHTML = [];
         foreach ($listitems as $listitem) {
-            $listitemsHTML[] = $this->createElement('li', [], [
-                $listitem
-            ]);
+            $listitemsHTML[] = $this->createElement('li', [], $this->createText($listitem));
         }
-        return $this->createElement($tag, [], $listitemsHTML);
+        return $this->createElement($tag, [], ...$listitemsHTML);
     }
 
     /**
@@ -135,14 +136,12 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
         
         $tableChildrenHTML = [];
         if ($caption !== null) {
-            $tableChildrenHTML[] = $this->createElement('caption', [], [
-                $caption
-            ]);
+            $tableChildrenHTML[] = $this->createElement('caption', [], $this->createText($caption));
         }
         foreach ($rows as $row) {
             $tableChildrenHTML[] = $this->makeTableRow($expectedCellCount, $row);
         }
         
-        return $this->createElement('table', [], $tableChildrenHTML);
+        return $this->createElement('table', [], ...$tableChildrenHTML);
     }
 }
