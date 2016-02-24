@@ -3,14 +3,6 @@ namespace Teach\Adapters\HTML;
 
 final class Factory implements \Teach\Interactors\LayoutFactoryInterface
 {
-
-    const TAG = 0;
-
-    const ATTRIBUTES = 1;
-
-    const CHILDREN = 2;
-
-    
     public function renderTemplate($filename, ...$templateParameters) {
         $renderer = require $filename;
         
@@ -52,21 +44,7 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
     {
         return new Text($text);
     }
-
-    /**
-     *
-     * @param array $elementDefinition            
-     * @return RenderableInterface
-     */
-    private function convertDefinition($elementDefinition)
-    {
-        if (is_string($elementDefinition)) {
-            return $this->createText($elementDefinition);
-        } else {
-            return $this->createElement($elementDefinition[0], $elementDefinition[1], $elementDefinition[2]);
-        }
-    }
-
+    
     /**
      *
      * {@inheritDoc}
