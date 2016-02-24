@@ -134,17 +134,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         ])->render();
         $this->assertEquals('<tr><th>inhoud</th><td id="inhoud" colspan="3">bladiebla</td></tr>', $html);
     }
-    
-    public function testRenderUnorderedList()
-    {
-        $object = new Factory();
-        $expectedHTML = '<ul><li>A</li><li>B</li><li>C</li></ul>';
-        $this->assertEquals($expectedHTML, $object->renderUnorderedList([
-            "A",
-            "B",
-            "C"
-        ]));
-    }
 
     public function testMakeUnorderedList()
     {

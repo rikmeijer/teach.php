@@ -30,10 +30,10 @@ return function(\Teach\Adapters\HTML\Factory $factory, string $title, \Teach\Int
     ])->render();
     
     if (count($variables['media']) > 0) {
-        $html .= '<h3>Media</h3>' . $factory->renderUnorderedList($variables['media']);
+        $html .= '<h3>Media</h3>' . $factory->makeUnorderedList($variables['media'])->render();
     }
     
-    $html .= '<h3>Leerdoelen</h3><p>Na afloop van de les kan de student:</p>' . $factory->renderUnorderedList($variables['leerdoelen']) . '</section>';
+    $html .= '<h3>Leerdoelen</h3><p>Na afloop van de les kan de student:</p>' . $factory->makeUnorderedList($variables['leerdoelen'])->render() . '</section>';
                 
     
     return $html;

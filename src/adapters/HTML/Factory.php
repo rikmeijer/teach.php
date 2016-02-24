@@ -18,21 +18,6 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
     }
     
     /**
-     * 
-     * @param array $listitems
-     */
-    public function renderUnorderedList(array $listitems)
-    {
-        $listitemsHTML = [];
-        foreach ($listitems as $listitem) {
-            $listitemsHTML[] = $this->createElement('li', [], [
-                $listitem
-            ]);
-        }
-        return $this->createElement('ul', [], $listitemsHTML)->render();
-    }
-    
-    /**
      *
      * @param array $definition            
      * @return Element
