@@ -122,7 +122,7 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
             if (is_string($value)) {
                 $cellsHTML[] = $this->createElement('td', ['id' => $header], [$this->createText($value)]);
             } else {
-                $cellsHTML[] = $this->createElement('td', ['id' => $header], $value);
+                $cellsHTML[] = $this->createElement('td', ['id' => $header], [$this->makeUnorderedList($value)]);
             }
         }
         
@@ -172,15 +172,6 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
      */
     public function makeTable($caption, array $rows)
     {
-        foreach ($rows as &$row) {
-            foreach ($row as &$cell) {
-                if (is_array($cell)) {
-                    $cell = [$this->makeUnorderedList($cell)];
-                }
-            }
-        }
-        unset($row);
-        
         $expectedCellCount = 0;
         foreach ($rows as $row) {
             $expectedCellCount = max($expectedCellCount, count($row) * 2); // key/value both give a cell (th/td)
