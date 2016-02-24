@@ -50,9 +50,7 @@ class Contactmoment
     public function createLesplan(\Teach\Interactors\Web\Lesplan\Factory $factory)
     {
         $introductie = $factory->createIntroductie($factory->createActiviteit("Activerende opening", $this->factory->getActiviteit($this->contactmoment['activerende_opening_id'])), $factory->createActiviteit("Focus", $this->factory->getActiviteit($this->contactmoment['focus_id'])));
-        if ($this->contactmoment['voorstellen_id'] !== null) {
-            $introductie->addOnderdeel($factory->createActiviteit("Voorstellen", $this->factory->getActiviteit($this->contactmoment['voorstellen_id'])));
-        }
+        $introductie->addOnderdeel($factory->createActiviteit("Voorstellen", $this->factory->getActiviteit($this->contactmoment['voorstellen_id'])));
         
         $kernDefinition = $this->factory->getKern($this->contactmoment['lesplan_id']);
         $leerdoelen = array_keys($kernDefinition);
