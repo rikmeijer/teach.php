@@ -24,7 +24,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateElement()
     {
         $object = new Factory();
-        $element = $object->createElementWithoutChildren('a', []);
+        $element = $object->createElement('a', []);
         $element->append($object->createText('Hello World'));
         $html = $element->render();
         $this->assertEquals('<a>Hello World</a>', $html);
@@ -40,8 +40,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateElementWithMultipleChildren()
     {
         $object = new Factory();
-        $element = $object->createElementWithoutChildren('a', []);
-        $element->append($object->createText('Hello World'), $object->createElementWithoutChildren('li', ['src' => "bla.gif"]));
+        $element = $object->createElement('a', []);
+        $element->append($object->createText('Hello World'), $object->createElement('li', ['src' => "bla.gif"]));
         $html = $element->render();
         $this->assertEquals('<a>Hello World<li src="bla.gif"></li></a>', $html);
     }
