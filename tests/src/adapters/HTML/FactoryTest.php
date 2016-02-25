@@ -3,12 +3,23 @@ namespace Teach\Adapters\HTML;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
+
+    /**
+     *
+     * @var Factory
+     */
+    private $object;
+
+    protected function setUp()
+    {
+        $this->object = new Factory();
+    }
+
     public function testRenderTemplate()
     {
         $template = tempnam(sys_get_temp_dir(), 'tpl');
         file_put_contents($template, '<?php return function (\Teach\Adapters\HTML\Factory $factory) { return "<a>Hello World</a>"; };');
-        $object = new Factory();
-        $html = $object->renderTemplate($template);
+        $html = $this->object->renderTemplate($template);
         $this->assertEquals('<a>Hello World</a>', $html);
     }
 
@@ -16,56 +27,56 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     {
         $template = tempnam(sys_get_temp_dir(), 'tpl');
         file_put_contents($template, '<?php return function (\Teach\Adapters\HTML\Factory $factory, $a, $b) { return "<$a>$b</$a>"; };');
-        $object = new Factory();
-        $html = $object->renderTemplate($template, "a", "Hello World");
+        $html = $this->object->renderTemplate($template, "a", "Hello World");
         $this->assertEquals('<a>Hello World</a>', $html);
     }
 
     public function testmakeElement()
     {
-        $object = new Factory();
-        $element = $object->makeElement('a', []);
-        $element->append($object->makeText('Hello World'));
+        $element = $this->object->makeElement('a', []);
+        $element->append($this->object->makeText('Hello World'));
         $html = $element->render();
         $this->assertEquals('<a>Hello World</a>', $html);
     }
 
     public function testmakeText()
     {
-        $object = new Factory();
-        $html = $object->makeText('Hello World')->render();
+        $html = $this->object->makeText('Hello World')->render();
         $this->assertEquals('Hello World', $html);
     }
 
     public function testmakeElementWithMultipleChildren()
     {
-        $object = new Factory();
-        $element = $object->makeElement('a', []);
-        $element->append($object->makeText('Hello World'), $object->makeElement('li', ['src' => "bla.gif"]));
+        $element = $this->object->makeElement('a', []);
+        $element->append($this->object->makeText('Hello World'), $this->object->makeElement('li', [
+            'src' => "bla.gif"
+        ]));
         $html = $element->render();
         $this->assertEquals('<a>Hello World<li src="bla.gif"></li></a>', $html);
     }
-    
+
     public function testRenderTable()
     {
-        $object = new Factory();
-        
         $expectedHTML = '<table><caption>Activerende opening</caption><tr><th>inhoud</th><td id="inhoud">bladiebla</td><th>werkvorm</th><td id="werkvorm">bladiebla</td></tr><tr><th>inhoud</th><td id="inhoud" colspan="3"><ul><li>A</li><li>B</li><li>C</li></ul></td></tr></table>';
-        $this->assertEquals($expectedHTML, $object->makeTable('Activerende opening', [
+        $this->assertEquals($expectedHTML, $this->object->makeTable('Activerende opening', [
             [
                 "inhoud" => "bladiebla",
                 "werkvorm" => "bladiebla"
             ],
             [
-                "inhoud" => ['A', 'B', 'C']
+                "inhoud" => [
+                    'A',
+                    'B',
+                    'C'
+                ]
             ]
-        ])->render());
+        ])
+            ->render());
     }
 
     public function testMakeTableNoCaption()
     {
-        $object = new Factory();
-        $html = $object->makeTable(null, [
+        $html = $this->object->makeTable(null, [
             [
                 "inhoud" => "bladiebla"
             ]
@@ -75,8 +86,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testMakeTableRow()
     {
-        $object = new Factory();
-        $html = $object->makeTableRow(2, [
+        $html = $this->object->makeTableRow(2, [
             "inhoud" => "bladiebla"
         ])->render();
         $this->assertEquals('<tr><th>inhoud</th><td id="inhoud">bladiebla</td></tr>', $html);
@@ -84,17 +94,19 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testMakeTableRowWithUnorderedList()
     {
-        $object = new Factory();
-        $html = $object->makeTableRow(2, [
-            "inhoud" => ['A', 'B', 'C']
+        $html = $this->object->makeTableRow(2, [
+            "inhoud" => [
+                'A',
+                'B',
+                'C'
+            ]
         ])->render();
         $this->assertEquals('<tr><th>inhoud</th><td id="inhoud"><ul><li>A</li><li>B</li><li>C</li></ul></td></tr>', $html);
     }
 
     public function testMakeTableRowWithSpanningCell()
     {
-        $object = new Factory();
-        $html = $object->makeTableRow(4, [
+        $html = $this->object->makeTableRow(4, [
             "inhoud" => "bladiebla"
         ])->render();
         $this->assertEquals('<tr><th>inhoud</th><td id="inhoud" colspan="3">bladiebla</td></tr>', $html);
@@ -102,8 +114,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testMakeUnorderedList()
     {
-        $object = new Factory();
-        $html = $object->makeUnorderedList([
+        $html = $this->object->makeUnorderedList([
             "A",
             "B",
             "C"
@@ -111,11 +122,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $expectedHTML = '<ul><li>A</li><li>B</li><li>C</li></ul>';
         $this->assertEquals($expectedHTML, $html);
     }
-    
+
     public function testMakeHeader()
     {
-        $object = new Factory();
-        $this->assertEquals('<h3>HeaderHeader</h3>', $object->makeHeader('3', 'HeaderHeader')->render());
+        $this->assertEquals('<h3>HeaderHeader</h3>', $this->object->makeHeader('3', 'HeaderHeader')
+            ->render());
     }
-
 }
