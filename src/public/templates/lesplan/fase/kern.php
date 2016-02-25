@@ -12,5 +12,5 @@ return function(\Teach\Adapters\HTML\Factory $factory, \Teach\Interactors\Web\Le
     }
     
 
-    return '<section><h2>' . htmlentities($variables['title']) . '</h2>' . join('', $themasHTML) . '</section>';
+    return '<section>' .  $factory->makeHeader('2', $variables['title'])->render() . join('', $themasHTML) . '</section>';
 };

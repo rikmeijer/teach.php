@@ -13,5 +13,5 @@ return function(\Teach\Adapters\HTML\Factory $factory, string $title, array $act
         ])));
     }
     
-    return '<section><h2>' . htmlentities($title) . '</h2>' . join('', $activiteitenHTML) . '</section>';
+    return '<section>' .  $factory->makeHeader('2', $title)->render() . join('', $activiteitenHTML) . '</section>';
 };

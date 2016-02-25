@@ -18,5 +18,5 @@ return function(\Teach\Adapters\HTML\Factory $factory, \Teach\Interactors\Web\Le
         ])));
     }
     
-    return '<section><h3>' . htmlentities($variables["title"]) . '</h3>' . join('', $activiteitenHTML) . '</section>';
+    return '<section>' .  $factory->makeHeader('3', $variables["title"])->render() . join('', $activiteitenHTML) . '</section>';
 };

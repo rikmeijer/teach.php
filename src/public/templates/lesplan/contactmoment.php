@@ -10,7 +10,7 @@ return function(\Teach\Adapters\HTML\Factory $factory, string $title, \Teach\Int
         'leerdoelen'
     ]);
     
-    $html ='<section><h2>' . htmlentities($title) . '</h2><h3>Beginsituatie</h3>' . $factory->makeTable($title, [
+    $html ='<section>' . $factory->makeHeader('2', $title)->render() . $factory->makeHeader('3', 'Beginsituatie')->render() . $factory->makeTable($title, [
                 [
                     'doelgroep' => $variables['doelgroep']['beschrijving'],
                     'ervaring' => $variables['doelgroep']['ervaring']
@@ -30,10 +30,10 @@ return function(\Teach\Adapters\HTML\Factory $factory, string $title, \Teach\Int
     ])->render();
     
     if (count($variables['media']) > 0) {
-        $html .= '<h3>Media</h3>' . $factory->makeUnorderedList($variables['media'])->render();
+        $html .= $factory->makeHeader('3', 'Media')->render() . $factory->makeUnorderedList($variables['media'])->render();
     }
     
-    $html .= '<h3>Leerdoelen</h3><p>Na afloop van de les kan de student:</p>' . $factory->makeUnorderedList($variables['leerdoelen'])->render() . '</section>';
+    $html .= $factory->makeHeader('3', 'Leerdoelen')->render() . '<p>Na afloop van de les kan de student:</p>' . $factory->makeUnorderedList($variables['leerdoelen'])->render() . '</section>';
                 
     
     return $html;
