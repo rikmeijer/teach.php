@@ -47,6 +47,11 @@ final class Element implements RenderableInterface
     {
         $this->children = array_merge($this->children, $children);
     }
+    
+    public function appendHTML(string ...$children)
+    {
+        $this->children = array_merge($this->children, $children);
+    }
 
     public function render()
     {
@@ -59,7 +64,11 @@ final class Element implements RenderableInterface
         $html = '<' . $this->tagName . $attributeHTML . '>';
         if (in_array($this->tagName, self::VOIDS) === false) {
             foreach ($this->children as $child) {
-                $html .= $child->render();
+                if (is_string($child)) {
+                    $html .= $child;
+                } else {
+                    $html .= $child->render();
+                }
             }
             
             $html .= '</' . $this->tagName . '>';

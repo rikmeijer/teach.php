@@ -27,6 +27,14 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<table><tr></tr></table>', $html);
     }
     
+    public function testRenderAppendedHTML()
+    {
+        $object = new Element("table");
+        $object->appendHTML("<tr></tr>");
+        $html = $object->render();
+        $this->assertEquals('<table><tr></tr></table>', $html);
+    }
+    
     public function testRenderChildren()
     {
         $object = new Element("table");
