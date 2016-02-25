@@ -29,14 +29,15 @@ return function(\Teach\Adapters\HTML\Factory $factory, string $title, \Teach\Int
                     'overige' => $variables['overige']
                 ]
     ]));
-    $html = $section->render();
     
     if (count($variables['media']) > 0) {
-        $html .= $factory->makeHeader('3', 'Media')->render() . $factory->makeUnorderedList($variables['media'])->render();
+        $section->append($factory->makeHeader('3', 'Media'), $factory->makeUnorderedList($variables['media']));
     }
     
-    $html .= $factory->makeHeader('3', 'Leerdoelen')->render() . '<p>Na afloop van de les kan de student:</p>' . $factory->makeUnorderedList($variables['leerdoelen'])->render() . '</section>';
+    $section->append($factory->makeHeader('3', 'Leerdoelen'));
+    $section->appendHTML('<p>Na afloop van de les kan de student:</p>');
+    $section->append($factory->makeUnorderedList($variables['leerdoelen']));
                 
     
-    return $html;
+    return $section->render();
 };
