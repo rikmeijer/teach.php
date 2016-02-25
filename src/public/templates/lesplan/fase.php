@@ -1,8 +1,9 @@
 <?php
-return function(\Teach\Adapters\HTML\Factory $factory, string $title, array $activiteiten) {    
-    $activiteitenHTML = [];
+return function(\Teach\Adapters\HTML\Factory $factory, string $title, array $activiteiten) {
+    $section = $factory->makeSection();
+    $section->append($factory->makeHeader('2', $title));
     foreach ($activiteiten as $activiteit) {
-        $activiteitenHTML[] = $factory->renderTemplate(__DIR__ . DIRECTORY_SEPARATOR . "fase" . DIRECTORY_SEPARATOR . "activiteit.php", ...array_values($activiteit->provideTemplateVariables([
+        $section->appendHTML($factory->renderTemplate(__DIR__ . DIRECTORY_SEPARATOR . "fase" . DIRECTORY_SEPARATOR . "activiteit.php", ...array_values($activiteit->provideTemplateVariables([
             "title",
             "inhoud",
             "werkvorm",
@@ -10,8 +11,7 @@ return function(\Teach\Adapters\HTML\Factory $factory, string $title, array $act
             "werkvormsoort",
             "tijd",
             "intelligenties"
-        ])));
+        ]))));
     }
-    
-    return '<section>' .  $factory->makeHeader('2', $title)->render() . join('', $activiteitenHTML) . '</section>';
+    return $section->render();
 };

@@ -5,9 +5,10 @@ return function(\Teach\Adapters\HTML\Factory $factory, \Teach\Interactors\Web\Le
         "activiteiten",
     ]);
     
-    $activiteitenHTML = [];
+    $section = $factory->makeSection();
+    $section->append($factory->makeHeader('3', $variables["title"]));
     foreach ($variables["activiteiten"] as $activiteit) {
-        $activiteitenHTML[] = $factory->renderTemplate(dirname(__DIR__) . DIRECTORY_SEPARATOR . "activiteit.php", ...array_values($activiteit->provideTemplateVariables([
+        $section->appendHTML($factory->renderTemplate(dirname(__DIR__) . DIRECTORY_SEPARATOR . "activiteit.php", ...array_values($activiteit->provideTemplateVariables([
             "title",
             "inhoud",
             "werkvorm",
@@ -15,8 +16,7 @@ return function(\Teach\Adapters\HTML\Factory $factory, \Teach\Interactors\Web\Le
             "werkvormsoort",
             "tijd",
             "intelligenties"
-        ])));
+        ]))));
     }
-    
-    return '<section>' .  $factory->makeHeader('3', $variables["title"])->render() . join('', $activiteitenHTML) . '</section>';
+    return $section->render();
 };

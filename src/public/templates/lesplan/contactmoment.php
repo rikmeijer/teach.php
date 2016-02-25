@@ -9,8 +9,9 @@ return function(\Teach\Adapters\HTML\Factory $factory, string $title, \Teach\Int
         'media',
         'leerdoelen'
     ]);
-    
-    $html ='<section>' . $factory->makeHeader('2', $title)->render() . $factory->makeHeader('3', 'Beginsituatie')->render() . $factory->makeTable($title, [
+
+    $section = $factory->makeSection();
+    $section->append($factory->makeHeader('2', $title), $factory->makeHeader('3', 'Beginsituatie'), $factory->makeTable($title, [
                 [
                     'doelgroep' => $variables['doelgroep']['beschrijving'],
                     'ervaring' => $variables['doelgroep']['ervaring']
@@ -27,7 +28,8 @@ return function(\Teach\Adapters\HTML\Factory $factory, string $title, \Teach\Int
                 [
                     'overige' => $variables['overige']
                 ]
-    ])->render();
+    ]));
+    $html = $section->render();
     
     if (count($variables['media']) > 0) {
         $html .= $factory->makeHeader('3', 'Media')->render() . $factory->makeUnorderedList($variables['media'])->render();
