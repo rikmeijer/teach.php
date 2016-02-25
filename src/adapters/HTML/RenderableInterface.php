@@ -2,8 +2,7 @@
 namespace Teach\Adapters\HTML;
 
 interface RenderableInterface
-{
-
+{    
     /**
      *
      * @return string
