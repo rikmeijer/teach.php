@@ -21,27 +21,27 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<a>Hello World</a>', $html);
     }
 
-    public function testCreateElement()
+    public function testmakeElement()
     {
         $object = new Factory();
-        $element = $object->createElement('a', []);
-        $element->append($object->createText('Hello World'));
+        $element = $object->makeElement('a', []);
+        $element->append($object->makeText('Hello World'));
         $html = $element->render();
         $this->assertEquals('<a>Hello World</a>', $html);
     }
 
-    public function testCreateText()
+    public function testmakeText()
     {
         $object = new Factory();
-        $html = $object->createText('Hello World')->render();
+        $html = $object->makeText('Hello World')->render();
         $this->assertEquals('Hello World', $html);
     }
 
-    public function testCreateElementWithMultipleChildren()
+    public function testmakeElementWithMultipleChildren()
     {
         $object = new Factory();
-        $element = $object->createElement('a', []);
-        $element->append($object->createText('Hello World'), $object->createElement('li', ['src' => "bla.gif"]));
+        $element = $object->makeElement('a', []);
+        $element->append($object->makeText('Hello World'), $object->makeElement('li', ['src' => "bla.gif"]));
         $html = $element->render();
         $this->assertEquals('<a>Hello World<li src="bla.gif"></li></a>', $html);
     }
