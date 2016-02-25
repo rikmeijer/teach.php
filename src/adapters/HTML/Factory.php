@@ -3,7 +3,12 @@ namespace Teach\Adapters\HTML;
 
 final class Factory implements \Teach\Interactors\LayoutFactoryInterface
 {
-    public function renderTemplate($filename, ...$templateParameters) {
+    /**
+     * 
+     * @param string $filename
+     * @param mixed ...$templateParameters
+     */
+    public function renderTemplate(string $filename, ...$templateParameters) {
         $renderer = require $filename;
         
         return $renderer($this, ...$templateParameters);
@@ -108,7 +113,7 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
      *
      * @see \Teach\Interactors\LayoutFactoryInterface::makeTable()
      */
-    public function makeTable($caption, array $rows)
+    public function makeTable(string $caption, array $rows)
     {
         $expectedCellCount = 0;
         foreach ($rows as $row) {
@@ -127,5 +132,18 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
         }
 
         return $table;
+    }
+    
+    /**
+     * 
+     * @param string $level
+     * @param string $text
+     * @return \Teach\Adapters\HTML\Element
+     */
+    public function makeHeader(string $level, string $text)
+    {
+        $header = $this->createElement('h' . $level, []);
+        $header->append($this->createText($text));
+        return $header;
     }
 }

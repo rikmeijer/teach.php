@@ -111,5 +111,11 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $expectedHTML = '<ul><li>A</li><li>B</li><li>C</li></ul>';
         $this->assertEquals($expectedHTML, $html);
     }
+    
+    public function testMakeHeader()
+    {
+        $object = new Factory();
+        $this->assertEquals('<h3>HeaderHeader</h3>', $object->makeHeader('3', 'HeaderHeader')->render());
+    }
 
 }
