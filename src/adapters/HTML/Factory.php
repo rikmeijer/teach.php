@@ -113,7 +113,7 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
      *
      * @see \Teach\Interactors\LayoutFactoryInterface::makeTable()
      */
-    public function makeTable(string $caption, array $rows)
+    public function makeTable($caption, array $rows)
     {
         $expectedCellCount = 0;
         foreach ($rows as $row) {
@@ -145,5 +145,10 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
         $header = $this->makeElement('h' . $level, []);
         $header->append($this->makeText($text));
         return $header;
+    }
+    
+    public function makeSection()
+    {
+        return $this->makeElement('section', []);
     }
 }

@@ -84,7 +84,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('<tr><th>inhoud</th><td id="inhoud">bladiebla</td></tr>', $this->object->makeTableRow(2, [
             "inhoud" => "bladiebla"
-        ]))->render();
+        ])->render());
     }
 
     public function testMakeTableRowWithUnorderedList()
@@ -117,5 +117,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testMakeHeader()
     {
         $this->assertEquals('<h3>HeaderHeader</h3>', $this->object->makeHeader('3', 'HeaderHeader')->render());
+    }
+    
+    public function testMakeSection()
+    {
+        $this->assertEquals('<section></section>', $this->object->makeSection()->render());
     }
 }

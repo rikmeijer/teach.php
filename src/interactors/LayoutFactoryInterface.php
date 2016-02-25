@@ -21,7 +21,7 @@ interface LayoutFactoryInterface
      * @param string $caption
      * @param array $rows
      */
-    public function makeTable(string $caption, array $rows);
+    public function makeTable($caption, array $rows);
     
     /**
      * 
@@ -30,4 +30,10 @@ interface LayoutFactoryInterface
      * @return \Teach\Adapters\HTML\Element
      */
     public function makeHeader(string $level, string $text);
+    
+    /**
+     * 
+     * @return RenderableInterface
+     */
+    public function makeSection();
 }
