@@ -6,12 +6,12 @@ namespace Teach\Entities;
  */
 class ContactmomentTest extends \Teach\EntitiesTest
 {
-    public function testCreateLesplan()
+    public function testcreateInteractor()
     {   
         $factory = new Factory(self::$pdo);
         $object = $factory->createContactmoment('1');
         $factory = new \Teach\Interactors\Web\Lesplan\Factory();
-        $lesplanlayout = $object->createLesplan($factory);
+        $lesplanlayout = $object->createInteractor($factory);
         $this->assertInstanceOf('\Teach\Interactors\Web\Lesplan', $lesplanlayout);
     }
 }

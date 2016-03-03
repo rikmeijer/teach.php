@@ -18,11 +18,11 @@ return new class($environmentBootstrap) implements ApplicationBootstrap {
         $this->environment = $environmentBootstrap;
     }
     
-    public function getEntitiesFactory() {
+    public function getEntitiesFactory(): \Teach\Entities\Factory {
         return new \Teach\Entities\Factory($this->environment->getDatabase());
     }
     
     public function getContactmoment($contactmomentIdentifier): \Teach\Interactors\LayoutableInterface {
-        return $this->getEntitiesFactory()->createContactmoment($contactmomentIdentifier)->createLesplan(new \Teach\Interactors\Web\Lesplan\Factory());
+        return $this->getEntitiesFactory()->createContactmoment($contactmomentIdentifier)->createInteractor(new \Teach\Interactors\Web\Lesplan\Factory());
     }
 };
