@@ -4,7 +4,7 @@ $environmentBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootst
 interface ApplicationBootstrap
 {
 
-    public function getContactmoment($contactmomentIdentifier): \Teach\Interactors\LayoutableInterface;
+    public function createInteraction(\Teach\Interactors\InteractableInterface $interactable): \Teach\Interactors\LayoutableInterface;
 
     public function getEntitiesFactory(): \Teach\Entities\Factory;
 }
