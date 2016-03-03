@@ -4,6 +4,10 @@ if (array_key_exists('contactmoment', $_GET) === false) {
     exit();
 }
 
+/**
+ * 
+ * @var \ApplicationBootstrap $applicationBootstrap
+ */
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 $lesplan = $applicationBootstrap->getContactmoment($_GET['contactmoment']);
 if ($lesplan === null) {

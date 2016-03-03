@@ -1,6 +1,5 @@
 <?php
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
-$applicationBootstrap();
 
 $dataDirectory = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'data';
 $filename = $dataDirectory . DIRECTORY_SEPARATOR . $_SERVER['REMOTE_ADDR'] . '.txt';

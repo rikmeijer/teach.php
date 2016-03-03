@@ -4,7 +4,6 @@ if (array_key_exists('data', $_GET) === false) {
     exit();
 }
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
-$applicationBootstrap();
 
 $renderer = new \BaconQrCode\Renderer\Image\Png();
 $renderer->setHeight(400);

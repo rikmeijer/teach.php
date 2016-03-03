@@ -1,6 +1,5 @@
 <?php
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
-$applicationBootstrap();
 
 $url = 'http://' . $_SERVER['SERVER_ADDR'] . '/feedback.php';
 ?><!DOCTYPE html>
