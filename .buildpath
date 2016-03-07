@@ -30,5 +30,4 @@
 	<buildpathentry kind="src" path="vendor/sebastian/recursion-context/src"/>
 	<buildpathentry kind="src" path="vendor/sebastian/environment/src"/>
 	<buildpathentry kind="src" path="vendor/symfony/polyfill-mbstring"/>
-	<buildpathentry kind="src" path="src/entities"/>
 </buildpath>

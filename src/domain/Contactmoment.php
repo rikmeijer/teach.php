@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Entities;
+namespace Teach\Domain;
 
 class Contactmoment implements \Teach\Interactors\InteractableInterface
 {

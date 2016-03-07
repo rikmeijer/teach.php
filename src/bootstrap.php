@@ -6,7 +6,7 @@ interface ApplicationBootstrap
 
     public function createInteraction(\Teach\Interactors\InteractableInterface $interactable): \Teach\Interactors\LayoutableInterface;
 
-    public function getEntitiesFactory(): \Teach\Entities\Factory;
+    public function getDomainFactory(): \Teach\Domain\Factory;
 }
 
 return new class($environmentBootstrap) implements ApplicationBootstrap {
@@ -24,11 +24,11 @@ return new class($environmentBootstrap) implements ApplicationBootstrap {
 
     /**
      *
-     * @return \Teach\Entities\Factory
+     * @return \Teach\Domain\Factory
      */
-    public function getEntitiesFactory(): \Teach\Entities\Factory
+    public function getDomainFactory(): \Teach\Domain\Factory
     {
-        return new \Teach\Entities\Factory($this->environment->getDatabase());
+        return new \Teach\Domain\Factory($this->environment->getDatabase());
     }
 
     /**

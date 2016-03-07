@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Entities;
+namespace Teach\Domain;
 
 class Factory
 {
@@ -106,7 +106,7 @@ class Factory
     /**
      * 
      * @param string $identifier
-     * @return \Teach\Entities\Contactmoment
+     * @return \Teach\Domain\Contactmoment
      */
     public function createContactmoment($identifier)
     {
