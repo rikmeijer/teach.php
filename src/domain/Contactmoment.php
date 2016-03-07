@@ -59,7 +59,12 @@ class Contactmoment implements \Teach\Interactors\InteractableInterface
         
         $kernDefinition = $this->factory->getKern($this->contactmoment['lesplan_id']);
         $leerdoelen = array_keys($kernDefinition);
-        $kern = $factory->createKern($kernDefinition);
+        $kern = $factory->createFase("Kern");
+        $themaCount = 0;
+        foreach ($kernDefinition as $themaIdentifier => $themaDefinition) {
+            $thema = $factory->createThema('Thema ' . (++$themaCount) . ': ' . $themaIdentifier, $themaDefinition);
+            $kern->addOnderdeel($thema);
+        }
         
         $contactmoment = $factory->createContactmoment($this->getContactmoment(), $this->factory->getMedia($this->contactmoment['lesplan_id']), $leerdoelen);
         

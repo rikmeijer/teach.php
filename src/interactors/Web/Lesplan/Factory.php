@@ -68,22 +68,6 @@ final class Factory
     
     /**
      * 
-     * @param array $themas
-     * @return \Teach\Interactors\Web\Lesplan\Fase
-     */
-    public function createKern(array $themas)
-    {
-        $kern = $this->createFase("Kern");
-        $themaCount = 0;
-        foreach ($themas as $themaIdentifier => $themaDefinition) {
-            $thema = $this->createThema('Thema ' . (++$themaCount) . ': ' . $themaIdentifier, $themaDefinition);
-            $kern->addOnderdeel($thema);
-        }
-        return $kern;
-    }
-    
-    /**
-     * 
      * @param string $opleiding
      * @param array $beginsituatie
      * @param array $media
