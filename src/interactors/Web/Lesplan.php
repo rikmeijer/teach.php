@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Interactors\Web;
 
-final class Lesplan implements \Teach\Interactors\LayoutableInterface
+final class Lesplan implements \Teach\Interactors\PresentableInterface
 {
 
     /**

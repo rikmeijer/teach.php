@@ -46,9 +46,9 @@ class Introductie implements \Teach\Interactors\InteractableInterface
     /**
      *
      * @param \Teach\Interactors\Web\Lesplan\Factory $factory            
-     * @return \Teach\Interactors\LayoutableInterface
+     * @return \Teach\Interactors\PresentableInterface
      */
-    public function interact(\Teach\Interactors\Web\Lesplan\Factory $factory): \Teach\Interactors\LayoutableInterface
+    public function interact(\Teach\Interactors\Web\Lesplan\Factory $factory): \Teach\Interactors\PresentableInterface
     {
         return $factory->createIntroductie($factory->createActiviteit("Activerende opening", $this->opening), $factory->createActiviteit("Focus", $this->focus), $factory->createActiviteit("Voorstellen", $this->voorstellen), $factory->createActiviteit("Kennismaken", $this->kennismaken), $factory->createActiviteit("Terugblik", $this->terugblik));
     }

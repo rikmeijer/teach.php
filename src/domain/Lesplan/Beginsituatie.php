@@ -32,9 +32,9 @@ class Beginsituatie implements \Teach\Interactors\InteractableInterface
     /**
      * 
      * @param \Teach\Interactors\Web\Lesplan\Factory $factory
-     * @return \Teach\Interactors\LayoutableInterface
+     * @return \Teach\Interactors\PresentableInterface
      */
-    public function interact(\Teach\Interactors\Web\Lesplan\Factory $factory): \Teach\Interactors\LayoutableInterface
+    public function interact(\Teach\Interactors\Web\Lesplan\Factory $factory): \Teach\Interactors\PresentableInterface
     {
         return $factory->createContactmoment($this->beginsituatie, $this->media, $this->leerdoelen);
     }

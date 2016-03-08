@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Interactors\Web\Lesplan;
 
-final class Activiteit implements \Teach\Interactors\LayoutableInterface
+final class Activiteit implements \Teach\Interactors\PresentableInterface
 {
 
     const MI_VERBAAL_LINGUISTISCH = "VL";

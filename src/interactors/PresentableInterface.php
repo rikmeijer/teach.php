@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Interactors;
 
-interface LayoutableInterface
+interface PresentableInterface
 {
     
     /**
