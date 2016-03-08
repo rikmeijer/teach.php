@@ -22,7 +22,7 @@ final class Fase implements \Teach\Interactors\PresentableInterface
         $this->onderdelen[] = $onderdeel;
     }
 
-    public function present(\Teach\Adapters\AdapterInterface $adapter): string
+    public function present(\Teach\Adapters\Documentable $adapter): string
     {
         $section = $adapter->makeSection();
         $section->append($adapter->makeHeader('2', $this->title));

@@ -1,12 +1,12 @@
 <?php
 namespace Teach\Adapters;
 
-final class HTML implements \Teach\Adapters\AdapterInterface
+final class HTML implements \Teach\Adapters\Documentable
 {    
     /**
      * 
      * {@inheritDoc}
-     * @see \Teach\Adapters\AdapterInterface::makeDocument($presentable)
+     * @see \Teach\Adapters\Documentable::makeDocument($presentable)
      */
     public function makeDocument(\Teach\Interactors\PresentableInterface $presentable): \Teach\Adapters\RenderableInterface
     {
@@ -24,7 +24,7 @@ final class HTML implements \Teach\Adapters\AdapterInterface
     /**
      * 
      * {@inheritDoc}
-     * @see \Teach\Adapters\AdapterInterface::makePageHeader($title, $subtitle)
+     * @see \Teach\Adapters\Documentable::makePageHeader($title, $subtitle)
      */
     public function makeFirstPage(string $title, string $subtitle): \Teach\Adapters\RenderableInterface
     {

@@ -6,11 +6,11 @@ final class Document
     
     /**
      * 
-     * @var AdapterInterface
+     * @var Documentable
      */
     private $adapter;
     
-    public function __construct(AdapterInterface $adapter)
+    public function __construct(Documentable $adapter)
     {
         $this->adapter = $adapter;
     }

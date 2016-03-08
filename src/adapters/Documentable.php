@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters;
 
-interface AdapterInterface
+interface Documentable
 {
     /**
      * 
