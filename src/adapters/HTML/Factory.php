@@ -21,7 +21,12 @@ final class Factory implements \Teach\Adapters\AdapterInterface
      */
     public function makeDocument(\Teach\Interactors\PresentableInterface $presentable): \Teach\Adapters\RenderableInterface
     {
-        
+        $html = $this->makeElement('html', []);
+        $html->appendHTML($this->renderTemplate("head.php"));
+        $body = $this->makeElement('body', []);
+        $body->appendHTML($presentable->present($this));
+        $html->append($body);
+        return $html;
     }
     
     /**
