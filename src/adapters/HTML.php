@@ -8,15 +8,15 @@ final class HTML
      * 
      * @var AdapterInterface
      */
-    private $factory;
+    private $adapter;
     
-    public function __construct(AdapterInterface $factory)
+    public function __construct(AdapterInterface $adapter)
     {
-        $this->factory = $factory;
+        $this->adapter = $adapter;
     }
     
     public function render(\Teach\Interactors\PresentableInterface $presentable)
     {
-        return '<!DOCTYPE html><html>' . $presentable->present($this->factory) . '</html>';
+        return '<!DOCTYPE html><html>' . $presentable->present($this->adapter) . '</html>';
     }
 }
