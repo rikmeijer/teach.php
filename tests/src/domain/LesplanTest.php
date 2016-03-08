@@ -6,7 +6,7 @@ namespace Teach\Domain;
  */
 class LesplanTest extends \Teach\DomainTest
 {
-    public function testcreateInteractor()
+    public function testInteract()
     {   
         $factory = new Factory(self::$pdo);
         $object = $factory->createLesplan('1');
