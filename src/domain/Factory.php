@@ -140,6 +140,12 @@ class Factory
         return new Lesplan\Contactmoment($beginsituatie, $media, $leerdoelen);
     }
     
+
+    public function createKern($lesplanIdentifier): \Teach\Interactors\InteractableInterface
+    {
+        return new Lesplan\Kern($this->getKern($lesplanIdentifier));
+    }
+    
     public function getMedia($les_id)
     {
         if ($les_id === null) {

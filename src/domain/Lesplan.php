@@ -57,18 +57,12 @@ class Lesplan implements \Teach\Interactors\InteractableInterface
             $factory->createActiviteit("Terugblik", $this->factory->getActiviteit($this->contactmoment['terugblik_id']))
         );
         
-        $kernDefinition = $this->factory->getKern($this->contactmoment['lesplan_id']);
-        $kern = $factory->createFase("Kern");
-        $themaCount = 0;
-        foreach ($kernDefinition as $themaIdentifier => $themaDefinition) {
-            $thema = $factory->createThema('Thema ' . (++$themaCount) . ': ' . $themaIdentifier, $themaDefinition);
-            $kern->addOnderdeel($thema);
-        }
+        $kern = $this->factory->createKern($this->contactmoment['lesplan_id']);
         
         $contactmoment = $this->factory->createContactmoment($this->getBeginsituatie(), $this->contactmoment['lesplan_id']);
 
         $afsluiting = $this->factory->createAfsluiting($this->contactmoment['huiswerk_id'], $this->contactmoment['evaluatie_id'], $this->contactmoment['pakkend_slot_id']);
         
-        return $factory->createLesplan($this->contactmoment['opleiding'], $this->contactmoment['vak'], $this->contactmoment['les'], $contactmoment->interact($factory), $introductie, $kern, $afsluiting->interact($factory));
+        return $factory->createLesplan($this->contactmoment['opleiding'], $this->contactmoment['vak'], $this->contactmoment['les'], $contactmoment->interact($factory), $introductie, $kern->interact($factory), $afsluiting->interact($factory));
     }
 }
