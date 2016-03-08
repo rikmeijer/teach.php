@@ -43,7 +43,6 @@ return new class($environmentBootstrap) implements ApplicationBootstrap {
     
     public function getDocumentAdapter(): \Teach\Adapters\Document
     {
-        $factory = new \Teach\Adapters\HTML();
-        return new \Teach\Adapters\Document($factory);
+        return new \Teach\Adapters\Document(new \Teach\Adapters\HTML());
     }
 };
