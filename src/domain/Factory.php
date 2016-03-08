@@ -124,6 +124,18 @@ class Factory
     {
         return new Lesplan\Afsluiting($this->getActiviteit($huiswerkIdentifier), $this->getActiviteit($evaluatieIdentifier), $this->getActiviteit($slotIdentifier));
     }
+
+    /**
+     *
+     * @param string $huiswerkIdentifier
+     * @param string $evaluatieIdentifier
+     * @param string $slotIdentifier
+     * @return \Teach\Interactors\InteractableInterface
+     */
+    public function createContactmoment(array $beginsituatie, array $media, array $leerdoelen): \Teach\Interactors\InteractableInterface
+    {
+        return new Lesplan\Contactmoment($beginsituatie, $media, $leerdoelen);
+    }
     
     public function getMedia($les_id)
     {

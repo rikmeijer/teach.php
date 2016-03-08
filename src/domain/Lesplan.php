@@ -66,10 +66,10 @@ class Lesplan implements \Teach\Interactors\InteractableInterface
             $kern->addOnderdeel($thema);
         }
         
-        $contactmoment = $factory->createContactmoment($this->getContactmoment(), $this->factory->getMedia($this->contactmoment['lesplan_id']), $leerdoelen);
-        
+        $contactmoment = $this->factory->createContactmoment($this->getContactmoment(), $this->factory->getMedia($this->contactmoment['lesplan_id']), $leerdoelen);
+
         $afsluiting = $this->factory->createAfsluiting($this->contactmoment['huiswerk_id'], $this->contactmoment['evaluatie_id'], $this->contactmoment['pakkend_slot_id']);
         
-        return $factory->createLesplan($this->contactmoment['opleiding'], $this->contactmoment['vak'], $this->contactmoment['les'], $contactmoment, $introductie, $kern, $afsluiting->interact($factory));
+        return $factory->createLesplan($this->contactmoment['opleiding'], $this->contactmoment['vak'], $this->contactmoment['les'], $contactmoment->interact($factory), $introductie, $kern, $afsluiting->interact($factory));
     }
 }
