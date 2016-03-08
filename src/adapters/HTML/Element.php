@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters\HTML;
 
-final class Element implements \Teach\Adapters\RenderableInterface
+final class Element implements \Teach\Adapters\Renderable
 {
 
     const VOIDS = [
@@ -43,7 +43,7 @@ final class Element implements \Teach\Adapters\RenderableInterface
         $this->attributes[] = $attributeIdentifier . '="' . $attributeValue . '"';
     }
 
-    public function append(\Teach\Adapters\RenderableInterface ...$children)
+    public function append(\Teach\Adapters\Renderable ...$children)
     {
         $this->children = array_merge($this->children, $children);
     }

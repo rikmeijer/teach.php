@@ -7,9 +7,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
     {
         $object = new Document(new class implements \Teach\Adapters\Documentable {
 
-            public function makeDocument(\Teach\Interactors\PresentableInterface $presentable): \Teach\Adapters\RenderableInterface
+            public function makeDocument(\Teach\Interactors\PresentableInterface $presentable): \Teach\Adapters\Renderable
             {
-                return new class($presentable->present($this)) implements \Teach\Adapters\RenderableInterface {
+                return new class($presentable->present($this)) implements \Teach\Adapters\Renderable {
                     
                     /**
                      * @var string
@@ -28,7 +28,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
                 };
             }
 
-            public function makeFirstPage(string $title, string $subtitle): \Teach\Adapters\RenderableInterface
+            public function makeFirstPage(string $title, string $subtitle): \Teach\Adapters\Renderable
             {
                 return null;
             }
@@ -39,7 +39,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
              * @param int $expectedCellCount
              * @param array $data
              */
-            public function makeTableRow($expectedCellCount, array $data): \Teach\Adapters\RenderableInterface
+            public function makeTableRow($expectedCellCount, array $data): \Teach\Adapters\Renderable
             {
                 return null;
             }
@@ -48,7 +48,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
              *
              * @param array $listitems
              */
-            public function makeUnorderedList(array $listitems): \Teach\Adapters\RenderableInterface
+            public function makeUnorderedList(array $listitems): \Teach\Adapters\Renderable
             {
                 return null;
             }
@@ -58,7 +58,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
              * @param string $caption
              * @param array $rows
              */
-            public function makeTable($caption, array $rows): \Teach\Adapters\RenderableInterface
+            public function makeTable($caption, array $rows): \Teach\Adapters\Renderable
             {
                 return null;
             }
@@ -69,11 +69,11 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
              * @param string $text
              * @return \Teach\Adapters\HTML\Element
              */
-            public function makeHeader(string $level, string $text): \Teach\Adapters\RenderableInterface
+            public function makeHeader(string $level, string $text): \Teach\Adapters\Renderable
             {
                 return null;
             }
-            public function makeSection(): \Teach\Adapters\RenderableInterface
+            public function makeSection(): \Teach\Adapters\Renderable
             {
                 return null;
             }

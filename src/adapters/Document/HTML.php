@@ -8,7 +8,7 @@ final class HTML implements \Teach\Adapters\Documentable
      * {@inheritDoc}
      * @see \Teach\Adapters\Documentable::makeDocument($presentable)
      */
-    public function makeDocument(\Teach\Interactors\PresentableInterface $presentable): \Teach\Adapters\RenderableInterface
+    public function makeDocument(\Teach\Interactors\PresentableInterface $presentable): \Teach\Adapters\Renderable
     {
         $html = $this->makeElement('html', []);
         $head = $this->makeElement('head', []);
@@ -26,7 +26,7 @@ final class HTML implements \Teach\Adapters\Documentable
      * {@inheritDoc}
      * @see \Teach\Adapters\Documentable::makePageHeader($title, $subtitle)
      */
-    public function makeFirstPage(string $title, string $subtitle): \Teach\Adapters\RenderableInterface
+    public function makeFirstPage(string $title, string $subtitle): \Teach\Adapters\Renderable
     {
         $header = $this->makeElement('header', []);
         $header->append($this->makeHeader('1', $title));
@@ -40,7 +40,7 @@ final class HTML implements \Teach\Adapters\Documentable
      * @param array $attributes
      * @return \Teach\Adapters\HTML\Element
      */
-    public function makeElement(string $tagName, array $attributes): \Teach\Adapters\RenderableInterface
+    public function makeElement(string $tagName, array $attributes): \Teach\Adapters\Renderable
     {
         $element = new \Teach\Adapters\HTML\Element($tagName);
         
@@ -56,7 +56,7 @@ final class HTML implements \Teach\Adapters\Documentable
      * @param string $text            
      * @return \Teach\Adapters\HTML\Text
      */
-    public function makeText($text): \Teach\Adapters\RenderableInterface
+    public function makeText($text): \Teach\Adapters\Renderable
     {
         return new \Teach\Adapters\HTML\Text($text);
     }
@@ -67,7 +67,7 @@ final class HTML implements \Teach\Adapters\Documentable
      *
      * @see \Teach\Interactors\LayoutFactoryInterface::makeTableRow()
      */
-    public function makeTableRow($expectedCellCount, array $data): \Teach\Adapters\RenderableInterface
+    public function makeTableRow($expectedCellCount, array $data): \Teach\Adapters\Renderable
     {
         $cellsHTML = [];
         foreach ($data as $header => $value) {
@@ -103,7 +103,7 @@ final class HTML implements \Teach\Adapters\Documentable
      * @param string $tag            
      * @param array $listitems            
      */
-    private function makeList($tag, array $listitems): \Teach\Adapters\RenderableInterface
+    private function makeList($tag, array $listitems): \Teach\Adapters\Renderable
     {
         $listitemsHTML = [];
         foreach ($listitems as $listitem) {
@@ -122,7 +122,7 @@ final class HTML implements \Teach\Adapters\Documentable
      *
      * @see \Teach\Interactors\LayoutFactoryInterface::makeUnorderedList()
      */
-    public function makeUnorderedList(array $listitems): \Teach\Adapters\RenderableInterface
+    public function makeUnorderedList(array $listitems): \Teach\Adapters\Renderable
     {
         return $this->makeList('ul', $listitems);
     }
@@ -133,7 +133,7 @@ final class HTML implements \Teach\Adapters\Documentable
      *
      * @see \Teach\Interactors\LayoutFactoryInterface::makeTable()
      */
-    public function makeTable($caption, array $rows): \Teach\Adapters\RenderableInterface
+    public function makeTable($caption, array $rows): \Teach\Adapters\Renderable
     {
         $expectedCellCount = 0;
         foreach ($rows as $row) {
@@ -160,14 +160,14 @@ final class HTML implements \Teach\Adapters\Documentable
      * @param string $text
      * @return \Teach\Adapters\HTML\Element
      */
-    public function makeHeader(string $level, string $text): \Teach\Adapters\RenderableInterface
+    public function makeHeader(string $level, string $text): \Teach\Adapters\Renderable
     {
         $header = $this->makeElement('h' . $level, []);
         $header->append($this->makeText($text));
         return $header;
     }
     
-    public function makeSection(): \Teach\Adapters\RenderableInterface
+    public function makeSection(): \Teach\Adapters\Renderable
     {
         return $this->makeElement('section', []);
     }

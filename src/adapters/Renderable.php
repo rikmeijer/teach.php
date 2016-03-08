@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters;
 
-interface RenderableInterface
+interface Renderable
 {    
     /**
      *
