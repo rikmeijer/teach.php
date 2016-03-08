@@ -7,6 +7,27 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
     {
         $object = new HTML(new class implements \Teach\Adapters\AdapterInterface {
 
+            public function makeDocument(\Teach\Interactors\PresentableInterface $presentable): \Teach\Adapters\RenderableInterface
+            {
+                return new class($presentable->present($this)) implements \Teach\Adapters\RenderableInterface {
+                    
+                    /**
+                     * @var string
+                     */
+                    private $content;
+                    
+                    public function __construct(string $content)
+                    {
+                        $this->content = $content;   
+                    }
+                    
+                    public function render(): string
+                    {
+                        return '<html><head></head><body>' . $this->content . '</body></html>';
+                    }
+                };
+            }
+            
             /**
              *
              * @param int $expectedCellCount
@@ -54,10 +75,10 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
         $html = $object->render(new class implements \Teach\Interactors\PresentableInterface {
             public function present(\Teach\Adapters\AdapterInterface $adapter): string
             {
-                return '<body></body>';
+                return '<p>Hello World</p>';
             }
         });
-        $this->assertEquals('<!DOCTYPE html><html><body></body></html>', $html);
+        $this->assertEquals('<!DOCTYPE html><html><head></head><body><p>Hello World</p></body></html>', $html);
     }
     
     

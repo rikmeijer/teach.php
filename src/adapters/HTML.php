@@ -17,6 +17,6 @@ final class HTML
     
     public function render(\Teach\Interactors\PresentableInterface $presentable)
     {
-        return '<!DOCTYPE html><html>' . $presentable->present($this->adapter) . '</html>';
+        return '<!DOCTYPE html>' . $this->adapter->makeDocument($presentable)->render();
     }
 }

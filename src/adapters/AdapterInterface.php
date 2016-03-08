@@ -5,6 +5,13 @@ interface AdapterInterface
 {
     /**
      * 
+     * @param \Teach\Interactors\PresentableInterface $presentable
+     * @return \Teach\Adapters\RenderableInterface
+     */
+    public function makeDocument(\Teach\Interactors\PresentableInterface $presentable): \Teach\Adapters\RenderableInterface;
+    
+    /**
+     * 
      * @param int $expectedCellCount
      * @param array $data
      */

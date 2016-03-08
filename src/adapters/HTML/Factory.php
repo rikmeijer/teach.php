@@ -16,6 +16,16 @@ final class Factory implements \Teach\Adapters\AdapterInterface
     
     /**
      * 
+     * {@inheritDoc}
+     * @see \Teach\Adapters\AdapterInterface::makeDocument($presentable)
+     */
+    public function makeDocument(\Teach\Interactors\PresentableInterface $presentable): \Teach\Adapters\RenderableInterface
+    {
+        
+    }
+    
+    /**
+     * 
      * @param string $filename
      * @param mixed ...$templateParameters
      */
