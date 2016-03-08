@@ -12,6 +12,14 @@ interface AdapterInterface
     
     /**
      * 
+     * @param string $title
+     * @param string $subtitle
+     * @return \Teach\Adapters\RenderableInterface
+     */
+    public function makeFirstPage(string $title, string $subtitle): \Teach\Adapters\RenderableInterface;
+    
+    /**
+     * 
      * @param int $expectedCellCount
      * @param array $data
      */

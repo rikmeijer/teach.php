@@ -27,6 +27,12 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
                     }
                 };
             }
+
+            public function makeFirstPage(string $title, string $subtitle): \Teach\Adapters\RenderableInterface
+            {
+                return null;
+            }
+            
             
             /**
              *

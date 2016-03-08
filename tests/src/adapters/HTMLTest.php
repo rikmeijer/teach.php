@@ -42,6 +42,12 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Lesplan</title><link rel="stylesheet" type="text/css" href="lesplan.css"></head><body><p>Hello World</p></body></html>', $element->render());
     }
 
+    public function testMakeFirstPage()
+    {
+        $element = $this->object->makeFirstPage('TITLE', 'SUBTITLE');
+        $this->assertEquals('<header><h1>TITLE</h1><h2>SUBTITLE</h2></header>', $element->render());
+    }
+    
     public function testmakeElement()
     {
         $element = $this->object->makeElement('a', []);

@@ -61,9 +61,7 @@ final class Lesplan implements \Teach\Interactors\PresentableInterface
     public function present(\Teach\Adapters\AdapterInterface $adapter): string
     {
         $lines = [];
-        $lines[] = $adapter->renderTemplate("head.php");
-        $lines[] = "<body>";
-        $lines[] = $adapter->renderTemplate("header.php", 'Lesplan ' . $this->vak, $this->opleiding);
+        $lines[] = $adapter->makeFirstPage('Lesplan ' . $this->vak, $this->opleiding)->render();
         
         $section = $adapter->makeSection();
         $section->append($adapter->makeHeader('2', $this->les));
@@ -74,8 +72,6 @@ final class Lesplan implements \Teach\Interactors\PresentableInterface
         $lines[] = $this->introductie->present($adapter);
         $lines[] = $this->kern->present($adapter);
         $lines[] = $this->afsluiting->present($adapter);
-        
-        $lines[] = "</body>";
         return join(PHP_EOL, $lines);
         
     }

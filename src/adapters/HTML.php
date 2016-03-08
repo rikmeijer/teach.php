@@ -34,6 +34,19 @@ final class HTML implements \Teach\Adapters\AdapterInterface
     
     /**
      * 
+     * {@inheritDoc}
+     * @see \Teach\Adapters\AdapterInterface::makePageHeader($title, $subtitle)
+     */
+    public function makeFirstPage(string $title, string $subtitle): \Teach\Adapters\RenderableInterface
+    {
+        $header = $this->makeElement('header', []);
+        $header->append($this->makeHeader('1', $title));
+        $header->append($this->makeHeader('2', $subtitle));
+        return $header;
+    }
+    
+    /**
+     * 
      * @param string $filename
      * @param mixed ...$templateParameters
      */
