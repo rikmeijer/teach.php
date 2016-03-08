@@ -6,34 +6,27 @@ class Afsluiting implements \Teach\Interactors\InteractableInterface
 
     /**
      *
-     * @var Factory
+     * @var string
      */
-    private $factory;
+    private $huiswerk;
 
     /**
      *
      * @var string
      */
-    private $huiswerkIdentifier;
+    private $evaluatie;
 
     /**
      *
      * @var string
      */
-    private $evaluatieIdentifier;
+    private $slot;
 
-    /**
-     *
-     * @var string
-     */
-    private $slotIdentifier;
-
-    public function __construct(\Teach\Domain\Factory $factory, string $huiswerkIdentifier = null, string $evaluatieIdentifier = null, string $slotIdentifier = null)
+    public function __construct(array $huiswerk, array $evaluatie, array $slot)
     {
-        $this->factory = $factory;
-        $this->huiswerkIdentifier = $huiswerkIdentifier;
-        $this->evaluatieIdentifier = $evaluatieIdentifier;
-        $this->slotIdentifier = $slotIdentifier;
+        $this->huiswerk = $huiswerk;
+        $this->evaluatie = $evaluatie;
+        $this->slot = $slot;
     }
 
     /**
@@ -44,9 +37,9 @@ class Afsluiting implements \Teach\Interactors\InteractableInterface
     public function interact(\Teach\Interactors\Web\Lesplan\Factory $factory): \Teach\Interactors\LayoutableInterface
     {
         return $factory->createAfsluiting(
-            $factory->createActiviteit("Huiswerk", $this->factory->getActiviteit($this->huiswerkIdentifier)), 
-            $factory->createActiviteit("Evaluatie", $this->factory->getActiviteit($this->evaluatieIdentifier)), 
-            $factory->createActiviteit("Pakkend slot", $this->factory->getActiviteit($this->slotIdentifier))
+            $factory->createActiviteit("Huiswerk", $this->huiswerk), 
+            $factory->createActiviteit("Evaluatie", $this->evaluatie), 
+            $factory->createActiviteit("Pakkend slot", $this->slot)
         );
     }
 }
