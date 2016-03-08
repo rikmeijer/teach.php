@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters;
 
-final class HTML
+final class Document
 {    
     
     /**

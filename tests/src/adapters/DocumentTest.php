@@ -5,7 +5,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 {
     public function testRender()
     {
-        $object = new HTML(new class implements \Teach\Adapters\AdapterInterface {
+        $object = new Document(new class implements \Teach\Adapters\AdapterInterface {
 
             public function makeDocument(\Teach\Interactors\PresentableInterface $presentable): \Teach\Adapters\RenderableInterface
             {
