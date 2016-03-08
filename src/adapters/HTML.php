@@ -2,18 +2,7 @@
 namespace Teach\Adapters;
 
 final class HTML implements \Teach\Adapters\AdapterInterface
-{
-    /**
-     * 
-     * @var string
-     */
-    private $templateDirectory;
-    
-    public function __construct(string $templateDirectory)
-    {
-        $this->templateDirectory = $templateDirectory;
-    }
-    
+{    
     /**
      * 
      * {@inheritDoc}
@@ -43,17 +32,6 @@ final class HTML implements \Teach\Adapters\AdapterInterface
         $header->append($this->makeHeader('1', $title));
         $header->append($this->makeHeader('2', $subtitle));
         return $header;
-    }
-    
-    /**
-     * 
-     * @param string $filename
-     * @param mixed ...$templateParameters
-     */
-    public function renderTemplate(string $filename, ...$templateParameters) {
-        $renderer = require $this->templateDirectory . DIRECTORY_SEPARATOR . $filename;
-        
-        return $renderer($this, ...$templateParameters);
     }
     
     /**

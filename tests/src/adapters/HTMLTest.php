@@ -12,23 +12,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->object = new HTML(sys_get_temp_dir());
-    }
-
-    public function testRenderTemplate()
-    {
-        $template = tempnam(sys_get_temp_dir(), 'tpl');
-        file_put_contents($template, '<?php return function (\Teach\Adapters\AdapterInterface $adapter) { return "<a>Hello World</a>"; };');
-
-        $this->assertEquals('<a>Hello World</a>', $this->object->renderTemplate(basename($template)));
-    }
-
-    public function testRenderTemplateWithParameters()
-    {
-        $template = tempnam(sys_get_temp_dir(), 'tpl');
-        file_put_contents($template, '<?php return function (\Teach\Adapters\AdapterInterface $adapter, $a, $b) { return "<$a>$b</$a>"; };');
-
-        $this->assertEquals('<a>Hello World</a>', $this->object->renderTemplate(basename($template), "a", "Hello World"));
+        $this->object = new HTML();
     }
     
     public function testMakeDocument()
