@@ -10,7 +10,7 @@ if (array_key_exists('contactmoment', $_GET) === false) {
  */
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 $contactmomentEntity = $applicationBootstrap->getDomainFactory()->createContactmoment($_GET['contactmoment']);
-$lesplan = $applicationBootstrap->createInteraction($contactmomentEntity);
+$lesplan = $applicationBootstrap->getInteractionFactory()->createInteraction($contactmomentEntity, $applicationBootstrap->createInteractionWeb());
 if ($lesplan === null) {
     http_response_code(404);
     exit();
