@@ -47,7 +47,7 @@ class Contactmoment implements \Teach\Interactors\InteractableInterface
      * @param \Teach\Interactors\Web\Lesplan\Factory $factory
      * @return \Teach\Interactors\LayoutableInterface
      */
-    public function createInteractor(\Teach\Interactors\Web\Lesplan\Factory $factory): \Teach\Interactors\LayoutableInterface
+    public function interact(\Teach\Interactors\Web\Lesplan\Factory $factory): \Teach\Interactors\LayoutableInterface
     {
         $introductie = $factory->createIntroductie(
             $factory->createActiviteit("Activerende opening", $this->factory->getActiviteit($this->contactmoment['activerende_opening_id'])), 

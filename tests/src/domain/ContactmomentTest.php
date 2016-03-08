@@ -10,8 +10,7 @@ class ContactmomentTest extends \Teach\DomainTest
     {   
         $factory = new Factory(self::$pdo);
         $object = $factory->createContactmoment('1');
-        $factory = new \Teach\Interactors\Web\Lesplan\Factory();
-        $lesplanlayout = $object->createInteractor($factory);
+        $lesplanlayout = $object->interact(new \Teach\Interactors\Web\Lesplan\Factory());
         $this->assertInstanceOf('\Teach\Interactors\Web\Lesplan', $lesplanlayout);
     }
 }

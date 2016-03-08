@@ -3,5 +3,5 @@ namespace Teach\Interactors;
 
 interface InteractableInterface {
     
-    public function createInteractor(Web\Lesplan\Factory $factory): \Teach\Interactors\LayoutableInterface;
+    public function interact(Web\Lesplan\Factory $factory): \Teach\Interactors\LayoutableInterface;
 }

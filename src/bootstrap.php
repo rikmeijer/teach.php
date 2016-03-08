@@ -3,8 +3,6 @@ $environmentBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootst
 
 interface ApplicationBootstrap
 {
-    public function getInteractionFactory(): \Teach\Interactors\InteractionFactory;
-    
     public function createInteractionWeb(): \Teach\Interactors\Web\Lesplan\Factory;
 
     public function getDomainFactory(): \Teach\Domain\Factory;
@@ -30,15 +28,6 @@ return new class($environmentBootstrap) implements ApplicationBootstrap {
     public function getDomainFactory(): \Teach\Domain\Factory
     {
         return new \Teach\Domain\Factory($this->environment->getDatabase());
-    }
-
-    /**
-     * 
-     * @return \Teach\Interactors\InteractionFactory
-     */
-    public function getInteractionFactory(): \Teach\Interactors\InteractionFactory
-    {
-        return new \Teach\Interactors\InteractionFactory();
     }
     
     /**

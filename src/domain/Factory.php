@@ -106,9 +106,9 @@ class Factory
     /**
      * 
      * @param string $identifier
-     * @return \Teach\Domain\Contactmoment
+     * @return \Teach\Interactors\LayoutableInterface
      */
-    public function createContactmoment($identifier)
+    public function createContactmoment($identifier): \Teach\Interactors\InteractableInterface
     {
         return new Contactmoment($this, $this->getContactmoment($identifier));
     }
