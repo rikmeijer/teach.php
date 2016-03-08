@@ -113,6 +113,18 @@ class Factory
         return new Lesplan($this, $this->getContactmoment($identifier));
     }
 
+    /**
+     * 
+     * @param string $huiswerk
+     * @param string $evaluatie
+     * @param string $slot
+     * @return \Teach\Interactors\InteractableInterface
+     */
+    public function createAfsluiting(string $huiswerkIdentifier = null, string $evaluatieIdentifier = null, string $slotIdentifier = null): \Teach\Interactors\InteractableInterface
+    {
+        return new Lesplan\Afsluiting($this, $huiswerkIdentifier, $evaluatieIdentifier, $slotIdentifier);
+    }
+
     public function getMedia($les_id)
     {
         if ($les_id === null) {
