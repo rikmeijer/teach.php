@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Domain\Lesplan;
 
-class Afsluiting implements \Teach\Interactors\InteractableInterface
+class Afsluiting implements \Teach\Interactors\Interactable
 {
 
     /**

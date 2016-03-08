@@ -3,5 +3,5 @@ namespace Teach\Interactors;
 
 interface InteractionFactoryInterface
 {
-    public function createInteraction(\Teach\Interactors\InteractableInterface $interactable): \Teach\Interactors\PresentableInterface;
+    public function createInteraction(\Teach\Interactors\Interactable $interactable): \Teach\Interactors\PresentableInterface;
 }

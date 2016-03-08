@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Domain\Lesplan;
 
-class Beginsituatie implements \Teach\Interactors\InteractableInterface
+class Beginsituatie implements \Teach\Interactors\Interactable
 {
 
     /**

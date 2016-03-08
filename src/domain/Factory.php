@@ -23,9 +23,9 @@ class Factory
     /**
      * 
      * @param string $identifier
-     * @return \Teach\Interactors\InteractableInterface
+     * @return \Teach\Interactors\Interactable
      */
-    public function createLesplan($identifier): \Teach\Interactors\InteractableInterface
+    public function createLesplan($identifier): \Teach\Interactors\Interactable
     {
         $contactmoment = $this->getContactmoment($identifier);
 
@@ -58,9 +58,9 @@ class Factory
      * @param string $huiswerkIdentifier
      * @param string $evaluatieIdentifier
      * @param string $slotIdentifier
-     * @return \Teach\Interactors\InteractableInterface
+     * @return \Teach\Interactors\Interactable
      */
-    private function createAfsluiting(string $huiswerkIdentifier = null, string $evaluatieIdentifier = null, string $slotIdentifier = null): \Teach\Interactors\InteractableInterface
+    private function createAfsluiting(string $huiswerkIdentifier = null, string $evaluatieIdentifier = null, string $slotIdentifier = null): \Teach\Interactors\Interactable
     {
         return new Lesplan\Afsluiting($this->getActiviteit($huiswerkIdentifier), $this->getActiviteit($evaluatieIdentifier), $this->getActiviteit($slotIdentifier));
     }
@@ -70,9 +70,9 @@ class Factory
      * @param string $huiswerkIdentifier
      * @param string $evaluatieIdentifier
      * @param string $slotIdentifier
-     * @return \Teach\Interactors\InteractableInterface
+     * @return \Teach\Interactors\Interactable
      */
-    private function createBeginsituatie(array $beginsituatie, array $media, array $leerdoelen): \Teach\Interactors\InteractableInterface
+    private function createBeginsituatie(array $beginsituatie, array $media, array $leerdoelen): \Teach\Interactors\Interactable
     {
         return new Lesplan\Beginsituatie($beginsituatie, $media, $leerdoelen);
     }
@@ -80,9 +80,9 @@ class Factory
     /**
      * 
      * @param string $lesplanIdentifier
-     * @return \Teach\Interactors\InteractableInterface
+     * @return \Teach\Interactors\Interactable
      */
-    private function createKern(string $lesplanIdentifier): \Teach\Interactors\InteractableInterface
+    private function createKern(string $lesplanIdentifier): \Teach\Interactors\Interactable
     {
         return new Lesplan\Kern($this->getKern($lesplanIdentifier));
     }

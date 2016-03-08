@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Domain\Lesplan;
 
-class Kern implements \Teach\Interactors\InteractableInterface
+class Kern implements \Teach\Interactors\Interactable
 {
 
     /**
