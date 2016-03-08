@@ -7,6 +7,8 @@ interface EnvironmentBootstrap {
      * @return PDO
      */
     public function getDatabase(): \PDO;
+    
+    public function getAdapterFactory(): \Teach\Adapters\Factory;
 }
 
 
@@ -54,5 +56,10 @@ return new class() implements EnvironmentBootstrap {
         $password = array_key_exists('password', $databaseResource) ? $databaseResource['password'] : null;
         
         return new PDO('mysql:' . join(';', $dsn), $user, $password);
+    }
+    
+    public function getAdapterFactory(): \Teach\Adapters\Factory
+    {
+        return new \Teach\Adapters\Factory();
     }
 };

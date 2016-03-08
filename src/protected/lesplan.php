@@ -16,4 +16,4 @@ if ($lesplan === null) {
     exit();
 }
 
-print $applicationBootstrap->getDocumentAdapter()->render($lesplan);
+print $applicationBootstrap->startHTMLDocument()->render($lesplan);
