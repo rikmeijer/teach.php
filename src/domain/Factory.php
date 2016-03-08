@@ -140,10 +140,19 @@ class Factory
         return new Lesplan\Contactmoment($beginsituatie, $media, $leerdoelen);
     }
     
-
-    public function createKern($lesplanIdentifier): \Teach\Interactors\InteractableInterface
+    /**
+     * 
+     * @param string $lesplanIdentifier
+     * @return \Teach\Interactors\InteractableInterface
+     */
+    public function createKern(string $lesplanIdentifier): \Teach\Interactors\InteractableInterface
     {
         return new Lesplan\Kern($this->getKern($lesplanIdentifier));
+    }
+    
+    public function createIntroductie(string $openingIdentifier = null, string $focusIdentifier = null, string $voorstellenIdentifier = null, string $kennismakenIdentifier = null, string $terugblikIdentifier = null)
+    {
+        return new Lesplan\Introductie($this->getActiviteit($openingIdentifier), $this->getActiviteit($focusIdentifier), $this->getActiviteit($voorstellenIdentifier), $this->getActiviteit($kennismakenIdentifier), $this->getActiviteit($terugblikIdentifier));
     }
     
     public function getMedia($les_id)

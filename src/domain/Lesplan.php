@@ -49,13 +49,7 @@ class Lesplan implements \Teach\Interactors\InteractableInterface
      */
     public function interact(\Teach\Interactors\Web\Lesplan\Factory $factory): \Teach\Interactors\LayoutableInterface
     {
-        $introductie = $factory->createIntroductie(
-            $factory->createActiviteit("Activerende opening", $this->factory->getActiviteit($this->contactmoment['activerende_opening_id'])), 
-            $factory->createActiviteit("Focus", $this->factory->getActiviteit($this->contactmoment['focus_id'])),
-            $factory->createActiviteit("Voorstellen", $this->factory->getActiviteit($this->contactmoment['voorstellen_id'])),
-            $factory->createActiviteit("Kennismaken", $this->factory->getActiviteit($this->contactmoment['kennismaken_id'])),
-            $factory->createActiviteit("Terugblik", $this->factory->getActiviteit($this->contactmoment['terugblik_id']))
-        );
+        $introductie = $this->factory->createIntroductie($this->contactmoment['activerende_opening_id'], $this->contactmoment['focus_id'], $this->contactmoment['voorstellen_id'], $this->contactmoment['kennismaken_id'], $this->contactmoment['terugblik_id']);
         
         $kern = $this->factory->createKern($this->contactmoment['lesplan_id']);
         
@@ -63,6 +57,6 @@ class Lesplan implements \Teach\Interactors\InteractableInterface
 
         $afsluiting = $this->factory->createAfsluiting($this->contactmoment['huiswerk_id'], $this->contactmoment['evaluatie_id'], $this->contactmoment['pakkend_slot_id']);
         
-        return $factory->createLesplan($this->contactmoment['opleiding'], $this->contactmoment['vak'], $this->contactmoment['les'], $contactmoment->interact($factory), $introductie, $kern->interact($factory), $afsluiting->interact($factory));
+        return $factory->createLesplan($this->contactmoment['opleiding'], $this->contactmoment['vak'], $this->contactmoment['les'], $contactmoment->interact($factory), $introductie->interact($factory), $kern->interact($factory), $afsluiting->interact($factory));
     }
 }
