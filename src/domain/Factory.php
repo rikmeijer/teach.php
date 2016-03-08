@@ -106,11 +106,11 @@ class Factory
     /**
      * 
      * @param string $identifier
-     * @return \Teach\Interactors\LayoutableInterface
+     * @return \Teach\Interactors\InteractableInterface
      */
-    public function createContactmoment($identifier): \Teach\Interactors\InteractableInterface
+    public function createLesplan($identifier): \Teach\Interactors\InteractableInterface
     {
-        return new Contactmoment($this, $this->getContactmoment($identifier));
+        return new Lesplan($this, $this->getContactmoment($identifier));
     }
 
     public function getMedia($les_id)
