@@ -26,7 +26,7 @@ class Lesplan implements \Teach\Interactors\InteractableInterface
      *
      * @return array
      */
-    private function getContactmoment()
+    private function getBeginsituatie()
     {
         return [
             'doelgroep' => [
@@ -58,7 +58,6 @@ class Lesplan implements \Teach\Interactors\InteractableInterface
         );
         
         $kernDefinition = $this->factory->getKern($this->contactmoment['lesplan_id']);
-        $leerdoelen = array_keys($kernDefinition);
         $kern = $factory->createFase("Kern");
         $themaCount = 0;
         foreach ($kernDefinition as $themaIdentifier => $themaDefinition) {
@@ -66,7 +65,7 @@ class Lesplan implements \Teach\Interactors\InteractableInterface
             $kern->addOnderdeel($thema);
         }
         
-        $contactmoment = $this->factory->createContactmoment($this->getContactmoment(), $this->factory->getMedia($this->contactmoment['lesplan_id']), $leerdoelen);
+        $contactmoment = $this->factory->createContactmoment($this->getBeginsituatie(), $this->contactmoment['lesplan_id']);
 
         $afsluiting = $this->factory->createAfsluiting($this->contactmoment['huiswerk_id'], $this->contactmoment['evaluatie_id'], $this->contactmoment['pakkend_slot_id']);
         

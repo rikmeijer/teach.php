@@ -132,8 +132,11 @@ class Factory
      * @param string $slotIdentifier
      * @return \Teach\Interactors\InteractableInterface
      */
-    public function createContactmoment(array $beginsituatie, array $media, array $leerdoelen): \Teach\Interactors\InteractableInterface
+    public function createContactmoment(array $beginsituatie, $lesplanIdentifier): \Teach\Interactors\InteractableInterface
     {
+        $media = $this->getMedia($lesplanIdentifier);
+        $kernDefinition = $this->getKern($lesplanIdentifier);
+        $leerdoelen = array_keys($kernDefinition);
         return new Lesplan\Contactmoment($beginsituatie, $media, $leerdoelen);
     }
     
