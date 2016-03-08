@@ -1,7 +1,7 @@
 <?php
-namespace Teach\Adapters\HTML;
+namespace Teach\Adapters;
 
-final class Factory implements \Teach\Adapters\AdapterInterface
+final class HTML implements \Teach\Adapters\AdapterInterface
 {
     /**
      * 
@@ -48,7 +48,7 @@ final class Factory implements \Teach\Adapters\AdapterInterface
      */
     public function makeElement(string $tagName, array $attributes): \Teach\Adapters\RenderableInterface
     {
-        $element = new Element($tagName);
+        $element = new HTML\Element($tagName);
         
         foreach ($attributes as $attributeIdentifier => $attributeValue) {
             $element->attribute($attributeIdentifier, $attributeValue);
@@ -64,7 +64,7 @@ final class Factory implements \Teach\Adapters\AdapterInterface
      */
     public function makeText($text): \Teach\Adapters\RenderableInterface
     {
-        return new Text($text);
+        return new HTML\Text($text);
     }
     
     /**

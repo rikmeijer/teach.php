@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters;
 
-class HTMLTest extends \PHPUnit_Framework_TestCase
+class DocumentTest extends \PHPUnit_Framework_TestCase
 {
     public function testRender()
     {

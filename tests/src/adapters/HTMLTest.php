@@ -1,7 +1,7 @@
 <?php
-namespace Teach\Adapters\HTML;
+namespace Teach\Adapters;
 
-class FactoryTest extends \PHPUnit_Framework_TestCase
+class HTMLTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -12,13 +12,13 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->object = new Factory(sys_get_temp_dir());
+        $this->object = new HTML(sys_get_temp_dir());
     }
 
     public function testRenderTemplate()
     {
         $template = tempnam(sys_get_temp_dir(), 'tpl');
-        file_put_contents($template, '<?php return function (\Teach\Adapters\HTML\Factory $factory) { return "<a>Hello World</a>"; };');
+        file_put_contents($template, '<?php return function (\Teach\Adapters\AdapterInterface $adapter) { return "<a>Hello World</a>"; };');
 
         $this->assertEquals('<a>Hello World</a>', $this->object->renderTemplate(basename($template)));
     }
@@ -26,7 +26,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testRenderTemplateWithParameters()
     {
         $template = tempnam(sys_get_temp_dir(), 'tpl');
-        file_put_contents($template, '<?php return function (\Teach\Adapters\HTML\Factory $factory, $a, $b) { return "<$a>$b</$a>"; };');
+        file_put_contents($template, '<?php return function (\Teach\Adapters\AdapterInterface $adapter, $a, $b) { return "<$a>$b</$a>"; };');
 
         $this->assertEquals('<a>Hello World</a>', $this->object->renderTemplate(basename($template), "a", "Hello World"));
     }

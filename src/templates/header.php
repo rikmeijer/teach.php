@@ -1,4 +1,4 @@
 <?php
-return function(\Teach\Adapters\HTML\Factory $factory, string $title, string $subtitle) {
-    return '<header>' .  $factory->makeHeader('1', $title)->render() .  $factory->makeHeader('2', $subtitle)->render() . '</header>';
+return function(\Teach\Adapters\AdapterInterface $adapter, string $title, string $subtitle) {
+    return '<header>' .  $adapter->makeHeader('1', $title)->render() .  $adapter->makeHeader('2', $subtitle)->render() . '</header>';
 };

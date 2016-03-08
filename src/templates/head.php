@@ -1,5 +1,5 @@
 <?php
-return function() {
+return function(\Teach\Adapters\AdapterInterface $adapter) {
     return '
     <head>
     <meta charset="UTF-8">
