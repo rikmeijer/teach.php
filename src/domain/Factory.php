@@ -20,6 +20,78 @@ class Factory
         return $this->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * 
+     * @param string $identifier
+     * @return \Teach\Interactors\InteractableInterface
+     */
+    public function createLesplan($identifier): \Teach\Interactors\InteractableInterface
+    {
+        $contactmoment = $this->getContactmoment($identifier);
+
+        $introductie = $this->createIntroductie($contactmoment['activerende_opening_id'], $contactmoment['focus_id'], $contactmoment['voorstellen_id'], $contactmoment['kennismaken_id'], $contactmoment['terugblik_id']);
+        
+        $kern = $this->createKern($contactmoment['lesplan_id']);
+
+        $media = $this->getMedia($contactmoment['lesplan_id']);
+        $leerdoelen = $this->getLeerdoelen($contactmoment['lesplan_id']);
+        $beginsituatie = $this->createBeginsituatie([
+            'doelgroep' => [
+                'beschrijving' => $contactmoment['doelgroep_beschrijving'],
+                'ervaring' => $contactmoment['doelgroep_ervaring'],
+                'grootte' => $contactmoment['doelgroep_grootte'] . ' personen'
+            ],
+            'starttijd' => date('H:i', strtotime($contactmoment['starttijd'])),
+            'eindtijd' => date('H:i', strtotime($contactmoment['eindtijd'])),
+            'duur' => $contactmoment['duur'],
+            'ruimte' => $contactmoment['ruimte'],
+            'overige' => $contactmoment['opmerkingen']
+        ], $media, $leerdoelen);
+
+        $afsluiting = $this->createAfsluiting($contactmoment['huiswerk_id'], $contactmoment['evaluatie_id'], $contactmoment['pakkend_slot_id']);
+        
+        return new Lesplan($contactmoment['opleiding'], $contactmoment['vak'], $contactmoment['les'], $beginsituatie, $introductie, $kern, $afsluiting);
+    }
+
+    /**
+     * 
+     * @param string $huiswerkIdentifier
+     * @param string $evaluatieIdentifier
+     * @param string $slotIdentifier
+     * @return \Teach\Interactors\InteractableInterface
+     */
+    private function createAfsluiting(string $huiswerkIdentifier = null, string $evaluatieIdentifier = null, string $slotIdentifier = null): \Teach\Interactors\InteractableInterface
+    {
+        return new Lesplan\Afsluiting($this->getActiviteit($huiswerkIdentifier), $this->getActiviteit($evaluatieIdentifier), $this->getActiviteit($slotIdentifier));
+    }
+
+    /**
+     *
+     * @param string $huiswerkIdentifier
+     * @param string $evaluatieIdentifier
+     * @param string $slotIdentifier
+     * @return \Teach\Interactors\InteractableInterface
+     */
+    private function createBeginsituatie(array $beginsituatie, array $media, array $leerdoelen): \Teach\Interactors\InteractableInterface
+    {
+        return new Lesplan\Beginsituatie($beginsituatie, $media, $leerdoelen);
+    }
+    
+    /**
+     * 
+     * @param string $lesplanIdentifier
+     * @return \Teach\Interactors\InteractableInterface
+     */
+    private function createKern(string $lesplanIdentifier): \Teach\Interactors\InteractableInterface
+    {
+        return new Lesplan\Kern($this->getKern($lesplanIdentifier));
+    }
+    
+    private function createIntroductie(string $openingIdentifier = null, string $focusIdentifier = null, string $voorstellenIdentifier = null, string $kennismakenIdentifier = null, string $terugblikIdentifier = null)
+    {
+        return new Lesplan\Introductie($this->getActiviteit($openingIdentifier), $this->getActiviteit($focusIdentifier), $this->getActiviteit($voorstellenIdentifier), $this->getActiviteit($kennismakenIdentifier), $this->getActiviteit($terugblikIdentifier));
+    }
+
     private function getContactmoment($identifier)
     {
         $contactmomenten = $this->query("
@@ -103,77 +175,9 @@ class Factory
         ];
     }
 
-    /**
-     * 
-     * @param string $identifier
-     * @return \Teach\Interactors\InteractableInterface
-     */
-    public function createLesplan($identifier): \Teach\Interactors\InteractableInterface
+    private function getLeerdoelen($les_id)
     {
-        $contactmoment = $this->getContactmoment($identifier);
-
-        $introductie = $this->createIntroductie($contactmoment['activerende_opening_id'], $contactmoment['focus_id'], $contactmoment['voorstellen_id'], $contactmoment['kennismaken_id'], $contactmoment['terugblik_id']);
-        
-        $kern = $this->createKern($contactmoment['lesplan_id']);
-        
-        $beginsituatie = $this->createBeginsituatie([
-            'doelgroep' => [
-                'beschrijving' => $contactmoment['doelgroep_beschrijving'],
-                'ervaring' => $contactmoment['doelgroep_ervaring'],
-                'grootte' => $contactmoment['doelgroep_grootte'] . ' personen'
-            ],
-            'starttijd' => date('H:i', strtotime($contactmoment['starttijd'])),
-            'eindtijd' => date('H:i', strtotime($contactmoment['eindtijd'])),
-            'duur' => $contactmoment['duur'],
-            'ruimte' => $contactmoment['ruimte'],
-            'overige' => $contactmoment['opmerkingen']
-        ], $contactmoment['lesplan_id']);
-
-        $afsluiting = $this->createAfsluiting($contactmoment['huiswerk_id'], $contactmoment['evaluatie_id'], $contactmoment['pakkend_slot_id']);
-        
-        return new Lesplan($contactmoment['opleiding'], $contactmoment['vak'], $contactmoment['les'], $beginsituatie, $introductie, $kern, $afsluiting);
-    }
-
-    /**
-     * 
-     * @param string $huiswerkIdentifier
-     * @param string $evaluatieIdentifier
-     * @param string $slotIdentifier
-     * @return \Teach\Interactors\InteractableInterface
-     */
-    private function createAfsluiting(string $huiswerkIdentifier = null, string $evaluatieIdentifier = null, string $slotIdentifier = null): \Teach\Interactors\InteractableInterface
-    {
-        return new Lesplan\Afsluiting($this->getActiviteit($huiswerkIdentifier), $this->getActiviteit($evaluatieIdentifier), $this->getActiviteit($slotIdentifier));
-    }
-
-    /**
-     *
-     * @param string $huiswerkIdentifier
-     * @param string $evaluatieIdentifier
-     * @param string $slotIdentifier
-     * @return \Teach\Interactors\InteractableInterface
-     */
-    private function createBeginsituatie(array $beginsituatie, $lesplanIdentifier): \Teach\Interactors\InteractableInterface
-    {
-        $media = $this->getMedia($lesplanIdentifier);
-        $kernDefinition = $this->getKern($lesplanIdentifier);
-        $leerdoelen = array_keys($kernDefinition);
-        return new Lesplan\Beginsituatie($beginsituatie, $media, $leerdoelen);
-    }
-    
-    /**
-     * 
-     * @param string $lesplanIdentifier
-     * @return \Teach\Interactors\InteractableInterface
-     */
-    private function createKern(string $lesplanIdentifier): \Teach\Interactors\InteractableInterface
-    {
-        return new Lesplan\Kern($this->getKern($lesplanIdentifier));
-    }
-    
-    private function createIntroductie(string $openingIdentifier = null, string $focusIdentifier = null, string $voorstellenIdentifier = null, string $kennismakenIdentifier = null, string $terugblikIdentifier = null)
-    {
-        return new Lesplan\Introductie($this->getActiviteit($openingIdentifier), $this->getActiviteit($focusIdentifier), $this->getActiviteit($voorstellenIdentifier), $this->getActiviteit($kennismakenIdentifier), $this->getActiviteit($terugblikIdentifier));
+        return array_keys($this->getKern($les_id));
     }
     
     private function getMedia($les_id)
