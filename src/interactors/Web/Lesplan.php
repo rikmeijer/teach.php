@@ -61,7 +61,6 @@ final class Lesplan implements \Teach\Interactors\PresentableInterface
     public function present(\Teach\Adapters\HTML\Factory $factory): string
     {
         $lines = [];
-        $lines[] = "<!DOCTYPE html>";
         $lines[] = "<html>";
         $lines[] = $factory->renderTemplate("head.php");
         $lines[] = "<body>";

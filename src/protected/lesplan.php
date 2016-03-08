@@ -16,5 +16,4 @@ if ($lesplan === null) {
     exit();
 }
 
-$HTMLfactory = $applicationBootstrap->getHTMLFactory();
-print $lesplan->present($HTMLfactory);
+print $applicationBootstrap->getHTMLAdapter()->render($lesplan);
