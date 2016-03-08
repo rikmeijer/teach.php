@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Adapters;
+namespace Teach\Adapters\Document;
 
 final class HTML implements \Teach\Adapters\Documentable
 {    
@@ -42,7 +42,7 @@ final class HTML implements \Teach\Adapters\Documentable
      */
     public function makeElement(string $tagName, array $attributes): \Teach\Adapters\RenderableInterface
     {
-        $element = new HTML\Element($tagName);
+        $element = new \Teach\Adapters\HTML\Element($tagName);
         
         foreach ($attributes as $attributeIdentifier => $attributeValue) {
             $element->attribute($attributeIdentifier, $attributeValue);
@@ -58,7 +58,7 @@ final class HTML implements \Teach\Adapters\Documentable
      */
     public function makeText($text): \Teach\Adapters\RenderableInterface
     {
-        return new HTML\Text($text);
+        return new \Teach\Adapters\HTML\Text($text);
     }
     
     /**
