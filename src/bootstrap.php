@@ -43,6 +43,6 @@ return new class($environmentBootstrap) implements ApplicationBootstrap {
     
     public function getHTMLFactory(): \Teach\Adapters\HTML\Factory
     {
-        return new \Teach\Adapters\HTML\Factory(__DIR__ . DIRECTORY_SEPARATOR . 'protected' . DIRECTORY_SEPARATOR . 'templates');
+        return new \Teach\Adapters\HTML\Factory(__DIR__ . DIRECTORY_SEPARATOR . 'templates');
     }
 };
