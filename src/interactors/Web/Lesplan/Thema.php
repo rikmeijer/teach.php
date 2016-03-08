@@ -21,25 +21,14 @@ final class Thema implements \Teach\Interactors\LayoutableInterface
     {
         $this->activiteiten[] = $activiteit;
     }
-
-
-    /**
-     * @param array $variableIdentifiers
-     * @return array
-     */
-    public function provideTemplateVariables(array $variableIdentifiers)
+    
+    public function present(\Teach\Adapters\HTML\Factory $factory): string
     {
-        $variables = [];
-        foreach ($variableIdentifiers as $variableIdentifier) {
-            switch ($variableIdentifier) {
-                case 'title':
-                    $variables[$variableIdentifier] = $this->title;
-                    break;
-                case 'activiteiten':
-                    $variables[$variableIdentifier] = $this->activiteiten;
-                    break;
-            }
+        $section = $factory->makeSection();
+        $section->append($factory->makeHeader('3', $this->title));
+        foreach ($this->activiteiten as $activiteit) {
+            $section->appendHTML($activiteit->present($factory));
         }
-        return $variables;
+        return $section->render();
     }
 }

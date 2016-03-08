@@ -3,12 +3,11 @@ namespace Teach\Interactors;
 
 interface LayoutableInterface
 {
-
-
-    /**
-     * @param array $variableIdentifiers
-     * @return array
-     */
-    function provideTemplateVariables(array $variableIdentifiers);
     
+    /**
+     * 
+     * @param \Teach\Adapters\HTML\Factory $factory
+     * @return string
+     */
+    function present(\Teach\Adapters\HTML\Factory $factory): string;
 }

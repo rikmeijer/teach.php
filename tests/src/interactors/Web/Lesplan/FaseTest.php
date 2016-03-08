@@ -1,22 +1,20 @@
 <?php
 namespace Teach\Interactors\Web\Lesplan;
 
-use \Teach\Adapters\HTML\Factory as HTMLFactory;
-
 class FaseTest extends \PHPUnit_Framework_TestCase
 {
-    public function testProvideTemplateVariablesOnderdelen()
-    {
-        $object = new Fase("Kern");
+//     public function testProvideTemplateVariablesOnderdelen()
+//     {
+//         $object = new Fase("Kern");
         
-        $object->addOnderdeel($onderdeel = new Thema("Thema 1: zelf de motor reviseren"));
+//         $object->addOnderdeel($onderdeel = new Thema("Thema 1: zelf de motor reviseren"));
 
-        $variables = $object->provideTemplateVariables([
-            "title",
-            "onderdelen"
-        ]);
+//         $variables = $object->provideTemplateVariables([
+//             "title",
+//             "onderdelen"
+//         ]);
 
-        $this->assertEquals("Kern", $variables["title"]);
-        $this->assertEquals($onderdeel, $variables["onderdelen"][0]);
-    }
+//         $this->assertEquals("Kern", $variables["title"]);
+//         $this->assertEquals($onderdeel, $variables["onderdelen"][0]);
+//     }
 }

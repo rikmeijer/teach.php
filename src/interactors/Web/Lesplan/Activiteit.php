@@ -41,40 +41,23 @@ final class Activiteit implements \Teach\Interactors\LayoutableInterface
         $this->werkvorm = $werkvorm;
     }
 
-
-    /**
-     * @param array $variableIdentifiers
-     * @return array
-     */
-    public function provideTemplateVariables(array $variableIdentifiers)
+    public function present(\Teach\Adapters\HTML\Factory $factory): string
     {
-        $variables = [];
-        foreach ($variableIdentifiers as $variableIdentifier) {
-            switch ($variableIdentifier) {
-                case 'title':
-                    $variables[$variableIdentifier] = $this->caption;
-                    break;
-                case 'inhoud':
-                    $variables[$variableIdentifier] = $this->werkvorm['inhoud'];
-                    break;
-                case 'werkvorm':
-                    $variables[$variableIdentifier] = $this->werkvorm['werkvorm'];
-                    break;
-                case 'organisatievorm':
-                    $variables[$variableIdentifier] = $this->werkvorm['organisatievorm'];
-                    break;
-                case 'werkvormsoort':
-                    $variables[$variableIdentifier] = $this->werkvorm['werkvormsoort'];
-                    break;
-                case 'tijd':
-                    $variables[$variableIdentifier] = $this->werkvorm['tijd'] . ' minuten';
-                    break;
-                case 'intelligenties':
-                    $variables[$variableIdentifier] = array_values(array_intersect(self::INTELLIGENTIES, $this->werkvorm['intelligenties']));
-                    break;
-            }
-        }
-        return $variables;
+        return $factory->makeTable($this->caption, [
+            [
+                'werkvorm' => $this->werkvorm['werkvorm'],
+                'organisatievorm' => $this->werkvorm['organisatievorm']
+            ],
+            [
+                'tijd' => $this->werkvorm['tijd'] . ' minuten',
+                'soort werkvorm' => $this->werkvorm['werkvormsoort']
+            ],
+            [
+                'intelligenties' => array_values(array_intersect(self::INTELLIGENTIES, $this->werkvorm['intelligenties']))
+            ],
+            [
+                'inhoud' => $this->werkvorm['inhoud']
+            ]
+        ])->render();
     }
-
 }

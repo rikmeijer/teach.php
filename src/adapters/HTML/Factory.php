@@ -5,11 +5,22 @@ final class Factory implements \Teach\Interactors\LayoutFactoryInterface
 {
     /**
      * 
+     * @var string
+     */
+    private $templateDirectory;
+    
+    public function __construct(string $templateDirectory)
+    {
+        $this->templateDirectory = $templateDirectory;
+    }
+    
+    /**
+     * 
      * @param string $filename
      * @param mixed ...$templateParameters
      */
     public function renderTemplate(string $filename, ...$templateParameters) {
-        $renderer = require $filename;
+        $renderer = require $this->templateDirectory . DIRECTORY_SEPARATOR . $filename;
         
         return $renderer($this, ...$templateParameters);
     }

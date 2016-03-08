@@ -58,39 +58,28 @@ final class Lesplan implements \Teach\Interactors\LayoutableInterface
         $this->afsluiting = $afsluiting;
     }
 
-    /**
-     * @param array $variableIdentifiers
-     * @return array
-     */    
-    public function provideTemplateVariables(array $variableIdentifiers)
+    public function present(\Teach\Adapters\HTML\Factory $factory): string
     {
-        $variables = [];
-        foreach ($variableIdentifiers as $variableIdentifier) {
-            switch ($variableIdentifier) {
-                case 'title':
-                    $variables[$variableIdentifier] = 'Lesplan ' . $this->vak;
-                    break;
-                case 'subtitle':
-                    $variables[$variableIdentifier] = $this->opleiding;
-                    break;
-                case 'contactmomentTitle':
-                    $variables[$variableIdentifier] = $this->les;
-                    break;
-                case 'contactmoment':
-                    $variables[$variableIdentifier] = $this->contactmoment;
-                    break;
-                case 'introductie':
-                    $variables[$variableIdentifier] = $this->introductie;
-                    break;
-                case 'kern':
-                    $variables[$variableIdentifier] = $this->kern;
-                    break;
-                case 'afsluiting':
-                    $variables[$variableIdentifier] = $this->afsluiting;
-                    break;
-                    
-            }
-        }
-        return $variables;
+        $lines = [];
+        $lines[] = "<!DOCTYPE html>";
+        $lines[] = "<html>";
+        $lines[] = $factory->renderTemplate("head.php");
+        $lines[] = "<body>";
+        $lines[] = $factory->renderTemplate("header.php", 'Lesplan ' . $this->vak, $this->opleiding);
+        
+        $section = $factory->makeSection();
+        $section->append($factory->makeHeader('2', $this->les));
+        $lines[] = $section->render();
+        
+        $lines[] = $this->contactmoment->present($factory);
+        
+        $lines[] = $this->introductie->present($factory);
+        $lines[] = $this->kern->present($factory);
+        $lines[] = $this->afsluiting->present($factory);
+        
+        $lines[] = "</body>";
+        $lines[] = "</html>";
+        return join(PHP_EOL, $lines);
+        
     }
 }

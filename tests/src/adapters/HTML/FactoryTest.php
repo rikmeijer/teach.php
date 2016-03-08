@@ -12,7 +12,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->object = new Factory();
+        $this->object = new Factory(sys_get_temp_dir());
     }
 
     public function testRenderTemplate()
@@ -20,7 +20,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $template = tempnam(sys_get_temp_dir(), 'tpl');
         file_put_contents($template, '<?php return function (\Teach\Adapters\HTML\Factory $factory) { return "<a>Hello World</a>"; };');
 
-        $this->assertEquals('<a>Hello World</a>', $this->object->renderTemplate($template));
+        $this->assertEquals('<a>Hello World</a>', $this->object->renderTemplate(basename($template)));
     }
 
     public function testRenderTemplateWithParameters()
@@ -28,7 +28,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $template = tempnam(sys_get_temp_dir(), 'tpl');
         file_put_contents($template, '<?php return function (\Teach\Adapters\HTML\Factory $factory, $a, $b) { return "<$a>$b</$a>"; };');
 
-        $this->assertEquals('<a>Hello World</a>', $this->object->renderTemplate($template, "a", "Hello World"));
+        $this->assertEquals('<a>Hello World</a>', $this->object->renderTemplate(basename($template), "a", "Hello World"));
     }
 
     public function testmakeElement()
