@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Interactors\Web\Lesplan;
 
-final class Thema implements \Teach\Interactors\PresentableInterface
+final class Thema implements \Teach\Interactors\Presentable
 {
 
     private $title;

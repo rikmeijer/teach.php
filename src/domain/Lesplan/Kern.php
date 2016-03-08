@@ -18,9 +18,9 @@ class Kern implements \Teach\Interactors\Interactable
     /**
      * 
      * @param \Teach\Interactors\Web\Lesplan\Factory $factory
-     * @return \Teach\Interactors\PresentableInterface
+     * @return \Teach\Interactors\Presentable
      */
-    public function interact(\Teach\Interactors\Web\Lesplan\Factory $factory): \Teach\Interactors\PresentableInterface
+    public function interact(\Teach\Interactors\Web\Lesplan\Factory $factory): \Teach\Interactors\Presentable
     {
         $kern = $factory->createFase("Kern");
         $themaCount = 0;

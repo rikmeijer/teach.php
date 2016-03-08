@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Interactors\Web\Lesplan;
 
-final class Contactmoment implements \Teach\Interactors\PresentableInterface
+final class Contactmoment implements \Teach\Interactors\Presentable
 {
 
     /**

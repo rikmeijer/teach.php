@@ -1,14 +1,14 @@
 <?php
 namespace Teach\Interactors\Web\Lesplan;
 
-final class Fase implements \Teach\Interactors\PresentableInterface
+final class Fase implements \Teach\Interactors\Presentable
 {
 
     private $title;
     
     /**
      * 
-     * @var \Teach\Interactors\PresentableInterface[]
+     * @var \Teach\Interactors\Presentable[]
      */
     private $onderdelen = array();
 
@@ -17,7 +17,7 @@ final class Fase implements \Teach\Interactors\PresentableInterface
         $this->title = $title;
     }
     
-    public function addOnderdeel(\Teach\Interactors\PresentableInterface $onderdeel)
+    public function addOnderdeel(\Teach\Interactors\Presentable $onderdeel)
     {
         $this->onderdelen[] = $onderdeel;
     }

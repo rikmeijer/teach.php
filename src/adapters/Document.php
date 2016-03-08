@@ -15,7 +15,7 @@ final class Document
         $this->adapter = $adapter;
     }
     
-    public function render(\Teach\Interactors\PresentableInterface $presentable)
+    public function render(\Teach\Interactors\Presentable $presentable)
     {
         return $this->adapter->makeDocument($presentable)->render();
     }

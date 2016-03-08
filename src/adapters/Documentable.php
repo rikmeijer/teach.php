@@ -5,10 +5,10 @@ interface Documentable
 {
     /**
      * 
-     * @param \Teach\Interactors\PresentableInterface $presentable
+     * @param \Teach\Interactors\Presentable $presentable
      * @return \Teach\Adapters\Renderable
      */
-    public function makeDocument(\Teach\Interactors\PresentableInterface $presentable): \Teach\Adapters\Renderable;
+    public function makeDocument(\Teach\Interactors\Presentable $presentable): \Teach\Adapters\Renderable;
     
     /**
      * 

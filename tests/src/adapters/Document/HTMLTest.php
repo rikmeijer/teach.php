@@ -17,7 +17,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
     
     public function testMakeDocument()
     {
-        $element = $this->object->makeDocument(new class implements \Teach\Interactors\PresentableInterface {
+        $element = $this->object->makeDocument(new class implements \Teach\Interactors\Presentable {
             public function present(\Teach\Adapters\Documentable $adapter): string
             {
                 return '<p>Hello World</p>';

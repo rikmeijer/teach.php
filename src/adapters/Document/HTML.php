@@ -8,7 +8,7 @@ final class HTML implements \Teach\Adapters\Documentable
      * {@inheritDoc}
      * @see \Teach\Adapters\Documentable::makeDocument($presentable)
      */
-    public function makeDocument(\Teach\Interactors\PresentableInterface $presentable): \Teach\Adapters\Renderable
+    public function makeDocument(\Teach\Interactors\Presentable $presentable): \Teach\Adapters\Renderable
     {
         $html = $this->makeElement('html', []);
         $head = $this->makeElement('head', []);
