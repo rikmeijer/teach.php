@@ -110,7 +110,28 @@ class Factory
      */
     public function createLesplan($identifier): \Teach\Interactors\InteractableInterface
     {
-        return new Lesplan($this, $this->getContactmoment($identifier));
+        $contactmoment = $this->getContactmoment($identifier);
+
+        $introductie = $this->createIntroductie($contactmoment['activerende_opening_id'], $contactmoment['focus_id'], $contactmoment['voorstellen_id'], $contactmoment['kennismaken_id'], $contactmoment['terugblik_id']);
+        
+        $kern = $this->createKern($contactmoment['lesplan_id']);
+        
+        $beginsituatie = $this->createContactmoment([
+            'doelgroep' => [
+                'beschrijving' => $contactmoment['doelgroep_beschrijving'],
+                'ervaring' => $contactmoment['doelgroep_ervaring'],
+                'grootte' => $contactmoment['doelgroep_grootte'] . ' personen'
+            ],
+            'starttijd' => date('H:i', strtotime($contactmoment['starttijd'])),
+            'eindtijd' => date('H:i', strtotime($contactmoment['eindtijd'])),
+            'duur' => $contactmoment['duur'],
+            'ruimte' => $contactmoment['ruimte'],
+            'overige' => $contactmoment['opmerkingen']
+        ], $contactmoment['lesplan_id']);
+
+        $afsluiting = $this->createAfsluiting($contactmoment['huiswerk_id'], $contactmoment['evaluatie_id'], $contactmoment['pakkend_slot_id']);
+        
+        return new Lesplan($contactmoment['opleiding'], $contactmoment['vak'], $contactmoment['les'], $beginsituatie, $introductie, $kern, $afsluiting);
     }
 
     /**

@@ -14,7 +14,7 @@ class Lesplan implements \Teach\Interactors\InteractableInterface
      *
      * @var Lesplan\Contactmoment
      */
-    private $contactmoment;
+    private $beginsituatie;
 
     /**
      *
@@ -34,32 +34,19 @@ class Lesplan implements \Teach\Interactors\InteractableInterface
      */
     private $afsluiting;
 
-    public function __construct(Factory $factory, array $contactmoment)
+    public function __construct(string $opleiding, string $vak, string $les, Lesplan\Contactmoment $beginsituatie, Lesplan\Introductie $introductie, Lesplan\Kern $kern, Lesplan\Afsluiting $afsluiting)
     {
-        $this->factory = $factory;
+        $this->opleiding = $opleiding;
+        $this->vak = $vak;
+        $this->les = $les;
         
-        $this->opleiding = $contactmoment['opleiding'];
-        $this->vak = $contactmoment['vak'];
-        $this->les = $contactmoment['les'];
+        $this->beginsituatie = $beginsituatie;
         
-        $this->introductie = $this->factory->createIntroductie($contactmoment['activerende_opening_id'], $contactmoment['focus_id'], $contactmoment['voorstellen_id'], $contactmoment['kennismaken_id'], $contactmoment['terugblik_id']);
+        $this->introductie = $introductie;
         
-        $this->kern = $this->factory->createKern($contactmoment['lesplan_id']);
-        
-        $this->contactmoment = $this->factory->createContactmoment([
-            'doelgroep' => [
-                'beschrijving' => $contactmoment['doelgroep_beschrijving'],
-                'ervaring' => $contactmoment['doelgroep_ervaring'],
-                'grootte' => $contactmoment['doelgroep_grootte'] . ' personen'
-            ],
-            'starttijd' => date('H:i', strtotime($contactmoment['starttijd'])),
-            'eindtijd' => date('H:i', strtotime($contactmoment['eindtijd'])),
-            'duur' => $contactmoment['duur'],
-            'ruimte' => $contactmoment['ruimte'],
-            'overige' => $contactmoment['opmerkingen']
-        ], $contactmoment['lesplan_id']);
+        $this->kern = $kern;
 
-        $this->afsluiting = $this->factory->createAfsluiting($contactmoment['huiswerk_id'], $contactmoment['evaluatie_id'], $contactmoment['pakkend_slot_id']);
+        $this->afsluiting = $afsluiting;
         
     }
 
@@ -70,6 +57,6 @@ class Lesplan implements \Teach\Interactors\InteractableInterface
      */
     public function interact(\Teach\Interactors\Web\Lesplan\Factory $factory): \Teach\Interactors\LayoutableInterface
     {
-        return $factory->createLesplan($this->opleiding, $this->vak, $this->les, $this->contactmoment->interact($factory), $this->introductie->interact($factory), $this->kern->interact($factory), $this->afsluiting->interact($factory));
+        return $factory->createLesplan($this->opleiding, $this->vak, $this->les, $this->beginsituatie->interact($factory), $this->introductie->interact($factory), $this->kern->interact($factory), $this->afsluiting->interact($factory));
     }
 }
