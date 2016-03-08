@@ -78,7 +78,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
                 return '<p>Hello World</p>';
             }
         });
-        $this->assertEquals('<!DOCTYPE html><html><head></head><body><p>Hello World</p></body></html>', $html);
+        $this->assertEquals('<html><head></head><body><p>Hello World</p></body></html>', $html);
     }
     
     

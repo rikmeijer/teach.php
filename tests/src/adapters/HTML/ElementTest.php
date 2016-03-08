@@ -3,6 +3,13 @@ namespace Teach\Adapters\HTML;
 
 class ElementTest extends \PHPUnit_Framework_TestCase
 {
+    public function testRenderHTMLRoot()
+    {
+        $object = new Element("html");
+        $html = $object->render();
+        $this->assertEquals('<!DOCTYPE html><html></html>', $html);
+    }
+    
     public function testRender()
     {
         $object = new Element("table");

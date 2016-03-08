@@ -60,8 +60,13 @@ final class Element implements \Teach\Adapters\RenderableInterface
         } else {
             $attributeHTML = ' ' . join(' ', $this->attributes);
         }
+
+        $html = '';
+        if ($this->tagName === 'html') {
+            $html .= '<!DOCTYPE html>';
+        }
         
-        $html = '<' . $this->tagName . $attributeHTML . '>';
+        $html .= '<' . $this->tagName . $attributeHTML . '>';
         if (in_array($this->tagName, self::VOIDS) === false) {
             foreach ($this->children as $child) {
                 if (is_string($child)) {
