@@ -15,7 +15,7 @@ class Factory
         $this->pdo = $pdo;
     }
 
-    public function query($sql)
+    private function query($sql)
     {
         return $this->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
@@ -141,7 +141,7 @@ class Factory
      * @param string $slotIdentifier
      * @return \Teach\Interactors\InteractableInterface
      */
-    public function createAfsluiting(string $huiswerkIdentifier = null, string $evaluatieIdentifier = null, string $slotIdentifier = null): \Teach\Interactors\InteractableInterface
+    private function createAfsluiting(string $huiswerkIdentifier = null, string $evaluatieIdentifier = null, string $slotIdentifier = null): \Teach\Interactors\InteractableInterface
     {
         return new Lesplan\Afsluiting($this->getActiviteit($huiswerkIdentifier), $this->getActiviteit($evaluatieIdentifier), $this->getActiviteit($slotIdentifier));
     }
@@ -166,17 +166,17 @@ class Factory
      * @param string $lesplanIdentifier
      * @return \Teach\Interactors\InteractableInterface
      */
-    public function createKern(string $lesplanIdentifier): \Teach\Interactors\InteractableInterface
+    private function createKern(string $lesplanIdentifier): \Teach\Interactors\InteractableInterface
     {
         return new Lesplan\Kern($this->getKern($lesplanIdentifier));
     }
     
-    public function createIntroductie(string $openingIdentifier = null, string $focusIdentifier = null, string $voorstellenIdentifier = null, string $kennismakenIdentifier = null, string $terugblikIdentifier = null)
+    private function createIntroductie(string $openingIdentifier = null, string $focusIdentifier = null, string $voorstellenIdentifier = null, string $kennismakenIdentifier = null, string $terugblikIdentifier = null)
     {
         return new Lesplan\Introductie($this->getActiviteit($openingIdentifier), $this->getActiviteit($focusIdentifier), $this->getActiviteit($voorstellenIdentifier), $this->getActiviteit($kennismakenIdentifier), $this->getActiviteit($terugblikIdentifier));
     }
     
-    public function getMedia($les_id)
+    private function getMedia($les_id)
     {
         if ($les_id === null) {
             return [];
@@ -226,7 +226,7 @@ class Factory
         ];
     }
 
-    public function getActiviteit($id)
+    private function getActiviteit($id)
     {
         if ($id === null) {
             return $this->getActiviteitDummy();
@@ -255,7 +255,7 @@ class Factory
         return $activiteit;
     }
 
-    public function getKern($les_id)
+    private function getKern($les_id)
     {
         if ($les_id === null) {
             return [];

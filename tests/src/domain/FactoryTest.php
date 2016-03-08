@@ -6,14 +6,6 @@ namespace Teach\Domain;
  */
 class FactoryTest extends \Teach\DomainTest
 {
-    public function testQuery()
-    {   
-        $object = new Factory(self::$pdo);
-        $contactmomenten = $object->query("SELECT * FROM contactmoment WHERE id = 1");
-        $this->assertEquals('1', $contactmomenten[0]['les_id']);
-        
-    }
-    
     public function testCreateLesplan()
     {
         $object = new Factory(self::$pdo);
