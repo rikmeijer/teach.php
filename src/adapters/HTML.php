@@ -6,7 +6,7 @@ final class HTML
     
     /**
      * 
-     * @var HTML\Factory
+     * @var AdapterInterface
      */
     private $factory;
     

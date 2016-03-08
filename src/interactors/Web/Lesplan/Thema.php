@@ -22,7 +22,7 @@ final class Thema implements \Teach\Interactors\PresentableInterface
         $this->activiteiten[] = $activiteit;
     }
     
-    public function present(\Teach\Adapters\HTML\Factory $factory): string
+    public function present(\Teach\Adapters\AdapterInterface $factory): string
     {
         $section = $factory->makeSection();
         $section->append($factory->makeHeader('3', $this->title));

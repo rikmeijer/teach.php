@@ -1,7 +1,7 @@
 <?php
-namespace Teach\Interactors;
+namespace Teach\Adapters;
 
-interface LayoutFactoryInterface
+interface AdapterInterface
 {
     /**
      * 

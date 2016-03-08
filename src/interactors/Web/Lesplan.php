@@ -58,7 +58,7 @@ final class Lesplan implements \Teach\Interactors\PresentableInterface
         $this->afsluiting = $afsluiting;
     }
 
-    public function present(\Teach\Adapters\HTML\Factory $factory): string
+    public function present(\Teach\Adapters\AdapterInterface $factory): string
     {
         $lines = [];
         $lines[] = "<html>";

@@ -7,7 +7,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
     {
         $object = new HTML(new \Teach\Adapters\HTML\Factory(__DIR__));
         $html = $object->render(new class implements \Teach\Interactors\PresentableInterface {
-            public function present(\Teach\Adapters\HTML\Factory $factory): string
+            public function present(\Teach\Adapters\AdapterInterface $factory): string
             {
                 return '<body></body>';
             }

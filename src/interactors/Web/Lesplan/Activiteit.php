@@ -41,7 +41,7 @@ final class Activiteit implements \Teach\Interactors\PresentableInterface
         $this->werkvorm = $werkvorm;
     }
 
-    public function present(\Teach\Adapters\HTML\Factory $factory): string
+    public function present(\Teach\Adapters\AdapterInterface $factory): string
     {
         return $factory->makeTable($this->caption, [
             [

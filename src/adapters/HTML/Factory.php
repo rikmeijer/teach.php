@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters\HTML;
 
-final class Factory implements \Teach\Interactors\LayoutFactoryInterface
+final class Factory implements \Teach\Adapters\AdapterInterface
 {
     /**
      * 
