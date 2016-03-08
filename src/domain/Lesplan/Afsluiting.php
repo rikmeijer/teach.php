@@ -6,19 +6,19 @@ class Afsluiting implements \Teach\Interactors\InteractableInterface
 
     /**
      *
-     * @var string
+     * @var array
      */
     private $huiswerk;
 
     /**
      *
-     * @var string
+     * @var array
      */
     private $evaluatie;
 
     /**
      *
-     * @var string
+     * @var array
      */
     private $slot;
 
