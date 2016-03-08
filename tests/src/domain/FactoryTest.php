@@ -14,9 +14,9 @@ class FactoryTest extends \Teach\DomainTest
         
     }
     
-    public function testCreateContactmoment()
+    public function testCreateLesplan()
     {
         $object = new Factory(self::$pdo);
-        $this->assertInstanceOf('\Teach\Domain\Contactmoment', $object->createContactmoment('1'));
+        $this->assertInstanceOf('\Teach\Domain\Lesplan', $object->createLesplan('1'));
     }
 }

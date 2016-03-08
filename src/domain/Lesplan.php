@@ -12,7 +12,7 @@ class Lesplan implements \Teach\Interactors\InteractableInterface
 
     /**
      *
-     * @var Lesplan\Contactmoment
+     * @var Lesplan\Beginsituatie
      */
     private $beginsituatie;
 
@@ -34,7 +34,7 @@ class Lesplan implements \Teach\Interactors\InteractableInterface
      */
     private $afsluiting;
 
-    public function __construct(string $opleiding, string $vak, string $les, Lesplan\Contactmoment $beginsituatie, Lesplan\Introductie $introductie, Lesplan\Kern $kern, Lesplan\Afsluiting $afsluiting)
+    public function __construct(string $opleiding, string $vak, string $les, Lesplan\Beginsituatie $beginsituatie, Lesplan\Introductie $introductie, Lesplan\Kern $kern, Lesplan\Afsluiting $afsluiting)
     {
         $this->opleiding = $opleiding;
         $this->vak = $vak;

@@ -116,7 +116,7 @@ class Factory
         
         $kern = $this->createKern($contactmoment['lesplan_id']);
         
-        $beginsituatie = $this->createContactmoment([
+        $beginsituatie = $this->createBeginsituatie([
             'doelgroep' => [
                 'beschrijving' => $contactmoment['doelgroep_beschrijving'],
                 'ervaring' => $contactmoment['doelgroep_ervaring'],
@@ -153,12 +153,12 @@ class Factory
      * @param string $slotIdentifier
      * @return \Teach\Interactors\InteractableInterface
      */
-    public function createContactmoment(array $beginsituatie, $lesplanIdentifier): \Teach\Interactors\InteractableInterface
+    private function createBeginsituatie(array $beginsituatie, $lesplanIdentifier): \Teach\Interactors\InteractableInterface
     {
         $media = $this->getMedia($lesplanIdentifier);
         $kernDefinition = $this->getKern($lesplanIdentifier);
         $leerdoelen = array_keys($kernDefinition);
-        return new Lesplan\Contactmoment($beginsituatie, $media, $leerdoelen);
+        return new Lesplan\Beginsituatie($beginsituatie, $media, $leerdoelen);
     }
     
     /**
