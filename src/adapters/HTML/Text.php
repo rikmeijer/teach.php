@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters\HTML;
 
-final class Text implements RenderableInterface
+final class Text implements \Teach\Adapters\RenderableInterface
 {
 
     private $contents;
@@ -11,7 +11,7 @@ final class Text implements RenderableInterface
         $this->contents = $contents;
     }
 
-    public function render()
+    public function render(): string
     {
         return htmlentities($this->contents);
     }

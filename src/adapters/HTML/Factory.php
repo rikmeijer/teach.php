@@ -31,7 +31,7 @@ final class Factory implements \Teach\Adapters\AdapterInterface
      * @param array $attributes
      * @return \Teach\Adapters\HTML\Element
      */
-    public function makeElement(string $tagName, array $attributes) 
+    public function makeElement(string $tagName, array $attributes): \Teach\Adapters\RenderableInterface
     {
         $element = new Element($tagName);
         
@@ -47,7 +47,7 @@ final class Factory implements \Teach\Adapters\AdapterInterface
      * @param string $text            
      * @return \Teach\Adapters\HTML\Text
      */
-    public function makeText($text)
+    public function makeText($text): \Teach\Adapters\RenderableInterface
     {
         return new Text($text);
     }
@@ -58,7 +58,7 @@ final class Factory implements \Teach\Adapters\AdapterInterface
      *
      * @see \Teach\Interactors\LayoutFactoryInterface::makeTableRow()
      */
-    public function makeTableRow($expectedCellCount, array $data)
+    public function makeTableRow($expectedCellCount, array $data): \Teach\Adapters\RenderableInterface
     {
         $cellsHTML = [];
         foreach ($data as $header => $value) {
@@ -94,7 +94,7 @@ final class Factory implements \Teach\Adapters\AdapterInterface
      * @param string $tag            
      * @param array $listitems            
      */
-    private function makeList($tag, array $listitems)
+    private function makeList($tag, array $listitems): \Teach\Adapters\RenderableInterface
     {
         $listitemsHTML = [];
         foreach ($listitems as $listitem) {
@@ -113,7 +113,7 @@ final class Factory implements \Teach\Adapters\AdapterInterface
      *
      * @see \Teach\Interactors\LayoutFactoryInterface::makeUnorderedList()
      */
-    public function makeUnorderedList(array $listitems)
+    public function makeUnorderedList(array $listitems): \Teach\Adapters\RenderableInterface
     {
         return $this->makeList('ul', $listitems);
     }
@@ -124,7 +124,7 @@ final class Factory implements \Teach\Adapters\AdapterInterface
      *
      * @see \Teach\Interactors\LayoutFactoryInterface::makeTable()
      */
-    public function makeTable($caption, array $rows)
+    public function makeTable($caption, array $rows): \Teach\Adapters\RenderableInterface
     {
         $expectedCellCount = 0;
         foreach ($rows as $row) {
@@ -151,14 +151,14 @@ final class Factory implements \Teach\Adapters\AdapterInterface
      * @param string $text
      * @return \Teach\Adapters\HTML\Element
      */
-    public function makeHeader(string $level, string $text)
+    public function makeHeader(string $level, string $text): \Teach\Adapters\RenderableInterface
     {
         $header = $this->makeElement('h' . $level, []);
         $header->append($this->makeText($text));
         return $header;
     }
     
-    public function makeSection()
+    public function makeSection(): \Teach\Adapters\RenderableInterface
     {
         return $this->makeElement('section', []);
     }

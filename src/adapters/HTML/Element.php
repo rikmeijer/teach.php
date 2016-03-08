@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Adapters\HTML;
 
-final class Element implements RenderableInterface
+final class Element implements \Teach\Adapters\RenderableInterface
 {
 
     const VOIDS = [
@@ -43,7 +43,7 @@ final class Element implements RenderableInterface
         $this->attributes[] = $attributeIdentifier . '="' . $attributeValue . '"';
     }
 
-    public function append(RenderableInterface ...$children)
+    public function append(\Teach\Adapters\RenderableInterface ...$children)
     {
         $this->children = array_merge($this->children, $children);
     }
@@ -53,7 +53,7 @@ final class Element implements RenderableInterface
         $this->children = array_merge($this->children, $children);
     }
 
-    public function render()
+    public function render(): string
     {
         if (count($this->attributes) === 0) {
             $attributeHTML = '';

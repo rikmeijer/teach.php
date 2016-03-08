@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Adapters\HTML;
+namespace Teach\Adapters;
 
 interface RenderableInterface
 {    
@@ -7,5 +7,5 @@ interface RenderableInterface
      *
      * @return string
      */
-    public function render();
+    public function render(): string;
 }
