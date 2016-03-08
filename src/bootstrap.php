@@ -3,6 +3,8 @@ $environmentBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootst
 
 interface ApplicationBootstrap
 {
+    public function getHTMLFactory(): \Teach\Adapters\HTML\Factory;
+    
     public function createInteractionWeb(): \Teach\Interactors\Web\Lesplan\Factory;
 
     public function getDomainFactory(): \Teach\Domain\Factory;
@@ -37,5 +39,10 @@ return new class($environmentBootstrap) implements ApplicationBootstrap {
     public function createInteractionWeb(): \Teach\Interactors\Web\Lesplan\Factory
     {
         return new \Teach\Interactors\Web\Lesplan\Factory();
+    }
+    
+    public function getHTMLFactory(): \Teach\Adapters\HTML\Factory
+    {
+        return new \Teach\Adapters\HTML\Factory(__DIR__ . DIRECTORY_SEPARATOR . 'protected' . DIRECTORY_SEPARATOR . 'templates');
     }
 };

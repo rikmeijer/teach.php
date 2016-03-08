@@ -16,5 +16,5 @@ if ($lesplan === null) {
     exit();
 }
 
-$HTMLfactory = new \Teach\Adapters\HTML\Factory(__DIR__ . DIRECTORY_SEPARATOR . 'templates');
+$HTMLfactory = $applicationBootstrap->getHTMLFactory();
 print $lesplan->present($HTMLfactory);
