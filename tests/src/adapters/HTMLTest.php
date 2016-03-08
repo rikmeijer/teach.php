@@ -12,7 +12,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
              * @param int $expectedCellCount
              * @param array $data
              */
-            public function makeTableRow($expectedCellCount, array $data)
+            public function makeTableRow($expectedCellCount, array $data): \Teach\Adapters\RenderableInterface
             {
                 return null;
             }
@@ -21,7 +21,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
              *
              * @param array $listitems
              */
-            public function makeUnorderedList(array $listitems)
+            public function makeUnorderedList(array $listitems): \Teach\Adapters\RenderableInterface
             {
                 return null;
             }
@@ -31,7 +31,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
              * @param string $caption
              * @param array $rows
              */
-            public function makeTable($caption, array $rows)
+            public function makeTable($caption, array $rows): \Teach\Adapters\RenderableInterface
             {
                 return null;
             }
@@ -42,17 +42,17 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
              * @param string $text
              * @return \Teach\Adapters\HTML\Element
              */
-            public function makeHeader(string $level, string $text)
+            public function makeHeader(string $level, string $text): \Teach\Adapters\RenderableInterface
             {
                 return null;
             }
-            public function makeSection()
+            public function makeSection(): \Teach\Adapters\RenderableInterface
             {
                 return null;
             }
         });
         $html = $object->render(new class implements \Teach\Interactors\PresentableInterface {
-            public function present(\Teach\Adapters\AdapterInterface $factory): string
+            public function present(\Teach\Adapters\AdapterInterface $adapter): string
             {
                 return '<body></body>';
             }

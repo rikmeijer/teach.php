@@ -9,5 +9,5 @@ interface PresentableInterface
      * @param \Teach\Adapters\HTML\Factory $factory
      * @return string
      */
-    function present(\Teach\Adapters\AdapterInterface $factory): string;
+    function present(\Teach\Adapters\AdapterInterface $adapter): string;
 }

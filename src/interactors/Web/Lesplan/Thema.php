@@ -22,12 +22,12 @@ final class Thema implements \Teach\Interactors\PresentableInterface
         $this->activiteiten[] = $activiteit;
     }
     
-    public function present(\Teach\Adapters\AdapterInterface $factory): string
+    public function present(\Teach\Adapters\AdapterInterface $adapter): string
     {
-        $section = $factory->makeSection();
-        $section->append($factory->makeHeader('3', $this->title));
+        $section = $adapter->makeSection();
+        $section->append($adapter->makeHeader('3', $this->title));
         foreach ($this->activiteiten as $activiteit) {
-            $section->appendHTML($activiteit->present($factory));
+            $section->appendHTML($activiteit->present($adapter));
         }
         return $section->render();
     }

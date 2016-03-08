@@ -29,10 +29,10 @@ final class Contactmoment implements \Teach\Interactors\PresentableInterface
         $this->leerdoelen = $leerdoelen;
     }
     
-    public function present(\Teach\Adapters\AdapterInterface $factory): string
+    public function present(\Teach\Adapters\AdapterInterface $adapter): string
     {
-        $section = $factory->makeSection();
-        $section->append($factory->makeHeader('3', 'Beginsituatie'), $factory->makeTable(null, [
+        $section = $adapter->makeSection();
+        $section->append($adapter->makeHeader('3', 'Beginsituatie'), $adapter->makeTable(null, [
             [
                 'doelgroep' => $this->beginsituatie['doelgroep']['beschrijving'],
                 'ervaring' => $this->beginsituatie['doelgroep']['ervaring']
@@ -52,12 +52,12 @@ final class Contactmoment implements \Teach\Interactors\PresentableInterface
         ]));
         
         if (count($this->media) > 0) {
-            $section->append($factory->makeHeader('3', 'Media'), $factory->makeUnorderedList($this->media));
+            $section->append($adapter->makeHeader('3', 'Media'), $adapter->makeUnorderedList($this->media));
         }
         
-        $section->append($factory->makeHeader('3', 'Leerdoelen'));
+        $section->append($adapter->makeHeader('3', 'Leerdoelen'));
         $section->appendHTML('<p>Na afloop van de les kan de student:</p>');
-        $section->append($factory->makeUnorderedList($this->leerdoelen));
+        $section->append($adapter->makeUnorderedList($this->leerdoelen));
         
         return $section->render();
     }

@@ -41,9 +41,9 @@ final class Activiteit implements \Teach\Interactors\PresentableInterface
         $this->werkvorm = $werkvorm;
     }
 
-    public function present(\Teach\Adapters\AdapterInterface $factory): string
+    public function present(\Teach\Adapters\AdapterInterface $adapter): string
     {
-        return $factory->makeTable($this->caption, [
+        return $adapter->makeTable($this->caption, [
             [
                 'werkvorm' => $this->werkvorm['werkvorm'],
                 'organisatievorm' => $this->werkvorm['organisatievorm']

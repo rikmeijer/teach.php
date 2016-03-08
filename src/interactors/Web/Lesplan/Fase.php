@@ -22,12 +22,12 @@ final class Fase implements \Teach\Interactors\PresentableInterface
         $this->onderdelen[] = $onderdeel;
     }
 
-    public function present(\Teach\Adapters\AdapterInterface $factory): string
+    public function present(\Teach\Adapters\AdapterInterface $adapter): string
     {
-        $section = $factory->makeSection();
-        $section->append($factory->makeHeader('2', $this->title));
+        $section = $adapter->makeSection();
+        $section->append($adapter->makeHeader('2', $this->title));
         foreach ($this->onderdelen as $activiteit) {
-            $section->appendHTML($activiteit->present($factory));
+            $section->appendHTML($activiteit->present($adapter));
         }
         return $section->render();
     }
