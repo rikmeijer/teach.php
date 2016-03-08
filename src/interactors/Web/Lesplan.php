@@ -61,7 +61,6 @@ final class Lesplan implements \Teach\Interactors\PresentableInterface
     public function present(\Teach\Adapters\AdapterInterface $factory): string
     {
         $lines = [];
-        $lines[] = "<html>";
         $lines[] = $factory->renderTemplate("head.php");
         $lines[] = "<body>";
         $lines[] = $factory->renderTemplate("header.php", 'Lesplan ' . $this->vak, $this->opleiding);
@@ -77,7 +76,6 @@ final class Lesplan implements \Teach\Interactors\PresentableInterface
         $lines[] = $this->afsluiting->present($factory);
         
         $lines[] = "</body>";
-        $lines[] = "</html>";
         return join(PHP_EOL, $lines);
         
     }

@@ -10,13 +10,13 @@ final class HTML
      */
     private $factory;
     
-    public function __construct(HTML\Factory $factory)
+    public function __construct(AdapterInterface $factory)
     {
         $this->factory = $factory;
     }
     
     public function render(\Teach\Interactors\PresentableInterface $presentable)
     {
-        return '<!DOCTYPE html>' . $presentable->present($this->factory);
+        return '<!DOCTYPE html><html>' . $presentable->present($this->factory) . '</html>';
     }
 }

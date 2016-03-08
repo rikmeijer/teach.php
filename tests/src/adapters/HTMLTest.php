@@ -12,7 +12,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
                 return '<body></body>';
             }
         });
-        $this->assertEquals('<!DOCTYPE html><body></body>', $html);
+        $this->assertEquals('<!DOCTYPE html><html><body></body></html>', $html);
     }
     
     
