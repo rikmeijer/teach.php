@@ -22,7 +22,10 @@ final class HTML implements \Teach\Adapters\AdapterInterface
     public function makeDocument(\Teach\Interactors\PresentableInterface $presentable): \Teach\Adapters\RenderableInterface
     {
         $html = $this->makeElement('html', []);
-        $html->appendHTML($this->renderTemplate("head.php"));
+        $head = $this->makeElement('head', []);
+        // @TODO: remove specific les head contents
+        $head->appendHTML('<meta charset="UTF-8"><title>Lesplan</title><link rel="stylesheet" type="text/css" href="lesplan.css">');
+        $html->append($head);
         $body = $this->makeElement('body', []);
         $body->appendHTML($presentable->present($this));
         $html->append($body);

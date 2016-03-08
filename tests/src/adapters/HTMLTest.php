@@ -33,16 +33,13 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
     
     public function testMakeDocument()
     {
-        file_put_contents(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'head.php', '<?php return function (\Teach\Adapters\AdapterInterface $adapter) { return "<head></head>"; };');
-        
         $element = $this->object->makeDocument(new class implements \Teach\Interactors\PresentableInterface {
             public function present(\Teach\Adapters\AdapterInterface $adapter): string
             {
                 return '<p>Hello World</p>';
             }
         });
-
-        $this->assertEquals('<!DOCTYPE html><html><head></head><body><p>Hello World</p></body></html>', $element->render());
+        $this->assertEquals('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Lesplan</title><link rel="stylesheet" type="text/css" href="lesplan.css"></head><body><p>Hello World</p></body></html>', $element->render());
     }
 
     public function testmakeElement()
