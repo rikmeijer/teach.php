@@ -10,7 +10,7 @@ final class HTML implements \Teach\Interactions\Documenter
      *
      * @see \Teach\Interactions\Documenter::makeDocument($presentable)
      */
-    public function makeDocument(\Teach\Interactions\Presentable $presentable): \Teach\Adapters\Renderable
+    public function makeDocument(\Teach\Interactions\Documentable $presentable): \Teach\Adapters\Renderable
     {
         $html = $this->makeElement('html', []);
         $head = $this->makeElement('head', []);

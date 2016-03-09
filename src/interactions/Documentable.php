@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Interactions;
 
-interface Presentable
+interface Documentable
 {
 
     /**

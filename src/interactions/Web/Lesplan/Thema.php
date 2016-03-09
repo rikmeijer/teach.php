@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Interactions\Web\Lesplan;
 
-final class Thema implements \Teach\Interactions\Presentable
+final class Thema implements \Teach\Interactions\Documentable
 {
 
     private $title;

@@ -6,10 +6,10 @@ interface Documenter
 
     /**
      *
-     * @param \Teach\Interactions\Presentable $presentable            
+     * @param \Teach\Interactions\Documentable $presentable            
      * @return \Teach\Adapters\Renderable
      */
-    public function makeDocument(\Teach\Interactions\Presentable $presentable): \Teach\Adapters\Renderable;
+    public function makeDocument(\Teach\Interactions\Documentable $presentable): \Teach\Adapters\Renderable;
 
     /**
      *

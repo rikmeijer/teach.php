@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Interactions\Web;
 
-final class Lesplan implements \Teach\Interactions\Presentable
+final class Lesplan implements \Teach\Interactions\Documentable
 {
 
     /**
