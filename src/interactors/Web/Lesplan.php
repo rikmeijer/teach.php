@@ -58,7 +58,7 @@ final class Lesplan implements \Teach\Interactors\Presentable
         $this->afsluiting = $afsluiting;
     }
 
-    public function present(\Teach\Adapters\Documenter $adapter): string
+    public function present(\Teach\Interactors\Documenter $adapter): string
     {
         $lines = [];
         $lines[] = $adapter->makeFirstPage('Lesplan ' . $this->vak, $this->opleiding)->render();

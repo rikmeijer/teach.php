@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Interactors\Web\Lesplan;
 
-use \Teach\Adapters\HTML\Factory as HTMLFactory;
+use \Teach\Interactors\HTML\Factory as HTMLFactory;
 
 class ThemaTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,12 +1,12 @@
 <?php
-namespace Teach\Adapters\Document;
+namespace Teach\Interactors\Document;
 
-final class HTML implements \Teach\Adapters\Documenter
+final class HTML implements \Teach\Interactors\Documenter
 {    
     /**
      * 
      * {@inheritDoc}
-     * @see \Teach\Adapters\Documenter::makeDocument($presentable)
+     * @see \Teach\Interactors\Documenter::makeDocument($presentable)
      */
     public function makeDocument(\Teach\Interactors\Presentable $presentable): \Teach\Adapters\Renderable
     {
@@ -24,7 +24,7 @@ final class HTML implements \Teach\Adapters\Documenter
     /**
      * 
      * {@inheritDoc}
-     * @see \Teach\Adapters\Documenter::makePageHeader($title, $subtitle)
+     * @see \Teach\Interactors\Documenter::makePageHeader($title, $subtitle)
      */
     public function makeFirstPage(string $title, string $subtitle): \Teach\Adapters\Renderable
     {
@@ -38,7 +38,7 @@ final class HTML implements \Teach\Adapters\Documenter
      * 
      * @param string $tagName
      * @param array $attributes
-     * @return \Teach\Adapters\HTML\Element
+     * @return \Teach\Interactors\HTML\Element
      */
     public function makeElement(string $tagName, array $attributes): \Teach\Adapters\Renderable
     {
@@ -54,7 +54,7 @@ final class HTML implements \Teach\Adapters\Documenter
     /**
      *
      * @param string $text            
-     * @return \Teach\Adapters\HTML\Text
+     * @return \Teach\Interactors\HTML\Text
      */
     public function makeText($text): \Teach\Adapters\Renderable
     {
@@ -158,7 +158,7 @@ final class HTML implements \Teach\Adapters\Documenter
      * 
      * @param string $level
      * @param string $text
-     * @return \Teach\Adapters\HTML\Element
+     * @return \Teach\Interactors\HTML\Element
      */
     public function makeHeader(string $level, string $text): \Teach\Adapters\Renderable
     {

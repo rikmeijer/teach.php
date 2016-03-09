@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Adapters;
+namespace Teach\Interactors;
 
 interface Documenter
 {
@@ -42,7 +42,7 @@ interface Documenter
      * 
      * @param string $level
      * @param string $text
-     * @return \Teach\Adapters\HTML\Element
+     * @return \Teach\Interactors\HTML\Element
      */
     public function makeHeader(string $level, string $text): \Teach\Adapters\Renderable;
     

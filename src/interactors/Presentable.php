@@ -6,8 +6,8 @@ interface Presentable
     
     /**
      * 
-     * @param \Teach\Adapters\HTML\Factory $factory
+     * @param \Teach\Interactors\HTML\Factory $factory
      * @return string
      */
-    function present(\Teach\Adapters\Documenter $adapter): string;
+    function present(\Teach\Interactors\Documenter $adapter): string;
 }

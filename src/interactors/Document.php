@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Adapters;
+namespace Teach\Interactors;
 
 final class Document
 {    

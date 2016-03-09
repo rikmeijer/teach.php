@@ -1,11 +1,11 @@
 <?php
-namespace Teach\Adapters;
+namespace Teach\Interactors;
 
 class DocumentTest extends \PHPUnit_Framework_TestCase
 {
     public function testRender()
     {
-        $object = new Document(new class implements \Teach\Adapters\Documenter {
+        $object = new Document(new class implements \Teach\Interactors\Documenter {
 
             public function makeDocument(\Teach\Interactors\Presentable $presentable): \Teach\Adapters\Renderable
             {
@@ -67,7 +67,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
              *
              * @param string $level
              * @param string $text
-             * @return \Teach\Adapters\HTML\Element
+             * @return \Teach\Interactors\HTML\Element
              */
             public function makeHeader(string $level, string $text): \Teach\Adapters\Renderable
             {
@@ -78,8 +78,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
                 return null;
             }
         });
+        
         $html = $object->render(new class implements \Teach\Interactors\Presentable {
-            public function present(\Teach\Adapters\Documenter $adapter): string
+            public function present(\Teach\Interactors\Documenter $adapter): string
             {
                 return '<p>Hello World</p>';
             }

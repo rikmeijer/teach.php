@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Adapters\Document;
+namespace Teach\Interactors\Document;
 
 class HTMLTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,7 +18,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
     public function testMakeDocument()
     {
         $element = $this->object->makeDocument(new class implements \Teach\Interactors\Presentable {
-            public function present(\Teach\Adapters\Documenter $adapter): string
+            public function present(\Teach\Interactors\Documenter $adapter): string
             {
                 return '<p>Hello World</p>';
             }
