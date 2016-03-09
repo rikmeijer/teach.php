@@ -8,9 +8,9 @@ final class HTML implements \Teach\Interactions\Documenter
      *
      * {@inheritDoc}
      *
-     * @see \Teach\Interactions\Documenter::makeDocument($presentable)
+     * @see \Teach\Interactions\Documenter::makeDocument($documentable)
      */
-    public function makeDocument(\Teach\Interactions\Documentable $presentable): \Teach\Adapters\Renderable
+    public function makeDocument(\Teach\Interactions\Documentable $documentable): \Teach\Adapters\Renderable
     {
         $html = $this->makeElement('html', []);
         $head = $this->makeElement('head', []);
@@ -18,7 +18,7 @@ final class HTML implements \Teach\Interactions\Documenter
         $head->appendHTML('<meta charset="UTF-8"><title>Lesplan</title><link rel="stylesheet" type="text/css" href="lesplan.css">');
         $html->append($head);
         $body = $this->makeElement('body', []);
-        $body->appendHTML($presentable->document($this));
+        $body->appendHTML($documentable->document($this));
         $html->append($body);
         return $html;
     }

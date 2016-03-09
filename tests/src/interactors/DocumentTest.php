@@ -8,9 +8,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
     {
         $object = new Document(new class() implements \Teach\Interactions\Documenter {
 
-            public function makeDocument(\Teach\Interactions\Documentable $presentable): \Teach\Adapters\Renderable
+            public function makeDocument(\Teach\Interactions\Documentable $documentable): \Teach\Adapters\Renderable
             {
-                return new class($presentable->document($this)) implements \Teach\Adapters\Renderable {
+                return new class($documentable->document($this)) implements \Teach\Adapters\Renderable {
 
                     /**
                      *
