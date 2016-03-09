@@ -5,7 +5,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 {
     public function testRender()
     {
-        $object = new Document(new class implements \Teach\Adapters\Documentable {
+        $object = new Document(new class implements \Teach\Adapters\Documenter {
 
             public function makeDocument(\Teach\Interactors\Presentable $presentable): \Teach\Adapters\Renderable
             {
@@ -79,7 +79,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
             }
         });
         $html = $object->render(new class implements \Teach\Interactors\Presentable {
-            public function present(\Teach\Adapters\Documentable $adapter): string
+            public function present(\Teach\Adapters\Documenter $adapter): string
             {
                 return '<p>Hello World</p>';
             }
