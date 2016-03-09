@@ -22,12 +22,12 @@ final class Fase implements \Teach\Interactions\Documentable
         $this->onderdelen[] = $onderdeel;
     }
 
-    public function present(\Teach\Interactions\Documenter $adapter): string
+    public function document(\Teach\Interactions\Documenter $adapter): string
     {
         $section = $adapter->makeSection();
         $section->append($adapter->makeHeader('2', $this->title));
         foreach ($this->onderdelen as $activiteit) {
-            $section->appendHTML($activiteit->present($adapter));
+            $section->appendHTML($activiteit->document($adapter));
         }
         return $section->render();
     }

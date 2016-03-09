@@ -29,7 +29,7 @@ final class Contactmoment implements \Teach\Interactions\Documentable
         $this->leerdoelen = $leerdoelen;
     }
 
-    public function present(\Teach\Interactions\Documenter $adapter): string
+    public function document(\Teach\Interactions\Documenter $adapter): string
     {
         $section = $adapter->makeSection();
         $section->append($adapter->makeHeader('3', 'Beginsituatie'), $adapter->makeTable(null, [

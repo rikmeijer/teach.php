@@ -18,7 +18,7 @@ final class HTML implements \Teach\Interactions\Documenter
         $head->appendHTML('<meta charset="UTF-8"><title>Lesplan</title><link rel="stylesheet" type="text/css" href="lesplan.css">');
         $html->append($head);
         $body = $this->makeElement('body', []);
-        $body->appendHTML($presentable->present($this));
+        $body->appendHTML($presentable->document($this));
         $html->append($body);
         return $html;
     }

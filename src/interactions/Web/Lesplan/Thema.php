@@ -22,12 +22,12 @@ final class Thema implements \Teach\Interactions\Documentable
         $this->activiteiten[] = $activiteit;
     }
 
-    public function present(\Teach\Interactions\Documenter $adapter): string
+    public function document(\Teach\Interactions\Documenter $adapter): string
     {
         $section = $adapter->makeSection();
         $section->append($adapter->makeHeader('3', $this->title));
         foreach ($this->activiteiten as $activiteit) {
-            $section->appendHTML($activiteit->present($adapter));
+            $section->appendHTML($activiteit->document($adapter));
         }
         return $section->render();
     }
