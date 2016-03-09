@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Domain\Lesplan;
 
-class Introductie implements \Teach\Interactors\Interactable
+class Introductie implements \Teach\Interactions\Interactable
 {
 
     /**
@@ -45,10 +45,10 @@ class Introductie implements \Teach\Interactors\Interactable
 
     /**
      *
-     * @param \Teach\Interactors\Web\Lesplan\Factory $factory            
-     * @return \Teach\Interactors\Presentable
+     * @param \Teach\Interactions\Web\Lesplan\Factory $factory            
+     * @return \Teach\Interactions\Presentable
      */
-    public function interact(\Teach\Interactors\Web\Lesplan\Factory $factory): \Teach\Interactors\Presentable
+    public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Presentable
     {
         return $factory->createIntroductie($factory->createActiviteit("Activerende opening", $this->opening), $factory->createActiviteit("Focus", $this->focus), $factory->createActiviteit("Voorstellen", $this->voorstellen), $factory->createActiviteit("Kennismaken", $this->kennismaken), $factory->createActiviteit("Terugblik", $this->terugblik));
     }

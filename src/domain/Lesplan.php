@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Domain;
 
-class Lesplan implements \Teach\Interactors\Interactable
+class Lesplan implements \Teach\Interactions\Interactable
 {
 
     /**
@@ -45,17 +45,16 @@ class Lesplan implements \Teach\Interactors\Interactable
         $this->introductie = $introductie;
         
         $this->kern = $kern;
-
-        $this->afsluiting = $afsluiting;
         
+        $this->afsluiting = $afsluiting;
     }
 
     /**
-     * 
-     * @param \Teach\Interactors\Web\Lesplan\Factory $factory
-     * @return \Teach\Interactors\Presentable
+     *
+     * @param \Teach\Interactions\Web\Lesplan\Factory $factory            
+     * @return \Teach\Interactions\Presentable
      */
-    public function interact(\Teach\Interactors\Web\Lesplan\Factory $factory): \Teach\Interactors\Presentable
+    public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Presentable
     {
         return $factory->createLesplan($this->opleiding, $this->vak, $this->les, $this->beginsituatie->interact($factory), $this->introductie->interact($factory), $this->kern->interact($factory), $this->afsluiting->interact($factory));
     }

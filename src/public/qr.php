@@ -12,4 +12,4 @@ $writer = new \BaconQrCode\Writer($renderer);
 
 header('Content-Type: image/png');
 print $writer->writeString($_GET['data']);
-exit;
+exit();

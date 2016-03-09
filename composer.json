@@ -4,7 +4,7 @@
 	"autoload" : {
 		"psr-4" : {
 			"Teach\\Domain\\" : "src/domain",
-			"Teach\\Interactors\\" : "src/interactors",
+			"Teach\\Interactions\\" : "src/interactions",
 			"Teach\\Adapters\\" : "src/adapters"
 		}
 	},

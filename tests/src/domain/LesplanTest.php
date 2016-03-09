@@ -6,11 +6,12 @@ namespace Teach\Domain;
  */
 class LesplanTest extends \Teach\DomainTest
 {
+
     public function testInteract()
-    {   
+    {
         $factory = new Factory(self::$pdo);
         $object = $factory->createLesplan('1');
-        $lesplanlayout = $object->interact(new \Teach\Interactors\Web\Lesplan\Factory());
-        $this->assertInstanceOf('\Teach\Interactors\Web\Lesplan', $lesplanlayout);
+        $lesplanlayout = $object->interact(new \Teach\Interactions\Web\Lesplan\Factory());
+        $this->assertInstanceOf('\Teach\Interactions\Web\Lesplan', $lesplanlayout);
     }
 }

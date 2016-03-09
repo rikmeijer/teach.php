@@ -2,7 +2,8 @@
 namespace Teach\Adapters;
 
 interface Renderable
-{    
+{
+
     /**
      *
      * @return string

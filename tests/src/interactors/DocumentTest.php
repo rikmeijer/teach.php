@@ -1,26 +1,28 @@
 <?php
-namespace Teach\Interactors;
+namespace Teach\Interactions;
 
 class DocumentTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testRender()
     {
-        $object = new Document(new class implements \Teach\Interactors\Documenter {
+        $object = new Document(new class() implements \Teach\Interactions\Documenter {
 
-            public function makeDocument(\Teach\Interactors\Presentable $presentable): \Teach\Adapters\Renderable
+            public function makeDocument(\Teach\Interactions\Presentable $presentable): \Teach\Adapters\Renderable
             {
                 return new class($presentable->present($this)) implements \Teach\Adapters\Renderable {
-                    
+
                     /**
+                     *
                      * @var string
                      */
                     private $content;
-                    
+
                     public function __construct(string $content)
                     {
-                        $this->content = $content;   
+                        $this->content = $content;
                     }
-                    
+
                     public function render(): string
                     {
                         return '<html><head></head><body>' . $this->content . '</body></html>';
@@ -32,61 +34,60 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
             {
                 return null;
             }
-            
-            
+
             /**
              *
-             * @param int $expectedCellCount
-             * @param array $data
+             * @param int $expectedCellCount            
+             * @param array $data            
              */
             public function makeTableRow($expectedCellCount, array $data): \Teach\Adapters\Renderable
             {
                 return null;
             }
-            
+
             /**
              *
-             * @param array $listitems
+             * @param array $listitems            
              */
             public function makeUnorderedList(array $listitems): \Teach\Adapters\Renderable
             {
                 return null;
             }
-            
+
             /**
              *
-             * @param string $caption
-             * @param array $rows
+             * @param string $caption            
+             * @param array $rows            
              */
             public function makeTable($caption, array $rows): \Teach\Adapters\Renderable
             {
                 return null;
             }
-            
+
             /**
              *
-             * @param string $level
-             * @param string $text
-             * @return \Teach\Interactors\HTML\Element
+             * @param string $level            
+             * @param string $text            
+             * @return \Teach\Interactions\HTML\Element
              */
             public function makeHeader(string $level, string $text): \Teach\Adapters\Renderable
             {
                 return null;
             }
+
             public function makeSection(): \Teach\Adapters\Renderable
             {
                 return null;
             }
         });
         
-        $html = $object->render(new class implements \Teach\Interactors\Presentable {
-            public function present(\Teach\Interactors\Documenter $adapter): string
+        $html = $object->render(new class() implements \Teach\Interactions\Presentable {
+
+            public function present(\Teach\Interactions\Documenter $adapter): string
             {
                 return '<p>Hello World</p>';
             }
         });
         $this->assertEquals('<html><head></head><body><p>Hello World</p></body></html>', $html);
     }
-    
-    
 }

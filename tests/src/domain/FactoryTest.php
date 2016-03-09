@@ -6,6 +6,7 @@ namespace Teach\Domain;
  */
 class FactoryTest extends \Teach\DomainTest
 {
+
     public function testCreateLesplan()
     {
         $object = new Factory(self::$pdo);

@@ -1,12 +1,12 @@
 <?php
-namespace Teach\Interactors\Web\Lesplan;
+namespace Teach\Interactions\Web\Lesplan;
 
-final class Contactmoment implements \Teach\Interactors\Presentable
+final class Contactmoment implements \Teach\Interactions\Presentable
 {
 
     /**
      *
-     * @var \Teach\Interactors\Web\Lesplan\Beginsituatie
+     * @var \Teach\Interactions\Web\Lesplan\Beginsituatie
      */
     private $beginsituatie;
 
@@ -28,8 +28,8 @@ final class Contactmoment implements \Teach\Interactors\Presentable
         $this->media = $media;
         $this->leerdoelen = $leerdoelen;
     }
-    
-    public function present(\Teach\Interactors\Documenter $adapter): string
+
+    public function present(\Teach\Interactions\Documenter $adapter): string
     {
         $section = $adapter->makeSection();
         $section->append($adapter->makeHeader('3', 'Beginsituatie'), $adapter->makeTable(null, [

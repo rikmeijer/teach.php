@@ -47,7 +47,7 @@ final class Element implements \Teach\Adapters\Renderable
     {
         $this->children = array_merge($this->children, $children);
     }
-    
+
     public function appendHTML(string ...$children)
     {
         $this->children = array_merge($this->children, $children);
@@ -60,7 +60,7 @@ final class Element implements \Teach\Adapters\Renderable
         } else {
             $attributeHTML = ' ' . join(' ', $this->attributes);
         }
-
+        
         $html = '';
         if ($this->tagName === 'html') {
             $html .= '<!DOCTYPE html>';

@@ -5,7 +5,7 @@ if (array_key_exists('contactmoment', $_GET) === false) {
 }
 
 /**
- * 
+ *
  * @var \ApplicationBootstrap $applicationBootstrap
  */
 $applicationBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';

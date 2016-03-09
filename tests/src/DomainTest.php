@@ -6,15 +6,17 @@ namespace Teach;
  */
 abstract class DomainTest extends \PHPUnit_Extensions_Database_TestCase
 {
+
     /**
-     * 
+     *
      * @var \PDO
      */
     static $pdo;
-    
+
     private $connection;
-    
+
     /**
+     *
      * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
      */
     public function getConnection()
@@ -39,6 +41,7 @@ abstract class DomainTest extends \PHPUnit_Extensions_Database_TestCase
     }
 
     /**
+     *
      * @return PHPUnit_Extensions_Database_DataSet_IDataSet
      */
     public function getDataSet()

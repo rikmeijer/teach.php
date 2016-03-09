@@ -3,13 +3,14 @@ namespace Teach\Adapters\HTML;
 
 class ElementTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testRenderHTMLRoot()
     {
         $object = new Element("html");
         $html = $object->render();
         $this->assertEquals('<!DOCTYPE html><html></html>', $html);
     }
-    
+
     public function testRender()
     {
         $object = new Element("table");
@@ -25,7 +26,6 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<table class="twin-cell"></table>', $html);
     }
 
-
     public function testRenderChild()
     {
         $object = new Element("table");
@@ -33,7 +33,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $html = $object->render();
         $this->assertEquals('<table><tr></tr></table>', $html);
     }
-    
+
     public function testRenderAppendedHTML()
     {
         $object = new Element("table");
@@ -41,7 +41,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $html = $object->render();
         $this->assertEquals('<table><tr></tr></table>', $html);
     }
-    
+
     public function testRenderChildren()
     {
         $object = new Element("table");
@@ -57,10 +57,27 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $html = $object->render();
         $this->assertEquals('<table>tr</table>', $html);
     }
-    
+
     public function testRenderVoid()
     {
-        $voids = ['br', 'hr', 'img', 'input', 'link', 'meta', 'area', 'base', 'col', 'embed', 'keygen', 'menuitem', 'param', 'source', 'track', 'wbr'];
+        $voids = [
+            'br',
+            'hr',
+            'img',
+            'input',
+            'link',
+            'meta',
+            'area',
+            'base',
+            'col',
+            'embed',
+            'keygen',
+            'menuitem',
+            'param',
+            'source',
+            'track',
+            'wbr'
+        ];
         foreach ($voids as $void) {
             $object = new Element($void);
             $html = $object->render();

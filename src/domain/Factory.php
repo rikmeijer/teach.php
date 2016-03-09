@@ -21,18 +21,18 @@ class Factory
     }
 
     /**
-     * 
-     * @param string $identifier
-     * @return \Teach\Interactors\Interactable
+     *
+     * @param string $identifier            
+     * @return \Teach\Interactions\Interactable
      */
-    public function createLesplan($identifier): \Teach\Interactors\Interactable
+    public function createLesplan($identifier): \Teach\Interactions\Interactable
     {
         $contactmoment = $this->getContactmoment($identifier);
-
+        
         $introductie = $this->createIntroductie($contactmoment['activerende_opening_id'], $contactmoment['focus_id'], $contactmoment['voorstellen_id'], $contactmoment['kennismaken_id'], $contactmoment['terugblik_id']);
         
         $kern = $this->createKern($contactmoment['lesplan_id']);
-
+        
         $media = $this->getMedia($contactmoment['lesplan_id']);
         $leerdoelen = $this->getLeerdoelen($contactmoment['lesplan_id']);
         $beginsituatie = $this->createBeginsituatie([
@@ -47,46 +47,46 @@ class Factory
             'ruimte' => $contactmoment['ruimte'],
             'overige' => $contactmoment['opmerkingen']
         ], $media, $leerdoelen);
-
+        
         $afsluiting = $this->createAfsluiting($contactmoment['huiswerk_id'], $contactmoment['evaluatie_id'], $contactmoment['pakkend_slot_id']);
         
         return new Lesplan($contactmoment['opleiding'], $contactmoment['vak'], $contactmoment['les'], $beginsituatie, $introductie, $kern, $afsluiting);
     }
 
     /**
-     * 
-     * @param string $huiswerkIdentifier
-     * @param string $evaluatieIdentifier
-     * @param string $slotIdentifier
-     * @return \Teach\Interactors\Interactable
+     *
+     * @param string $huiswerkIdentifier            
+     * @param string $evaluatieIdentifier            
+     * @param string $slotIdentifier            
+     * @return \Teach\Interactions\Interactable
      */
-    private function createAfsluiting(string $huiswerkIdentifier = null, string $evaluatieIdentifier = null, string $slotIdentifier = null): \Teach\Interactors\Interactable
+    private function createAfsluiting(string $huiswerkIdentifier = null, string $evaluatieIdentifier = null, string $slotIdentifier = null): \Teach\Interactions\Interactable
     {
         return new Lesplan\Afsluiting($this->getActiviteit($huiswerkIdentifier), $this->getActiviteit($evaluatieIdentifier), $this->getActiviteit($slotIdentifier));
     }
 
     /**
      *
-     * @param string $huiswerkIdentifier
-     * @param string $evaluatieIdentifier
-     * @param string $slotIdentifier
-     * @return \Teach\Interactors\Interactable
+     * @param string $huiswerkIdentifier            
+     * @param string $evaluatieIdentifier            
+     * @param string $slotIdentifier            
+     * @return \Teach\Interactions\Interactable
      */
-    private function createBeginsituatie(array $beginsituatie, array $media, array $leerdoelen): \Teach\Interactors\Interactable
+    private function createBeginsituatie(array $beginsituatie, array $media, array $leerdoelen): \Teach\Interactions\Interactable
     {
         return new Lesplan\Beginsituatie($beginsituatie, $media, $leerdoelen);
     }
-    
+
     /**
-     * 
-     * @param string $lesplanIdentifier
-     * @return \Teach\Interactors\Interactable
+     *
+     * @param string $lesplanIdentifier            
+     * @return \Teach\Interactions\Interactable
      */
-    private function createKern(string $lesplanIdentifier): \Teach\Interactors\Interactable
+    private function createKern(string $lesplanIdentifier): \Teach\Interactions\Interactable
     {
         return new Lesplan\Kern($this->getKern($lesplanIdentifier));
     }
-    
+
     private function createIntroductie(string $openingIdentifier = null, string $focusIdentifier = null, string $voorstellenIdentifier = null, string $kennismakenIdentifier = null, string $terugblikIdentifier = null)
     {
         return new Lesplan\Introductie($this->getActiviteit($openingIdentifier), $this->getActiviteit($focusIdentifier), $this->getActiviteit($voorstellenIdentifier), $this->getActiviteit($kennismakenIdentifier), $this->getActiviteit($terugblikIdentifier));
@@ -179,7 +179,7 @@ class Factory
     {
         return array_keys($this->getKern($les_id));
     }
-    
+
     private function getMedia($les_id)
     {
         if ($les_id === null) {

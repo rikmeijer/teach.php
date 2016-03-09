@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Interactors\Document;
+namespace Teach\Interactions\Document;
 
 class HTMLTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,11 +14,12 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
     {
         $this->object = new HTML();
     }
-    
+
     public function testMakeDocument()
     {
-        $element = $this->object->makeDocument(new class implements \Teach\Interactors\Presentable {
-            public function present(\Teach\Interactors\Documenter $adapter): string
+        $element = $this->object->makeDocument(new class() implements \Teach\Interactions\Presentable {
+
+            public function present(\Teach\Interactions\Documenter $adapter): string
             {
                 return '<p>Hello World</p>';
             }
@@ -31,18 +32,19 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
         $element = $this->object->makeFirstPage('TITLE', 'SUBTITLE');
         $this->assertEquals('<header><h1>TITLE</h1><h2>SUBTITLE</h2></header>', $element->render());
     }
-    
+
     public function testmakeElement()
     {
         $element = $this->object->makeElement('a', []);
         $element->append($this->object->makeText('Hello World'));
-
+        
         $this->assertEquals('<a>Hello World</a>', $element->render());
     }
 
     public function testmakeText()
     {
-        $this->assertEquals('Hello World', $this->object->makeText('Hello World')->render());
+        $this->assertEquals('Hello World', $this->object->makeText('Hello World')
+            ->render());
     }
 
     public function testmakeElementWithMultipleChildren()
@@ -69,7 +71,8 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
                     'C'
                 ]
             ]
-        ])->render());
+        ])
+            ->render());
     }
 
     public function testMakeTableNoCaption()
@@ -78,14 +81,16 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
             [
                 "inhoud" => "bladiebla"
             ]
-        ])->render());
+        ])
+            ->render());
     }
 
     public function testMakeTableRow()
     {
         $this->assertEquals('<tr><th>inhoud</th><td id="inhoud">bladiebla</td></tr>', $this->object->makeTableRow(2, [
             "inhoud" => "bladiebla"
-        ])->render());
+        ])
+            ->render());
     }
 
     public function testMakeTableRowWithUnorderedList()
@@ -96,14 +101,16 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
                 'B',
                 'C'
             ]
-        ])->render());
+        ])
+            ->render());
     }
 
     public function testMakeTableRowWithSpanningCell()
     {
         $this->assertEquals('<tr><th>inhoud</th><td id="inhoud" colspan="3">bladiebla</td></tr>', $this->object->makeTableRow(4, [
             "inhoud" => "bladiebla"
-        ])->render());
+        ])
+            ->render());
     }
 
     public function testMakeUnorderedList()
@@ -112,16 +119,19 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
             "A",
             "B",
             "C"
-        ])->render());
+        ])
+            ->render());
     }
 
     public function testMakeHeader()
     {
-        $this->assertEquals('<h3>HeaderHeader</h3>', $this->object->makeHeader('3', 'HeaderHeader')->render());
+        $this->assertEquals('<h3>HeaderHeader</h3>', $this->object->makeHeader('3', 'HeaderHeader')
+            ->render());
     }
-    
+
     public function testMakeSection()
     {
-        $this->assertEquals('<section></section>', $this->object->makeSection()->render());
+        $this->assertEquals('<section></section>', $this->object->makeSection()
+            ->render());
     }
 }

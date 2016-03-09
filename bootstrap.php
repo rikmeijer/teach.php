@@ -1,21 +1,21 @@
 <?php
 
-interface EnvironmentBootstrap {
+interface EnvironmentBootstrap
+{
 
     /**
      *
      * @return PDO
      */
     public function getDatabase(): \PDO;
-    
-    public function getInteractorFactory(): \Teach\Interactors\Factory;
-}
 
+    public function getInteractorFactory(): \Teach\Interactions\Factory;
+}
 
 return new class() implements EnvironmentBootstrap {
 
     private $resources;
-    
+
     public function __construct()
     {
         require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
@@ -57,9 +57,9 @@ return new class() implements EnvironmentBootstrap {
         
         return new PDO('mysql:' . join(';', $dsn), $user, $password);
     }
-    
-    public function getInteractorFactory(): \Teach\Interactors\Factory
+
+    public function getInteractorFactory(): \Teach\Interactions\Factory
     {
-        return new \Teach\Interactors\Factory();
+        return new \Teach\Interactions\Factory();
     }
 };

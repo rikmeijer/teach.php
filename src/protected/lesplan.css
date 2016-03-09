@@ -1,26 +1,25 @@
 @CHARSET "UTF-8";
 
-
-
 /**
 ColorBlender.com pallette
 HTML rgb(149, 0, 32)	rgb(99, 0, 21)		rgb(199, 0, 43) 	rgb(255, 192, 206) 		rgb(172, 172, 172)		rgb(248, 237, 238)
 Please adhere to above color codes
 **/
 @page {
-    size: A4 portrait;
-    margin: 25mm 10mm; /* change the margins as you want them to be. */
+	size: A4 portrait;
+	margin: 25mm 10mm; /* change the margins as you want them to be. */
 }
+
 html, body {
 	margin: 0;
-	padding:0;
+	padding: 0;
 }
+
 body {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 12pt;
 	line-height: 1.5em;
 	background: #ffffff;
-
 }
 
 body header {
@@ -29,21 +28,24 @@ body header {
 	height: 94px;
 	width: 210mm;
 	margin: 0 auto;
-	padding-top:20px;
+	padding-top: 20px;
 }
+
 body header:before {
 	content: url(/avans_logo.png);
-	float:right;
+	float: right;
 }
+
 body header h1 {
 	color: rgb(226, 19, 80);
-	font-style:italic;
-	margin-top:10px;
+	font-style: italic;
+	margin-top: 10px;
 }
+
 body header h2 {
 	color: rgb(149, 0, 32);
-	font-style:italic;
-	margin-top:10px;
+	font-style: italic;
+	margin-top: 10px;
 }
 
 body>section {
