@@ -25,7 +25,10 @@ class Kern implements \Teach\Interactions\Interactable
         $kern = $factory->createFase('2', "Kern");
         $themaCount = 0;
         foreach ($this->themas as $themaIdentifier => $themaDefinition) {
-            $thema = $factory->createThema('Thema ' . (++ $themaCount) . ': ' . $themaIdentifier, $themaDefinition);
+            $thema = $factory->createFase('3', 'Thema ' . (++ $themaCount) . ': ' . $themaIdentifier);
+            foreach ($themaDefinition as $activiteitIdentifier => $activiteitDefinition) {
+                $thema->addOnderdeel($factory->createActiviteit($activiteitIdentifier, $activiteitDefinition));
+            }
             $kern->addOnderdeel($thema);
         }
         return $kern;

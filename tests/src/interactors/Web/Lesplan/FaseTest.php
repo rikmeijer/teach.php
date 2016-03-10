@@ -8,7 +8,7 @@ class FaseTest extends \PHPUnit_Framework_TestCase
     {
         $object = new Fase("2", "Kern");
         
-        $object->addOnderdeel($onderdeel = new Thema("Thema 1: zelf de motor reviseren"));
+        $object->addOnderdeel(new Fase('3', "Thema 1: zelf de motor reviseren"));
         
         $html = $object->document(\Test\Helper::implementDocumenter());
         

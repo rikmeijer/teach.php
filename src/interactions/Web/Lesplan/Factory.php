@@ -17,22 +17,6 @@ final class Factory
 
     /**
      *
-     * @param string $title            
-     * @param
-     *            \Teach\Interactions\Web\Lesplan\Activiteit[]
-     * @return \Teach\Interactions\Web\Lesplan\Thema
-     */
-    public function createThema($title, array $activiteiten)
-    {
-        $thema = new Thema($title);
-        foreach ($activiteiten as $activiteitIdentifier => $activiteitDefinition) {
-            $thema->addActiviteit($this->createActiviteit($activiteitIdentifier, $activiteitDefinition));
-        }
-        return $thema;
-    }
-
-    /**
-     *
      * @param string $headerLevel            
      * @param string $title            
      * @return \Teach\Interactions\Web\Lesplan\Fase
