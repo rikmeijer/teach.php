@@ -3,7 +3,16 @@ namespace Teach\Interactions\Web\Lesplan;
 
 final class Fase implements \Teach\Interactions\Documentable
 {
-
+    /**
+     * 
+     * @var string
+     */
+    private $headerLevel;
+    
+    /**
+     * 
+     * @var string
+     */
     private $title;
 
     /**
@@ -12,8 +21,9 @@ final class Fase implements \Teach\Interactions\Documentable
      */
     private $onderdelen = array();
 
-    public function __construct($title)
+    public function __construct($headerLevel, $title)
     {
+        $this->headerLevel = $headerLevel;
         $this->title = $title;
     }
 
@@ -25,7 +35,7 @@ final class Fase implements \Teach\Interactions\Documentable
     public function document(\Teach\Interactions\Documenter $adapter): string
     {
         $section = $adapter->makeSection();
-        $section->append($adapter->makeHeader('2', $this->title));
+        $section->append($adapter->makeHeader($this->headerLevel, $this->title));
         foreach ($this->onderdelen as $activiteit) {
             $section->appendHTML($activiteit->document($adapter));
         }

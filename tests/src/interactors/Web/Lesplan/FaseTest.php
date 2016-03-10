@@ -6,7 +6,7 @@ class FaseTest extends \PHPUnit_Framework_TestCase
 
     public function testDocument()
     {
-        $object = new Fase("Kern");
+        $object = new Fase("2", "Kern");
         
         $object->addOnderdeel($onderdeel = new Thema("Thema 1: zelf de motor reviseren"));
         

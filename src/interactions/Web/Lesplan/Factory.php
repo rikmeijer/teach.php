@@ -33,12 +33,13 @@ final class Factory
 
     /**
      *
+     * @param string $headerLevel            
      * @param string $title            
      * @return \Teach\Interactions\Web\Lesplan\Fase
      */
-    public function createFase($title)
+    public function createFase($headerLevel, $title)
     {
-        return new Fase($title);
+        return new Fase($headerLevel, $title);
     }
 
     /**
@@ -49,7 +50,7 @@ final class Factory
      */
     public function createIntroductie(Activiteit $activerendeOpening, Activiteit $focus, Activiteit $voorstellen, Activiteit $kennismaken, Activiteit $terugblik)
     {
-        $fase = $this->createFase("Introductie");
+        $fase = $this->createFase('2', "Introductie");
         $fase->addOnderdeel($activerendeOpening);
         $fase->addOnderdeel($focus);
         $fase->addOnderdeel($voorstellen);
@@ -60,7 +61,7 @@ final class Factory
 
     public function createAfsluiting(Activiteit $huiswerk, Activiteit $feedback, Activiteit $pakkendSlot)
     {
-        $fase = $this->createFase("Afsluiting");
+        $fase = $this->createFase('2', "Afsluiting");
         $fase->addOnderdeel($huiswerk);
         $fase->addOnderdeel($feedback);
         $fase->addOnderdeel($pakkendSlot);

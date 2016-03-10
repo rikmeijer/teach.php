@@ -22,7 +22,7 @@ class Kern implements \Teach\Interactions\Interactable
      */
     public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Documentable
     {
-        $kern = $factory->createFase("Kern");
+        $kern = $factory->createFase('2', "Kern");
         $themaCount = 0;
         foreach ($this->themas as $themaIdentifier => $themaDefinition) {
             $thema = $factory->createThema('Thema ' . (++ $themaCount) . ': ' . $themaIdentifier, $themaDefinition);
