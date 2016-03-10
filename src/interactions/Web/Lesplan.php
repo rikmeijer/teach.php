@@ -8,13 +8,13 @@ final class Lesplan implements \Teach\Interactions\Documentable
      *
      * @var string
      */
-    private $opleiding;
+    private $title;
 
     /**
      *
      * @var string
      */
-    private $vak;
+    private $subtitle;
 
     /**
      *
@@ -46,10 +46,11 @@ final class Lesplan implements \Teach\Interactions\Documentable
      */
     private $afsluiting;
 
-    public function __construct($opleiding, $vak, $les, Lesplan\Contactmoment $contactmoment, Lesplan\Fase $introductie, Lesplan\Fase $kern, Lesplan\Fase $afsluiting)
+    public function __construct($subtitle, $title, $les, Lesplan\Contactmoment $contactmoment, Lesplan\Fase $introductie, Lesplan\Fase $kern, Lesplan\Fase $afsluiting)
     {
-        $this->opleiding = $opleiding;
-        $this->vak = $vak;
+        $this->title = $title;
+        $this->subtitle = $subtitle;
+        
         $this->les = $les;
         $this->contactmoment = $contactmoment;
         $this->introductie = $introductie;
@@ -60,12 +61,11 @@ final class Lesplan implements \Teach\Interactions\Documentable
     public function document(\Teach\Interactions\Documenter $adapter): string
     {
         $lines = [];
-        $lines[] = $adapter->makeFirstPage('Lesplan ' . $this->vak, $this->opleiding)->render();
+        $lines[] = $adapter->makeFirstPage('Lesplan ' . $this->title, $this->subtitle)->render();
         
         $section = $adapter->makeSection();
         $section->append($adapter->makeHeader('2', $this->les));
         $lines[] = $section->render();
-        
         $lines[] = $this->contactmoment->document($adapter);
         
         $lines[] = $this->introductie->document($adapter);
