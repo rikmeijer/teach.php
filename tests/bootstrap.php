@@ -13,6 +13,43 @@ class Helper {
     static function implementDocumenter() {
         return new class() implements \Teach\Interactions\Documenter {
 
+            private function makeRenderer(string $contents): \Teach\Adapters\Renderable {
+                return new class($contents) implements \Teach\Adapters\Renderable {
+                
+                    private $contents;
+                    private $children;
+                    
+                    public function __construct($contents)
+                    {
+                        $this->children = [];
+                        $this->contents = $contents;
+                    }
+                
+                    public function append(\Teach\Adapters\Renderable ...$children) 
+                    {
+                        $this->children = array_merge($this->children, $children);
+                    }
+                    public function appendHTML(string ...$children) 
+                    {
+                        $this->children = array_merge($this->children, $children);
+                    }
+                    
+                    public function render(): string
+                    {
+                        $children = [];
+                        foreach ($this->children as $child) {
+                            if (is_string($child)) {
+                                $children[] = $child;
+                            } else {
+                                $children[] = $child->render();
+                            }
+                        }
+                        
+                        return $this->contents . join("...", $children);
+                    }
+                };
+            }
+            
             /**
              *
              * @param \Teach\Interactions\Documentable $documentable            
@@ -50,7 +87,7 @@ class Helper {
              */
             public function makeUnorderedList(array $listitems): \Teach\Adapters\Renderable
             {
-                return null;
+                return $this->makeRenderer("ul: " . serialize($listitems));
             }
 
             /**
@@ -60,18 +97,7 @@ class Helper {
              */
             public function makeTable($caption, array $rows): \Teach\Adapters\Renderable
             {
-                return new class($caption . ": " . serialize($rows)) implements \Teach\Adapters\Renderable {
-
-                    public function __construct($content)
-                    {
-                        $this->content = $content;
-                    }
-
-                    public function render(): string
-                    {
-                        return $this->content;
-                    }
-                };
+                return $this->makeRenderer($caption . ": " . serialize($rows));
             }
 
             /**
@@ -82,7 +108,7 @@ class Helper {
              */
             public function makeHeader(string $level, string $text): \Teach\Adapters\Renderable
             {
-                return null;
+                return $this->makeRenderer($level . ":" . $text);
             }
 
             /**
@@ -91,7 +117,7 @@ class Helper {
              */
             public function makeSection(): \Teach\Adapters\Renderable
             {
-                return null;
+                return $this->makeRenderer("section");
             }
         };
     }
