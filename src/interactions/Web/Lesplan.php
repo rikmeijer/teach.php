@@ -71,6 +71,6 @@ final class Lesplan implements \Teach\Interactions\Documentable
         $lines[] = $this->introductie->document($adapter);
         $lines[] = $this->kern->document($adapter);
         $lines[] = $this->afsluiting->document($adapter);
-        return join(PHP_EOL, $lines);
+        return join("", $lines);
     }
 }

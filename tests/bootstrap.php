@@ -68,7 +68,7 @@ class Helper {
              */
             public function makeFirstPage(string $title, string $subtitle): \Teach\Adapters\Renderable
             {
-                return null;
+                return $this->makeRenderer("fp" . $title . ":" . $subtitle);
             }
 
             /**
@@ -78,7 +78,7 @@ class Helper {
              */
             public function makeTableRow($expectedCellCount, array $data): \Teach\Adapters\Renderable
             {
-                return null;
+                return $this->makeRenderer("tr(".$expectedCellCount."): " . serialize($data));
             }
 
             /**
