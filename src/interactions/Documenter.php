@@ -51,5 +51,5 @@ interface Documenter
      *
      * @return Renderable
      */
-    public function makeSection();
+    public function makeSection(): \Teach\Adapters\Renderable;
 }
