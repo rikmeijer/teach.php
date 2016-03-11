@@ -54,15 +54,15 @@ final class Factory
 
     /**
      *
-     * @param string $opleiding            
+     * @param string $les            
      * @param array $beginsituatie            
      * @param array $media            
      * @param array $leerdoelen            
      * @return \Teach\Interactions\Web\Lesplan\Contactmoment
      */
-    public function createContactmoment(array $beginsituatie, array $media, array $leerdoelen)
+    public function createContactmoment(string $les, array $beginsituatie, array $media, array $leerdoelen)
     {
-        return new Contactmoment($beginsituatie, $media, $leerdoelen);
+        return new Contactmoment($les, $beginsituatie, $media, $leerdoelen);
     }
 
     /**
@@ -75,8 +75,8 @@ final class Factory
      * @param Fase $kern            
      * @param Fase $afsluiting            
      */
-    public function createLesplan($opleiding, $vak, $les, Contactmoment $contactmoment, Fase $introductie, Fase $kern, Fase $afsluiting)
+    public function createLesplan($opleiding, $vak, Contactmoment $contactmoment, Fase $introductie, Fase $kern, Fase $afsluiting)
     {
-        return new \Teach\Interactions\Web\Lesplan($opleiding, $vak, $les, $contactmoment, $introductie, $kern, $afsluiting);
+        return new \Teach\Interactions\Web\Lesplan($opleiding, $vak, $contactmoment, $introductie, $kern, $afsluiting);
     }
 }

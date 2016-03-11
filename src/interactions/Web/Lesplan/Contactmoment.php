@@ -4,6 +4,8 @@ namespace Teach\Interactions\Web\Lesplan;
 final class Contactmoment implements \Teach\Interactions\Documentable
 {
 
+    private $les;
+    
     /**
      *
      * @var \Teach\Interactions\Web\Lesplan\Beginsituatie
@@ -22,8 +24,9 @@ final class Contactmoment implements \Teach\Interactions\Documentable
      */
     private $leerdoelen;
 
-    public function __construct(array $beginsituatie, array $media, array $leerdoelen)
+    public function __construct(string $les, array $beginsituatie, array $media, array $leerdoelen)
     {
+        $this->les = $les;
         $this->beginsituatie = $beginsituatie;
         $this->media = $media;
         $this->leerdoelen = $leerdoelen;
@@ -32,6 +35,7 @@ final class Contactmoment implements \Teach\Interactions\Documentable
     public function document(\Teach\Interactions\Documenter $adapter): string
     {
         $section = $adapter->makeSection();
+        $section->append($adapter->makeHeader('2', $this->les));
         $section->append($adapter->makeHeader('3', 'Beginsituatie'), $adapter->makeTable(null, [
             [
                 'doelgroep' => $this->beginsituatie['doelgroep']['beschrijving'],

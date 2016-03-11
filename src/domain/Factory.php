@@ -35,7 +35,7 @@ class Factory
         
         $media = $this->getMedia($contactmoment['lesplan_id']);
         $leerdoelen = $this->getLeerdoelen($contactmoment['lesplan_id']);
-        $beginsituatie = $this->createBeginsituatie([
+        $beginsituatie = $this->createBeginsituatie($contactmoment['les'], [
             'doelgroep' => [
                 'beschrijving' => $contactmoment['doelgroep_beschrijving'],
                 'ervaring' => $contactmoment['doelgroep_ervaring'],
@@ -50,7 +50,7 @@ class Factory
         
         $afsluiting = $this->createAfsluiting($contactmoment['huiswerk_id'], $contactmoment['evaluatie_id'], $contactmoment['pakkend_slot_id']);
         
-        return new Lesplan($contactmoment['opleiding'], $contactmoment['vak'], $contactmoment['les'], $beginsituatie, $introductie, $kern, $afsluiting);
+        return new Lesplan($contactmoment['opleiding'], $contactmoment['vak'], $beginsituatie, $introductie, $kern, $afsluiting);
     }
 
     /**
@@ -66,15 +66,16 @@ class Factory
     }
 
     /**
-     *
-     * @param string $huiswerkIdentifier            
-     * @param string $evaluatieIdentifier            
-     * @param string $slotIdentifier            
+     * 
+     * @param string $les
+     * @param array $beginsituatie
+     * @param array $media
+     * @param array $leerdoelen
      * @return \Teach\Interactions\Interactable
      */
-    private function createBeginsituatie(array $beginsituatie, array $media, array $leerdoelen): \Teach\Interactions\Interactable
+    private function createBeginsituatie(string $les, array $beginsituatie, array $media, array $leerdoelen): \Teach\Interactions\Interactable
     {
-        return new Lesplan\Beginsituatie($beginsituatie, $media, $leerdoelen);
+        return new Lesplan\Beginsituatie($les, $beginsituatie, $media, $leerdoelen);
     }
 
     /**

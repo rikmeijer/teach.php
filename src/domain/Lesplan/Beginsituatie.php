@@ -3,6 +3,11 @@ namespace Teach\Domain\Lesplan;
 
 class Beginsituatie implements \Teach\Interactions\Interactable
 {
+    /**
+     *
+     * @var string
+     */
+    private $les;
 
     /**
      *
@@ -22,8 +27,9 @@ class Beginsituatie implements \Teach\Interactions\Interactable
      */
     private $leerdoelen;
 
-    public function __construct(array $beginsituatie, array $media, array $leerdoelen)
+    public function __construct(string $les, array $beginsituatie, array $media, array $leerdoelen)
     {
+        $this->les = $les;
         $this->beginsituatie = $beginsituatie;
         $this->media = $media;
         $this->leerdoelen = $leerdoelen;
@@ -36,6 +42,6 @@ class Beginsituatie implements \Teach\Interactions\Interactable
      */
     public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Documentable
     {
-        return $factory->createContactmoment($this->beginsituatie, $this->media, $this->leerdoelen);
+        return $factory->createContactmoment($this->les, $this->beginsituatie, $this->media, $this->leerdoelen);
     }
 }

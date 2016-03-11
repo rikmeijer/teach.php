@@ -34,11 +34,10 @@ class Lesplan implements \Teach\Interactions\Interactable
      */
     private $afsluiting;
 
-    public function __construct(string $opleiding, string $vak, string $les, Lesplan\Beginsituatie $beginsituatie, Lesplan\Introductie $introductie, Lesplan\Kern $kern, Lesplan\Afsluiting $afsluiting)
+    public function __construct(string $opleiding, string $vak, Lesplan\Beginsituatie $beginsituatie, Lesplan\Introductie $introductie, Lesplan\Kern $kern, Lesplan\Afsluiting $afsluiting)
     {
         $this->opleiding = $opleiding;
         $this->vak = $vak;
-        $this->les = $les;
         
         $this->beginsituatie = $beginsituatie;
         
@@ -56,6 +55,6 @@ class Lesplan implements \Teach\Interactions\Interactable
      */
     public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Documentable
     {
-        return $factory->createLesplan($this->opleiding, $this->vak, $this->les, $this->beginsituatie->interact($factory), $this->introductie->interact($factory), $this->kern->interact($factory), $this->afsluiting->interact($factory));
+        return $factory->createLesplan($this->opleiding, $this->vak, $this->beginsituatie->interact($factory), $this->introductie->interact($factory), $this->kern->interact($factory), $this->afsluiting->interact($factory));
     }
 }
