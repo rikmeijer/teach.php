@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Interactions\Web\Lesplan;
 
-class ContactmomentTest extends \PHPUnit_Framework_TestCase
+class BeginsituatieTest extends \PHPUnit_Framework_TestCase
 {
     public function testDocument()
     {
@@ -14,7 +14,7 @@ class ContactmomentTest extends \PHPUnit_Framework_TestCase
             "Java-code lezen en uitleggen wat er gebeurt"
         ];
         
-        $object = new Contactmoment("Week2a", [
+        $object = new Beginsituatie("Week2a", [
             'doelgroep' => [
                 'beschrijving' => 'eerstejaars HBO-studenten',
                 'ervaring' => 'geen', // <!-- del>veel</del>, <del>redelijk veel</del>, <del>weinig</del>, -->geen

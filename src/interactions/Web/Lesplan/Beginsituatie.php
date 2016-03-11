@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Interactions\Web\Lesplan;
 
-final class Contactmoment implements \Teach\Interactions\Documentable
+final class Beginsituatie implements \Teach\Interactions\Documentable
 {
 
     private $les;

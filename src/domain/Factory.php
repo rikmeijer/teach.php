@@ -27,7 +27,7 @@ class Factory
      */
     public function createLesplan($identifier): \Teach\Interactions\Interactable
     {
-        $contactmoment = $this->getContactmoment($identifier);
+        $contactmoment = $this->getBeginsituatie($identifier);
         
         $introductie = $this->createIntroductie($contactmoment['activerende_opening_id'], $contactmoment['focus_id'], $contactmoment['voorstellen_id'], $contactmoment['kennismaken_id'], $contactmoment['terugblik_id']);
         
@@ -93,7 +93,7 @@ class Factory
         return new Lesplan\Introductie($this->getActiviteit($openingIdentifier), $this->getActiviteit($focusIdentifier), $this->getActiviteit($voorstellenIdentifier), $this->getActiviteit($kennismakenIdentifier), $this->getActiviteit($terugblikIdentifier));
     }
 
-    private function getContactmoment($identifier)
+    private function getBeginsituatie($identifier)
     {
         $contactmomenten = $this->query("
             SELECT
