@@ -77,6 +77,6 @@ final class Factory
      */
     public function createLesplan($opleiding, $vak, Beginsituatie $contactmoment, Fase $introductie, Fase $kern, Fase $afsluiting)
     {
-        return new \Teach\Interactions\Web\Lesplan($opleiding, $vak, $contactmoment, $introductie, $kern, $afsluiting);
+        return new \Teach\Interactions\Web\Document($opleiding, $vak, $contactmoment, $introductie, $kern, $afsluiting);
     }
 }

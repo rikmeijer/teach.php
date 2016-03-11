@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Interactions\Web;
 
-final class Lesplan implements \Teach\Interactions\Documentable
+final class Document implements \Teach\Interactions\Documentable
 {
 
     /**
@@ -18,25 +18,25 @@ final class Lesplan implements \Teach\Interactions\Documentable
 
     /**
      *
-     * @var \Teach\Interactions\Web\Lesplan\Beginsituatie
+     * @var \Teach\Interactions\Web\Document\Beginsituatie
      */
     private $contactmoment;
 
     /**
      *
-     * @var \Teach\Interactions\Web\Lesplan\Fase
+     * @var \Teach\Interactions\Web\Document\Fase
      */
     private $introductie;
 
     /**
      *
-     * @var \Teach\Interactions\Web\Lesplan\Fase
+     * @var \Teach\Interactions\Web\Document\Fase
      */
     private $kern;
 
     /**
      *
-     * @var \Teach\Interactions\Web\Lesplan\Fase
+     * @var \Teach\Interactions\Web\Document\Fase
      */
     private $afsluiting;
 
@@ -57,7 +57,6 @@ final class Lesplan implements \Teach\Interactions\Documentable
         $lines[] = $adapter->makeFirstPage('Lesplan ' . $this->title, $this->subtitle)->render();
         
         $lines[] = $this->contactmoment->document($adapter);
-        
         $lines[] = $this->introductie->document($adapter);
         $lines[] = $this->kern->document($adapter);
         $lines[] = $this->afsluiting->document($adapter);

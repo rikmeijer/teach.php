@@ -12,6 +12,6 @@ class LesplanTest extends \Teach\DomainTest
         $factory = new Factory(self::$pdo);
         $object = $factory->createLesplan('1');
         $lesplanlayout = $object->interact(new \Teach\Interactions\Web\Lesplan\Factory());
-        $this->assertInstanceOf('\Teach\Interactions\Web\Lesplan', $lesplanlayout);
+        $this->assertInstanceOf('\Teach\Interactions\Web\Document', $lesplanlayout);
     }
 }
