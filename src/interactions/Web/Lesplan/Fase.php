@@ -7,12 +7,6 @@ final class Fase implements \Teach\Interactions\Documentable
      * 
      * @var string
      */
-    private $headerLevel;
-    
-    /**
-     * 
-     * @var string
-     */
     private $title;
 
     /**
@@ -21,9 +15,8 @@ final class Fase implements \Teach\Interactions\Documentable
      */
     private $parts;
 
-    public function __construct($headerLevel, $title, \Teach\Interactions\Web\Document\Parts $parts)
+    public function __construct($title, \Teach\Interactions\Web\Document\Parts $parts)
     {
-        $this->headerLevel = $headerLevel;
         $this->title = $title;
         $this->parts = $parts;
     }

@@ -29,8 +29,8 @@ class Kern implements \Teach\Interactions\Interactable
             foreach ($themaDefinition as $activiteitIdentifier => $activiteitDefinition) {
                 $activiteiten[] = $factory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
             }
-            $themas[] = $factory->createFase('3', 'Thema ' . (++ $themaCount) . ': ' . $themaIdentifier, $factory->createDocumentParts(...$activiteiten));
+            $themas[] = $factory->createFase('Thema ' . (++ $themaCount) . ': ' . $themaIdentifier, $factory->createDocumentParts(...$activiteiten));
         }
-        return $factory->createFase('2', "Kern", $factory->createDocumentParts(...$themas));
+        return $factory->createFase("Kern", $factory->createDocumentParts(...$themas));
     }
 }
