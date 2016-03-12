@@ -12,7 +12,22 @@ final class Factory
      */
     public function createActiviteit($caption, array $werkvorm)
     {
-        return new Activiteit($caption, $werkvorm);
+        return new \Teach\Interactions\Web\Document\Table($caption, [
+            [
+                'werkvorm' => $werkvorm['werkvorm'],
+                'organisatievorm' => $werkvorm['organisatievorm']
+            ],
+            [
+                'tijd' => $werkvorm['tijd'] . ' minuten',
+                'soort werkvorm' => $werkvorm['werkvormsoort']
+            ],
+            [
+                'intelligenties' => $werkvorm['intelligenties']
+            ],
+            [
+                'inhoud' => $werkvorm['inhoud']
+            ]
+        ]);
     }
 
     /**
@@ -27,19 +42,29 @@ final class Factory
     }
 
     /**
-     *
-     * @param Activiteit $activerendeOpening            
-     * @param Activiteit $focus            
-     * @param Activiteit $voorstellen            
+     * 
+     * @param \Teach\Interactions\Documentable $activerendeOpening
+     * @param \Teach\Interactions\Documentable $focus
+     * @param \Teach\Interactions\Documentable $voorstellen
+     * @param \Teach\Interactions\Documentable $kennismaken
+     * @param \Teach\Interactions\Documentable $terugblik
+     * @return \Teach\Interactions\Web\Document\Section
      */
-    public function createIntroductie(Activiteit $activerendeOpening, Activiteit $focus, Activiteit $voorstellen, Activiteit $kennismaken, Activiteit $terugblik)
+    public function createIntroductie(\Teach\Interactions\Documentable $activerendeOpening, \Teach\Interactions\Documentable $focus, \Teach\Interactions\Documentable $voorstellen, \Teach\Interactions\Documentable $kennismaken, \Teach\Interactions\Documentable $terugblik)
     {
         $parts = $this->createDocumentParts($activerendeOpening, $focus, $voorstellen, $kennismaken, $terugblik);
         $fase = $this->createSection("Introductie", $parts);
         return $fase;
     }
 
-    public function createAfsluiting(Activiteit $huiswerk, Activiteit $feedback, Activiteit $pakkendSlot)
+    /**
+     * 
+     * @param \Teach\Interactions\Documentable $huiswerk
+     * @param \Teach\Interactions\Documentable $feedback
+     * @param \Teach\Interactions\Documentable $pakkendSlot
+     * @return \Teach\Interactions\Web\Document\Section
+     */
+    public function createAfsluiting(\Teach\Interactions\Documentable $huiswerk, \Teach\Interactions\Documentable $feedback, \Teach\Interactions\Documentable $pakkendSlot)
     {
         $parts = $this->createDocumentParts($huiswerk, $feedback, $pakkendSlot);
         $fase = $this->createSection("Afsluiting", $parts);
