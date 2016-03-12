@@ -4,6 +4,22 @@ namespace Teach\Interactions\Document;
 final class HTML implements \Teach\Interactions\Documenter
 {
 
+    private $nesting;
+    
+    public function __construct() {
+        $this->nesting = 0;
+    }
+    
+    public function push()
+    {
+        $this->nesting++;
+    }
+    
+    public function pop()
+    {
+        $this->nesting--;
+    }
+    
     /**
      *
      * {@inheritDoc}
@@ -174,6 +190,16 @@ final class HTML implements \Teach\Interactions\Documenter
         return $header;
     }
 
+    /**
+     *
+     * @param string $text
+     * @return \Teach\Interactions\HTML\Element
+     */
+    public function makeHeaderNested(string $text): \Teach\Adapters\Renderable
+    {
+        return $this->makeHeader($this->nesting+1, $text);
+    }
+    
     public function makeSection(): \Teach\Adapters\Renderable
     {
         return $this->makeElement('section', []);

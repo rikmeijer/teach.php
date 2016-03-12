@@ -6,7 +6,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 
     /**
      *
-     * @var Factory
+     * @var HTML
      */
     private $object;
 
@@ -128,6 +128,16 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<h3>HeaderHeader</h3>', $this->object->makeHeader('3', 'HeaderHeader')
             ->render());
     }
+
+    public function testMakeNestedHeader()
+    {
+        $this->assertEquals('<h1>HeaderHeader</h1>', $this->object->makeHeaderNested('HeaderHeader')->render());
+        $this->object->push();
+        $this->assertEquals('<h2>HeaderHeader</h2>', $this->object->makeHeaderNested('HeaderHeader')->render());
+        $this->object->pop();
+        $this->assertEquals('<h1>HeaderHeader</h1>', $this->object->makeHeaderNested('HeaderHeader')->render());
+    }
+    
 
     public function testMakeSection()
     {
