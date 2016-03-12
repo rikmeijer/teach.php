@@ -50,6 +50,22 @@ class Helper {
                 };
             }
             
+            private $nesting;
+            
+            public function __construct() {
+                $this->nesting = 0;
+            }
+            
+            public function push()
+            {
+                $this->nesting++;
+            }
+            
+            public function pop()
+            {
+                $this->nesting--;
+            }
+            
             /**
              *
              * @param \Teach\Interactions\Documentable $documentable            
@@ -57,7 +73,7 @@ class Helper {
              */
             public function makeDocument(\Teach\Interactions\Documentable $documentable): \Teach\Adapters\Renderable
             {
-                return null;
+                return $this->makeRenderer('<html><head></head><body>' . $documentable->document($this) . '</body></html>');
             }
 
             /**
@@ -111,6 +127,11 @@ class Helper {
                 return $this->makeRenderer($level . ":" . $text);
             }
 
+            public function makeHeaderNested(string $text): \Teach\Adapters\Renderable
+            {   return $this->makeHeader($this->nesting+1, $text);
+                
+            }
+            
             /**
              *
              * @return Renderable

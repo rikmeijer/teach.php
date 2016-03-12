@@ -3,7 +3,10 @@ namespace Teach\Interactions;
 
 interface Documenter
 {
-
+    public function push();
+    public function pop();
+    
+    
     /**
      *
      * @param \Teach\Interactions\Documentable $documentable            
@@ -47,6 +50,13 @@ interface Documenter
      */
     public function makeHeader(string $level, string $text): \Teach\Adapters\Renderable;
 
+    /**
+     *
+     * @param string $text
+     * @return \Teach\Interactions\HTML\Element
+     */
+    public function makeHeaderNested(string $text): \Teach\Adapters\Renderable;
+    
     /**
      *
      * @return Renderable

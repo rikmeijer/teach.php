@@ -30,9 +30,11 @@ final class Fase implements \Teach\Interactions\Documentable
 
     public function document(\Teach\Interactions\Documenter $adapter): string
     {
+        $adapter->push();
         $section = $adapter->makeSection();
-        $section->append($adapter->makeHeader($this->headerLevel, $this->title));
+        $section->append($adapter->makeHeaderNested($this->title));
         $section->appendHTML($this->parts->document($adapter));
+        $adapter->pop();
         return $section->render();
     }
 }
