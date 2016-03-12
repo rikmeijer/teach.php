@@ -66,17 +66,24 @@ final class Factory
     }
 
     /**
-     *
-     * @param string $opleiding            
-     * @param string $vak            
-     * @param string $les            
-     * @param Beginsituatie $contactmoment            
-     * @param Fase $introductie            
-     * @param Fase $kern            
-     * @param Fase $afsluiting            
+     * 
+     * @param \Teach\Interactions\Documentable ...$parts
+     * @return \Teach\Interactions\Web\Lesplan\DocumentParts
      */
-    public function createLesplan($opleiding, $vak)
+    public function createDocumentParts(\Teach\Interactions\Documentable ...$parts)
     {
-        return new \Teach\Interactions\Web\Document($opleiding, $vak);
+        return new \Teach\Interactions\Web\DocumentParts(...$parts);
+    }
+
+    /**
+     * 
+     * @param string $title
+     * @param string $subtitle
+     * @param \Teach\Interactions\Web\DocumentParts $parts
+     * @return \Teach\Interactions\Web\Document
+     */
+    public function createLesplan(string $title, string $subtitle, \Teach\Interactions\Web\DocumentParts $parts)
+    {
+        return new \Teach\Interactions\Web\Document($title, $subtitle, $parts);
     }
 }

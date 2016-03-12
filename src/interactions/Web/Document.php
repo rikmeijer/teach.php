@@ -17,28 +17,22 @@ final class Document implements \Teach\Interactions\Documentable
     
     /**
      * 
-     * @var \Teach\Interactions\Documentable[]
+     * @var DocumentParts
      */
-    private $onderdelen;
+    private $parts;
 
-    public function __construct($title, $subtitle)
+    public function __construct($title, $subtitle, DocumentParts $parts)
     {
         $this->title = $title;
         $this->subtitle = $subtitle;
-    }
-    
-    public function addOnderdeel(\Teach\Interactions\Documentable $onderdeel)
-    {
-        $this->onderdelen[] = $onderdeel;
+        $this->parts = $parts;
     }
 
     public function document(\Teach\Interactions\Documenter $adapter): string
     {
         $lines = [];
         $lines[] = $adapter->makeFirstPage($this->title, $this->subtitle)->render();
-        foreach ($this->onderdelen as $onderdeel) {
-            $lines[] = $onderdeel->document($adapter);
-        }
+        $lines[] = $this->parts->document($adapter);
         return join("", $lines);
     }
 }
