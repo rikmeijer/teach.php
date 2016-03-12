@@ -75,8 +75,8 @@ final class Factory
      * @param Fase $kern            
      * @param Fase $afsluiting            
      */
-    public function createLesplan($opleiding, $vak, Beginsituatie $contactmoment, Fase $introductie, Fase $kern, Fase $afsluiting)
+    public function createLesplan($opleiding, $vak)
     {
-        return new \Teach\Interactions\Web\Document($opleiding, $vak, $contactmoment, $introductie, $kern, $afsluiting);
+        return new \Teach\Interactions\Web\Document($opleiding, $vak);
     }
 }
