@@ -14,9 +14,9 @@ class ActiviteitTest extends \PHPUnit_Framework_TestCase
             "werkvormsoort" => "discussie",
             "tijd" => "5",
             "intelligenties" => array(
-                Activiteit::MI_VERBAAL_LINGUISTISCH,
-                Activiteit::MI_INTRAPERSOONLIJK,
-                Activiteit::MI_INTERPERSOONLIJK
+                \Teach\Domain\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                \Teach\Domain\Lesplan\Activiteit::MI_INTRAPERSOONLIJK,
+                \Teach\Domain\Lesplan\Activiteit::MI_INTERPERSOONLIJK
             )
         ));
         
@@ -33,9 +33,9 @@ class ActiviteitTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 'intelligenties' => [
-                    Activiteit::MI_VERBAAL_LINGUISTISCH,
-                    Activiteit::MI_INTRAPERSOONLIJK,
-                    Activiteit::MI_INTERPERSOONLIJK
+                    \Teach\Domain\Lesplan\Activiteit::MI_VERBAAL_LINGUISTISCH,
+                    \Teach\Domain\Lesplan\Activiteit::MI_INTRAPERSOONLIJK,
+                    \Teach\Domain\Lesplan\Activiteit::MI_INTERPERSOONLIJK
                 ]
             ],
             [
