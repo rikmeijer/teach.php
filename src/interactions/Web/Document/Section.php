@@ -1,7 +1,7 @@
 <?php
-namespace Teach\Interactions\Web\Lesplan;
+namespace Teach\Interactions\Web\Document;
 
-final class Fase implements \Teach\Interactions\Documentable
+final class Section implements \Teach\Interactions\Documentable
 {
     /**
      * 
@@ -15,7 +15,7 @@ final class Fase implements \Teach\Interactions\Documentable
      */
     private $parts;
 
-    public function __construct($title, \Teach\Interactions\Web\Document\Parts $parts)
+    public function __construct($title, Parts $parts)
     {
         $this->title = $title;
         $this->parts = $parts;
