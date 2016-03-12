@@ -40,7 +40,7 @@ final class Document implements \Teach\Interactions\Documentable
      */
     private $afsluiting;
 
-    public function __construct($subtitle, $title, Lesplan\Beginsituatie $contactmoment, Lesplan\Fase $introductie, Lesplan\Fase $kern, Lesplan\Fase $afsluiting)
+    public function __construct($title, $subtitle, Lesplan\Beginsituatie $contactmoment, Lesplan\Fase $introductie, Lesplan\Fase $kern, Lesplan\Fase $afsluiting)
     {
         $this->title = $title;
         $this->subtitle = $subtitle;

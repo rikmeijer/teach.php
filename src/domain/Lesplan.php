@@ -55,6 +55,6 @@ class Lesplan implements \Teach\Interactions\Interactable
      */
     public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Documentable
     {
-        return $factory->createLesplan($this->opleiding, "Lesplan " . $this->vak, $this->beginsituatie->interact($factory), $this->introductie->interact($factory), $this->kern->interact($factory), $this->afsluiting->interact($factory));
+        return $factory->createLesplan("Lesplan " . $this->vak, $this->opleiding, $this->beginsituatie->interact($factory), $this->introductie->interact($factory), $this->kern->interact($factory), $this->afsluiting->interact($factory));
     }
 }
