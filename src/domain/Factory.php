@@ -62,7 +62,7 @@ class Factory
      */
     private function createAfsluiting(string $huiswerkIdentifier = null, string $evaluatieIdentifier = null, string $slotIdentifier = null): \Teach\Interactions\Interactable
     {
-        return new Lesplan\Afsluiting($this->getActiviteit($huiswerkIdentifier), $this->getActiviteit($evaluatieIdentifier), $this->getActiviteit($slotIdentifier));
+        return new Lesplan\Afsluiting($this->createActiviteit("Huiswerk", $huiswerkIdentifier), $this->createActiviteit("Evaluatie", $evaluatieIdentifier), $this->createActiviteit("Pakkend slot", $slotIdentifier));
     }
 
     /**
@@ -77,6 +77,17 @@ class Factory
     {
         return new Lesplan\Beginsituatie($les, $beginsituatie, $media, $leerdoelen);
     }
+    
+    /**
+     * 
+     * @param string $title
+     * @param string $identifier
+     * @return \Teach\Interactions\Interactable
+     */
+    private function createActiviteit(string $title, string $identifier = null): \Teach\Interactions\Interactable
+    {
+        return new Lesplan\Activiteit($title, $this->getActiviteit($identifier));
+    } 
 
     /**
      *
@@ -90,7 +101,7 @@ class Factory
 
     private function createIntroductie(string $openingIdentifier = null, string $focusIdentifier = null, string $voorstellenIdentifier = null, string $kennismakenIdentifier = null, string $terugblikIdentifier = null)
     {
-        return new Lesplan\Introductie($this->getActiviteit($openingIdentifier), $this->getActiviteit($focusIdentifier), $this->getActiviteit($voorstellenIdentifier), $this->getActiviteit($kennismakenIdentifier), $this->getActiviteit($terugblikIdentifier));
+        return new Lesplan\Introductie($this->createActiviteit("Activerende opening", $openingIdentifier), $this->createActiviteit("Focus", $focusIdentifier), $this->createActiviteit("Voorstellen", $voorstellenIdentifier), $this->createActiviteit("Kennismaken", $kennismakenIdentifier), $this->createActiviteit("Terugblik", $terugblikIdentifier));
     }
 
     private function getBeginsituatie($identifier)

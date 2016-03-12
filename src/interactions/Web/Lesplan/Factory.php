@@ -12,7 +12,7 @@ final class Factory
      */
     public function createActiviteit($caption, array $werkvorm)
     {
-        return new \Teach\Interactions\Web\Document\Table($caption, [
+        return $this->createTable($caption, [
             [
                 'werkvorm' => $werkvorm['werkvorm'],
                 'organisatievorm' => $werkvorm['organisatievorm']
@@ -28,6 +28,11 @@ final class Factory
                 'inhoud' => $werkvorm['inhoud']
             ]
         ]);
+    }
+    
+    public function createTable($caption, array $rows)
+    {
+        return new \Teach\Interactions\Web\Document\Table($caption, $rows);
     }
 
     /**

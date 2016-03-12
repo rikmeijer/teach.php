@@ -6,35 +6,35 @@ class Introductie implements \Teach\Interactions\Interactable
 
     /**
      *
-     * @var array
+     * @var Activiteit
      */
     private $opening;
 
     /**
      *
-     * @var array
+     * @var Activiteit
      */
     private $focus;
 
     /**
      *
-     * @var array
+     * @var Activiteit
      */
     private $voorstellen;
 
     /**
      *
-     * @var array
+     * @var Activiteit
      */
     private $kennismaken;
 
     /**
      *
-     * @var array
+     * @var Activiteit
      */
     private $terugblik;
 
-    public function __construct(array $opening, array $focus, array $voorstellen, array $kennismaken, array $terugblik)
+    public function __construct(Activiteit $opening, Activiteit $focus, Activiteit $voorstellen, Activiteit $kennismaken, Activiteit $terugblik)
     {
         $this->opening = $opening;
         $this->focus = $focus;
@@ -50,7 +50,7 @@ class Introductie implements \Teach\Interactions\Interactable
      */
     public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Documentable
     {
-        $parts = $factory->createDocumentParts($factory->createActiviteit("Activerende opening", $this->opening), $factory->createActiviteit("Focus", $this->focus), $factory->createActiviteit("Voorstellen", $this->voorstellen), $factory->createActiviteit("Kennismaken", $this->kennismaken), $factory->createActiviteit("Terugblik", $this->terugblik));
+        $parts = $factory->createDocumentParts($this->opening->interact($factory), $this->focus->interact($factory), $this->voorstellen->interact($factory), $this->kennismaken->interact($factory), $this->terugblik->interact($factory));
         return $factory->createSection("Introductie", $parts);
     }
 }

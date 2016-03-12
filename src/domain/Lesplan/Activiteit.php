@@ -30,9 +30,42 @@ final class Activiteit implements \Teach\Interactions\Interactable
         self::MI_INTRAPERSOONLIJK
     ];
     
+    /**
+     *
+     * @var string
+     */
+    private $caption;
+    
+    /**
+     *
+     * @var array
+     */
+    private $werkvorm;
+
+    public function __construct(string $caption, array $werkvorm)
+    {
+        $this->caption = $caption;
+        $this->werkvorm = $werkvorm;
+    }
+    
 
     public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Documentable
     {
-        // TODO Auto-generated method stub
+        return $factory->createTable($this->caption, [
+            [
+                'werkvorm' => $this->werkvorm['werkvorm'],
+                'organisatievorm' => $this->werkvorm['organisatievorm']
+            ],
+            [
+                'tijd' => $this->werkvorm['tijd'] . ' minuten',
+                'soort werkvorm' => $this->werkvorm['werkvormsoort']
+            ],
+            [
+                'intelligenties' => $this->werkvorm['intelligenties']
+            ],
+            [
+                'inhoud' => $this->werkvorm['inhoud']
+            ]
+        ]);
     }
 }

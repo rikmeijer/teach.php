@@ -6,23 +6,23 @@ class Afsluiting implements \Teach\Interactions\Interactable
 
     /**
      *
-     * @var array
+     * @var Activiteit
      */
     private $huiswerk;
 
     /**
      *
-     * @var array
+     * @var Activiteit
      */
     private $evaluatie;
 
     /**
      *
-     * @var array
+     * @var Activiteit
      */
     private $slot;
 
-    public function __construct(array $huiswerk, array $evaluatie, array $slot)
+    public function __construct(Activiteit $huiswerk, Activiteit $evaluatie, Activiteit $slot)
     {
         $this->huiswerk = $huiswerk;
         $this->evaluatie = $evaluatie;
@@ -36,7 +36,7 @@ class Afsluiting implements \Teach\Interactions\Interactable
      */
     public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Documentable
     {
-        $parts = $factory->createDocumentParts($factory->createActiviteit("Huiswerk", $this->huiswerk), $factory->createActiviteit("Evaluatie", $this->evaluatie), $factory->createActiviteit("Pakkend slot", $this->slot));
+        $parts = $factory->createDocumentParts($this->huiswerk->interact($factory), $this->evaluatie->interact($factory), $this->slot->interact($factory));
         return $factory->createSection("Afsluiting", $parts);
     }
 }
