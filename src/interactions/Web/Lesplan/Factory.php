@@ -8,7 +8,7 @@ final class Factory
      *
      * @param string $caption            
      * @param array $werkvorm            
-     * @return \Teach\Interactions\Web\Lesplan\Activiteit
+     * @return \Teach\Interactions\Web\Document\Table
      */
     public function createActiviteit($caption, array $werkvorm)
     {
