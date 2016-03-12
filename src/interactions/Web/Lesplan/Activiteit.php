@@ -53,7 +53,7 @@ final class Activiteit implements \Teach\Interactions\Documentable
                 'soort werkvorm' => $this->werkvorm['werkvormsoort']
             ],
             [
-                'intelligenties' => array_values(array_intersect(self::INTELLIGENTIES, $this->werkvorm['intelligenties']))
+                'intelligenties' => $this->werkvorm['intelligenties']
             ],
             [
                 'inhoud' => $this->werkvorm['inhoud']

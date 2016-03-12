@@ -32,11 +32,11 @@ class ActiviteitTest extends \PHPUnit_Framework_TestCase
                 'soort werkvorm' => "discussie"
             ],
             [
-                'intelligenties' => array_values(array_intersect(Activiteit::INTELLIGENTIES, [
+                'intelligenties' => [
                     Activiteit::MI_VERBAAL_LINGUISTISCH,
                     Activiteit::MI_INTRAPERSOONLIJK,
                     Activiteit::MI_INTERPERSOONLIJK
-                ]))
+                ]
             ],
             [
                 'inhoud' => "• Link leggen naar een programmeeromgeving: niet fysiek, maar virtueel.
