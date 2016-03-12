@@ -54,7 +54,7 @@ final class Document implements \Teach\Interactions\Documentable
     public function document(\Teach\Interactions\Documenter $adapter): string
     {
         $lines = [];
-        $lines[] = $adapter->makeFirstPage('Lesplan ' . $this->title, $this->subtitle)->render();
+        $lines[] = $adapter->makeFirstPage($this->title, $this->subtitle)->render();
         
         $lines[] = $this->contactmoment->document($adapter);
         $lines[] = $this->introductie->document($adapter);
