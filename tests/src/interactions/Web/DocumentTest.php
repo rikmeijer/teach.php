@@ -5,7 +5,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 {
     public function testDocument()
     {
-        $parts = new DocumentParts(new Lesplan\Fase('2', "Introductie"), new Lesplan\Fase('2', "Kern"), new Lesplan\Fase('2', "Afsluiting"));
+        $parts = new Document\Parts(new Lesplan\Fase('2', "Introductie"), new Lesplan\Fase('2', "Kern"), new Lesplan\Fase('2', "Afsluiting"));
         
         $object = new Document("Lesplan Programmeren 1", "HBO-informatica (voltijd)", $parts);
         

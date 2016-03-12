@@ -17,11 +17,11 @@ final class Document implements \Teach\Interactions\Documentable
     
     /**
      * 
-     * @var DocumentParts
+     * @var Document\Parts
      */
     private $parts;
 
-    public function __construct($title, $subtitle, DocumentParts $parts)
+    public function __construct($title, $subtitle, Document\Parts $parts)
     {
         $this->title = $title;
         $this->subtitle = $subtitle;

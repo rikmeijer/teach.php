@@ -68,21 +68,21 @@ final class Factory
     /**
      * 
      * @param \Teach\Interactions\Documentable ...$parts
-     * @return \Teach\Interactions\Web\Lesplan\DocumentParts
+     * @return \Teach\Interactions\Web\Lesplan\Document\Parts
      */
     public function createDocumentParts(\Teach\Interactions\Documentable ...$parts)
     {
-        return new \Teach\Interactions\Web\DocumentParts(...$parts);
+        return new \Teach\Interactions\Web\Document\Parts(...$parts);
     }
 
     /**
      * 
      * @param string $title
      * @param string $subtitle
-     * @param \Teach\Interactions\Web\DocumentParts $parts
+     * @param \Teach\Interactions\Web\Document\Parts $parts
      * @return \Teach\Interactions\Web\Document
      */
-    public function createLesplan(string $title, string $subtitle, \Teach\Interactions\Web\DocumentParts $parts)
+    public function createLesplan(string $title, string $subtitle, \Teach\Interactions\Web\Document\Parts $parts)
     {
         return new \Teach\Interactions\Web\Document($title, $subtitle, $parts);
     }

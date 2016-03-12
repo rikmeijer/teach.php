@@ -1,7 +1,7 @@
 <?php
-namespace Teach\Interactions\Web;
+namespace Teach\Interactions\Web\Document;
 
-final class DocumentParts implements \Teach\Interactions\Documentable
+final class Parts implements \Teach\Interactions\Documentable
 {
     
     /**
