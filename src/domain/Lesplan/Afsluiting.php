@@ -36,6 +36,7 @@ class Afsluiting implements \Teach\Interactions\Interactable
      */
     public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Documentable
     {
-        return $factory->createAfsluiting($factory->createActiviteit("Huiswerk", $this->huiswerk), $factory->createActiviteit("Evaluatie", $this->evaluatie), $factory->createActiviteit("Pakkend slot", $this->slot));
+        $parts = $this->createDocumentParts($factory->createActiviteit("Huiswerk", $this->huiswerk), $factory->createActiviteit("Evaluatie", $this->evaluatie), $factory->createActiviteit("Pakkend slot", $this->slot));
+        return $this->createSection("Afsluiting", $parts);
     }
 }
