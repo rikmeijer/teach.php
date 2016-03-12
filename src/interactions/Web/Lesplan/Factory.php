@@ -76,7 +76,7 @@ final class Factory
      * @param \Teach\Interactions\Web\Document\Parts $parts
      * @return \Teach\Interactions\Web\Document
      */
-    public function createLesplan(string $title, string $subtitle, \Teach\Interactions\Web\Document\Parts $parts)
+    public function createDocument(string $title, string $subtitle, \Teach\Interactions\Web\Document\Parts $parts)
     {
         return new \Teach\Interactions\Web\Document($title, $subtitle, $parts);
     }
