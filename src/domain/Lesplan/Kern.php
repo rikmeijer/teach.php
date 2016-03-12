@@ -22,15 +22,15 @@ class Kern implements \Teach\Interactions\Interactable
      */
     public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Documentable
     {
-        $kern = $factory->createFase('2', "Kern");
         $themaCount = 0;
+        $themas = [];
         foreach ($this->themas as $themaIdentifier => $themaDefinition) {
-            $thema = $factory->createFase('3', 'Thema ' . (++ $themaCount) . ': ' . $themaIdentifier);
+            $activiteiten = [];
             foreach ($themaDefinition as $activiteitIdentifier => $activiteitDefinition) {
-                $thema->addOnderdeel($factory->createActiviteit($activiteitIdentifier, $activiteitDefinition));
+                $activiteiten[] = $factory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
             }
-            $kern->addOnderdeel($thema);
+            $themas[] = $factory->createFase('3', 'Thema ' . (++ $themaCount) . ': ' . $themaIdentifier, $factory->createDocumentParts(...$activiteiten));
         }
-        return $kern;
+        return $factory->createFase('2', "Kern", $factory->createDocumentParts(...$themas));
     }
 }

@@ -21,9 +21,9 @@ final class Factory
      * @param string $title            
      * @return \Teach\Interactions\Web\Lesplan\Fase
      */
-    public function createFase($headerLevel, $title)
+    public function createFase($headerLevel, $title, \Teach\Interactions\Web\Document\Parts $parts)
     {
-        return new Fase($headerLevel, $title);
+        return new Fase($headerLevel, $title, $parts);
     }
 
     /**
@@ -34,21 +34,15 @@ final class Factory
      */
     public function createIntroductie(Activiteit $activerendeOpening, Activiteit $focus, Activiteit $voorstellen, Activiteit $kennismaken, Activiteit $terugblik)
     {
-        $fase = $this->createFase('2', "Introductie");
-        $fase->addOnderdeel($activerendeOpening);
-        $fase->addOnderdeel($focus);
-        $fase->addOnderdeel($voorstellen);
-        $fase->addOnderdeel($kennismaken);
-        $fase->addOnderdeel($terugblik);
+        $parts = $this->createDocumentParts($activerendeOpening, $focus, $voorstellen, $kennismaken, $terugblik);
+        $fase = $this->createFase('2', "Introductie", $parts);
         return $fase;
     }
 
     public function createAfsluiting(Activiteit $huiswerk, Activiteit $feedback, Activiteit $pakkendSlot)
     {
-        $fase = $this->createFase('2', "Afsluiting");
-        $fase->addOnderdeel($huiswerk);
-        $fase->addOnderdeel($feedback);
-        $fase->addOnderdeel($pakkendSlot);
+        $parts = $this->createDocumentParts($huiswerk, $feedback, $pakkendSlot);
+        $fase = $this->createFase('2', "Afsluiting", $parts);
         return $fase;
     }
 

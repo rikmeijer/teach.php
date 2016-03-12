@@ -17,28 +17,22 @@ final class Fase implements \Teach\Interactions\Documentable
 
     /**
      *
-     * @var \Teach\Interactions\Documentable[]
+     * @var \Teach\Interactions\Web\Document\Parts
      */
-    private $onderdelen = array();
+    private $parts;
 
-    public function __construct($headerLevel, $title)
+    public function __construct($headerLevel, $title, \Teach\Interactions\Web\Document\Parts $parts)
     {
         $this->headerLevel = $headerLevel;
         $this->title = $title;
-    }
-
-    public function addOnderdeel(\Teach\Interactions\Documentable $onderdeel)
-    {
-        $this->onderdelen[] = $onderdeel;
+        $this->parts = $parts;
     }
 
     public function document(\Teach\Interactions\Documenter $adapter): string
     {
         $section = $adapter->makeSection();
         $section->append($adapter->makeHeader($this->headerLevel, $this->title));
-        foreach ($this->onderdelen as $activiteit) {
-            $section->appendHTML($activiteit->document($adapter));
-        }
+        $section->appendHTML($this->parts->document($adapter));
         return $section->render();
     }
 }

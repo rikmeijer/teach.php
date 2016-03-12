@@ -10,7 +10,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Doma
 
 class Helper {
     
-    static function implementDocumenter() {
+    static function implementDocumenter(): \Teach\Interactions\Documenter {
         return new class() implements \Teach\Interactions\Documenter {
 
             private function makeRenderer(string $contents): \Teach\Adapters\Renderable {
