@@ -289,13 +289,9 @@ class Factory
             ");
         $kern = [];
         if ($activiteitQueryResult !== false) {
+            $themaCount = 0;
             while ($thema = $activiteitQueryResult->fetch(\PDO::FETCH_ASSOC)) {
-                $kern[$thema["leerdoel"]] = [
-                    $this->createActiviteit("Ervaren", $thema["ervaren_id"]),
-                    $this->createActiviteit("Reflecteren", $thema["reflecteren_id"]),
-                    $this->createActiviteit("Conceptualiseren", $thema["conceptualiseren_id"]),
-                    $this->createActiviteit("Toepassen", $thema["toepassen_id"])
-                ];
+                $kern[$thema["leerdoel"]] = new Lesplan\Thema('Thema ' . (++ $themaCount) . ': ' . $thema["leerdoel"], $this->createActiviteit("Ervaren", $thema["ervaren_id"]), $this->createActiviteit("Reflecteren", $thema["reflecteren_id"]), $this->createActiviteit("Conceptualiseren", $thema["conceptualiseren_id"]), $this->createActiviteit("Toepassen", $thema["toepassen_id"]));
             }
         }
         return $kern;

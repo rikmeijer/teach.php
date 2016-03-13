@@ -6,7 +6,7 @@ class Kern implements \Teach\Interactions\Interactable
 
     /**
      *
-     * @var array
+     * @var Thema[]
      */
     private $themas;
 
@@ -22,14 +22,9 @@ class Kern implements \Teach\Interactions\Interactable
      */
     public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Documentable
     {
-        $themaCount = 0;
         $themas = [];
-        foreach ($this->themas as $themaIdentifier => $themaDefinition) {
-            $activiteiten = [];
-            foreach ($themaDefinition as $activiteit) {
-                $activiteiten[] = $activiteit->interact($factory);
-            }
-            $themas[] = $factory->createSection('Thema ' . (++ $themaCount) . ': ' . $themaIdentifier, $factory->createDocumentParts(...$activiteiten));
+        foreach ($this->themas as $thema) {
+            $themas[] = $thema->interact($factory);
         }
         return $factory->createSection("Kern", $factory->createDocumentParts(...$themas));
     }
