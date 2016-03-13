@@ -3,33 +3,6 @@ namespace Teach\Interactions\Web\Lesplan;
 
 final class Factory
 {
-
-    /**
-     *
-     * @param string $caption            
-     * @param array $werkvorm            
-     * @return \Teach\Interactions\Web\Document\Table
-     */
-    public function createActiviteit($caption, array $werkvorm)
-    {
-        return $this->createTable($caption, [
-            [
-                'werkvorm' => $werkvorm['werkvorm'],
-                'organisatievorm' => $werkvorm['organisatievorm']
-            ],
-            [
-                'tijd' => $werkvorm['tijd'] . ' minuten',
-                'soort werkvorm' => $werkvorm['werkvormsoort']
-            ],
-            [
-                'intelligenties' => $werkvorm['intelligenties']
-            ],
-            [
-                'inhoud' => $werkvorm['inhoud']
-            ]
-        ]);
-    }
-    
     public function createTable($caption, array $rows)
     {
         return new \Teach\Interactions\Web\Document\Table($caption, $rows);
