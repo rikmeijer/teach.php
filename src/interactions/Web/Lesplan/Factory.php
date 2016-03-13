@@ -10,19 +10,6 @@ final class Factory
 
     /**
      *
-     * @param string $les            
-     * @param array $beginsituatie            
-     * @param array $media            
-     * @param array $leerdoelen            
-     * @return \Teach\Interactions\Web\Lesplan\Beginsituatie
-     */
-    public function createBeginsituatie(string $les, array $beginsituatie, array $media, array $leerdoelen)
-    {
-        return new Beginsituatie($les, $beginsituatie, $media, $leerdoelen);
-    }
-
-    /**
-     *
      * @param \Teach\Interactions\Documentable ...$parts            
      * @return \Teach\Interactions\Web\Lesplan\Document\Parts
      */
