@@ -291,10 +291,10 @@ class Factory
         if ($activiteitQueryResult !== false) {
             while ($thema = $activiteitQueryResult->fetch(\PDO::FETCH_ASSOC)) {
                 $kern[$thema["leerdoel"]] = [
-                    "Ervaren" => $this->getActiviteit($thema["ervaren_id"]),
-                    "Reflecteren" => $this->getActiviteit($thema["reflecteren_id"]),
-                    "Conceptualiseren" => $this->getActiviteit($thema["conceptualiseren_id"]),
-                    "Toepassen" => $this->getActiviteit($thema["toepassen_id"])
+                    $this->createActiviteit("Ervaren", $thema["ervaren_id"]),
+                    $this->createActiviteit("Reflecteren", $thema["reflecteren_id"]),
+                    $this->createActiviteit("Conceptualiseren", $thema["conceptualiseren_id"]),
+                    $this->createActiviteit("Toepassen", $thema["toepassen_id"])
                 ];
             }
         }

@@ -26,8 +26,8 @@ class Kern implements \Teach\Interactions\Interactable
         $themas = [];
         foreach ($this->themas as $themaIdentifier => $themaDefinition) {
             $activiteiten = [];
-            foreach ($themaDefinition as $activiteitIdentifier => $activiteitDefinition) {
-                $activiteiten[] = $factory->createActiviteit($activiteitIdentifier, $activiteitDefinition);
+            foreach ($themaDefinition as $activiteit) {
+                $activiteiten[] = $activiteit->interact($factory);
             }
             $themas[] = $factory->createSection('Thema ' . (++ $themaCount) . ': ' . $themaIdentifier, $factory->createDocumentParts(...$activiteiten));
         }
