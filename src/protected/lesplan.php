@@ -16,4 +16,4 @@ if ($lesplanInteraction === null) {
     exit();
 }
 
-print $applicationBootstrap->startHTMLDocument()->render($lesplanInteraction);
+print $applicationBootstrap->startDocument(new \Teach\Interactions\Document\HTML())->render($lesplanInteraction);

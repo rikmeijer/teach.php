@@ -4,8 +4,8 @@ namespace Teach\Interactions;
 class Factory
 {
 
-    public function makeHTMLDocument()
+    public function makeDocument(Documenter $adapter)
     {
-        return new \Teach\Interactions\Document(new \Teach\Interactions\Document\HTML());
+        return new \Teach\Interactions\Document($adapter);
     }
 }
