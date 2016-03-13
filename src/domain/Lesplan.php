@@ -50,10 +50,10 @@ class Lesplan implements \Teach\Interactions\Interactable
 
     /**
      *
-     * @param \Teach\Interactions\Web\Lesplan\Factory $factory            
+     * @param \Teach\Interactions\Web\Factory $factory            
      * @return \Teach\Interactions\Documentable
      */
-    public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Documentable
+    public function interact(\Teach\Interactions\Web\Factory $factory): \Teach\Interactions\Documentable
     {
         $lesplanDocumentParts = $factory->createDocumentParts($this->beginsituatie->interact($factory), $this->introductie->interact($factory), $this->kern->interact($factory), $this->afsluiting->interact($factory));
         $lesplanDocument = $factory->createDocument("Lesplan " . $this->vak, $this->opleiding, $lesplanDocumentParts);

@@ -49,7 +49,7 @@ final class Activiteit implements \Teach\Interactions\Interactable
     }
     
 
-    public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Documentable
+    public function interact(\Teach\Interactions\Web\Factory $factory): \Teach\Interactions\Documentable
     {
         return $factory->createTable($this->caption, [
             [

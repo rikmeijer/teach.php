@@ -1,11 +1,11 @@
 <?php
-namespace Teach\Interactions\Web\Lesplan;
+namespace Teach\Interactions\Web;
 
 final class Factory
 {
     public function createTable($caption, array $rows)
     {
-        return new \Teach\Interactions\Web\Document\Table($caption, $rows);
+        return new Document\Table($caption, $rows);
     }
 
     /**
@@ -15,7 +15,7 @@ final class Factory
      */
     public function createDocumentParts(\Teach\Interactions\Documentable ...$parts)
     {
-        return new \Teach\Interactions\Web\Document\Parts(...$parts);
+        return new Document\Parts(...$parts);
     }
 
     /**
@@ -26,7 +26,7 @@ final class Factory
      */
     public function createSection(string $title, \Teach\Interactions\Web\Document\Parts $parts)
     {
-        return new \Teach\Interactions\Web\Document\Section($title, $parts);
+        return new Document\Section($title, $parts);
     }
 
     /**
@@ -38,6 +38,6 @@ final class Factory
      */
     public function createDocument(string $title, string $subtitle, \Teach\Interactions\Web\Document\Parts $parts)
     {
-        return new \Teach\Interactions\Web\Document($title, $subtitle, $parts);
+        return new Document($title, $subtitle, $parts);
     }
 }

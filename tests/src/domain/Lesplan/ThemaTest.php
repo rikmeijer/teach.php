@@ -19,7 +19,7 @@ class ThemaTest extends \Teach\DomainTest
         ];
         
         $object = new Thema("Thema 3: Blabla", new Activiteit("Ervaren", $dummyActiviteitData), new Activiteit("Reflecteren", $dummyActiviteitData), new Activiteit("Conceptualiseren", $dummyActiviteitData), new Activiteit("Toepassen", $dummyActiviteitData));
-        $themaDocumentPart = $object->interact(new \Teach\Interactions\Web\Lesplan\Factory());
+        $themaDocumentPart = $object->interact(new \Teach\Interactions\Web\Factory());
         
         $html = $themaDocumentPart->document(\Test\Helper::implementDocumenter());
         $this->assertEquals('section2:Thema 3: Blabla...Ervaren: a:4:{i:0;a:2:{s:8:"werkvorm";s:8:"onbekend";s:15:"organisatievorm";s:3:"nvt";}i:1;a:2:{s:4:"tijd";s:9:"0 minuten";s:14:"soort werkvorm";s:8:"onbekend";}i:2;a:1:{s:14:"intelligenties";a:0:{}}i:3;a:1:{s:6:"inhoud";s:0:"";}}Reflecteren: a:4:{i:0;a:2:{s:8:"werkvorm";s:8:"onbekend";s:15:"organisatievorm";s:3:"nvt";}i:1;a:2:{s:4:"tijd";s:9:"0 minuten";s:14:"soort werkvorm";s:8:"onbekend";}i:2;a:1:{s:14:"intelligenties";a:0:{}}i:3;a:1:{s:6:"inhoud";s:0:"";}}Conceptualiseren: a:4:{i:0;a:2:{s:8:"werkvorm";s:8:"onbekend";s:15:"organisatievorm";s:3:"nvt";}i:1;a:2:{s:4:"tijd";s:9:"0 minuten";s:14:"soort werkvorm";s:8:"onbekend";}i:2;a:1:{s:14:"intelligenties";a:0:{}}i:3;a:1:{s:6:"inhoud";s:0:"";}}Toepassen: a:4:{i:0;a:2:{s:8:"werkvorm";s:8:"onbekend";s:15:"organisatievorm";s:3:"nvt";}i:1;a:2:{s:4:"tijd";s:9:"0 minuten";s:14:"soort werkvorm";s:8:"onbekend";}i:2;a:1:{s:14:"intelligenties";a:0:{}}i:3;a:1:{s:6:"inhoud";s:0:"";}}', $html);

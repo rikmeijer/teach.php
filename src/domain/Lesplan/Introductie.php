@@ -45,10 +45,10 @@ class Introductie implements \Teach\Interactions\Interactable
 
     /**
      *
-     * @param \Teach\Interactions\Web\Lesplan\Factory $factory            
+     * @param \Teach\Interactions\Web\Factory $factory            
      * @return \Teach\Interactions\Documentable
      */
-    public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Documentable
+    public function interact(\Teach\Interactions\Web\Factory $factory): \Teach\Interactions\Documentable
     {
         $parts = $factory->createDocumentParts($this->opening->interact($factory), $this->focus->interact($factory), $this->voorstellen->interact($factory), $this->kennismaken->interact($factory), $this->terugblik->interact($factory));
         return $factory->createSection("Introductie", $parts);

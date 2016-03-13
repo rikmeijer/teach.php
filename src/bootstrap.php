@@ -6,7 +6,7 @@ interface ApplicationBootstrap
 
     public function startHTMLDocument(): \Teach\Interactions\Document;
 
-    public function createInteractionWeb(): \Teach\Interactions\Web\Lesplan\Factory;
+    public function createInteractionWeb(): \Teach\Interactions\Web\Factory;
 
     public function getDomainFactory(): \Teach\Domain\Factory;
 }
@@ -35,11 +35,11 @@ return new class($environmentBootstrap) implements ApplicationBootstrap {
 
     /**
      *
-     * @return \Teach\Interactions\Web\Lesplan\Factory
+     * @return \Teach\Interactions\Web\Factory
      */
-    public function createInteractionWeb(): \Teach\Interactions\Web\Lesplan\Factory
+    public function createInteractionWeb(): \Teach\Interactions\Web\Factory
     {
-        return new \Teach\Interactions\Web\Lesplan\Factory();
+        return new \Teach\Interactions\Web\Factory();
     }
 
     public function startHTMLDocument(): \Teach\Interactions\Document

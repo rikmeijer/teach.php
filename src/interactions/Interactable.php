@@ -4,5 +4,5 @@ namespace Teach\Interactions;
 interface Interactable
 {
 
-    public function interact(Web\Lesplan\Factory $factory): \Teach\Interactions\Documentable;
+    public function interact(Web\Factory $factory): \Teach\Interactions\Documentable;
 }

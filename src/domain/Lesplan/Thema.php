@@ -45,10 +45,10 @@ class Thema implements \Teach\Interactions\Interactable
 
     /**
      *
-     * @param \Teach\Interactions\Web\Lesplan\Factory $factory            
+     * @param \Teach\Interactions\Web\Factory $factory            
      * @return \Teach\Interactions\Documentable
      */
-    public function interact(\Teach\Interactions\Web\Lesplan\Factory $factory): \Teach\Interactions\Documentable
+    public function interact(\Teach\Interactions\Web\Factory $factory): \Teach\Interactions\Documentable
     {
         return $factory->createSection($this->title, $factory->createDocumentParts(
             $this->ervaren->interact($factory),
