@@ -2,14 +2,9 @@
 
 interface EnvironmentBootstrap
 {
-
-    /**
-     *
-     * @return PDO
-     */
     public function getDatabase(): \PDO;
-
-    public function getInteractorFactory(): \Teach\Interactions\Factory;
+    
+    public function getDomainFactory(): \Teach\Domain\Factory;
 }
 
 return new class() implements EnvironmentBootstrap {
@@ -58,8 +53,12 @@ return new class() implements EnvironmentBootstrap {
         return new PDO('mysql:' . join(';', $dsn), $user, $password);
     }
 
-    public function getInteractorFactory(): \Teach\Interactions\Factory
+    /**
+     *
+     * @return \Teach\Domain\Factory
+     */
+    public function getDomainFactory(): \Teach\Domain\Factory
     {
-        return new \Teach\Interactions\Factory();
+        return new \Teach\Domain\Factory($this->getDatabase());
     }
 };

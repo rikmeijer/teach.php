@@ -3,12 +3,9 @@ $environmentBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootst
 
 interface ApplicationBootstrap
 {
+    public function handleRequest(array ...$globals): \Psr\Http\Message\ResponseInterface;
 
-    public function startDocument(\Teach\Interactions\Documenter $adapter): \Teach\Interactions\Document;
-
-    public function createInteractionWeb(): \Teach\Interactions\Web\Factory;
-
-    public function getDomainFactory(): \Teach\Domain\Factory;
+    public function sendResponse(\Psr\Http\Message\ResponseInterface $response);
 }
 
 return new class($environmentBootstrap) implements ApplicationBootstrap {
@@ -28,7 +25,7 @@ return new class($environmentBootstrap) implements ApplicationBootstrap {
     {
         $request = \Zend\Diactoros\ServerRequestFactory::fromGlobals(...$globals);
         
-        $lesplanEntity = $this->getDomainFactory()->createLesplan($_GET['contactmoment']);
+        $lesplanEntity = $this->environment->getDomainFactory()->createLesplan($_GET['contactmoment']);
         $interaction = new \Teach\Interactions\Document\HTML();
         
         $response = new Zend\Diactoros\Response();
@@ -37,27 +34,13 @@ return new class($environmentBootstrap) implements ApplicationBootstrap {
         $response->getBody()->rewind();
         return $response->withHeader('Content-Type', 'text/html');
     }
-
-    /**
-     *
-     * @return \Teach\Domain\Factory
-     */
-    public function getDomainFactory(): \Teach\Domain\Factory
+    
+    public function sendResponse(\Psr\Http\Message\ResponseInterface $response)
     {
-        return new \Teach\Domain\Factory($this->environment->getDatabase());
-    }
-
-    /**
-     *
-     * @return \Teach\Interactions\Web\Factory
-     */
-    public function createInteractionWeb(): \Teach\Interactions\Web\Factory
-    {
-        return new \Teach\Interactions\Web\Factory();
-    }
-
-    public function startDocument(\Teach\Interactions\Documenter $adapter): \Teach\Interactions\Document
-    {
-        return $this->environment->getInteractorFactory()->makeDocument($adapter);
+        foreach ($response->getHeaders() as $name => $values) {
+            header($name . ": " . implode(", ", $values));
+        }
+        $body = $response->getBody();
+        print $body->getContents();
     }
 };
