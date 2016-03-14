@@ -29,8 +29,7 @@ return new class($environmentBootstrap) implements ApplicationBootstrap {
         $interaction = new \Teach\Interactions\Document\HTML();
         
         $response = new Zend\Diactoros\Response();
-        $response->getBody()->write($interaction->makeDocument($lesplanEntity->document($interaction))
-            ->render());
+        $response->getBody()->write($lesplanEntity->document($interaction));
         $response->getBody()->rewind();
         return $response->withHeader('Content-Type', 'text/html');
     }
