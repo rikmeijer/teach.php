@@ -29,7 +29,7 @@ class Afsluiting implements \Teach\Domain\Documentable
         $this->slot = $slot;
     }
 
-    public function document(\Teach\Interactions\Documenter $adapter): string
+    public function document(\Teach\Domain\Documenter $adapter): string
     {
         $adapter->push();
         $section = $adapter->makeSection();

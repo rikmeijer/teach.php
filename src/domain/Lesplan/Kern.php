@@ -15,7 +15,7 @@ class Kern implements \Teach\Domain\Documentable
         $this->themas = $themas;
     }
 
-    public function document(\Teach\Interactions\Documenter $adapter): string
+    public function document(\Teach\Domain\Documenter $adapter): string
     {
         $adapter->push();
         $section = $adapter->makeSection();

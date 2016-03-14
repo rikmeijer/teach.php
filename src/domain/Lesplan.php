@@ -48,7 +48,7 @@ class Lesplan implements \Teach\Domain\Documentable
         $this->afsluiting = $afsluiting;
     }
 
-    public function document(\Teach\Interactions\Documenter $adapter): string
+    public function document(\Teach\Domain\Documenter $adapter): string
     {
         $lines = [];
         $lines[] = $adapter->makeFirstPage("Lesplan " . $this->vak, $this->opleiding)->render();

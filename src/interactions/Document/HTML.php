@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Interactions\Document;
 
-final class HTML implements \Teach\Interactions\Documenter
+final class HTML implements \Teach\Domain\Documenter
 {
 
     private $nesting;
@@ -37,7 +37,7 @@ final class HTML implements \Teach\Interactions\Documenter
      *
      * {@inheritDoc}
      *
-     * @see \Teach\Interactions\Documenter::makePageHeader($title, $subtitle)
+     * @see \Teach\Domain\Documenter::makePageHeader($title, $subtitle)
      */
     public function makeFirstPage(string $title, string $subtitle): \Teach\Adapters\Renderable
     {
