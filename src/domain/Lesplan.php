@@ -51,11 +51,11 @@ class Lesplan implements \Teach\Domain\Documentable
     public function document(\Teach\Domain\Documenter $documenter): string
     {
         $lines = [];
-        $lines[] = $adapter->makeFirstPage("Lesplan " . $this->vak, $this->opleiding)->render();
-        $lines[] = $this->beginsituatie->document($adapter);
-        $lines[] = $this->introductie->document($adapter);
-        $lines[] = $this->kern->document($adapter);
-        $lines[] = $this->afsluiting->document($adapter);
-        return $adapter->makeDocument("Lesplan " . $this->vak, join("", $lines))->render();
+        $lines[] = $documenter->makeFirstPage("Lesplan " . $this->vak, $this->opleiding)->render();
+        $lines[] = $this->beginsituatie->document($documenter);
+        $lines[] = $this->introductie->document($documenter);
+        $lines[] = $this->kern->document($documenter);
+        $lines[] = $this->afsluiting->document($documenter);
+        return $documenter->makeDocument("Lesplan " . $this->vak, join("", $lines))->render();
     }
 }

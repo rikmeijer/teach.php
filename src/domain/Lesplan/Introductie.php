@@ -45,11 +45,11 @@ class Introductie implements \Teach\Domain\Documentable
 
     public function document(\Teach\Domain\Documenter $documenter): string
     {
-        $adapter->push();
-        $section = $adapter->makeSection();
-        $section->append($adapter->makeHeaderNested("Introductie"));
-        $section->appendHTML($this->opening->document($adapter), $this->focus->document($adapter), $this->voorstellen->document($adapter), $this->kennismaken->document($adapter), $this->terugblik->document($adapter));
-        $adapter->pop();
+        $documenter->push();
+        $section = $documenter->makeSection();
+        $section->append($documenter->makeHeaderNested("Introductie"));
+        $section->appendHTML($this->opening->document($documenter), $this->focus->document($documenter), $this->voorstellen->document($documenter), $this->kennismaken->document($documenter), $this->terugblik->document($documenter));
+        $documenter->pop();
         return $section->render();
     }
 }

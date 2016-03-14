@@ -50,7 +50,7 @@ final class Activiteit implements \Teach\Domain\Documentable
 
     public function document(\Teach\Domain\Documenter $documenter): string
     {
-        return $adapter->makeTable($this->caption, [
+        return $documenter->makeTable($this->caption, [
             [
                 'werkvorm' => $this->werkvorm['werkvorm'],
                 'organisatievorm' => $this->werkvorm['organisatievorm']

@@ -31,11 +31,11 @@ class Afsluiting implements \Teach\Domain\Documentable
 
     public function document(\Teach\Domain\Documenter $documenter): string
     {
-        $adapter->push();
-        $section = $adapter->makeSection();
-        $section->append($adapter->makeHeaderNested("Afsluiting"));
-        $section->appendHTML($this->huiswerk->document($adapter), $this->evaluatie->document($adapter), $this->slot->document($adapter));
-        $adapter->pop();
+        $documenter->push();
+        $section = $documenter->makeSection();
+        $section->append($documenter->makeHeaderNested("Afsluiting"));
+        $section->appendHTML($this->huiswerk->document($documenter), $this->evaluatie->document($documenter), $this->slot->document($documenter));
+        $documenter->pop();
         return $section->render();
     }
 }

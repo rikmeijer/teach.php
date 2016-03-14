@@ -38,9 +38,9 @@ class Beginsituatie implements \Teach\Domain\Documentable
 
     public function document(\Teach\Domain\Documenter $documenter): string
     {
-        $section = $adapter->makeSection();
-        $section->append($adapter->makeHeader('2', $this->les));
-        $section->append($adapter->makeHeader('3', 'Beginsituatie'), $adapter->makeTable(null, [
+        $section = $documenter->makeSection();
+        $section->append($documenter->makeHeader('2', $this->les));
+        $section->append($documenter->makeHeader('3', 'Beginsituatie'), $documenter->makeTable(null, [
             [
                 'doelgroep' => $this->beginsituatie['doelgroep']['beschrijving'],
                 'ervaring' => $this->beginsituatie['doelgroep']['ervaring']
@@ -60,12 +60,12 @@ class Beginsituatie implements \Teach\Domain\Documentable
         ]));
         
         if (count($this->media) > 0) {
-            $section->append($adapter->makeHeader('3', 'Media'), $adapter->makeUnorderedList($this->media));
+            $section->append($documenter->makeHeader('3', 'Media'), $documenter->makeUnorderedList($this->media));
         }
         
-        $section->append($adapter->makeHeader('3', 'Leerdoelen'));
+        $section->append($documenter->makeHeader('3', 'Leerdoelen'));
         $section->appendHTML('<p>Na afloop van de les kan de student:</p>');
-        $section->append($adapter->makeUnorderedList($this->leerdoelen));
+        $section->append($documenter->makeUnorderedList($this->leerdoelen));
         
         return $section->render();
     }
