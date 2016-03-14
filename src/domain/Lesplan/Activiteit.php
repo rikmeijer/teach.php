@@ -48,7 +48,7 @@ final class Activiteit implements \Teach\Domain\Documentable
         $this->werkvorm = $werkvorm;
     }
 
-    public function document(\Teach\Domain\Documenter $adapter): string
+    public function document(\Teach\Domain\Documenter $documenter): string
     {
         return $adapter->makeTable($this->caption, [
             [

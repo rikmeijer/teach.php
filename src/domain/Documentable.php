@@ -3,5 +3,5 @@ namespace Teach\Domain;
 
 interface Documentable
 {
-    function document(\Teach\Domain\Documenter $adapter): string;
+    function document(\Teach\Domain\Documenter $documenter): string;
 }

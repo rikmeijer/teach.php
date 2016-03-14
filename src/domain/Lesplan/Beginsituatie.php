@@ -36,7 +36,7 @@ class Beginsituatie implements \Teach\Domain\Documentable
         $this->leerdoelen = $leerdoelen;
     }
 
-    public function document(\Teach\Domain\Documenter $adapter): string
+    public function document(\Teach\Domain\Documenter $documenter): string
     {
         $section = $adapter->makeSection();
         $section->append($adapter->makeHeader('2', $this->les));

@@ -43,7 +43,7 @@ class Thema implements \Teach\Domain\Documentable
         $this->toepassen = $toepassen;
     }
 
-    public function document(\Teach\Domain\Documenter $adapter): string
+    public function document(\Teach\Domain\Documenter $documenter): string
     {
         $adapter->push();
         $section = $adapter->makeSection();
