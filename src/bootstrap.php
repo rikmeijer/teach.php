@@ -24,6 +24,20 @@ return new class($environmentBootstrap) implements ApplicationBootstrap {
         $this->environment = $environmentBootstrap;
     }
 
+    public function handleRequest(array ...$globals): \Psr\Http\Message\ResponseInterface
+    {
+        $request = \Zend\Diactoros\ServerRequestFactory::fromGlobals(...$globals);
+        
+        $lesplanEntity = $this->getDomainFactory()->createLesplan($_GET['contactmoment']);
+        $interaction = new \Teach\Interactions\Document\HTML();
+        
+        $response = new Zend\Diactoros\Response();
+        $response->getBody()->write($interaction->makeDocument($lesplanEntity->document($interaction))
+            ->render());
+        $response->getBody()->rewind();
+        return $response->withHeader('Content-Type', 'text/html');
+    }
+
     /**
      *
      * @return \Teach\Domain\Factory
