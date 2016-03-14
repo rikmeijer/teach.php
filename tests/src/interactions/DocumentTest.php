@@ -8,7 +8,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
     {
         $object = new Document(\Test\Helper::implementDocumenter());
         
-        $html = $object->render(new class() implements \Teach\Interactions\Documentable {
+        $html = $object->render(new class() implements \Teach\Domain\Documentable {
 
             public function document(\Teach\Interactions\Documenter $adapter): string
             {

@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Domain\Lesplan;
 
-class Kern implements \Teach\Interactions\Documentable
+class Kern implements \Teach\Domain\Documentable
 {
 
     /**

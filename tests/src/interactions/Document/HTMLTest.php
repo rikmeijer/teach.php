@@ -17,7 +17,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 
     public function testMakeDocument()
     {
-        $element = $this->object->makeDocument(new class() implements \Teach\Interactions\Documentable {
+        $element = $this->object->makeDocument(new class() implements \Teach\Domain\Documentable {
 
             public function document(\Teach\Interactions\Documenter $adapter): string
             {

@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Domain\Lesplan;
 
-class Thema implements \Teach\Interactions\Documentable
+class Thema implements \Teach\Domain\Documentable
 {
 
     /**

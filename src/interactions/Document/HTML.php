@@ -26,7 +26,7 @@ final class HTML implements \Teach\Interactions\Documenter
      *
      * @see \Teach\Interactions\Documenter::makeDocument($documentable)
      */
-    public function makeDocument(\Teach\Interactions\Documentable $documentable): \Teach\Adapters\Renderable
+    public function makeDocument(\Teach\Domain\Documentable $documentable): \Teach\Adapters\Renderable
     {
         $html = $this->makeElement('html', []);
         $head = $this->makeElement('head', []);

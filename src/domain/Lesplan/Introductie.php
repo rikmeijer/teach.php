@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Domain\Lesplan;
 
-class Introductie implements \Teach\Interactions\Documentable
+class Introductie implements \Teach\Domain\Documentable
 {
 
     /**

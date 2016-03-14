@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Interactions;
+namespace Teach\Domain;
 
 interface Documentable
 {

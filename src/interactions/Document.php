@@ -15,7 +15,7 @@ final class Document
         $this->adapter = $adapter;
     }
 
-    public function render(\Teach\Interactions\Documentable $documentable)
+    public function render(\Teach\Domain\Documentable $documentable)
     {
         return $this->adapter->makeDocument($documentable)->render();
     }

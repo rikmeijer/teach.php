@@ -68,10 +68,10 @@ class Helper {
             
             /**
              *
-             * @param \Teach\Interactions\Documentable $documentable            
+             * @param \Teach\Domain\Documentable $documentable            
              * @return \Teach\Adapters\Renderable
              */
-            public function makeDocument(\Teach\Interactions\Documentable $documentable): \Teach\Adapters\Renderable
+            public function makeDocument(\Teach\Domain\Documentable $documentable): \Teach\Adapters\Renderable
             {
                 return $this->makeRenderer('<html><head></head><body>' . $documentable->document($this) . '</body></html>');
             }
