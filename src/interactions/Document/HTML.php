@@ -170,28 +170,12 @@ final class HTML implements \Teach\Domain\Documenter
         
         return $table;
     }
-
-    /**
-     *
-     * @param string $level            
-     * @param string $text            
-     * @return \Teach\Interactions\HTML\Element
-     */
-    public function makeHeader(string $level, string $text): \Teach\Adapters\Renderable
+    
+    public function makeHeader(string $text): \Teach\Adapters\Renderable
     {
         $header = $this->makeElement('h' . $level, []);
         $header->append($this->makeText($text));
         return $header;
-    }
-
-    /**
-     *
-     * @param string $text
-     * @return \Teach\Interactions\HTML\Element
-     */
-    public function makeHeaderNested(string $text): \Teach\Adapters\Renderable
-    {
-        return $this->makeHeader($this->nesting+1, $text);
     }
     
     public function makeSection(): \Teach\Adapters\Renderable

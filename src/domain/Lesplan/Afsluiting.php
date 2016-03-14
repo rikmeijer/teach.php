@@ -33,7 +33,7 @@ class Afsluiting implements \Teach\Domain\Documentable
     {
         $documenter->push();
         $section = $documenter->makeSection();
-        $section->append($documenter->makeHeaderNested("Afsluiting"));
+        $section->append($documenter->makeHeader("Afsluiting"));
         $section->appendHTML($this->huiswerk->document($documenter), $this->evaluatie->document($documenter), $this->slot->document($documenter));
         $documenter->pop();
         return $section->render();

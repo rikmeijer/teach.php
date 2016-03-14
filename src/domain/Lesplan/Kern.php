@@ -19,7 +19,7 @@ class Kern implements \Teach\Domain\Documentable
     {
         $documenter->push();
         $section = $documenter->makeSection();
-        $section->append($documenter->makeHeaderNested("Kern"));
+        $section->append($documenter->makeHeader("Kern"));
         foreach ($this->themas as $thema) {
             $section->appendHTML($thema->document($documenter));
         }
