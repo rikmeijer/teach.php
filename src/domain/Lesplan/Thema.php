@@ -47,7 +47,7 @@ class Thema implements \Teach\Domain\Documentable
     {
         $documenter->push();
         $section = $documenter->makeSection();
-        $section->append($documenter->makeHeader($this->title));
+        $section->append($documenter->makeHeaderNested($this->title));
         $section->appendHTML(
             $this->ervaren->document($documenter),
             $this->reflecteren->document($documenter),

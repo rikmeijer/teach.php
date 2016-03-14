@@ -47,7 +47,7 @@ class Introductie implements \Teach\Domain\Documentable
     {
         $documenter->push();
         $section = $documenter->makeSection();
-        $section->append($documenter->makeHeader("Introductie"));
+        $section->append($documenter->makeHeaderNested("Introductie"));
         $section->appendHTML($this->opening->document($documenter), $this->focus->document($documenter), $this->voorstellen->document($documenter), $this->kennismaken->document($documenter), $this->terugblik->document($documenter));
         $documenter->pop();
         return $section->render();

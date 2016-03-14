@@ -125,11 +125,11 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 
     public function testMakeNestedHeader()
     {
-        $this->assertEquals('<h1>HeaderHeader</h1>', $this->object->makeHeader('HeaderHeader')->render());
+        $this->assertEquals('<h1>HeaderHeader</h1>', $this->object->makeHeaderNested('HeaderHeader')->render());
         $this->object->push();
-        $this->assertEquals('<h2>HeaderHeader</h2>', $this->object->makeHeader('HeaderHeader')->render());
+        $this->assertEquals('<h2>HeaderHeader</h2>', $this->object->makeHeaderNested('HeaderHeader')->render());
         $this->object->pop();
-        $this->assertEquals('<h1>HeaderHeader</h1>', $this->object->makeHeader('HeaderHeader')->render());
+        $this->assertEquals('<h1>HeaderHeader</h1>', $this->object->makeHeaderNested('HeaderHeader')->render());
     }
     
 

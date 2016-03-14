@@ -37,11 +37,19 @@ interface Documenter
     public function makeTable($caption, array $rows): \Teach\Adapters\Renderable;
 
     /**
-     *           
+     *
+     * @param string $level            
      * @param string $text            
      * @return \Teach\Interactions\HTML\Element
      */
-    public function makeHeader(string $text): \Teach\Adapters\Renderable;
+    public function makeHeader(string $level, string $text): \Teach\Adapters\Renderable;
+
+    /**
+     *
+     * @param string $text
+     * @return \Teach\Interactions\HTML\Element
+     */
+    public function makeHeaderNested(string $text): \Teach\Adapters\Renderable;
     
     /**
      *
