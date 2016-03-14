@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Domain;
 
-class Lesplan implements \Teach\Interactions\Interactable
+class Lesplan implements \Teach\Interactions\Interactable, \Teach\Interactions\Documentable
 {
 
     /**
@@ -58,5 +58,16 @@ class Lesplan implements \Teach\Interactions\Interactable
         $lesplanDocumentParts = $factory->createDocumentParts($this->beginsituatie->interact($factory), $this->introductie->interact($factory), $this->kern->interact($factory), $this->afsluiting->interact($factory));
         $lesplanDocument = $factory->createDocument("Lesplan " . $this->vak, $this->opleiding, $lesplanDocumentParts);
         return $lesplanDocument;
+    }
+
+    public function document(\Teach\Interactions\Documenter $adapter): string
+    {
+        $lines = [];
+        $lines[] = $adapter->makeFirstPage("Lesplan " . $this->vak, $this->opleiding)->render();
+        $lines[] = $this->beginsituatie->document($adapter);
+        $lines[] = $this->introductie->document($adapter);
+        $lines[] = $this->kern->document($adapter);
+        $lines[] = $this->afsluiting->document($adapter);
+        return join("", $lines);
     }
 }

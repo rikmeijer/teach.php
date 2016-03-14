@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Domain\Lesplan;
 
-final class Activiteit implements \Teach\Interactions\Interactable
+final class Activiteit implements \Teach\Interactions\Interactable, \Teach\Interactions\Documentable
 {
     const MI_VERBAAL_LINGUISTISCH = "VL";
 
@@ -67,5 +67,25 @@ final class Activiteit implements \Teach\Interactions\Interactable
                 'inhoud' => $this->werkvorm['inhoud']
             ]
         ]);
+    }
+
+    public function document(\Teach\Interactions\Documenter $adapter): string
+    {
+        return $adapter->makeTable($this->caption, [
+            [
+                'werkvorm' => $this->werkvorm['werkvorm'],
+                'organisatievorm' => $this->werkvorm['organisatievorm']
+            ],
+            [
+                'tijd' => $this->werkvorm['tijd'] . ' minuten',
+                'soort werkvorm' => $this->werkvorm['werkvormsoort']
+            ],
+            [
+                'intelligenties' => $this->werkvorm['intelligenties']
+            ],
+            [
+                'inhoud' => $this->werkvorm['inhoud']
+            ]
+        ])->render();
     }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Domain\Lesplan;
 
-class Introductie implements \Teach\Interactions\Interactable
+class Introductie implements \Teach\Interactions\Interactable, \Teach\Interactions\Documentable
 {
 
     /**
@@ -52,5 +52,15 @@ class Introductie implements \Teach\Interactions\Interactable
     {
         $parts = $factory->createDocumentParts($this->opening->interact($factory), $this->focus->interact($factory), $this->voorstellen->interact($factory), $this->kennismaken->interact($factory), $this->terugblik->interact($factory));
         return $factory->createSection("Introductie", $parts);
+    }
+
+    public function document(\Teach\Interactions\Documenter $adapter): string
+    {
+        $adapter->push();
+        $section = $adapter->makeSection();
+        $section->append($adapter->makeHeaderNested("Introductie"));
+        $section->appendHTML($this->opening->document($adapter), $this->focus->document($adapter), $this->voorstellen->document($adapter), $this->kennismaken->document($adapter), $this->terugblik->document($adapter));
+        $adapter->pop();
+        return $section->render();
     }
 }

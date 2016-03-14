@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Domain\Lesplan;
 
-class Afsluiting implements \Teach\Interactions\Interactable
+class Afsluiting implements \Teach\Interactions\Interactable, \Teach\Interactions\Documentable
 {
 
     /**
@@ -38,5 +38,15 @@ class Afsluiting implements \Teach\Interactions\Interactable
     {
         $parts = $factory->createDocumentParts($this->huiswerk->interact($factory), $this->evaluatie->interact($factory), $this->slot->interact($factory));
         return $factory->createSection("Afsluiting", $parts);
+    }
+
+    public function document(\Teach\Interactions\Documenter $adapter): string
+    {
+        $adapter->push();
+        $section = $adapter->makeSection();
+        $section->append($adapter->makeHeaderNested("Afsluiting"));
+        $section->appendHTML($this->huiswerk->document($adapter), $this->evaluatie->document($adapter), $this->slot->document($adapter));
+        $adapter->pop();
+        return $section->render();
     }
 }

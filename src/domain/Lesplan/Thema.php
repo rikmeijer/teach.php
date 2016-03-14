@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Domain\Lesplan;
 
-class Thema implements \Teach\Interactions\Interactable
+class Thema implements \Teach\Interactions\Interactable, \Teach\Interactions\Documentable
 {
 
     /**
@@ -56,5 +56,20 @@ class Thema implements \Teach\Interactions\Interactable
             $this->conceptualiseren->interact($factory),
             $this->toepassen->interact($factory)
          ));
+    }
+
+    public function document(\Teach\Interactions\Documenter $adapter): string
+    {
+        $adapter->push();
+        $section = $adapter->makeSection();
+        $section->append($adapter->makeHeaderNested($this->title));
+        $section->appendHTML(
+            $this->ervaren->document($adapter),
+            $this->reflecteren->document($adapter),
+            $this->conceptualiseren->document($adapter),
+            $this->toepassen->document($adapter)
+        );
+        $adapter->pop();
+        return $section->render();
     }
 }
