@@ -17,13 +17,7 @@ class HTMLTest extends \PHPUnit_Framework_TestCase
 
     public function testMakeDocument()
     {
-        $element = $this->object->makeDocument(new class() implements \Teach\Domain\Documentable {
-
-            public function document(\Teach\Interactions\Documenter $adapter): string
-            {
-                return '<p>Hello World</p>';
-            }
-        });
+        $element = $this->object->makeDocument('<p>Hello World</p>');
         $this->assertEquals('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Lesplan</title><link rel="stylesheet" type="text/css" href="lesplan.css"></head><body><p>Hello World</p></body></html>', $element->render());
     }
 

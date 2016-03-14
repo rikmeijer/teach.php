@@ -20,13 +20,7 @@ final class HTML implements \Teach\Interactions\Documenter
         $this->nesting--;
     }
     
-    /**
-     *
-     * {@inheritDoc}
-     *
-     * @see \Teach\Interactions\Documenter::makeDocument($documentable)
-     */
-    public function makeDocument(\Teach\Domain\Documentable $documentable): \Teach\Adapters\Renderable
+    public function makeDocument(string $content): \Teach\Adapters\Renderable
     {
         $html = $this->makeElement('html', []);
         $head = $this->makeElement('head', []);
@@ -34,7 +28,7 @@ final class HTML implements \Teach\Interactions\Documenter
         $head->appendHTML('<meta charset="UTF-8"><title>Lesplan</title><link rel="stylesheet" type="text/css" href="lesplan.css">');
         $html->append($head);
         $body = $this->makeElement('body', []);
-        $body->appendHTML($documentable->document($this));
+        $body->appendHTML($content);
         $html->append($body);
         return $html;
     }

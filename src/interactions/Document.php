@@ -17,6 +17,7 @@ final class Document
 
     public function render(\Teach\Domain\Documentable $documentable)
     {
-        return $this->adapter->makeDocument($documentable)->render();
+        $contents = $documentable->document($this->adapter);
+        return $this->adapter->makeDocument($contents)->render();
     }
 }
