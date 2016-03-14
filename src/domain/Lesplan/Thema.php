@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Domain\Lesplan;
 
-class Thema implements \Teach\Interactions\Interactable, \Teach\Interactions\Documentable
+class Thema implements \Teach\Interactions\Documentable
 {
 
     /**
@@ -41,21 +41,6 @@ class Thema implements \Teach\Interactions\Interactable, \Teach\Interactions\Doc
         $this->reflecteren = $reflecteren;
         $this->conceptualiseren = $conceptualiseren;
         $this->toepassen = $toepassen;
-    }
-
-    /**
-     *
-     * @param \Teach\Interactions\Web\Factory $factory            
-     * @return \Teach\Interactions\Documentable
-     */
-    public function interact(\Teach\Interactions\Web\Factory $factory): \Teach\Interactions\Documentable
-    {
-        return $factory->createSection($this->title, $factory->createDocumentParts(
-            $this->ervaren->interact($factory),
-            $this->reflecteren->interact($factory),
-            $this->conceptualiseren->interact($factory),
-            $this->toepassen->interact($factory)
-         ));
     }
 
     public function document(\Teach\Interactions\Documenter $adapter): string

@@ -1,7 +1,7 @@
 <?php
 namespace Teach\Domain\Lesplan;
 
-class Introductie implements \Teach\Interactions\Interactable, \Teach\Interactions\Documentable
+class Introductie implements \Teach\Interactions\Documentable
 {
 
     /**
@@ -41,17 +41,6 @@ class Introductie implements \Teach\Interactions\Interactable, \Teach\Interactio
         $this->voorstellen = $voorstellen;
         $this->kennismaken = $kennismaken;
         $this->terugblik = $terugblik;
-    }
-
-    /**
-     *
-     * @param \Teach\Interactions\Web\Factory $factory            
-     * @return \Teach\Interactions\Documentable
-     */
-    public function interact(\Teach\Interactions\Web\Factory $factory): \Teach\Interactions\Documentable
-    {
-        $parts = $factory->createDocumentParts($this->opening->interact($factory), $this->focus->interact($factory), $this->voorstellen->interact($factory), $this->kennismaken->interact($factory), $this->terugblik->interact($factory));
-        return $factory->createSection("Introductie", $parts);
     }
 
     public function document(\Teach\Interactions\Documenter $adapter): string

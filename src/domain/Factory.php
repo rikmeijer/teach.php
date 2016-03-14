@@ -25,7 +25,7 @@ class Factory
      * @param string $identifier            
      * @return \Teach\Interactions\Interactable
      */
-    public function createLesplan($identifier): \Teach\Interactions\Interactable
+    public function createLesplan($identifier): \Teach\Domain\Lesplan
     {
         $contactmoment = $this->getBeginsituatie($identifier);
         
@@ -60,7 +60,7 @@ class Factory
      * @param string $slotIdentifier            
      * @return \Teach\Interactions\Interactable
      */
-    private function createAfsluiting(string $huiswerkIdentifier = null, string $evaluatieIdentifier = null, string $slotIdentifier = null): \Teach\Interactions\Interactable
+    private function createAfsluiting(string $huiswerkIdentifier = null, string $evaluatieIdentifier = null, string $slotIdentifier = null): \Teach\Domain\Lesplan\Afsluiting
     {
         return new Lesplan\Afsluiting($this->createActiviteit("Huiswerk", $huiswerkIdentifier), $this->createActiviteit("Evaluatie", $evaluatieIdentifier), $this->createActiviteit("Pakkend slot", $slotIdentifier));
     }
@@ -73,7 +73,7 @@ class Factory
      * @param array $leerdoelen
      * @return \Teach\Interactions\Interactable
      */
-    private function createBeginsituatie(string $les, array $beginsituatie, array $media, array $leerdoelen): \Teach\Interactions\Interactable
+    private function createBeginsituatie(string $les, array $beginsituatie, array $media, array $leerdoelen): \Teach\Domain\Lesplan\Beginsituatie
     {
         return new Lesplan\Beginsituatie($les, $beginsituatie, $media, $leerdoelen);
     }
@@ -84,7 +84,7 @@ class Factory
      * @param string $identifier
      * @return \Teach\Interactions\Interactable
      */
-    private function createActiviteit(string $title, string $identifier = null): \Teach\Interactions\Interactable
+    private function createActiviteit(string $title, string $identifier = null): \Teach\Domain\Lesplan\Activiteit
     {
         return new Lesplan\Activiteit($title, $this->getActiviteit($identifier));
     } 
@@ -94,12 +94,12 @@ class Factory
      * @param string $lesplanIdentifier            
      * @return \Teach\Interactions\Interactable
      */
-    private function createKern(string $lesplanIdentifier): \Teach\Interactions\Interactable
+    private function createKern(string $lesplanIdentifier): \Teach\Domain\Lesplan\Kern
     {
         return new Lesplan\Kern($this->getKern($lesplanIdentifier));
     }
 
-    private function createIntroductie(string $openingIdentifier = null, string $focusIdentifier = null, string $voorstellenIdentifier = null, string $kennismakenIdentifier = null, string $terugblikIdentifier = null)
+    private function createIntroductie(string $openingIdentifier = null, string $focusIdentifier = null, string $voorstellenIdentifier = null, string $kennismakenIdentifier = null, string $terugblikIdentifier = null): \Teach\Domain\Lesplan\Introductie
     {
         return new Lesplan\Introductie($this->createActiviteit("Activerende opening", $openingIdentifier), $this->createActiviteit("Focus", $focusIdentifier), $this->createActiviteit("Voorstellen", $voorstellenIdentifier), $this->createActiviteit("Kennismaken", $kennismakenIdentifier), $this->createActiviteit("Terugblik", $terugblikIdentifier));
     }
