@@ -66,9 +66,9 @@ class Helper {
                 $this->nesting--;
             }
             
-            public function makeDocument(string $contents): \Teach\Adapters\Renderable
+            public function makeDocument(string $title, string $content): \Teach\Adapters\Renderable
             {
-                return $this->makeRenderer('<html><head></head><body>' . $contents . '</body></html>');
+                return $this->makeRenderer('<html><head><title>' . $title . '</title></head><body>' . $content . '</body></html>');
             }
 
             /**

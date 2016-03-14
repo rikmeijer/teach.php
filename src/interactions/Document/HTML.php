@@ -20,12 +20,12 @@ final class HTML implements \Teach\Interactions\Documenter
         $this->nesting--;
     }
     
-    public function makeDocument(string $content): \Teach\Adapters\Renderable
+    public function makeDocument(string $title, string $content): \Teach\Adapters\Renderable
     {
         $html = $this->makeElement('html', []);
         $head = $this->makeElement('head', []);
         // @TODO: remove specific les head contents
-        $head->appendHTML('<meta charset="UTF-8"><title>Lesplan</title><link rel="stylesheet" type="text/css" href="lesplan.css">');
+        $head->appendHTML('<meta charset="UTF-8"><title>' . htmlentities($title) . '</title><link rel="stylesheet" type="text/css" href="lesplan.css">');
         $html->append($head);
         $body = $this->makeElement('body', []);
         $body->appendHTML($content);

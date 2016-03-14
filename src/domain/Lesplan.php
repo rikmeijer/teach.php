@@ -56,6 +56,6 @@ class Lesplan implements \Teach\Domain\Documentable
         $lines[] = $this->introductie->document($adapter);
         $lines[] = $this->kern->document($adapter);
         $lines[] = $this->afsluiting->document($adapter);
-        return $adapter->makeDocument(join("", $lines))->render();
+        return $adapter->makeDocument("Lesplan " . $this->vak, join("", $lines))->render();
     }
 }

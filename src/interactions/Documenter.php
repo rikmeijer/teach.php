@@ -6,7 +6,7 @@ interface Documenter
     public function push();
     public function pop();
     
-    public function makeDocument(string $contents): \Teach\Adapters\Renderable;
+    public function makeDocument(string $title, string $content): \Teach\Adapters\Renderable;
 
     /**
      *
