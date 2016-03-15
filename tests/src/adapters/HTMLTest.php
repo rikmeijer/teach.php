@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Interactions\Document;
+namespace Teach\Adapters;
 
 class HTMLTest extends \PHPUnit_Framework_TestCase
 {
