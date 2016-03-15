@@ -3,9 +3,6 @@ namespace Teach\Domain;
 
 interface Documenter
 {
-    public function push();
-    public function pop();
-    
     public function makeDocument(string $title, string $content): \Teach\Adapters\Renderable;
 
     public function makeFirstPage(string $title, string $subtitle): \Teach\Adapters\Renderable;

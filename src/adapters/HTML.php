@@ -3,23 +3,6 @@ namespace Teach\Adapters;
 
 final class HTML implements \Teach\Domain\Documenter
 {
-
-    private $nesting;
-    
-    public function __construct() {
-        $this->nesting = 0;
-    }
-    
-    public function push()
-    {
-        $this->nesting++;
-    }
-    
-    public function pop()
-    {
-        $this->nesting--;
-    }
-    
     public function makeDocument(string $title, string $content): \Teach\Adapters\Renderable
     {
         $html = $this->makeElement('html', []);
