@@ -115,7 +115,7 @@ class Helper {
              *
              * @param string $level            
              * @param string $text            
-             * @return \Teach\Interactions\HTML\Element
+             * @return \Teach\Adapters\HTML\Element
              */
             public function makeHeader(string $level, string $text): \Teach\Adapters\Renderable
             {

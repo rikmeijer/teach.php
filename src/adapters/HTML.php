@@ -1,5 +1,5 @@
 <?php
-namespace Teach\Interactions\Document;
+namespace Teach\Adapters;
 
 final class HTML implements \Teach\Domain\Documenter
 {
@@ -33,12 +33,6 @@ final class HTML implements \Teach\Domain\Documenter
         return $html;
     }
 
-    /**
-     *
-     * {@inheritDoc}
-     *
-     * @see \Teach\Domain\Documenter::makePageHeader($title, $subtitle)
-     */
     public function makeFirstPage(string $title, string $subtitle): \Teach\Adapters\Renderable
     {
         $header = $this->makeElement('header', []);
@@ -47,12 +41,6 @@ final class HTML implements \Teach\Domain\Documenter
         return $header;
     }
 
-    /**
-     *
-     * @param string $tagName            
-     * @param array $attributes            
-     * @return \Teach\Interactions\HTML\Element
-     */
     public function makeElement(string $tagName, array $attributes): \Teach\Adapters\Renderable
     {
         $element = new \Teach\Adapters\HTML\Element($tagName);
@@ -64,22 +52,11 @@ final class HTML implements \Teach\Domain\Documenter
         return $element;
     }
 
-    /**
-     *
-     * @param string $text            
-     * @return \Teach\Interactions\HTML\Text
-     */
     public function makeText($text): \Teach\Adapters\Renderable
     {
         return new \Teach\Adapters\HTML\Text($text);
     }
 
-    /**
-     *
-     * {@inheritDoc}
-     *
-     * @see \Teach\Interactions\LayoutFactoryInterface::makeTableRow()
-     */
     public function makeTableRow($expectedCellCount, array $data): \Teach\Adapters\Renderable
     {
         $cellsHTML = [];
@@ -115,11 +92,6 @@ final class HTML implements \Teach\Domain\Documenter
         return $row;
     }
 
-    /**
-     *
-     * @param string $tag            
-     * @param array $listitems            
-     */
     private function makeList($tag, array $listitems): \Teach\Adapters\Renderable
     {
         $listitemsHTML = [];
@@ -133,23 +105,11 @@ final class HTML implements \Teach\Domain\Documenter
         return $list;
     }
 
-    /**
-     *
-     * {@inheritDoc}
-     *
-     * @see \Teach\Interactions\LayoutFactoryInterface::makeUnorderedList()
-     */
     public function makeUnorderedList(array $listitems): \Teach\Adapters\Renderable
     {
         return $this->makeList('ul', $listitems);
     }
 
-    /**
-     *
-     * {@inheritDoc}
-     *
-     * @see \Teach\Interactions\LayoutFactoryInterface::makeTable()
-     */
     public function makeTable($caption, array $rows): \Teach\Adapters\Renderable
     {
         $expectedCellCount = 0;
@@ -171,12 +131,6 @@ final class HTML implements \Teach\Domain\Documenter
         return $table;
     }
 
-    /**
-     *
-     * @param string $level            
-     * @param string $text            
-     * @return \Teach\Interactions\HTML\Element
-     */
     public function makeHeader(string $level, string $text): \Teach\Adapters\Renderable
     {
         $header = $this->makeElement('h' . $level, []);
@@ -184,11 +138,6 @@ final class HTML implements \Teach\Domain\Documenter
         return $header;
     }
 
-    /**
-     *
-     * @param string $text
-     * @return \Teach\Interactions\HTML\Element
-     */
     public function makeHeaderNested(string $text): \Teach\Adapters\Renderable
     {
         return $this->makeHeader($this->nesting+1, $text);

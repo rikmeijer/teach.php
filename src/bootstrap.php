@@ -26,7 +26,7 @@ return new class($environmentBootstrap) implements ApplicationBootstrap {
         $request = \Zend\Diactoros\ServerRequestFactory::fromGlobals(...$globals);
         
         $lesplanEntity = $this->environment->getDomainFactory()->createLesplan($_GET['contactmoment']);
-        $interaction = new \Teach\Interactions\Document\HTML();
+        $interaction = new \Teach\Adapters\HTML();
         
         $response = new Zend\Diactoros\Response();
         $response->getBody()->write($lesplanEntity->document($interaction));
