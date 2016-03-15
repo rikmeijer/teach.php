@@ -121,11 +121,6 @@ class Helper {
             {
                 return $this->makeRenderer($level . ":" . $text);
             }
-
-            public function makeHeaderNested(string $text): \Teach\Adapters\Renderable
-            {   return $this->makeHeader($this->nesting+1, $text);
-                
-            }
             
             /**
              *

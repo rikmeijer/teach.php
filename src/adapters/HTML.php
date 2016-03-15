@@ -137,11 +137,6 @@ final class HTML implements \Teach\Domain\Documenter
         $header->append($this->makeText($text));
         return $header;
     }
-
-    public function makeHeaderNested(string $text): \Teach\Adapters\Renderable
-    {
-        return $this->makeHeader($this->nesting+1, $text);
-    }
     
     public function makeSection(): \Teach\Adapters\Renderable
     {

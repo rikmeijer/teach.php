@@ -17,13 +17,11 @@ class Kern implements \Teach\Domain\Documentable
 
     public function document(\Teach\Domain\Documenter $documenter): string
     {
-        $documenter->push();
         $section = $documenter->makeSection();
-        $section->append($documenter->makeHeaderNested("Kern"));
+        $section->append($documenter->makeHeader("2", "Kern"));
         foreach ($this->themas as $thema) {
             $section->appendHTML($thema->document($documenter));
         }
-        $documenter->pop();
         return $section->render();
     }
 }

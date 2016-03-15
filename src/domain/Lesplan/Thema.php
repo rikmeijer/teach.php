@@ -45,16 +45,14 @@ class Thema implements \Teach\Domain\Documentable
 
     public function document(\Teach\Domain\Documenter $documenter): string
     {
-        $documenter->push();
         $section = $documenter->makeSection();
-        $section->append($documenter->makeHeaderNested($this->title));
+        $section->append($documenter->makeHeader("3", $this->title));
         $section->appendHTML(
             $this->ervaren->document($documenter),
             $this->reflecteren->document($documenter),
             $this->conceptualiseren->document($documenter),
             $this->toepassen->document($documenter)
         );
-        $documenter->pop();
         return $section->render();
     }
 }

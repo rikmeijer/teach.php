@@ -17,8 +17,6 @@ interface Documenter
     public function makeTable($caption, array $rows): \Teach\Adapters\Renderable;
 
     public function makeHeader(string $level, string $text): \Teach\Adapters\Renderable;
-
-    public function makeHeaderNested(string $text): \Teach\Adapters\Renderable;
     
     public function makeSection(): \Teach\Adapters\Renderable;
 }
