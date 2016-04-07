@@ -50,7 +50,7 @@ return new class() implements EnvironmentBootstrap {
         $user = array_key_exists('user', $databaseResource) ? $databaseResource['user'] : get_current_user();
         $password = array_key_exists('password', $databaseResource) ? $databaseResource['password'] : null;
         
-        return new \Teach\Interactions\Database(new PDO('mysql:' . join(';', $dsn), $user, $password));
+        return new \Teach\Interactions\SQL(new PDO('mysql:' . join(';', $dsn), $user, $password));
     }
 
     /**
