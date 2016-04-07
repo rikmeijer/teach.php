@@ -7,6 +7,7 @@
 	<buildpathentry kind="src" path="src/interactions"/>
 	<buildpathentry kind="src" path="vendor/phpspec/prophecy/src"/>
 	<buildpathentry kind="src" path="vendor/sebastian/comparator/src"/>
+	<buildpathentry kind="src" path="vendor/zendframework/zend-diactoros/src"/>
 	<buildpathentry kind="src" path="vendor/myclabs/deep-copy/src/DeepCopy"/>
 	<buildpathentry kind="src" path="vendor/phpunit/phpunit-mock-objects/src"/>
 	<buildpathentry kind="src" path="vendor/sebastian/exporter/src"/>
@@ -29,6 +30,7 @@
 	<buildpathentry kind="src" path="vendor/phpdocumentor/reflection-docblock/src"/>
 	<buildpathentry kind="src" path="vendor/sebastian/code-unit-reverse-lookup/src"/>
 	<buildpathentry kind="src" path="vendor/sebastian/recursion-context/src"/>
+	<buildpathentry kind="src" path="vendor/psr/http-message/src"/>
 	<buildpathentry kind="src" path="vendor/sebastian/environment/src"/>
 	<buildpathentry kind="src" path="vendor/symfony/polyfill-mbstring"/>
 </buildpath>
