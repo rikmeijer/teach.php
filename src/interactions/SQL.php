@@ -205,9 +205,13 @@ final class SQL implements Database
             ");
         $kern = [];
         if ($activiteitQueryResult !== false) {
-            $themaCount = 0;
             while ($thema = $activiteitQueryResult->fetch(\PDO::FETCH_ASSOC)) {
-                $kern[$thema["leerdoel"]] = new \Teach\Domain\Lesplan\Thema('Thema ' . (++ $themaCount) . ': ' . $thema["leerdoel"], new \Teach\Domain\Lesplan\Activiteit("Ervaren", $this->getActiviteit($thema["ervaren_id"])), new \Teach\Domain\Lesplan\Activiteit("Reflecteren", $this->getActiviteit($thema["reflecteren_id"])), new \Teach\Domain\Lesplan\Activiteit("Conceptualiseren", $this->getActiviteit($thema["conceptualiseren_id"])), new \Teach\Domain\Lesplan\Activiteit("Toepassen", $this->getActiviteit($thema["toepassen_id"])));
+                $kern[$thema["leerdoel"]] = [
+                    "ervaren_id" => $thema["ervaren_id"],
+                    "reflecteren_id" => $thema["reflecteren_id"],
+                    "conceptualiseren_id" => $thema["conceptualiseren_id"],
+                    "toepassen_id" => $thema["toepassen_id"]
+                ];
             }
         }
         return $kern;

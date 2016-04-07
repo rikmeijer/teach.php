@@ -91,7 +91,14 @@ class Factory
      */
     private function createKern(string $lesplanIdentifier): \Teach\Domain\Lesplan\Kern
     {
-        return new Lesplan\Kern($this->database->getKern($lesplanIdentifier));
+        $kernData = $this->database->getKern($lesplanIdentifier);
+        
+        $kern = [];
+        foreach ($kernData as $leerdoel => $thema) {
+            $kern[$leerdoel] = new \Teach\Domain\Lesplan\Thema('Thema ' . (count($kern) + 1) . ': ' . $leerdoel, $this->createActiviteit("Ervaren", $thema["ervaren_id"]), $this->createActiviteit("Reflecteren", $thema["reflecteren_id"]), $this->createActiviteit("Conceptualiseren", $thema["conceptualiseren_id"]), $this->createActiviteit("Toepassen", $thema["toepassen_id"]));
+        }
+        
+        return new Lesplan\Kern($kern);
     }
 
     private function createIntroductie(string $openingIdentifier = null, string $focusIdentifier = null, string $voorstellenIdentifier = null, string $kennismakenIdentifier = null, string $terugblikIdentifier = null): \Teach\Domain\Lesplan\Introductie
