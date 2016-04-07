@@ -9,7 +9,7 @@ class FactoryTest extends \Teach\DomainTest
 
     public function testCreateLesplan()
     {
-        $object = new Factory(self::$pdo);
+        $object = new Factory(new \Teach\Interactions\Database(self::$pdo));
         $this->assertInstanceOf('\Teach\Domain\Lesplan', $object->createLesplan('1'));
     }
 }

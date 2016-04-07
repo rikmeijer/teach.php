@@ -2,7 +2,7 @@
 
 interface EnvironmentBootstrap
 {
-    public function getDatabase(): \PDO;
+    public function getDatabase(): \Teach\Interactions\Database;
     
     public function getDomainFactory(): \Teach\Domain\Factory;
 }
@@ -23,9 +23,9 @@ return new class() implements EnvironmentBootstrap {
 
     /**
      *
-     * @return PDO
+     * @return \Teach\Interactions\Database
      */
-    public function getDatabase(): \PDO
+    public function getDatabase(): \Teach\Interactions\Database
     {
         if (class_exists('PDO') === false) {
             trigger_error('PHP PDO extension has not been loaded', E_USER_ERROR);
@@ -50,7 +50,7 @@ return new class() implements EnvironmentBootstrap {
         $user = array_key_exists('user', $databaseResource) ? $databaseResource['user'] : get_current_user();
         $password = array_key_exists('password', $databaseResource) ? $databaseResource['password'] : null;
         
-        return new PDO('mysql:' . join(';', $dsn), $user, $password);
+        return new \Teach\Interactions\Database(new PDO('mysql:' . join(';', $dsn), $user, $password));
     }
 
     /**
