@@ -6,8 +6,6 @@ namespace Test;
  */
 $environmentBootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'DomainTest.php';
-
 class Helper {
     
     static function implementDocumenter(): \Teach\Domain\Documenter {
