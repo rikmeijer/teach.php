@@ -12,7 +12,29 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $object = new Factory(new class implements \Teach\Interactions\Database {
             public function getBeginsituatie($identifier): array
            {
-                return [];
+                return [
+                    "opleiding" => 'HBO-informatica (voltijd)',
+                    "lesplan_id" => "onbekend",
+                    "les" => "onbekend",
+                    "vak" => "onbekend",
+                    "doelgroep_grootte" => "onbekend",
+                    "doelgroep_ervaring" => "onbekend",
+                    "doelgroep_beschrijving" => "onbekend",
+                    "starttijd" => "onbekend",
+                    "eindtijd" => "onbekend",
+                    "duur" => "onbekend",
+                    "beschikbaar" => "onbekend",
+                    "ruimte" => "onbekend",
+                    "opmerkingen" => "",
+                    "activerende_opening_id" => null,
+                    "focus_id" => null,
+                    "voorstellen_id" => null,
+                    "kennismaken_id" => null,
+                    "terugblik_id" => null,
+                    "huiswerk_id" => null,
+                    "evaluatie_id" => null,
+                    "pakkend_slot_id" => null
+                ];
             }
             
             public function getLeerdoelen($les_id): array
@@ -27,7 +49,14 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             
             public function getActiviteit($id): array
            {
-                return [];
+                return [
+                    "inhoud" => "",
+                    "werkvorm" => "onbekend",
+                    "organisatievorm" => "nvt",
+                    "werkvormsoort" => "onbekend",
+                    "tijd" => "0",
+                    "intelligenties" => []
+                ];
             }
             
             public function getKern($les_id): array
