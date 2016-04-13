@@ -16,13 +16,13 @@
 		<table>
 			<tr>
 				<th>doelgroep</th>
-				<td id="doelgroep">eerstejaars HBO-studenten</td>
+				<td id="doelgroep">{{ $les->doelgroep->beschrijving }}</td>
 				<th>ervaring</th>
-				<td id="ervaring">geen</td>
+				<td id="ervaring">{{ $les->doelgroep->ervaring }}</td>
 			</tr>
 			<tr>
 				<th>groepsgrootte</th>
-				<td id="groepsgrootte" colspan="3">16 personen</td>
+				<td id="groepsgrootte" colspan="3">{{ $les->doelgroep->grootte }} personen</td>
 			</tr>
 			<tr>
 				<th>tijd</th>

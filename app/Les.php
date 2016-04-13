@@ -12,4 +12,14 @@ class Les extends Model
     {
         return $this->belongsTo('App\Module');
     }
+    
+    public function doelgroep()
+    {
+        return $this->belongsTo('App\Doelgroep');
+    }
+    
+    public function contactmomenten()
+    {
+        return $this->hasMany('App\Contactmoment');
+    }
 }
