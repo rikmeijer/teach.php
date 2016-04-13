@@ -7,22 +7,22 @@
 </head>
 <body>
 	<header>
-		<h1>Lesplan {{ $les->module->naam }}</h1>
+		<h1>Lesplan {{ $contactmoment->les->module->naam }}</h1>
 		<h2>HBO-informatica (voltijd)</h2>
 	</header>
 	<section>
-		<h2>{{ $les->naam }}</h2>
+		<h2>{{ $contactmoment->les->naam }}</h2>
 		<h3>Beginsituatie</h3>
 		<table>
 			<tr>
 				<th>doelgroep</th>
-				<td id="doelgroep">{{ $les->doelgroep->beschrijving }}</td>
+				<td id="doelgroep">{{ $contactmoment->les->doelgroep->beschrijving }}</td>
 				<th>ervaring</th>
-				<td id="ervaring">{{ $les->doelgroep->ervaring }}</td>
+				<td id="ervaring">{{ $contactmoment->les->doelgroep->ervaring }}</td>
 			</tr>
 			<tr>
 				<th>groepsgrootte</th>
-				<td id="groepsgrootte" colspan="3">{{ $les->doelgroep->grootte }} personen</td>
+				<td id="groepsgrootte" colspan="3">{{ $contactmoment->les->doelgroep->grootte }} personen</td>
 			</tr>
 			<tr>
 				<th>tijd</th>

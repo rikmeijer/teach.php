@@ -15,8 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/lesplan/{les}', function (App\Les $les) {
+Route::get('/lesplan/{contactmoment}', function (App\Contactmoment $contactmoment) {
     return view('lesplan', [
-        'les' => $les
+        'contactmoment' => $contactmoment
     ]);
 });
