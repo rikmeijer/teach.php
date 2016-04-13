@@ -7,11 +7,11 @@
 </head>
 <body>
 	<header>
-		<h1>Lesplan PROG1</h1>
+		<h1>Lesplan {{ $les->module->naam }}</h1>
 		<h2>HBO-informatica (voltijd)</h2>
 	</header>
 	<section>
-		<h2>Week1a</h2>
+		<h2>{{ $les->naam }}</h2>
 		<h3>Beginsituatie</h3>
 		<table>
 			<tr>

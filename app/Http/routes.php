@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/lesplan', function () {
-    return view('lesplan');
+Route::get('/lesplan/{les}', function (App\Les $les) {
+    return view('lesplan', [
+        'les' => $les
+    ]);
 });
