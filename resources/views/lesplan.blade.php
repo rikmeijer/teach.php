@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Lesplan PROG1</title>
-<link rel="stylesheet" type="text/css" href="css/lesplan.css">
+<link rel="stylesheet" type="text/css" href="/css/lesplan.css">
 </head>
 <body>
 	<header>

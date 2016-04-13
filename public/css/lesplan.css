@@ -32,7 +32,7 @@ body header {
 }
 
 body header:before {
-	content: url(/avans_logo.png);
+	content: url(/img/avans_logo.png);
 	float: right;
 }
 
