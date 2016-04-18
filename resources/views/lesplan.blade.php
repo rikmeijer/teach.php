@@ -40,8 +40,8 @@
 		@if (count($contactmoment->les->media) > 0)
     		<h3>Media</h3>
     		<ul>
-    			@foreach ($contactmoment->les->media as $mediaTitle)
-    				<li>{{ $mediaTitle }}</li>
+    			@foreach ($contactmoment->les->media as $medium)
+    				<li>{{ $medium->omschrijving }}</li>
     			@endforeach
     		</ul>
         @endif
