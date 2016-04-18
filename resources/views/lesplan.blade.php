@@ -34,7 +34,7 @@
 			</tr>
 			<tr>
 				<th>overige</th>
-				<td id="overige" colspan="3">nvt</td>
+				<td id="overige" colspan="3">{{ $contactmoment->les->opmerkingen }}</td>
 			</tr>
 		</table>
 		<h3>Media</h3>
