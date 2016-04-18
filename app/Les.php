@@ -44,4 +44,8 @@ class Les extends Model
     {
         return $this->belongsTo("App\Activiteit", "kennismaken_id");
     }
+    public function themas()
+    {
+        return $this->hasMany('App\Thema');
+    }
 }
