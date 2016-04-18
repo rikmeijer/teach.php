@@ -32,4 +32,16 @@ class Les extends Model
     {
         return $this->belongsTo("App\Activiteit", "activerende_opening_id");
     }
+    public function focus()
+    {
+        return $this->belongsTo("App\Activiteit", "focus_id");
+    }
+    public function voorstellen()
+    {
+        return $this->belongsTo("App\Activiteit", "voorstellen_id");
+    }
+    public function kennismaken()
+    {
+        return $this->belongsTo("App\Activiteit", "kennismaken_id");
+    }
 }

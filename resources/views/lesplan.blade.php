@@ -58,110 +58,18 @@
 			'title'=> 'Activerende opening',
 			'activiteit' => $contactmoment->les->activerendeOpening
 		])
-		<table>
-			<caption>Focus</caption>
-			<tr>
-				<th>werkvorm</th>
-				<td id="werkvorm">presentatie</td>
-				<th>organisatievorm</th>
-				<td id="organisatievorm">plenair</td>
-			</tr>
-			<tr>
-				<th>tijd</th>
-				<td id="tijd">3 minuten</td>
-				<th>soort werkvorm</th>
-				<td id="soort werkvorm">docent gecentreerd</td>
-			</tr>
-			<tr>
-				<th>intelligenties</th>
-				<td id="intelligenties" colspan="3"><ul>
-						<li>VL</li>
-						<li>LM</li>
-						<li>IR</li>
-					</ul></td>
-			</tr>
-			<tr>
-				<th>inhoud</th>
-				<td id="inhoud" colspan="3"><ul>
-						<li>Visie, Leerdoelen, Programma, Afspraken</li>
-					</ul></td>
-			</tr>
-		</table>
-		<table>
-			<caption>Voorstellen</caption>
-			<tr>
-				<th>werkvorm</th>
-				<td id="werkvorm">presentatie</td>
-				<th>organisatievorm</th>
-				<td id="organisatievorm">plenair</td>
-			</tr>
-			<tr>
-				<th>tijd</th>
-				<td id="tijd">1 minuten</td>
-				<th>soort werkvorm</th>
-				<td id="soort werkvorm">docent gecentreerd</td>
-			</tr>
-			<tr>
-				<th>intelligenties</th>
-				<td id="intelligenties" colspan="3"><ul>
-						<li>VL</li>
-						<li>LM</li>
-						<li>IR</li>
-					</ul></td>
-			</tr>
-			<tr>
-				<th>inhoud</th>
-				<td id="inhoud" colspan="3"><ul>
-						<li>Voorstellen Docent</li>
-					</ul></td>
-			</tr>
-		</table>
-		<table>
-			<caption>Kennismaken</caption>
-			<tr>
-				<th>werkvorm</th>
-				<td id="werkvorm">onbekend</td>
-				<th>organisatievorm</th>
-				<td id="organisatievorm">nvt</td>
-			</tr>
-			<tr>
-				<th>tijd</th>
-				<td id="tijd">0 minuten</td>
-				<th>soort werkvorm</th>
-				<td id="soort werkvorm">onbekend</td>
-			</tr>
-			<tr>
-				<th>intelligenties</th>
-				<td id="intelligenties" colspan="3"><ul></ul></td>
-			</tr>
-			<tr>
-				<th>inhoud</th>
-				<td id="inhoud" colspan="3"></td>
-			</tr>
-		</table>
-		<table>
-			<caption>Terugblik</caption>
-			<tr>
-				<th>werkvorm</th>
-				<td id="werkvorm">onbekend</td>
-				<th>organisatievorm</th>
-				<td id="organisatievorm">nvt</td>
-			</tr>
-			<tr>
-				<th>tijd</th>
-				<td id="tijd">0 minuten</td>
-				<th>soort werkvorm</th>
-				<td id="soort werkvorm">onbekend</td>
-			</tr>
-			<tr>
-				<th>intelligenties</th>
-				<td id="intelligenties" colspan="3"><ul></ul></td>
-			</tr>
-			<tr>
-				<th>inhoud</th>
-				<td id="inhoud" colspan="3"></td>
-			</tr>
-		</table>
+		@include('activiteit', [
+			'title'=> 'Focus',
+			'activiteit' => $contactmoment->les->focus
+		])
+		@include('activiteit', [
+			'title'=> 'Voorstellen',
+			'activiteit' => $contactmoment->les->voorstellen
+		])
+		@include('activiteit', [
+			'title'=> 'Kennismaken',
+			'activiteit' => $contactmoment->les->kennismaken
+		])
 	</section>
 	<section>
 		<h2>Kern</h2>
