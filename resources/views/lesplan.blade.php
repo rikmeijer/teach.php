@@ -54,33 +54,10 @@
 	</section>
 	<section>
 		<h2>Introductie</h2>
-		<table>
-			<caption>Activerende opening</caption>
-			<tr>
-				<th>werkvorm</th>
-				<td id="werkvorm">{{ $contactmoment->les->activerendeOpening->werkvorm }}</td>
-				<th>organisatievorm</th>
-				<td id="organisatievorm">{{ $contactmoment->les->activerendeOpening->organisatievorm }}</td>
-			</tr>
-			<tr>
-				<th>tijd</th>
-				<td id="tijd">{{ $contactmoment->les->activerendeOpening->tijd }} minuten</td>
-				<th>soort werkvorm</th>
-				<td id="soort werkvorm">{{ $contactmoment->les->activerendeOpening->werkvormsoort }}</td>
-			</tr>
-			<tr>
-				<th>intelligenties</th>
-				<td id="intelligenties" colspan="3"><ul>
-        			@foreach (explode(',', $contactmoment->les->activerendeOpening->intelligenties) as $intelligentie)
-        				<li>{{ $intelligentie }}</li>
-        			@endforeach
-					</ul></td>
-			</tr>
-			<tr>
-				<th>inhoud</th>
-				<td id="inhoud" colspan="3">{{ nl2br($contactmoment->les->activerendeOpening->inhoud) }}</td>
-			</tr>
-		</table>
+		@include('activiteit', [
+			'title'=> 'Activerende opening',
+			'activiteit' => $contactmoment->les->activerendeOpening
+		])
 		<table>
 			<caption>Focus</caption>
 			<tr>
