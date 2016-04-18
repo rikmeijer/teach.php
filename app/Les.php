@@ -44,8 +44,22 @@ class Les extends Model
     {
         return $this->belongsTo("App\Activiteit", "kennismaken_id");
     }
+    
     public function themas()
     {
         return $this->hasMany('App\Thema');
+    }
+    
+    public function huiswerk()
+    {
+        return $this->belongsTo("App\Activiteit", "huiswerk_id");
+    }
+    public function evaluatie()
+    {
+        return $this->belongsTo("App\Activiteit", "evaluatie_id");
+    }
+    public function pakkendSlot()
+    {
+        return $this->belongsTo("App\Activiteit", "pakkend_slot_id");
     }
 }

@@ -44,7 +44,7 @@
     	</tr>
     	<tr>
     		<th>inhoud</th>
-    		<td id="inhoud" colspan="3">{{ nl2br($activiteit->inhoud) }}</td>
+    		<td id="inhoud" colspan="3">{{ $activiteit->inhoud }}</td>
     	</tr>
 	@endif
 </table>

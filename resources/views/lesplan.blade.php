@@ -97,94 +97,18 @@
 	</section>
 	<section>
 		<h2>Afsluiting</h2>
-		<table>
-			<caption>Huiswerk</caption>
-			<tr>
-				<th>werkvorm</th>
-				<td id="werkvorm">presentatie</td>
-				<th>organisatievorm</th>
-				<td id="organisatievorm">plenair</td>
-			</tr>
-			<tr>
-				<th>tijd</th>
-				<td id="tijd">2 minuten</td>
-				<th>soort werkvorm</th>
-				<td id="soort werkvorm">docent gecentreerd</td>
-			</tr>
-			<tr>
-				<th>intelligenties</th>
-				<td id="intelligenties" colspan="3"><ul>
-						<li>VL</li>
-						<li>IR</li>
-					</ul></td>
-			</tr>
-			<tr>
-				<th>inhoud</th>
-				<td id="inhoud" colspan="3"><ul>
-						<li>Challenge voor eerstvolgende les maken</li>
-						<li>Practicum opdrachten thuis afronden</li>
-						<li>Huiswerk maken als extra oefening</li>
-					</ul></td>
-			</tr>
-		</table>
-		<table>
-			<caption>Evaluatie</caption>
-			<tr>
-				<th>werkvorm</th>
-				<td id="werkvorm">nabespreking</td>
-				<th>organisatievorm</th>
-				<td id="organisatievorm">plenair</td>
-			</tr>
-			<tr>
-				<th>tijd</th>
-				<td id="tijd">3 minuten</td>
-				<th>soort werkvorm</th>
-				<td id="soort werkvorm">docent gecentreerd</td>
-			</tr>
-			<tr>
-				<th>intelligenties</th>
-				<td id="intelligenties" colspan="3"><ul>
-						<li>VL</li>
-						<li>IR</li>
-					</ul></td>
-			</tr>
-			<tr>
-				<th>inhoud</th>
-				<td id="inhoud" colspan="3"><ul>
-						<li>Verzamelen feedback papiertjes</li>
-					</ul></td>
-			</tr>
-		</table>
-		<table>
-			<caption>Pakkend slot</caption>
-			<tr>
-				<th>werkvorm</th>
-				<td id="werkvorm">presentatie</td>
-				<th>organisatievorm</th>
-				<td id="organisatievorm">plenair</td>
-			</tr>
-			<tr>
-				<th>tijd</th>
-				<td id="tijd">1 minuten</td>
-				<th>soort werkvorm</th>
-				<td id="soort werkvorm">docent gecentreerd</td>
-			</tr>
-			<tr>
-				<th>intelligenties</th>
-				<td id="intelligenties" colspan="3"><ul>
-						<li>VL</li>
-						<li>VR</li>
-						<li>IR</li>
-					</ul></td>
-			</tr>
-			<tr>
-				<th>inhoud</th>
-				<td id="inhoud" colspan="3"><ul>
-						<li>Foto; gerelateerd aan keuzes/condities. Misschien foto van</li>
-						<li>blauwe/rode pil Matrix.</li>
-					</ul></td>
-			</tr>
-		</table>
+		@include('activiteit', [
+			'title'=> 'Huiswerk',
+			'activiteit' => $contactmoment->les->huiswerk
+		])
+		@include('activiteit', [
+			'title'=> 'Evaluatie',
+			'activiteit' => $contactmoment->les->evaluatie
+		])
+		@include('activiteit', [
+			'title'=> 'Pakkend slot',
+			'activiteit' => $contactmoment->les->pakkendSlot
+		])
 	</section>
 </body>
 </html>
