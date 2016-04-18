@@ -27,4 +27,9 @@ class Les extends Model
 //     {
 //         return $this->hasMany('App\Medium');
 //     }
+
+    public function activerendeOpening()
+    {
+        return $this->belongsTo("App\Activiteit", "activerende_opening_id");
+    }
 }
