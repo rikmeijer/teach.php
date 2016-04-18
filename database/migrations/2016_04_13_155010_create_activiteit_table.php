@@ -19,9 +19,12 @@ class CreateActiviteitTable extends Migration {
 			$table->enum('organisatievorm', array('plenair','groepswerk','circuit'));
 			$table->enum('werkvormsoort', array('ijsbreker','discussie','docent gecentreerd','werkopdracht','individuele werkopdracht'));
 			$table->integer('tijd');
-			$table->simple_array('intelligenties')->nullable();
+			$table->enum('intelligenties', array('VL','LM','VR','MR','LK','N','IR','IA'));
 			$table->text('inhoud', 65535);
 		});
+		
+		$table_prefix = DB::getTablePrefix();
+		DB::statement("ALTER TABLE `" . $table_prefix . "activiteit` CHANGE `intelligenties` `intelligenties` SET('VL','LM','VR','MR','LK','N','IR','IA');");
 	}
 
 
