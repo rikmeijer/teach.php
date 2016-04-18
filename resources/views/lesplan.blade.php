@@ -30,7 +30,7 @@
 			</tr>
 			<tr>
 				<th>ruimte</th>
-				<td id="ruimte" colspan="3">beschikking over vaste computers</td>
+				<td id="ruimte" colspan="3">{{ $contactmoment->ruimte }}</td>
 			</tr>
 			<tr>
 				<th>overige</th>
