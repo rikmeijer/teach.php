@@ -37,14 +37,14 @@
 				<td id="overige" colspan="3">{{ $contactmoment->les->opmerkingen }}</td>
 			</tr>
 		</table>
-		<h3>Media</h3>
-		<ul>
-			<li>filmfragment matrix</li>
-			<li>countdown timer voor toepassingsfases (optioneel)</li>
-			<li>voorbeeld IKEA-handleiding + uitgewerkte pseudo-code</li>
-			<li>rode en groene briefjes/post-its voor feedback</li>
-			<li>voorbeeldproject voor aanvullende feedback</li>
-		</ul>
+		@if (count($contactmoment->les->media) > 0)
+    		<h3>Media</h3>
+    		<ul>
+    			@foreach ($contactmoment->les->media as $mediaTitle)
+    				<li>$mediaTitle</li>
+    			@endforeach
+    		</ul>
+        @endif
 		<h3>Leerdoelen</h3>
 		<p>Na afloop van de les kan de student:</p>
 		<ul>

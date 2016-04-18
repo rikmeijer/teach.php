@@ -22,4 +22,9 @@ class Les extends Model
     {
         return $this->hasMany('App\Contactmoment');
     }
+    
+//     public function media()
+//     {
+//         return $this->hasMany('App\Medium');
+//     }
 }
