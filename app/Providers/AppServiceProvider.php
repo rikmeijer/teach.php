@@ -13,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \Blade::setContentTags('{{{', '}}}');
+        \Blade::setEscapedContentTags('{{', '}}');
+        \Blade::setEchoFormat('nl2br(e(%s))');
     }
 
     /**
