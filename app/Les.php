@@ -27,6 +27,11 @@ class Les extends Model
     {
         return $this->hasMany('App\Les\Medium');
     }
+    public function leerdoelen()
+    {
+        return $this->hasMany('App\Les\Leerdoel');
+    }
+    
 
     public function activerendeOpening()
     {

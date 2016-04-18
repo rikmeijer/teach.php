@@ -48,8 +48,9 @@
 		<h3>Leerdoelen</h3>
 		<p>Na afloop van de les kan de student:</p>
 		<ul>
-			<li>Zelfstandig eclipse installeren</li>
-			<li>Java-code lezen en uitleggen wat er gebeurt</li>
+			@foreach ($contactmoment->les->leerdoelen as $leerdoel)
+				<li>{{ $leerdoel->omschrijving }}</li>
+			@endforeach
 		</ul>
 	</section>
 	<section>
