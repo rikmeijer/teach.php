@@ -26,10 +26,9 @@ Route::get('/lesplan/{contactmoment}', function (App\Contactmoment $contactmomen
         'contactmoment' => $contactmoment
     ]);
 });
-
 Route::get('/feedback', function () {
     return view('feedback', [
-        'url' => 'http://' . $_SERVER['SERVER_ADDR'] . '/feedback.php'
+        'url' => 'http://' . $_SERVER['SERVER_ADDR'] . '/feedback/supply'
     ]);
 });
 Route::get('/feedback/supply', function (\Illuminate\Http\Request $request) {

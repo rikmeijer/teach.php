@@ -11,5 +11,5 @@ foreach ($ipconfigData as $line) {
 }
 
 foreach ($ipv4Adresses as $ipv4Adress) {
-    print '<a href="http://' . htmlentities($ipv4Adress) . '">' . htmlentities($ipv4Adress) . '</a><br />';
+    print '<a href="http://' . htmlentities($ipv4Adress) . '/feedback">' . htmlentities($ipv4Adress) . '</a><br />';
 }
