@@ -21,6 +21,8 @@ class CreateRatingTable extends Migration
 			$table->text('inhoud', 65535);
 			$table->timestamps();
 			$table->softDeletes();
+			
+			$table->primary(['ipv4', 'les_id']);
 		});
     }
 
