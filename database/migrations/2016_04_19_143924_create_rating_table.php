@@ -17,7 +17,7 @@ class CreateRatingTable extends Migration
 			$table->string('ipv4', 15);
 			$table->integer('contactmoment_id')->index('fk_contactmomentrating_idx');
 			$table->foreign('contactmoment_id')->references('id')->on('contactmoment');
-			$table->enum('value', array('1','2','3','4','5'))->nullable();
+			$table->enum('waarde', array('1','2','3','4','5'))->nullable();
 			$table->text('inhoud', 65535);
 			$table->timestamps();
 			$table->softDeletes();
