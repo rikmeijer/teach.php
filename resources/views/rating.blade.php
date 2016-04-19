@@ -6,8 +6,8 @@ imagealphablending($im, false);
 imagesavealpha($im, true);
 $transparent = imagecolorallocatealpha($im, 255, 255, 255, 127);
 imagefilledrectangle($im, 0, 0, 500, $height, $transparent);
-$star = imagecreatefrompng($assetsDirectory . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'star.png');
-$unstar = imagecreatefrompng($assetsDirectory . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'unstar.png');
+$star = imagecreatefromstring($starData);
+$unstar = imagecreatefromstring($unstarData);
 for ($i = 0; $i < 5; $i ++) {
     if ($i < $rating) {
         $source = $star;

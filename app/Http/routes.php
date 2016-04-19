@@ -79,6 +79,7 @@ Route::post('/feedback/supply', function () {
 });
 
 Route::get('/rating', function () {
+    $assetsDirectory = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'assets';
     $dataDirectory = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'data';
     
     $ratings = [];
@@ -94,8 +95,13 @@ Route::get('/rating', function () {
         $rating = round(array_sum($ratings) / count($ratings));
     }
 
+    $imageStar = $assetsDirectory . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'star.png';
+    $imageUnstar = $assetsDirectory . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'unstar.png';
+
     return view('rating', [
         'rating' => $rating,
+        'starData' => file_get_contents($imageStar),
+        'unstarData' => file_get_contents($imageUnstar),
         'assetsDirectory' => dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'assets'
     ]);
 });
