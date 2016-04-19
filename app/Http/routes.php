@@ -79,8 +79,23 @@ Route::post('/feedback/supply', function () {
 });
 
 Route::get('/rating', function () {
+    $dataDirectory = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'data';
+    
+    $ratings = [];
+    foreach (glob($dataDirectory . DIRECTORY_SEPARATOR . '*.txt') as $individualRatingFilename) {
+        $individualRating = json_decode(file_get_contents($individualRatingFilename), true);
+        if ($individualRating !== null) {
+            $ratings[] = $individualRating['rating'];
+        }
+    }
+    if (count($ratings) === 0) {
+        $rating = 0;
+    } else {
+        $rating = round(array_sum($ratings) / count($ratings));
+    }
+
     return view('rating', [
-        'dataDirectory' => dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'data',
+        'rating' => $rating,
         'assetsDirectory' => dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'assets'
     ]);
 });

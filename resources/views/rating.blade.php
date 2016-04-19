@@ -1,16 +1,4 @@
 <?php
-$ratings = [];
-foreach (glob($dataDirectory . DIRECTORY_SEPARATOR . '*.txt') as $individualRatingFilename) {
-    $individualRating = json_decode(file_get_contents($individualRatingFilename), true);
-    if ($individualRating !== null) {
-        $ratings[] = $individualRating['rating'];
-    }
-}
-if (count($ratings) === 0) {
-    $rating = 0;
-} else {
-    $rating = round(array_sum($ratings) / count($ratings));
-}
 header("Content-type: image/png");
 $height = 100;
 $im = imagecreatetruecolor(500, $height);
