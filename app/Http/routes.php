@@ -26,14 +26,18 @@ Route::get('/lesplan/{contactmoment}', function (App\Contactmoment $contactmomen
         'contactmoment' => $contactmoment
     ]);
 });
-Route::get('/feedback', function () {
+Route::get('/feedback/{contactmoment}', function (App\Contactmoment $contactmoment) {
     return view('feedback', [
-        'url' => 'http://' . $_SERVER['SERVER_ADDR'] . '/feedback/supply'
+        'contactmoment' => $contactmoment,
+        'url' => 'http://' . $_SERVER['SERVER_ADDR'] . '/feedback/' . $contactmoment->id . '/supply'
     ]);
 });
-Route::get('/feedback/supply', function (\Illuminate\Http\Request $request) {
+Route::get('/feedback/{contactmoment}/supply', function (\Illuminate\Http\Request $request, App\Contactmoment $contactmoment) {
     $assetsDirectory = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'assets';
-    $filename = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $_SERVER['REMOTE_ADDR'] . '.txt';
+
+    $ipRating = $contactmoment->ratings()->firstOrNew([
+        'ipv4' => $_SERVER['REMOTE_ADDR']
+    ]);
     
     $imageStar = $assetsDirectory . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'star.png';
     $starData = base64_encode(file_get_contents($imageStar));
@@ -41,8 +45,11 @@ Route::get('/feedback/supply', function (\Illuminate\Http\Request $request) {
     $imageUnstar = $assetsDirectory . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'unstar.png';
     $unstarData = base64_encode(file_get_contents($imageUnstar));
     
-    if (is_file($filename)) {
-        $data = json_decode(file_get_contents($filename), true);
+    if ($ipRating !== null) {
+        $data = [
+            'rating' => $ipRating->waarde,
+            'explanation' => $ipRating->inhoud
+        ];
     } else {
         $data = null;
     }
@@ -68,41 +75,24 @@ Route::get('/feedback/supply', function (\Illuminate\Http\Request $request) {
         ]
     ]);
 });
-Route::post('/feedback/supply', function () {
-    $filename = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $_SERVER['REMOTE_ADDR'] . '.txt';
-    
-    file_put_contents($filename, json_encode([
-        'rating' => $_POST['rating'],
-        'explanation' => $_POST['explanation']
-    ]));
+Route::post('/feedback/{contactmoment}/supply', function (\Illuminate\Http\Request $request, App\Contactmoment $contactmoment) {
+    $contactmoment->ratings()->firstOrCreate([
+        'ipv4' => $_SERVER['REMOTE_ADDR'],
+        'waarde' => $request->rating,
+        'inhoud' => $request->explanation
+    ]);
     return 'Dankje!';
 });
 
-Route::get('/rating', function () {
+Route::get('/rating/{contactmoment}', function (App\Contactmoment $contactmoment) {
     $assetsDirectory = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'assets';
-    $dataDirectory = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'data';
-    
-    $ratings = [];
-    foreach (glob($dataDirectory . DIRECTORY_SEPARATOR . '*.txt') as $individualRatingFilename) {
-        $individualRating = json_decode(file_get_contents($individualRatingFilename), true);
-        if ($individualRating !== null) {
-            $ratings[] = $individualRating['rating'];
-        }
-    }
-    if (count($ratings) === 0) {
-        $rating = 0;
-    } else {
-        $rating = round(array_sum($ratings) / count($ratings));
-    }
-
     $imageStar = $assetsDirectory . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'star.png';
     $imageUnstar = $assetsDirectory . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'unstar.png';
 
     return view('rating', [
-        'rating' => $rating,
+        'rating' => $contactmoment->rating(),
         'starData' => file_get_contents($imageStar),
-        'unstarData' => file_get_contents($imageUnstar),
-        'assetsDirectory' => dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'assets'
+        'unstarData' => file_get_contents($imageUnstar)
     ]);
 });
 Route::get('/qr', function () {
