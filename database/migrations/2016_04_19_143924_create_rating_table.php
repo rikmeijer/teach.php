@@ -15,14 +15,14 @@ class CreateRatingTable extends Migration
 		Schema::create('rating', function(Blueprint $table)
 		{
 			$table->string('ipv4', 15);
-			$table->integer('les_id')->index('fk_lesrating_idx');
-			$table->foreign('les_id')->references('id')->on('les');
+			$table->integer('contactmoment_id')->index('fk_contactmomentrating_idx');
+			$table->foreign('contactmoment_id')->references('id')->on('contactmoment');
 			$table->enum('value', array('1','2','3','4','5'))->nullable();
 			$table->text('inhoud', 65535);
 			$table->timestamps();
 			$table->softDeletes();
 			
-			$table->primary(['ipv4', 'les_id']);
+			$table->primary(['ipv4', 'contactmoment_id']);
 		});
     }
 
