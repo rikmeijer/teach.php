@@ -14,9 +14,9 @@ body {
 <body>
 	<center>
 		<h1>Feedback-o-meter (eduroam only)</h1>
-		<img src="/rating.php" width="500" height="100"
+		<img src="/rating" width="500" height="100"
 			style="margin: 25px 0;" /></br> <img
-			src="/qr.php?data=<?php print htmlentities(rawurlencode($url));?>"
+			src="/qr?data=<?php print htmlentities(rawurlencode($url));?>"
 			width="400" height="400" />
 		<p><?php print htmlentities($url); ?></p>
 	</center>

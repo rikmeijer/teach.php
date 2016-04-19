@@ -32,3 +32,18 @@ Route::get('/feedback', function () {
         'url' => 'http://' . $_SERVER['SERVER_ADDR'] . '/feedback.php'
     ]);
 });
+Route::get('/rating', function () {
+    return view('rating', [
+        'dataDirectory' => dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'data',
+        'assetsDirectory' => dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'assets'
+    ]);
+});
+Route::get('/qr', function () {
+    $data = request('data');
+    if ($data === null) {
+        return abort(400);
+    }
+    return view('qr', [
+        'data' => $data
+    ]);
+});
