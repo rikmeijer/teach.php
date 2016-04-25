@@ -22,7 +22,6 @@ Route::get('/', function () {
         }
     }
     return view('welcome', [
-        
         'contactmomenten' => App\Contactmoment::all(),
         'ipv4Adresses' => $ipv4Adresses
     ]);
