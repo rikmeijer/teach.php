@@ -15,18 +15,20 @@
                 padding: 0;
                 width: 100%;
                 display: table;
+                font-family: Verdana, sans-serif;
+            }
+            
+            h1 {
                 font-weight: 100;
                 font-family: 'Lato';
             }
 
             .container {
-                text-align: center;
                 display: table-cell;
                 vertical-align: middle;
             }
 
             .content {
-                text-align: center;
                 display: inline-block;
             }
 
@@ -38,7 +40,19 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                
+                @foreach ($contactmomenten as $contactmoment)
+                	<section>
+                	<h1>{{ $contactmoment->les->module->naam }} {{ $contactmoment->les->naam }}</h1>
+                	<ul>
+                		<li><a href="/lesplan/{{ $contactmoment->id }}" target="_blank">Lesplan</a></li>
+                		@foreach ($ipv4Adresses as $ipv4Adress)
+                			<li><a href="http://{{ $ipv4Adress }}/feedback/{{ $contactmoment->id }}" target="_blank">Feedback ({{ $ipv4Adress }})</a></li> 
+                		@endforeach    		
+                	</ul>
+                	</section>
+                @endforeach
+                
             </div>
         </div>
     </body>

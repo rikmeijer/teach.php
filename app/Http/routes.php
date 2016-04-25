@@ -11,7 +11,21 @@
  * |
  */
 Route::get('/', function () {
-    return view('welcome');
+    exec("ipconfig", $ipconfigData, $exitCode);
+    if ($exitCode !== 0) {
+        exit('failed retrieving ipconfig');
+    }
+    $ipv4Adresses = [];
+    foreach ($ipconfigData as $line) {
+        if (preg_match('/IPv4 Address(\.\s)+:\s(?<ipv4>\d+\.\d+\.\d+\.\d+)/', $line, $matches) === 1) {
+            $ipv4Adresses[] = $matches['ipv4'];
+        }
+    }
+    return view('welcome', [
+        
+        'contactmomenten' => App\Contactmoment::all(),
+        'ipv4Adresses' => $ipv4Adresses
+    ]);
 });
 
 Route::get('/lesplan/{contactmoment}', function (App\Contactmoment $contactmoment) {
