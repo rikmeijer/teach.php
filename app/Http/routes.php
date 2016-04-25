@@ -28,7 +28,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/lesplan/{contactmoment}', function (App\Contactmoment $contactmoment) {
+Route::get('/contactmoment/{contactmoment}', function (App\Contactmoment $contactmoment) {
     $code = request('code');
     $googleService = \OAuth::consumer('Google');
     if ($code === null) {

@@ -45,7 +45,7 @@
                 	<section>
                 	<h1>{{ $contactmoment->les->module->naam }} {{ $contactmoment->les->naam }}</h1>
                 	<ul>
-                		<li><a href="/lesplan/{{ $contactmoment->id }}" target="_blank">Lesplan</a></li>
+                		<li><a href="/contactmoment/{{ $contactmoment->id }}" target="_blank">Lesplan</a></li>
                 		@foreach ($ipv4Adresses as $ipv4Adress)
                 			<li><a href="http://{{ $ipv4Adress }}/feedback/{{ $contactmoment->id }}" target="_blank">Feedback ({{ $ipv4Adress }})</a></li> 
                 		@endforeach    		
@@ -53,6 +53,12 @@
                 	</section>
                 @endforeach
                 
+            	<section>
+            	<ul>
+            		<li><a href="/lesplan/add" target="_blank">Lesplan toevoegen</a></li>
+            		<li><a href="/contactmoment/add" target="_blank">Contactmoment toevoegen</a></li>    		
+            	</ul>
+            	</section>
             </div>
         </div>
     </body>
