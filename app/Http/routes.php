@@ -30,7 +30,7 @@ Route::get('/', function () {
 Route::get('/contactmoment/import', function () {
     return view('contactmoment.import', []);
 });
-Route::post('/contactmoment/import', '\App\Http\Controllers\Contactmoment@importFromURL');
+Route::post('/contactmoment/import', 'Contactmoment@importFromURL');
 
 Route::get('/contactmoment/{contactmoment}', function (App\Contactmoment $contactmoment) {
 //     $code = request('code');
