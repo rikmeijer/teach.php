@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Les extends Model
 {
     protected $table = 'les';
+    protected $guarded = array('id');
     
     public function module()
     {
