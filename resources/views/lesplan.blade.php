@@ -26,7 +26,7 @@
 			</tr>
 			<tr>
 				<th>tijd</th>
-				<td id="tijd" colspan="3">van {{ date('H:i', strtotime($contactmoment->starttijd)) }} tot {{ date('H:i', strtotime($contactmoment->eindtijd)) }} ({{ $contactmoment->duur }} minuten)</td>
+				<td id="tijd" colspan="3">van {{ $contactmoment->starttijd->format('H:i') }} tot {{ $contactmoment->eindtijd->format('H:i') }} ({{ $contactmoment->duur }} minuten)</td>
 			</tr>
 			<tr>
 				<th>ruimte</th>

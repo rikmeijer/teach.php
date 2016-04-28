@@ -32,4 +32,14 @@ class Contactmoment extends Model
             return round(array_sum($ratings) / count($ratings));
         }
     }
+    
+    public function getStarttijdAttribute($starttijd)
+    {
+        return new \DateTime($starttijd);
+    }
+    
+    public function getEindtijdAttribute($eindtijd)
+    {
+        return new \DateTime($eindtijd);
+    }
 }
