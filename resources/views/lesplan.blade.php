@@ -13,7 +13,7 @@
 	<section>
 		<h2>{{ $contactmoment->les->naam }}</h2>
 		<h3>Beginsituatie</h3>
-		<table>
+		<table class="multicol">
 			<tr>
 				<th>doelgroep</th>
 				<td id="doelgroep">{{ $contactmoment->les->doelgroep->beschrijving }}</td>

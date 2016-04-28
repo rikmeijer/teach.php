@@ -22,7 +22,7 @@ Route::get('/', function () {
         }
     }
     return view('welcome', [
-        'contactmomenten' => App\Contactmoment::all(),
+        'modules' => App\Module::all(),
         'ipv4Adresses' => $ipv4Adresses
     ]);
 });

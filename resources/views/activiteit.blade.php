@@ -1,4 +1,4 @@
-<table>
+<table class="multicol">
 	<caption>{{ $title }}</caption>
 	@if ($activiteit === null)
     	<tr>

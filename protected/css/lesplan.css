@@ -15,9 +15,13 @@ html, body {
 	padding: 0;
 }
 
+a, a:active, a:visited {
+	color: rgb(226, 19, 80);
+}
+
 body {
 	font-family: Verdana, Geneva, sans-serif;
-	font-size: 12pt;
+	font-size: 10pt;
 	line-height: 1.5em;
 	background: #ffffff;
 }
@@ -65,8 +69,10 @@ body section h3 {
 table {
 	width: 100%;
 	border-spacing: 0;
+	border-collapse: separate;
 	margin-bottom: 1em;
 	table-layout: fixed;
+	
 }
 
 table caption {
@@ -78,11 +84,11 @@ table caption {
 }
 
 table td, table th {
-	padding: 5px;
+	padding: 2px;
 	vertical-align: top;
 }
 
-table th {
+table.multicol th {
 	text-align: right;
 	color: rgb(226, 19, 80);
 	width: 20%;
@@ -101,6 +107,14 @@ table td#intelligenties ul {
 table td#intelligenties ul li {
 	padding: 0 5px;
 	display: inline;
+}
+
+ul.horizontal-menu {
+	padding-left: 0;
+}
+ul.horizontal-menu li {
+	list-style: none;
+	display:inline;
 }
 
 @media print {

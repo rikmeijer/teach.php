@@ -16,7 +16,7 @@ class Les extends Model
     
     public function lesweek()
     {
-        return $this->belongsTo('App\Lesweek');
+        return $this->belongsTo('App\Lesweek', 'jaar', 'jaar')->where('kalenderweek', $this->kalenderweek);
     }
     
     public function doelgroep()
@@ -26,7 +26,7 @@ class Les extends Model
     
     public function contactmomenten()
     {
-        return $this->hasMany('App\Contactmoment');
+        return $this->hasMany('App\Contactmoment')->orderBy('starttijd', 'ASC');
     }
     
     public function media()

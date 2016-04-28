@@ -10,6 +10,11 @@ class Module extends Model
 
     public function lessen()
     {
-        return $this->hasMany('App\Les');
+        return $this->hasMany('App\Les')->orderBy('jaar', 'ASC')->orderBy('kalenderweek', 'ASC');
+    }
+    
+    public function contactmomenten()
+    {
+        return $this->hasManyThrough('App\Contactmoment', 'App\Les');
     }
 }
