@@ -36,7 +36,7 @@
 			<tr>
 				<td>{{ $contactmoment->les->lesweek->kalenderweek }}</td>
 				<td>{{ $contactmoment->les->lesweek->blokweek }}</td>
-				<td>{{ $contactmoment->starttijd->format('l') }}</td>
+				<td>{{ $contactmoment->starttijd->formatLocalized('%A') }}</td>
 				<td>{{ $contactmoment->starttijd->format('H:i') }}</td>
 				<td>{{ $contactmoment->eindtijd->format('H:i') }}</td>
 				<td><a href="/contactmoment/{{ $contactmoment->id }}" target="_blank">Lesplan</a></td>
