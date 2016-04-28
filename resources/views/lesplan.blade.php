@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Lesplan PROG1</title>
+<title>Lesplan {{ $contactmoment->les->module->naam }}</title>
 <link rel="stylesheet" type="text/css" href="/css/lesplan.css">
 </head>
 <body>
