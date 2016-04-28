@@ -19,6 +19,8 @@ class CreateContactmomentTable extends Migration {
 			$table->dateTime('starttijd');
 			$table->dateTime('eindtijd');
 			$table->text('ruimte', 65535)->nullable();
+			
+			$table->unique('starttijd');
 		});
 	}
 
