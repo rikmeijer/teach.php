@@ -13,6 +13,11 @@ class Les extends Model
         return $this->belongsTo('App\Module');
     }
     
+    public function lesweek()
+    {
+        return $this->belongsTo('App\Lesweek');
+    }
+    
     public function doelgroep()
     {
         return $this->belongsTo('App\Doelgroep');

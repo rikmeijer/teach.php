@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddColumnJaarKalenderweekToContactmomentTable extends Migration {
+class AddColumnJaarKalenderweekToLesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,17 +12,17 @@ class AddColumnJaarKalenderweekToContactmomentTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('contactmoment', function(Blueprint $table)
+		Schema::table('les', function(Blueprint $table)
 		{
 			$table->string('jaar', 4);
 			$table->string('kalenderweek', 2);
 		});
-
+		
 		DB::statement("
-		    UPDATE contactmoment
+		    UPDATE les
 		    SET 
-		      contactmoment.jaar = YEAR(contactmoment.starttijd),
-		      contactmoment.kalenderweek = WEEKOFYEAR(contactmoment.starttijd)
+		      les.jaar = '2016', 
+		      les.kalenderweek = '1'
 		");
 	}
 
@@ -34,7 +34,7 @@ class AddColumnJaarKalenderweekToContactmomentTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('contactmoment', function(Blueprint $table)
+		Schema::table('les', function(Blueprint $table)
 		{
 			$table->dropColumn('jaar');
 			$table->dropColumn('kalenderweek');

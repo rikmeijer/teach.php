@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Contactmoment extends Model
 {
     protected $table = 'contactmoment';
+    protected $guarded = array('id');
 
     public function les()
     {
