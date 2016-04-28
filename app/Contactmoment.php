@@ -9,6 +9,8 @@ class Contactmoment extends Model
     protected $table = 'contactmoment';
     protected $guarded = array('id');
 
+    protected $dates = ['starttijd', 'eindtijd'];
+
     public function les()
     {
         return $this->belongsTo('App\Les');
@@ -31,15 +33,5 @@ class Contactmoment extends Model
         } else {
             return round(array_sum($ratings) / count($ratings));
         }
-    }
-    
-    public function getStarttijdAttribute($starttijd)
-    {
-        return new \DateTime($starttijd);
-    }
-    
-    public function getEindtijdAttribute($eindtijd)
-    {
-        return new \DateTime($eindtijd);
     }
 }
