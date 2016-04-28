@@ -6,7 +6,7 @@
 @section('content')
     @foreach ($contactmomenten as $contactmoment)
     	<section>
-    	<h1>{{ $contactmoment->les->module->naam }} {{ $contactmoment->les->naam }} {{ date('H:i', strtotime($contactmoment->starttijd)) }}</h1>
+    	<h2>{{ $contactmoment->les->module->naam }} {{ $contactmoment->les->naam }} {{ date('H:i', strtotime($contactmoment->starttijd)) }}</h2>
     	<ul>
     		<li><a href="/contactmomenten/{{ $contactmoment->id }}" target="_blank">Lesplan</a></li>
     		@foreach ($ipv4Adresses as $ipv4Adress)
