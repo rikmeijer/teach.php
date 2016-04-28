@@ -16,8 +16,8 @@ class CreateTableLesweek extends Migration
 		{
 			$table->string('jaar', 4);
 			$table->string('kalenderweek', 2);
-			$table->string('onderwijsweek', 2);
-			$table->string('blokweek', 2);
+			$table->string('onderwijsweek', 2)->nullable();
+			$table->string('blokweek', 2)->nullable();
 			$table->primary(['jaar', 'kalenderweek'], 'weekjaar');
 		});
     }
