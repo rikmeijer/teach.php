@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7d2bbeeb5d32981df4c2fcb01e97f1dd",
-    "content-hash": "4732597de8db14bbd7fce4c717063627",
+    "hash": "169a6c4384e520cfb02802bb2f549874",
+    "content-hash": "85414aebd7e0fafc7ada9b8d56b80f20",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -347,6 +347,46 @@
                 "tokenizer"
             ],
             "time": "2015-12-05 17:17:57"
+        },
+        {
+            "name": "johngrogg/ics-parser",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/johngrogg/ics-parser.git",
+                "reference": "6085a18242eaf98e6586e3defa7705fa207847ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/johngrogg/ics-parser/zipball/6085a18242eaf98e6586e3defa7705fa207847ac",
+                "reference": "6085a18242eaf98e6586e3defa7705fa207847ac",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "class.iCalReader.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Martin Thoma",
+                    "email": "info@martin-thoma.de",
+                    "role": "Original Developer"
+                },
+                {
+                    "name": "John Grogg",
+                    "email": "john.grogg@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Ics file parser",
+            "keywords": [
+                "ical",
+                "ics"
+            ],
+            "time": "2016-03-16 13:31:55"
         },
         {
             "name": "laravel/framework",
@@ -857,7 +897,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oriceon/oauth-5-laravel/zipball/8e165b2681deb508a55fe24aaf724164aeda8ce7",
+                "url": "https://api.github.com/repos/oriceon/oauth-5-laravel/zipball/3f6c663b48c9878cc1d8c56e16ad6c2c3d019dc8",
                 "reference": "8e165b2681deb508a55fe24aaf724164aeda8ce7",
                 "shasum": ""
             },

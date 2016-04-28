@@ -5,6 +5,7 @@
 	<buildpathentry kind="src" path="vendor/monolog/monolog/src/Monolog"/>
 	<buildpathentry kind="src" path="vendor/phpunit/dbunit/src"/>
 	<buildpathentry kind="src" path="vendor/symfony/console"/>
+	<buildpathentry kind="src" path="vendor/lusitanian/oauth/tests"/>
 	<buildpathentry kind="src" path="vendor/mockery/mockery/library"/>
 	<buildpathentry excluding="Resources/functions/" kind="src" path="vendor/symfony/var-dumper"/>
 	<buildpathentry kind="src" path="vendor/doctrine/dbal/lib"/>
@@ -43,12 +44,14 @@
 	<buildpathentry kind="src" path="vendor/symfony/routing"/>
 	<buildpathentry kind="src" path="vendor/sebastian/recursion-context/src"/>
 	<buildpathentry kind="src" path="vendor/sebastian/environment/src"/>
+	<buildpathentry kind="src" path="vendor/oriceon/oauth-5-laravel/src"/>
 	<buildpathentry kind="src" path="vendor/nikic/php-parser/lib/PhpParser"/>
 	<buildpathentry kind="src" path="vendor/sebastian/diff/src"/>
+	<buildpathentry kind="src" path="vendor/johngrogg/ics-parser"/>
 	<buildpathentry kind="src" path="vendor/laravel/framework/src/Illuminate/Foundation"/>
 	<buildpathentry kind="src" path="vendor/way/generators/src"/>
+	<buildpathentry kind="src" path="vendor/lusitanian/oauth/src"/>
 	<buildpathentry kind="src" path="vendor/jakub-onderka/php-console-color/src"/>
-	<buildpathentry kind="src" path="vendor/zendframework/zend-diactoros/src"/>
 	<buildpathentry kind="src" path="vendor/myclabs/deep-copy/src/DeepCopy"/>
 	<buildpathentry kind="src" path="vendor/sebastian/exporter/src"/>
 	<buildpathentry kind="src" path="vendor/fzaninotto/faker/src/Faker"/>
@@ -77,6 +80,5 @@
 	<buildpathentry kind="src" path="vendor/hamcrest/hamcrest-php/hamcrest"/>
 	<buildpathentry kind="src" path="vendor/classpreloader/classpreloader/src"/>
 	<buildpathentry kind="src" path="vendor/xethron/migrations-generator/src"/>
-	<buildpathentry kind="src" path="vendor/psr/http-message/src"/>
 	<buildpathentry kind="src" path="vendor/symfony/polyfill-mbstring"/>
 </buildpath>

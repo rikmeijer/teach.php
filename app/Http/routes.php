@@ -27,18 +27,23 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/contactmoment/import', function () {
+    return view('contactmoment.import', []);
+});
+
 Route::get('/contactmoment/{contactmoment}', function (App\Contactmoment $contactmoment) {
-    $code = request('code');
-    $googleService = \OAuth::consumer('Google');
-    if ($code === null) {
-        return redirect((string) $googleService->getAuthorizationUri() . "&hd=avans.nl");
-    }
+//     $code = request('code');
+//     $googleService = \OAuth::consumer('Google');
+//     if ($code === null) {
+//         return redirect((string) $googleService->getAuthorizationUri() . "&hd=avans.nl");
+//     }
     // $token = $googleService->requestAccessToken($code);
     // $result = json_decode($googleService->request('https://www.googleapis.com/oauth2/v1/userinfo'), true);
     return view('lesplan', [
         'contactmoment' => $contactmoment
     ]);
 });
+
 Route::get('/feedback/{contactmoment}', function (App\Contactmoment $contactmoment) {
     return view('feedback', [
         'contactmoment' => $contactmoment,
