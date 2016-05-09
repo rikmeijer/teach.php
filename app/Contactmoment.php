@@ -25,7 +25,9 @@ class Contactmoment extends Model
     {
         $ratings = [];
         foreach ($this->ratings as $individualRating) {
-            $ratings[] = $individualRating->waarde;
+            if (is_numeric($individualRating->waarde)) {
+                $ratings[] = $individualRating->waarde;
+            }
         }
         
         if (count($ratings) === 0) {
