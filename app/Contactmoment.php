@@ -35,7 +35,7 @@ class Contactmoment extends Model
         }
     }
     
-    public function active()
+    public function getActiveAttribute()
     {
         $now = time();
         return $this->starttijd->format('U') <= $now && $this->eindtijd->format('U') >= $now;

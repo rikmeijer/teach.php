@@ -13,7 +13,11 @@
 	</thead>
 	<tbody>
 		@foreach ($contactmomenten as $contactmoment)
-		<tr>
+		@if ($contactmoment->active) 
+			<tr class="active">
+		@else
+			<tr>
+		@endif
 			<td>{{ $contactmoment->les->lesweek->kalenderweek }}</td>
 			<td>{{ $contactmoment->les->lesweek->blokweek }}</td>
 			<td>{{ $contactmoment->starttijd->formatLocalized('%A') }}</td>

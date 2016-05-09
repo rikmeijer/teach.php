@@ -84,6 +84,10 @@ table caption {
 	font-weight: bold;
 }
 
+table tr.active td {
+	background-color: rgb(255, 192, 206);
+}
+
 table td, table th {
 	padding: 2px;
 	vertical-align: top;
