@@ -34,4 +34,10 @@ class Contactmoment extends Model
             return round(array_sum($ratings) / count($ratings));
         }
     }
+    
+    public function active()
+    {
+        $now = time();
+        return $this->starttijd->format('U') <= $now && $this->eindtijd->format('U') >= $now;
+    }
 }
