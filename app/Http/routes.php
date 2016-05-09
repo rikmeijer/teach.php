@@ -23,6 +23,7 @@ Route::get('/', function () {
     }
     return view('welcome', [
         'modules' => App\Module::all(),
+        'contactmomenten' => App\Contactmoment::where('starttijd', '>', date('Y-m-d 00:00:00'))->where('starttijd', '<', date('Y-m-d 23:59:00'))->get(),
         'ipv4Adresses' => $ipv4Adresses
     ]);
 });
