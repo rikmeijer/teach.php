@@ -21,7 +21,7 @@ class Contactmoment extends Model
         return $this->hasMany('App\Rating');
     }
     
-    public function rating()
+    public function getRatingAttribute()
     {
         $ratings = [];
         foreach ($this->ratings as $individualRating) {

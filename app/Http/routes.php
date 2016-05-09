@@ -110,7 +110,7 @@ Route::get('/rating/{contactmoment}', function (App\Contactmoment $contactmoment
     $imageUnstar = $assetsDirectory . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'unstar.png';
 
     return view('rating', [
-        'rating' => $contactmoment->rating(),
+        'rating' => $contactmoment->rating,
         'starData' => file_get_contents($imageStar),
         'unstarData' => file_get_contents($imageUnstar)
     ]);
