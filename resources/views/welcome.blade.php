@@ -7,8 +7,18 @@
 	<header>
 		<h1>Overzicht contactmomenten</h1>
 	</header>
+	
+	<nav>
+	<ul class="horizontal-menu">
+    @foreach ($modules as $module)
+    <li><a href="#{{ $module->naam }}">{{ $module->naam }}</a></li>
+    @endforeach
+    </ul>
+	</nav>
+	
     @foreach ($modules as $module)
     	<section>
+    	<a name="#{{ $module->naam }}"></a>
     	<h2>{{ $module->naam }}</h2>
     	
     	<ul class="horizontal-menu">

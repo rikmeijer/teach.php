@@ -52,6 +52,7 @@ body header h2 {
 	margin-top: 10px;
 }
 
+body>nav,
 body>section {
 	border-top: 1px solid rgb(199, 0, 43);
 	width: 210mm;
