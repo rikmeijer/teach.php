@@ -29,14 +29,10 @@
 		<li><a href="/contactmomenten/create" target="_blank">Contactmoment
 				toevoegen</a></li>
 	</ul>
-	@if (count($module->contactmomenten) === 0)
-	<p>Geen contactmomenten</p>
-	@else
-    	@include('contactmomenten', [
-    		'caption'=> 'Contactmomenten',
-    		'contactmomenten' => $module->contactmomenten
-    	])
-	@endif
+	@include('contactmomenten', [
+		'caption'=> 'Contactmomenten',
+		'contactmomenten' => $module->contactmomenten
+	])
 
 </section>
 @endforeach @endsection

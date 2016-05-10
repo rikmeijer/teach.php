@@ -1,3 +1,6 @@
+@if (count($contactmomenten) === 0)
+<p>Geen {{ strtolower($caption) }}</p>
+@else
 <table>
 	<caption>{{ $caption }}</caption>
 	<thead>
@@ -12,12 +15,13 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach ($contactmomenten as $contactmoment)
-		@if ($contactmoment->active) 
+		@foreach ($contactmomenten as $contactmoment) 
+		@if ($contactmoment->active)
 			<tr class="active">
 		@else
 			<tr>
 		@endif
+		
 			<td>{{ $contactmoment->les->lesweek->kalenderweek }}</td>
 			<td>{{ $contactmoment->les->lesweek->blokweek }}</td>
 			<td>{{ $contactmoment->starttijd->formatLocalized('%A') }}</td>
@@ -32,3 +36,4 @@
 		@endforeach
 	</tbody>
 </table>
+@endif
