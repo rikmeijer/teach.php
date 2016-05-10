@@ -18,6 +18,8 @@
 		@foreach ($contactmomenten as $contactmoment) 
 		@if ($contactmoment->active)
 			<tr class="active">
+		@elseif ($contactmoment->past)
+			<tr class="past">
 		@else
 			<tr>
 		@endif

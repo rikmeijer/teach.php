@@ -52,8 +52,7 @@ body header h2 {
 	margin-top: 10px;
 }
 
-body>nav,
-body>section {
+body>nav, body>section {
 	border-top: 1px solid rgb(199, 0, 43);
 	width: 210mm;
 	margin: 0 auto;
@@ -73,7 +72,6 @@ table {
 	border-collapse: separate;
 	margin-bottom: 1em;
 	table-layout: fixed;
-	
 }
 
 table caption {
@@ -86,6 +84,15 @@ table caption {
 
 table tr.active td {
 	background-color: rgb(255, 192, 206);
+}
+
+table tr.past td {
+	color: rgb(172, 172, 172);
+}
+
+table tr.past td a, table tr.past td a:active, table tr.past td a:visited
+	{
+	color: rgb(255, 100, 150);
 }
 
 table td, table th {
@@ -117,9 +124,10 @@ table td#intelligenties ul li {
 ul.horizontal-menu {
 	padding-left: 0;
 }
+
 ul.horizontal-menu li {
 	list-style: none;
-	display:inline;
+	display: inline;
 }
 
 @media print {

@@ -42,4 +42,10 @@ class Contactmoment extends Model
         $now = time();
         return $this->starttijd->format('U') <= $now && $this->eindtijd->format('U') >= $now;
     }
+    
+    public function getPastAttribute()
+    {
+        $now = time();
+        return $this->eindtijd->format('U') <= $now;
+    }
 }
