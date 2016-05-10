@@ -13,7 +13,7 @@ class Thema extends Model
     {
         return $this->belongsTo("App\Activiteit", "ervaren_id");
     }
-    public function getErvarenAttribute()
+    public function getErvarenAttribute($value)
     {
         return $this->ervaren()->findOrNew($this->ervaren_id);
     }
@@ -21,7 +21,7 @@ class Thema extends Model
     {
         return $this->belongsTo("App\Activiteit", "reflecteren_id");
     }
-    public function getReflecterenAttribute()
+    public function getReflecterenAttribute($value)
     {
         return $this->reflecteren()->findOrNew($this->reflecteren_id);
     }
@@ -29,7 +29,7 @@ class Thema extends Model
     {
         return $this->belongsTo("App\Activiteit", "conceptualiseren_id");
     }
-    public function getConceptualiserenAttribute()
+    public function getConceptualiserenAttribute($value)
     {
         return $this->conceptualiseren()->findOrNew($this->conceptualiseren_id);
     }
@@ -37,7 +37,7 @@ class Thema extends Model
     {
         return $this->belongsTo("App\Activiteit", "toepassen_id");
     }
-    public function getToepassennAttribute()
+    public function getToepassenAttribute($value)
     {
         return $this->toepassen()->findOrNew($this->toepassen_id);
     }

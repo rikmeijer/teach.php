@@ -43,7 +43,7 @@ class Les extends Model
     {
         return $this->belongsTo("App\Activiteit", "activerende_opening_id");
     }
-    public function getActiverendeOpeningAttribute()
+    public function getActiverendeOpeningAttribute($value)
     {
         return $this->activerendeOpening()->findOrNew($this->activerende_opening_id);
     }
@@ -51,7 +51,7 @@ class Les extends Model
     {
         return $this->belongsTo("App\Activiteit", "focus_id");
     }
-    public function getFocusAttribute()
+    public function getFocusAttribute($value)
     {
         return $this->focus()->findOrNew($this->focus_id);
     }
@@ -59,7 +59,7 @@ class Les extends Model
     {
         return $this->belongsTo("App\Activiteit", "voorstellen_id");
     }
-    public function getVoorstellenAttribute()
+    public function getVoorstellenAttribute($value)
     {
         return $this->voorstellen()->findOrNew($this->voorstellen_id);
     }
@@ -67,7 +67,7 @@ class Les extends Model
     {
         return $this->belongsTo("App\Activiteit", "kennismaken_id");
     }
-    public function getKennismakenAttribute()
+    public function getKennismakenAttribute($value)
     {
         return $this->kennismaken()->findOrNew($this->kennismaken_id);
     }
@@ -81,7 +81,7 @@ class Les extends Model
     {
         return $this->belongsTo("App\Activiteit", "huiswerk_id");
     }
-    public function getHuiswerkAttribute()
+    public function getHuiswerkAttribute($value)
     {
         return $this->huiswerk()->findOrNew($this->huiswerk_id);
     }
@@ -89,7 +89,7 @@ class Les extends Model
     {
         return $this->belongsTo("App\Activiteit", "evaluatie_id");
     }
-    public function getEvaluatieAttribute()
+    public function getEvaluatieAttribute($value)
     {
         return $this->evaluatie()->findOrNew($this->evaluatie_id);
     }
@@ -97,7 +97,7 @@ class Les extends Model
     {
         return $this->belongsTo("App\Activiteit", "pakkend_slot_id");
     }
-    public function getPakkendSlotAttribute()
+    public function getPakkendSlotAttribute($value)
     {
         return $this->pakkendSlot()->findOrNew($this->pakkend_slot_id);
     }
