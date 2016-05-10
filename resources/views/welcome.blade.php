@@ -21,7 +21,7 @@
 
 @foreach ($modules as $module)
 <section>
-	<a name="#{{ $module->naam }}"></a>
+	<a name="{{ $module->naam }}"></a>
 	<h2>{{ $module->naam }}</h2>
 
 	<ul class="horizontal-menu">
