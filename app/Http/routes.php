@@ -28,6 +28,9 @@ Route::get('/', function () {
     ]);
 });
 
+Route::post('/activiteit/create', 'Activiteit@create')->name('activiteit.create');
+Route::post('/activiteit/edit/{activiteit}', 'Activiteit@edit')->name('activiteit.edit');
+    
 Route::get('/contactmoment/import', function () {
     return view('contactmoment.import', []);
 });
@@ -41,6 +44,36 @@ Route::get('/contactmoment/{contactmoment}', function (App\Contactmoment $contac
 //     }
     // $token = $googleService->requestAccessToken($code);
     // $result = json_decode($googleService->request('https://www.googleapis.com/oauth2/v1/userinfo'), true);
+    
+    $result = \Request::old('result');
+    if ($result !== null) {
+        switch ($result[0]) {
+            case 'created':
+                $path = explode('.', $result[1]['referencing_property']);
+                if (substr_compare($path[0], 'thema', 0) === 0) {
+                    list($themaQualifier, $referencedIndex) = explode('#', $path[0]);
+                    foreach ($contactmoment->les->themas as $index => $thema) {
+                        if ($index === (int)$referencedIndex) {
+                            $thema->{$path[1]} = $result[1]['value'];
+                            $thema->save();
+                        }
+                    }
+                } elseif ($path[0] === 'les') { // expect les
+                    $contactmoment->les->{$path[1]} = $result[1]['value'];
+                    $contactmoment->les->save();
+                } else {
+                    return abort(400);
+                }
+                break;
+                
+            case 'updated':
+                break;
+                
+            default:
+                return abort(500, 'Unknown result ' . $result[0]);
+        }
+    }
+    
     return view('lesplan', [
         'contactmoment' => $contactmoment
     ]);

@@ -57,19 +57,23 @@
 		<h2>Introductie</h2>
 		@include('activiteit', [
 			'title'=> 'Activerende opening',
-			'activiteit' => $contactmoment->les->activerendeOpening
+			'activiteit' => $contactmoment->les->activerendeOpening,
+			'referencing_property' => 'les.activerende_opening_id'
 		])
 		@include('activiteit', [
 			'title'=> 'Focus',
-			'activiteit' => $contactmoment->les->focus
+			'activiteit' => $contactmoment->les->focus,
+			'referencing_property' => 'les.focus_id'
 		])
 		@include('activiteit', [
 			'title'=> 'Voorstellen',
-			'activiteit' => $contactmoment->les->voorstellen
+			'activiteit' => $contactmoment->les->voorstellen,
+			'referencing_property' => 'les.voorstellen_id'
 		])
 		@include('activiteit', [
 			'title'=> 'Kennismaken',
-			'activiteit' => $contactmoment->les->kennismaken
+			'activiteit' => $contactmoment->les->kennismaken,
+			'referencing_property' => 'les.kennismaken_id'
 		])
 	</section>
 	<section>
@@ -79,19 +83,23 @@
 			<h3>Thema {{ $index+1 }}: {{ $thema->leerdoel }}</h3>
         		@include('activiteit', [
         			'title'=> 'Ervaren',
-        			'activiteit' => $thema->ervaren
+        			'activiteit' => $thema->ervaren,
+					'referencing_property' => 'thema#' . $index . '.ervaren_id'
         		])
         		@include('activiteit', [
         			'title'=> 'Reflecteren',
-        			'activiteit' => $thema->reflecteren
+        			'activiteit' => $thema->reflecteren,
+					'referencing_property' => 'thema#' . $index . '.reflecteren_id'
         		])
         		@include('activiteit', [
         			'title'=> 'Conceptualiseren',
-        			'activiteit' => $thema->conceptualiseren
+        			'activiteit' => $thema->conceptualiseren,
+					'referencing_property' => 'thema#' . $index . '.conceptualiseren_id'
         		])
         		@include('activiteit', [
         			'title'=> 'Toepassen',
-        			'activiteit' => $thema->toepassen
+        			'activiteit' => $thema->toepassen,
+					'referencing_property' => 'thema#' . $index . '.toepassen_id'
         		])
 		</section>
 		@endforeach
@@ -100,15 +108,18 @@
 		<h2>Afsluiting</h2>
 		@include('activiteit', [
 			'title'=> 'Huiswerk',
-			'activiteit' => $contactmoment->les->huiswerk
+			'activiteit' => $contactmoment->les->huiswerk,
+			'referencing_property' => 'les.huiswerk_id'
 		])
 		@include('activiteit', [
 			'title'=> 'Evaluatie',
-			'activiteit' => $contactmoment->les->evaluatie
+			'activiteit' => $contactmoment->les->evaluatie,
+			'referencing_property' => 'les.evaluatie_id'
 		])
 		@include('activiteit', [
 			'title'=> 'Pakkend slot',
-			'activiteit' => $contactmoment->les->pakkendSlot
+			'activiteit' => $contactmoment->les->pakkendSlot,
+			'referencing_property' => 'les.pakkend_slot_id'
 		])
 	</section>
 </body>

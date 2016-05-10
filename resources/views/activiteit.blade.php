@@ -1,50 +1,31 @@
+ @if ($activiteit->id === null) 
+ 	{{ Form::model($activiteit, ['route' => 'activiteit.create']) }}
+ @else
+	{{ Form::model($activiteit, ['route' => ['activiteit.edit', $activiteit->id]]) }}
+ @endif
+ {{ Form::hidden('referencing_property', $referencing_property) }}
 <table class="multicol">
 	<caption>{{ $title }}</caption>
-	@if ($activiteit === null)
-    	<tr>
-    		<th>werkvorm</th>
-    		<td id="werkvorm">geen</td>
-    		<th>organisatievorm</th>
-    		<td id="organisatievorm">geen</td>
-    	</tr>
-    	<tr>
-    		<th>tijd</th>
-    		<td id="tijd">0 minuten</td>
-    		<th>soort werkvorm</th>
-    		<td id="soort werkvorm">geen</td>
-    	</tr>
-    	<tr>
-    		<th>intelligenties</th>
-    		<td id="intelligenties" colspan="3">geen</td>
-    	</tr>
-    	<tr>
-    		<th>inhoud</th>
-    		<td id="inhoud" colspan="3">geen</td>
-    	</tr>
-	@else
-    	<tr>
-    		<th>werkvorm</th>
-    		<td id="werkvorm">{{ $activiteit->werkvorm }}</td>
-    		<th>organisatievorm</th>
-    		<td id="organisatievorm">{{ $activiteit->organisatievorm }}</td>
-    	</tr>
-    	<tr>
-    		<th>tijd</th>
-    		<td id="tijd">{{ $activiteit->tijd }} minuten</td>
-    		<th>soort werkvorm</th>
-    		<td id="soort werkvorm">{{ $activiteit->werkvormsoort }}</td>
-    	</tr>
-    	<tr>
-    		<th>intelligenties</th>
-    		<td id="intelligenties" colspan="3"><ul>
-    			@foreach (explode(',', $activiteit->intelligenties) as $intelligentie)
-    				<li>{{ $intelligentie }}</li>
-    			@endforeach
-    			</ul></td>
-    	</tr>
-    	<tr>
-    		<th>inhoud</th>
-    		<td id="inhoud" colspan="3">{{{ $activiteit->inhoud }}}</td>
-    	</tr>
-	@endif
+	<tr>
+		<th>{{ Form::label('werkvorm', 'werkvorm') }}</th>
+		<td id="werkvorm">{{ Form::text('werkvorm') }}</td>
+		<th>{{ Form::label('organisatievorm', 'organisatievorm') }}</th>
+		<td id="organisatievorm">{{ Form::select('organisatievorm', \App\Activiteit::ORGANISATIEVORMEN, null, ['placeholder' => 'Organisatievorm']) }}</td>
+	</tr>
+	<tr>
+		<th>{{ Form::label('tijd', 'tijd') }}</th>
+		<td id="tijd">{{ Form::number('tijd') }} minuten</td>
+		<th>{{ Form::label('soort werkvorm', 'soort werkvorm') }}</th>
+		<td id="soort werkvorm">{{ Form::select('werkvormsoort', \App\Activiteit::WERKVORMSOORTEN, null, ['placeholder' => 'Werkvormsoort']) }}</td>
+	</tr>
+	<tr>
+		<th>{{ Form::label('intelligenties', 'intelligenties') }}</th>
+		<td id="intelligenties" colspan="3">{{ Form::checklist('intelligenties', \App\Activiteit::INTELLIGENTIES) }}</td>
+	</tr>
+	<tr>
+		<th>{{ Form::label('inhoud', 'inhoud') }}</th>
+		<td id="inhoud" colspan="3">{{ Form::textarea('inhoud') }}</td>
+	</tr>
 </table>
+{{ Form::submit('Activiteit opslaan') }}
+{{ Form::close() }} 
