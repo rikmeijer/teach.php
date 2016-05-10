@@ -19,7 +19,7 @@ class Contactmoment extends Controller
         $result = \Request::old('result');
         if ($result !== null) {
             switch ($result[0]) {
-                case 'created':
+                case 'activiteit.created':
                     $path = explode('.', $result[1]['referencing_property']);
                     if (substr_compare($path[0], 'thema', 0) === 0) {
                         list ($themaQualifier, $referencedIndex) = explode('#', $path[0]);
@@ -37,7 +37,7 @@ class Contactmoment extends Controller
                     }
                     break;
                 
-                case 'updated':
+                case 'activiteit.updated':
                     break;
                 
                 default:

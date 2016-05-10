@@ -102,7 +102,16 @@
 					'referencing_property' => 'thema#' . $index . '.toepassen_id'
         		])
 		</section>
-		@endforeach
+		@endforeach 
+         {{ Form::open(['route' => 'thema.create']) }}
+         {{ Form::hidden('lesplan_id', $contactmoment->les->id) }}
+		<section>
+			<h3>Thema toevoegen</h3>
+			{{ Form::label('leerdoel', 'Leerdoel:') }}
+			{{ Form::text('leerdoel') }}
+		</section>
+        {{ Form::submit('Thema toevoegen') }}
+        {{ Form::close() }} 
 	</section>
 	<section>
 		<h2>Afsluiting</h2>

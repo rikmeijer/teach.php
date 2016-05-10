@@ -28,6 +28,7 @@ Route::get('/', function () {
     ]);
 });
 
+Route::post('/thema/create', 'Thema@create')->name('thema.create');
 Route::post('/activiteit/create', 'Activiteit@create')->name('activiteit.create');
 Route::post('/activiteit/edit/{activiteit}', 'Activiteit@edit')->name('activiteit.edit');
     

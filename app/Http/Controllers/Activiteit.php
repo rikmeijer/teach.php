@@ -20,7 +20,7 @@ class Activiteit extends Controller
         
         $activiteit->save();
         
-        return redirect()->back()->withInput(['created', [
+        return redirect()->back()->withInput(['activiteit.created', [
             'referencing_property' => \Request::get('referencing_property'),
             'value' => $activiteit->id
         ]]);
@@ -36,6 +36,6 @@ class Activiteit extends Controller
 
         $activiteit->save();
         
-        return redirect()->back()->withInput(['updated', []]);
+        return redirect()->back()->withInput(['activiteit.updated', []]);
     }
 }
