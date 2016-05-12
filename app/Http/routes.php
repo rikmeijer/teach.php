@@ -11,7 +11,9 @@
  * |
  */
 Route::get('/', function () {
-    $ipv4Adresses = [];
+    $ipv4Adresses = [
+        $_SERVER['HTTP_HOST']
+    ];
     if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
         exec("ipconfig", $ipconfigData, $exitCode);
         if ($exitCode !== 0) {
@@ -23,7 +25,16 @@ Route::get('/', function () {
             }
         }
     } else {
-        
+        exec("ifconfig", $ipconfigData, $exitCode);
+        if ($exitCode !== 0) {
+            exit('failed retrieving ip adresses');
+        }
+        foreach ($ipconfigData as $line) {
+            if (preg_match('/inet addr:(?<ipv4>\d+\.\d+\.\d+\.\d+)/', $line, $matches) === 1) {
+                $ipv4Adresses[] = $matches['ipv4'];
+            }
+            
+        }
     }
     return view('welcome', [
         'modules' => App\Module::all(),
