@@ -89,11 +89,12 @@ Route::get('/feedback/{contactmoment}/supply', function (\Illuminate\Http\Reques
     ]);
 });
 Route::post('/feedback/{contactmoment}/supply', function (\Illuminate\Http\Request $request, App\Contactmoment $contactmoment) {
-    $contactmoment->ratings()->firstOrCreate([
+    $rating = $contactmoment->ratings()->firstOrCreate([
         'ipv4' => $_SERVER['REMOTE_ADDR'],
-        'waarde' => $request->rating,
-        'inhoud' => $request->explanation
+        'waarde' => $request->rating
     ]);
+    $rating->inhoud = $request->explanation;
+    $rating->save();
     return 'Dankje!';
 });
 
