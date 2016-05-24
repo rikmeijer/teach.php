@@ -1,4 +1,6 @@
- @extends('layouts.master') @section('title', 'Welcome')
+@extends('layouts.master')
+
+@section('title', 'Welcome')
 
 @section('content')
 <header>
