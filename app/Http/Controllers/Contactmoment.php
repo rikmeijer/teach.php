@@ -66,8 +66,12 @@ class Contactmoment extends Controller
                     if ($module === null) {
                         continue;
                     }
-                    
-                    $this->importEvent($module, new \DateTime($event['DTSTART']), new \DateTime($event['DTEND']), $event['UID'], $event['LOCATION']);
+
+                    if (preg_match('/Groepen:\s+(?<groepen>[^\\n]+)\\\\n\\\\n/', $event['DESCRIPTION'], $groepMatches) === 1) {
+                        $groepen = explode('\, ', $groepMatches['groepen']);
+                    }
+
+                    $this->importEvent($module, new \DateTime($event['DTSTART']), new \DateTime($event['DTEND']), $event['UID'], $event['LOCATION'], $groepen);
                 }
                 
                 // remove future, imported contactmomenten which where not touched in this batch (today)
@@ -91,7 +95,7 @@ class Contactmoment extends Controller
                     $uid = 'Ical' . $event['start'] . $event['end'] . $ruimte . $event['vak'] . $event['param'] . '@rooster.avans.nl';
                     $uid = str_replace('-', '', $uid);
                     $uid = str_replace(' ', '', $uid);
-                    $this->importEvent($module, new \DateTime($event['start']), new \DateTime($event['end']), $uid, $ruimte);
+                    $this->importEvent($module, new \DateTime($event['start']), new \DateTime($event['end']), $uid, $ruimte, []);
                 }
                 break;
             
@@ -109,7 +113,7 @@ class Contactmoment extends Controller
         return \App\Module::where('naam', $matches['module'])->first();
     }
 
-    private function importEvent(\App\Module $module, \DateTime $starttijd, \DateTime $eindtijd, string $uid, string $ruimte)
+    private function importEvent(\App\Module $module, \DateTime $starttijd, \DateTime $eindtijd, string $uid, string $ruimte, array $groepcodes)
     {
         $starttijd->setTimezone(new \DateTimeZone(ini_get('date.timezone')));
         $eindtijd->setTimezone(new \DateTimeZone(ini_get('date.timezone')));
@@ -136,6 +140,16 @@ class Contactmoment extends Controller
             $lesplan->save();
             
             $contactmoment->les()->associate($lesplan);
+        }
+
+        foreach ($groepcodes as $groepcode) {
+            $blokgroep = \App\Blokgroep::firstOrNew(['code' => $groepcode]);
+            $blokgroep->collegejaar = '1516';
+            if (preg_match('/42IN(?<bloknummer>\d+)SO\w/', $groepcode, $matches) !== 1) {
+                continue;
+            }
+            $blokgroep->nummer = (int)$matches['bloknummer'];
+            $blokgroep->save();
         }
         
         $contactmoment->save();
