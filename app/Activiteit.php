@@ -33,13 +33,25 @@ class Activiteit extends Model
         'IR' => 'Interpersoonlijk',
         'IA' => 'Intrapersoonlijk'
     ];
-    
-    public function getIntelligentiesAttribute($value)
+
+    public function intelligenties()
     {
-        return explode(',', $value);
+        return $this->belongsToMany('App\Intelligentie', 'activiteit_intelligentie', 'activiteit_id', 'intelligentie_naam');
+    }
+
+    public function getIntelligentiesAttribute()
+    {
+        $intelligenties = [];
+        foreach ($this->intelligenties()->get() as $intelligentie) {
+            $intelligenties[] = $intelligentie->naam;
+        }
+        return $intelligenties;
     }
     public function setIntelligentiesAttribute(array $value)
     {
-        $this->attributes['intelligenties'] = join(',', $value);
+        $this->intelligenties()->detach();
+        foreach ($value as $intelligentie) {
+            $this->intelligenties()->attach($intelligentie);
+        }
     }
 }
