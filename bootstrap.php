@@ -3,8 +3,8 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autolo
 
 return new class implements \rikmeijer\Teach\Bootstrap
 {
-    public function router(array $routes) : \rikmeijer\Teach\Router {
-        return new \rikmeijer\Teach\Router($routes, __DIR__ . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'routes');
+    public function router(array $routes) : \pulledbits\Router\Router {
+        return new \pulledbits\Router\Router($routes, __DIR__ . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'routes');
     }
 
     public function request() : \Psr\Http\Message\ServerRequestInterface
