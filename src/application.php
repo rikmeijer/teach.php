@@ -12,9 +12,8 @@ return new class {
         $this->bootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
     }
 
-    public function handle() : \Psr\Http\Message\ResponseInterface
-    {
-        $router = $this->bootstrap->router([
+    private function initializeRouterWithRoutes() : \pulledbits\Router\Router {
+        return $this->bootstrap->router([
             '/feedback/(?<contactmomentIdentifier>\d+)/supply' => 'feedback.supply',
             '/feedback/(?<contactmomentIdentifier>\d+)' => 'feedback',
             '/rating/(?<contactmomentIdentifier>\d+)' => 'rating',
@@ -22,6 +21,11 @@ return new class {
             '/qr' => 'qr',
             '/' => 'index'
         ]);
+    }
+
+    public function handle() : \Psr\Http\Message\ResponseInterface
+    {
+        $router = $this->initializeRouterWithRoutes();
 
         $route = $router->route($this->bootstrap->request());
 
