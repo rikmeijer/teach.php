@@ -1,7 +1,14 @@
-<?php return function (\Psr\Http\Message\RequestInterface $request, \rikmeijer\Teach\Resources $resources, \rikmeijer\Teach\Response $response): \Psr\Http\Message\ResponseInterface {
+<?php return new class implements \rikmeijer\Teach\Route
+{
+    public function __invoke(
+        \Psr\Http\Message\RequestInterface $request,
+        \rikmeijer\Teach\Resources $resources,
+        \rikmeijer\Teach\Response $response
+    ): \Psr\Http\Message\ResponseInterface {
         $schema = $resources->schema();
 
-        $contactmoment = $schema->readFirst('contactmoment', [], ['id' => $request->getAttribute('contactmomentIdentifier')]);
+        $contactmoment = $schema->readFirst('contactmoment', [],
+            ['id' => $request->getAttribute('contactmomentIdentifier')]);
 
         $ipRating = $contactmoment->fetchFirstByFkRatingContactmoment([
             'ipv4' => $_SERVER['REMOTE_ADDR']
@@ -38,11 +45,12 @@
                 }
                 return 'data:image/png;base64,' . base64_encode($data);
             },
-            'rateForm' => function (string $contactmomentIdentifier, $rating, string $explanation) : void {
+            'rateForm' => function (string $contactmomentIdentifier, $rating, string $explanation): void {
                 ?><h1>Hoeveel sterren?</h1><?php
-                for ($i = 0; $i < 5; $i ++) {
-                    ?><a href="<?=$this->url('/feedback/%s/supply?rating=%s', $contactmomentIdentifier, $i + 1); ?>"><img
-                        src="<?= $this->star($i, $rating); ?>" width="100"/></a><?php
+                for ($i = 0; $i < 5; $i++) {
+                    ?><a href="<?= $this->url('/feedback/%s/supply?rating=%s', $contactmomentIdentifier, $i + 1); ?>">
+                    <img
+                            src="<?= $this->star($i, $rating); ?>" width="100"/></a><?php
                 }
                 if ($rating !== null) {
                     $this->form("post", "Verzenden", '<h1>Waarom?</h1>
@@ -52,4 +60,5 @@
                 }
             }
         ]));
+    }
 };
