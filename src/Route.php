@@ -11,6 +11,6 @@ namespace rikmeijer\Teach;
 interface Route
 {
 
-    public function __invoke(\Psr\Http\Message\RequestInterface $request, \rikmeijer\Teach\Resources $resources, \rikmeijer\Teach\Response $response) : \Psr\Http\Message\ResponseInterface;
+    public function __invoke(\Psr\Http\Message\RequestInterface $request, \rikmeijer\Teach\Resources $resources) : \Psr\Http\Message\ResponseInterface;
 
 }

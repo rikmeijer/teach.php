@@ -2,8 +2,7 @@
 {
     public function __invoke(
         \Psr\Http\Message\RequestInterface $request,
-        \rikmeijer\Teach\Resources $resources,
-        \rikmeijer\Teach\Response $response
+        \rikmeijer\Teach\Resources $resources
     ): \Psr\Http\Message\ResponseInterface {
         $schema = $resources->schema();
 
@@ -48,6 +47,6 @@
         // remove future, imported contactmomenten which where not touched in this batch (today)
         $schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
 
-        return $response->make(201, $resources->phpview('contactmoment/imported', []));
+        return $resources->respond(201, $resources->phpview('contactmoment/imported', []));
     }
 };

@@ -3,10 +3,12 @@
 class Resources
 {
     private $resourcesPath;
+    private $responseFactory;
 
-    public function __construct(string $resourcesPath)
+    public function __construct(string $resourcesPath, \rikmeijer\Teach\Response $responseFactory)
     {
         $this->resourcesPath = $resourcesPath;
+        $this->responseFactory = $responseFactory;
     }
 
     public function schema(): \pulledbits\ActiveRecord\SQL\Schema
@@ -44,9 +46,9 @@ class Resources
     /**
      * @param string $identifier
      * @param array $variable
-     * @return resource
+     * @return string
      */
-    public function phpview(string $identifier, array $variable)
+    public function phpview(string $identifier, array $variable) : string
     {
         $template = new \pulledbits\View\File\Template($this->resourcesPath . DIRECTORY_SEPARATOR . "views", $this->resourcesPath . DIRECTORY_SEPARATOR . 'layouts');
         $template->registerHelper('url', function (string $path, string ...$unencoded): string {
@@ -87,6 +89,13 @@ class Resources
         });
 
         return $template->capture($identifier, $variable);
+    }
+
+    public function respond(int $code, string $body) {
+        return $this->responseFactory->make($code, $body);
+    }
+    public function respondWithHeaders(int $code, array $headers, string $body) {
+        return $this->responseFactory->makeWithHeaders($code, $headers, $body);
     }
 
     public function iCalReader(string $uri): \ICal

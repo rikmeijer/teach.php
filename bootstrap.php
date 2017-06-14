@@ -18,6 +18,8 @@ return new class implements \rikmeijer\Teach\Bootstrap
 
     public function resources() : \rikmeijer\Teach\Resources
     {
-        return new \rikmeijer\Teach\Resources(__DIR__ . DIRECTORY_SEPARATOR . 'resources');
+        return new \rikmeijer\Teach\Resources(__DIR__ . DIRECTORY_SEPARATOR . 'resources', new \rikmeijer\Teach\Response(function(int $status, string $body) : \Psr\Http\Message\ResponseInterface {
+            return $this->response($status, $body);
+        }));
     }
 };
