@@ -6,7 +6,7 @@
         \rikmeijer\Teach\Response $response
     ): \Psr\Http\Message\ResponseInterface {
         $schema = $resources->schema();
-        return $response->make(200, $resources->phpview()->capture('welcome', [
+        return $response->make(200, $resources->phpview('welcome', [
             'modules' => $schema->read('module', [], []),
             'contactmomenten' => $schema->read('contactmoment_vandaag', [], [])
         ]));

@@ -8,7 +8,7 @@
         $schema = $resources->schema();
 
         return $response->makeWithHeaders(200, ['Content-Type' => 'image/png'],
-            $resources->phpview()->capture('rating', [
+            $resources->phpview('rating', [
                 'rating' => $schema->readFirst('contactmomentrating', [],
                     ['contactmoment_id' => $request->getAttribute('contactmomentIdentifier')])->waarde,
                 'starData' => $resources->readAssetStar(),

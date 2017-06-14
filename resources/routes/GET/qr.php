@@ -12,7 +12,7 @@
             return $response->make(400, 'Query data incomplete');
         } else {
             return $response->makeWithHeaders(200, ['Content-Type' => 'image/png'],
-                $resources->phpview()->capture('qr', [
+                $resources->phpview('qr', [
                     'data' => $query['data']
                 ]));
         }

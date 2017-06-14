@@ -41,7 +41,12 @@ class Resources
         return $session_factory->newInstance($_COOKIE);
     }
 
-    public function phpview(): \pulledbits\View\Template
+    /**
+     * @param string $identifier
+     * @param array $variable
+     * @return resource
+     */
+    public function phpview(string $identifier, array $variable)
     {
         $template = new \pulledbits\View\File\Template($this->resourcesPath . DIRECTORY_SEPARATOR . "views", $this->resourcesPath . DIRECTORY_SEPARATOR . 'layouts');
         $template->registerHelper('url', function (string $path, string ...$unencoded): string {
@@ -80,7 +85,8 @@ class Resources
             $writer = new \BaconQrCode\Writer($renderer);
             print $writer->writeString($data);
         });
-        return $template;
+
+        return $template->capture($identifier, $variable);
     }
 
     public function iCalReader(string $uri): \ICal

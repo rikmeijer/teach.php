@@ -8,7 +8,7 @@
         $schema = $resources->schema();
         $contactmoment = $schema->readFirst('contactmoment', [],
             ['id' => $request->getAttribute('contactmomentIdentifier')]);
-        return $response->make(200, $resources->phpview()->capture('feedback', [
+        return $response->make(200, $resources->phpview('feedback', [
             'contactmoment' => $contactmoment
         ]));
     }

@@ -31,7 +31,7 @@
             $rating = $query['rating'];
         }
 
-        return $response->make(200, $resources->phpview()->capture('feedback/supply', [
+        return $response->make(200, $resources->phpview('feedback/supply', [
             'rating' => $rating,
             'explanation' => $explanation,
             'contactmomentIdentifier' => $request->getAttribute('contactmomentIdentifier'),
