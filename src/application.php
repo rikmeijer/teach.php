@@ -14,12 +14,14 @@ return new class {
 
     private function initializeRouterWithRoutes() : \pulledbits\Router\Router {
         return $this->bootstrap->router([
-            '/feedback/(?<contactmomentIdentifier>\d+)/supply' => 'feedback.supply',
-            '/feedback/(?<contactmomentIdentifier>\d+)' => 'feedback',
-            '/rating/(?<contactmomentIdentifier>\d+)' => 'rating',
-            '/contactmoment/import' => 'contactmoment.import',
-            '/qr' => 'qr',
-            '/' => 'index'
+            'GET:/feedback/(?<contactmomentIdentifier>\d+)/supply' => 'GET' . DIRECTORY_SEPARATOR . 'feedback.supply.php',
+            'POST:/feedback/(?<contactmomentIdentifier>\d+)/supply' => 'POST' . DIRECTORY_SEPARATOR . 'feedback.supply.php',
+            'GET:/feedback/(?<contactmomentIdentifier>\d+)' => 'GET' . DIRECTORY_SEPARATOR . 'feedback.php',
+            'GET:/rating/(?<contactmomentIdentifier>\d+)' => 'GET' . DIRECTORY_SEPARATOR . 'rating.php',
+            'GET:/contactmoment/import' => 'GET' . DIRECTORY_SEPARATOR . 'contactmoment.import.php',
+            'POST:/contactmoment/import' => 'POST' . DIRECTORY_SEPARATOR . 'contactmoment.import.php',
+            'GET:/qr' => 'GET' . DIRECTORY_SEPARATOR . 'qr.php',
+            'GET:/' => 'GET' . DIRECTORY_SEPARATOR . 'index.php'
         ]);
     }
 
