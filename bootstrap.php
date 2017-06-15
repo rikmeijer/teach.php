@@ -6,7 +6,7 @@ return new class implements \rikmeijer\Teach\Bootstrap
     public function router(array $routes): \pulledbits\Router\Router
     {
         return new \pulledbits\Router\Router(array_map(function ($v) {
-            return __DIR__ . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . $v;
+            return require __DIR__ . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . $v;
         },
             $routes));
     }
