@@ -31,7 +31,7 @@ class Get implements \rikmeijer\Teach\Route {
             $rating = $query['rating'];
         }
 
-        return $resources->respond(200, $resources->phpview('feedback/supply', [
+        return $resources->respond(200, $resources->phpview(__DIR__)->capture('supply', [
             'rating' => $rating,
             'explanation' => $explanation,
             'contactmomentIdentifier' => $request->getAttribute('contactmomentIdentifier'),

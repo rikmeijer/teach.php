@@ -9,7 +9,7 @@ class Get implements \rikmeijer\Teach\Route
         $schema = $resources->schema();
 
         return $resources->respondWithHeaders(200, ['Content-Type' => 'image/png'],
-            $resources->phpview('rating', [
+            $resources->phpview(__DIR__)->capture('rating', [
                 'rating' => $schema->readFirst('contactmomentrating', [],
                     ['contactmoment_id' => $request->getAttribute('contactmomentIdentifier')])->waarde,
                 'starData' => $resources->readAssetStar(),

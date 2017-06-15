@@ -1,9 +1,12 @@
 <?php
+
 namespace {
+
     define('NAMESPACE_SEPARATOR', '\\');
 }
 
 namespace rikmeijer\Teach {
+
     require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
     return new class implements Bootstrap
@@ -11,13 +14,14 @@ namespace rikmeijer\Teach {
         public function router(array $routes): \pulledbits\Router\Router
         {
             return new \pulledbits\Router\Router(array_map(function ($v) {
-                return function (\Psr\Http\Message\RequestInterface $request, Resources $resources) use ($v) : \Psr\Http\Message\ResponseInterface {
-                    $class = __NAMESPACE__ . NAMESPACE_SEPARATOR .  'Routes' . NAMESPACE_SEPARATOR . $v . NAMESPACE_SEPARATOR . ucfirst(strtolower($request->getMethod()));
+                return function (\Psr\Http\Message\RequestInterface $request) use ($v
+                ) : \Psr\Http\Message\ResponseInterface {
+                    $class = __NAMESPACE__ . NAMESPACE_SEPARATOR . 'Routes' . NAMESPACE_SEPARATOR . $v . NAMESPACE_SEPARATOR . ucfirst(strtolower($request->getMethod()));
                     if (class_exists($class)) {
                         $route = new $class();
-                        return $route($request, $resources);
+                        return $route($request, $this->resources());
                     }
-                    return $resources->respond(405, 'Method not allowed');
+                    return $this->resources()->respond(405, 'Method not allowed');
                 };
             },
                 $routes));
@@ -36,10 +40,7 @@ namespace rikmeijer\Teach {
         public function resources(): Resources
         {
             return new Resources(__DIR__ . DIRECTORY_SEPARATOR . 'resources',
-                new Response(function (
-                    int $status,
-                    string $body
-                ): \Psr\Http\Message\ResponseInterface {
+                new Response(function (int $status, string $body): \Psr\Http\Message\ResponseInterface {
                     return $this->response($status, $body);
                 }));
         }

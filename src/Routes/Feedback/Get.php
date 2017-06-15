@@ -8,7 +8,7 @@ class Get implements \rikmeijer\Teach\Route {
         $schema = $resources->schema();
         $contactmoment = $schema->readFirst('contactmoment', [],
             ['id' => $request->getAttribute('contactmomentIdentifier')]);
-        return $resources->respond(200, $resources->phpview('feedback', [
+        return $resources->respond(200, $resources->phpview(__DIR__)->capture('feedback', [
             'contactmoment' => $contactmoment
         ]));
     }

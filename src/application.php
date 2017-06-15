@@ -28,13 +28,6 @@ return new class {
     public function handle() : \Psr\Http\Message\ResponseInterface
     {
         $router = $this->initializeRouterWithRoutes();
-
-        $route = $router->route($this->bootstrap->request());
-
-        if ($route === false) {
-            return $this->bootstrap->response(404, 'Failure');
-        }
-
-        return $route->execute([$this->bootstrap->resources()]);
+        return $router->route($this->bootstrap->request());
     }
 };

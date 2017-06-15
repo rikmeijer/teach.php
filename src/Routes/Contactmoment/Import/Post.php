@@ -49,6 +49,6 @@ class Post implements \rikmeijer\Teach\Route {
         // remove future, imported contactmomenten which where not touched in this batch (today)
         $schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
 
-        return $resources->respond(201, $resources->phpview('contactmoment/imported', []));
+        return $resources->respond(201, $resources->phpview(__DIR__)->capture('imported', []));
     }
 }

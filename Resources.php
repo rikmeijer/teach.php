@@ -43,14 +43,8 @@ class Resources
         return $session_factory->newInstance($_COOKIE);
     }
 
-    /**
-     * @param string $identifier
-     * @param array $variable
-     * @return string
-     */
-    public function phpview(string $identifier, array $variable) : string
-    {
-        $template = new \pulledbits\View\File\Template($this->resourcesPath . DIRECTORY_SEPARATOR . "views", $this->resourcesPath . DIRECTORY_SEPARATOR . 'layouts');
+    public function phpview(string $viewsPath) {
+        $template = new \pulledbits\View\File\Template($viewsPath . DIRECTORY_SEPARATOR . "views", $this->resourcesPath . DIRECTORY_SEPARATOR . 'layouts');
         $template->registerHelper('url', function (string $path, string ...$unencoded): string {
             $encoded = array_map('rawurlencode', $unencoded);
             $path = sprintf($path, ...$encoded);
@@ -87,8 +81,7 @@ class Resources
             $writer = new \BaconQrCode\Writer($renderer);
             print $writer->writeString($data);
         });
-
-        return $template->capture($identifier, $variable);
+        return $template;
     }
 
     public function respond(int $code, string $body) {
