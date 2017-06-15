@@ -1017,12 +1017,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pulledbits/router.git",
-                "reference": "354722b0debbcafbc038c0a6d09b7164bdb0a855"
+                "reference": "8953dfffa05a89f2eaf8d52f7f9df119dc73efec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/router/zipball/354722b0debbcafbc038c0a6d09b7164bdb0a855",
-                "reference": "354722b0debbcafbc038c0a6d09b7164bdb0a855",
+                "url": "https://api.github.com/repos/pulledbits/router/zipball/8953dfffa05a89f2eaf8d52f7f9df119dc73efec",
+                "reference": "8953dfffa05a89f2eaf8d52f7f9df119dc73efec",
                 "shasum": ""
             },
             "require": {
@@ -1043,7 +1043,7 @@
                 "MIT"
             ],
             "description": "Simple router",
-            "time": "2017-06-15 07:56:17"
+            "time": "2017-06-15 08:42:24"
         },
         {
             "name": "pulledbits/view",
