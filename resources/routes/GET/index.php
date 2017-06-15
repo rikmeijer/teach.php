@@ -1,4 +1,6 @@
-<?php return new class implements \rikmeijer\Teach\Route
+<?php namespace rikmeijer\Routes\Contactmoment\Import;
+
+class Get implements \rikmeijer\Teach\Route
 {
     public function __invoke(
         \Psr\Http\Message\RequestInterface $request,
@@ -10,4 +12,6 @@
             'contactmomenten' => $schema->read('contactmoment_vandaag', [], [])
         ]));
     }
-};
+}
+
+return new Get();

@@ -1,5 +1,6 @@
-<?php return new class implements \rikmeijer\Teach\Route
-{
+<?php namespace rikmeijer\Routes\Contactmoment\Import;
+
+class Get implements \rikmeijer\Teach\Route {
     public function __invoke(
         \Psr\Http\Message\RequestInterface $request,
         \rikmeijer\Teach\Resources $resources
@@ -11,4 +12,6 @@
             'contactmoment' => $contactmoment
         ]));
     }
-};
+}
+
+return new Get();

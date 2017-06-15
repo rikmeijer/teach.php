@@ -1,9 +1,11 @@
-<?php return new class implements \rikmeijer\Teach\Route
-{
+<?php namespace rikmeijer\Routes\Contactmoment\Import;
+
+class Post implements \rikmeijer\Teach\Route {
     public function __invoke(
         \Psr\Http\Message\RequestInterface $request,
         \rikmeijer\Teach\Resources $resources
-    ): \Psr\Http\Message\ResponseInterface {
+    ): \Psr\Http\Message\ResponseInterface
+    {
         $schema = $resources->schema();
 
         $icalReader = $resources->iCalReader($request->getParsedBody()['url']);
@@ -49,4 +51,6 @@
 
         return $resources->respond(201, $resources->phpview('contactmoment/imported', []));
     }
-};
+}
+
+return new Post();
