@@ -7,7 +7,7 @@ $transparent = imagecolorallocatealpha($im, 255, 255, 255, 127);
 imagefilledrectangle($im, 0, 0, 500, $height, $transparent);
 $star = imagecreatefromstring($starData);
 $unstar = imagecreatefromstring($unstarData);
-for ($i = 0; $i < 5; $i ++) {
+for ($i = 0; $i < 5; $i++) {
     if ($i < $rating) {
         $source = $star;
     } else {

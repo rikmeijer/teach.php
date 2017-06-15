@@ -1,10 +1,8 @@
 <?php namespace rikmeijer\Teach\Routes\Contactmoment\Import;
 
-class Post implements \rikmeijer\Teach\Route {
-    public function __invoke(
-        \Psr\Http\Message\RequestInterface $request,
-        \rikmeijer\Teach\Resources $resources
-    ): \Psr\Http\Message\ResponseInterface
+class Post implements \rikmeijer\Teach\Route
+{
+    public function __invoke(\Psr\Http\Message\RequestInterface $request, \rikmeijer\Teach\Resources $resources): \Psr\Http\Message\ResponseInterface
     {
         $schema = $resources->schema();
 
@@ -28,10 +26,7 @@ class Post implements \rikmeijer\Teach\Route {
             $contactmoment = $schema->readFirst('contactmoment', [], ['ical_uid' => $event['UID']]);
 
             if ($contactmoment->les_id === null) {
-                $lesplan = $module->fetchFirstByFkLesmodule([
-                    'jaar' => $resources->convertToYear($event['DTSTART']),
-                    'kalenderweek' => $resources->convertToWeek($event['DTSTART'])
-                ]);
+                $lesplan = $module->fetchFirstByFkLesmodule(['jaar' => $resources->convertToYear($event['DTSTART']), 'kalenderweek' => $resources->convertToWeek($event['DTSTART'])]);
 
                 if ($lesplan->naam === null) {
                     $lesplan->naam = "";
