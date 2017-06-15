@@ -1,4 +1,4 @@
-<?php namespace rikmeijer\Routes\Contactmoment\Import;
+<?php namespace rikmeijer\Teach\Routes\Contactmoment\Import;
 
 class Post implements \rikmeijer\Teach\Route {
     public function __invoke(
@@ -52,5 +52,3 @@ class Post implements \rikmeijer\Teach\Route {
         return $resources->respond(201, $resources->phpview('contactmoment/imported', []));
     }
 }
-
-return new Post();

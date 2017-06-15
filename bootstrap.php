@@ -1,4 +1,6 @@
 <?php
+define('NAMESPACE_SEPARATOR', '\\');
+
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 return new class implements \rikmeijer\Teach\Bootstrap
@@ -7,9 +9,11 @@ return new class implements \rikmeijer\Teach\Bootstrap
     {
         return new \pulledbits\Router\Router(array_map(function ($v) {
             return function(\Psr\Http\Message\RequestInterface $request, \rikmeijer\Teach\Resources $resources) use ($v) {
-
-                $route = require __DIR__ . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . $v;
-                return $route($request, $resources);
+                $class = '\rikmeijer\Teach\Routes' . NAMESPACE_SEPARATOR . $v . NAMESPACE_SEPARATOR . ucfirst(strtolower($request->getMethod()));
+                if (class_exists($class)) {
+                    $route = new $class();
+                    return $route($request, $resources);
+                }
             };
         },
             $routes));

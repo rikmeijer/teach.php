@@ -1,4 +1,4 @@
-<?php namespace rikmeijer\Routes\Contactmoment\Import;
+<?php namespace rikmeijer\Teach\Routes\Rating;
 
 class Get implements \rikmeijer\Teach\Route
 {
@@ -17,5 +17,3 @@ class Get implements \rikmeijer\Teach\Route
             ]));
     }
 }
-
-return new Get();

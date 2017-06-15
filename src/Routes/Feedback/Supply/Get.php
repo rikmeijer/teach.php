@@ -1,4 +1,4 @@
-<?php namespace rikmeijer\Routes\Contactmoment\Import;
+<?php namespace rikmeijer\Teach\Routes\Feedback\Supply;
 
 class Get implements \rikmeijer\Teach\Route {
     public function __invoke(
@@ -62,5 +62,3 @@ class Get implements \rikmeijer\Teach\Route {
         ]));
     }
 }
-
-return new Get();

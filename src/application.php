@@ -14,14 +14,14 @@ return new class {
 
     private function initializeRouterWithRoutes() : \pulledbits\Router\Router {
         return $this->bootstrap->router([
-            'GET:/feedback/(?<contactmomentIdentifier>\d+)/supply' => 'GET' . DIRECTORY_SEPARATOR . 'feedback.supply.php',
-            'POST:/feedback/(?<contactmomentIdentifier>\d+)/supply' => 'POST' . DIRECTORY_SEPARATOR . 'feedback.supply.php',
-            'GET:/feedback/(?<contactmomentIdentifier>\d+)' => 'GET' . DIRECTORY_SEPARATOR . 'feedback.php',
-            'GET:/rating/(?<contactmomentIdentifier>\d+)' => 'GET' . DIRECTORY_SEPARATOR . 'rating.php',
-            'GET:/contactmoment/import' => 'GET' . DIRECTORY_SEPARATOR . 'contactmoment.import.php',
-            'POST:/contactmoment/import' => 'POST' . DIRECTORY_SEPARATOR . 'contactmoment.import.php',
-            'GET:/qr' => 'GET' . DIRECTORY_SEPARATOR . 'qr.php',
-            'GET:/' => 'GET' . DIRECTORY_SEPARATOR . 'index.php'
+            'GET:/feedback/(?<contactmomentIdentifier>\d+)/supply' => 'Feedback' . NAMESPACE_SEPARATOR . 'Supply',
+            'POST:/feedback/(?<contactmomentIdentifier>\d+)/supply' => 'Feedback' . NAMESPACE_SEPARATOR . 'Supply',
+            'GET:/feedback/(?<contactmomentIdentifier>\d+)' => 'Feedback',
+            'GET:/rating/(?<contactmomentIdentifier>\d+)' => 'Rating',
+            'GET:/contactmoment/import' => 'Contactmoment' . NAMESPACE_SEPARATOR . 'Import',
+            'POST:/contactmoment/import' => 'Contactmoment' . NAMESPACE_SEPARATOR . 'Import',
+            'GET:/qr' => 'Qr',
+            'GET:/' => 'Index'
         ]);
     }
 
