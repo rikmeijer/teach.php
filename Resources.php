@@ -43,8 +43,8 @@ class Resources
         return $session_factory->newInstance($_COOKIE);
     }
 
-    public function phpview(string $viewsPath) {
-        $template = new \pulledbits\View\File\Template($viewsPath . DIRECTORY_SEPARATOR . "views", $this->resourcesPath . DIRECTORY_SEPARATOR . 'layouts');
+    public function phpview(string $viewsPath) : \pulledbits\View\File\Template {
+        $template = new \pulledbits\View\File\Template( __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Routes' . $viewsPath . DIRECTORY_SEPARATOR . "views", $this->resourcesPath . DIRECTORY_SEPARATOR . 'layouts');
         $template->registerHelper('url', function (string $path, string ...$unencoded): string {
             $encoded = array_map('rawurlencode', $unencoded);
             $path = sprintf($path, ...$encoded);
