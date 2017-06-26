@@ -55,7 +55,7 @@ class Import implements \pulledbits\Router\Handler
             $contactmoment = $schema->readFirst('contactmoment', [], ['ical_uid' => $event['UID']]);
 
             if ($contactmoment->les_id === null) {
-                $lesplan = $module->fetchFirstByFkLesmodule(['jaar' => $this->resources->convertToYear($event['DTSTART']), 'kalenderweek' => $resources->convertToWeek($event['DTSTART'])]);
+                $lesplan = $module->fetchFirstByFkLesmodule(['jaar' => $this->resources->convertToYear($event['DTSTART']), 'kalenderweek' => $this->resources->convertToWeek($event['DTSTART'])]);
 
                 if ($lesplan->naam === null) {
                     $lesplan->naam = "";
