@@ -7,7 +7,7 @@ class Rating implements \pulledbits\Router\Handler
 
     public function __construct(\rikmeijer\Teach\Resources $resources) {
         $this->resources = $resources;
-        $this->phpview = $this->resources->phpview(__DIR__ . DIRECTORY_SEPARATOR . str_replace(__NAMESPACE__ . NAMESPACE_SEPARATOR,"",__CLASS__));
+        $this->phpview = $this->resources->phpview(__DIR__ . DIRECTORY_SEPARATOR . get_class_shortname($this));
     }
 
     public function handleRequest(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface

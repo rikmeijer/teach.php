@@ -3,6 +3,11 @@
 namespace {
 
     define('NAMESPACE_SEPARATOR', '\\');
+
+    function get_class_shortname($object) {
+        $classname = get_class($object);
+        return (substr($classname, strrpos($classname, '\\') + 1));
+    }
 }
 
 namespace rikmeijer\Teach {
