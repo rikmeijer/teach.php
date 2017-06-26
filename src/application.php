@@ -15,10 +15,8 @@ return new class {
     private function initializeRouterWithRoutes() : \pulledbits\Router\Router {
         return $this->bootstrap->router([
             '/feedback/(?<contactmomentIdentifier>\d+)/supply' => 'Feedback' . NAMESPACE_SEPARATOR . 'Supply',
-            '/feedback/(?<contactmomentIdentifier>\d+)/supply' => 'Feedback' . NAMESPACE_SEPARATOR . 'Supply',
             '/feedback/(?<contactmomentIdentifier>\d+)' => 'Feedback',
             '/rating/(?<contactmomentIdentifier>\d+)' => 'Rating',
-            '/contactmoment/import' => 'Contactmoment' . NAMESPACE_SEPARATOR . 'Import',
             '/contactmoment/import' => 'Contactmoment' . NAMESPACE_SEPARATOR . 'Import',
             '/qr' => 'Qr',
             '/' => 'Index'

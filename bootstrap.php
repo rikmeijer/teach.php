@@ -18,27 +18,8 @@ namespace rikmeijer\Teach {
             }));
 
             return new \pulledbits\Router\Router(array_map(function ($v) use ($resources) {
-                return new class(__NAMESPACE__ . NAMESPACE_SEPARATOR . 'Routes' . NAMESPACE_SEPARATOR . $v, $resources) implements \pulledbits\Router\Handler
-                {
-                    private $baseRoute;
-                    private $resources;
-
-                    public function __construct(string $baseRoute, Resources $resources)
-                    {
-                        $this->baseRoute = $baseRoute;
-                        $this->resources = $resources;
-                    }
-
-                    function handleRequest(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
-                    {
-                        $class = $this->baseRoute . NAMESPACE_SEPARATOR . ucfirst(strtolower($request->getMethod()));
-                        if (class_exists($class)) {
-                            $route = new $class();
-                            return $route($request, $this->resources);
-                        }
-                        return $this->resources->respond(405, 'Method not allowed');
-                    }
-                };
+                $class = __NAMESPACE__ . NAMESPACE_SEPARATOR . 'Routes' . NAMESPACE_SEPARATOR . $v;
+                return new $class($resources);
             }, $routes));
         }
 
