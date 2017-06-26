@@ -10,7 +10,7 @@ class Import implements \pulledbits\Router\Handler
         $this->phpview = $phpview;
     }
 
-    public function handleRequest(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
+    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
         switch ($request->getMethod()) {
             case 'GET':

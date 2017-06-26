@@ -10,7 +10,7 @@ class Feedback implements \pulledbits\Router\Handler
         $this->phpview = $phpview;
     }
 
-    public function handleRequest(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
+    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
         $schema = $this->resources->schema();
         $contactmoment = $schema->readFirst('contactmoment', [], ['id' => $request->getAttribute('contactmomentIdentifier')]);

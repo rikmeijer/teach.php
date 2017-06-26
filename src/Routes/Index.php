@@ -10,7 +10,7 @@ class Index implements \pulledbits\Router\Handler
         $this->phpview = $phpview;
     }
 
-    public function handleRequest(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
+    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
         $schema = $this->resources->schema();
         return $this->resources->respond(200, $this->phpview->capture('welcome', ['modules' => $schema->read('module', [], []), 'contactmomenten' => $schema->read('contactmoment_vandaag', [], [])]));

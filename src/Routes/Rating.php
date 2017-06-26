@@ -10,7 +10,7 @@ class Rating implements \pulledbits\Router\Handler
         $this->phpview = $phpview;
     }
 
-    public function handleRequest(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
+    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
         $schema = $this->resources->schema();
         return $this->resources->respondWithHeaders(200, ['Content-Type' => 'image/png'], $this->phpview->capture('rating', ['rating' => $schema->readFirst('contactmomentrating', [], ['contactmoment_id' => $request->getAttribute('contactmomentIdentifier')])->waarde, 'starData' => $this->resources->readAssetStar(), 'unstarData' => $this->resources->readAssetUnstar()]));
