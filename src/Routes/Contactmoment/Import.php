@@ -3,8 +3,11 @@
 class Import implements \pulledbits\Router\Handler
 {
     private $resources;
+    private $phpview;
+
     public function __construct(\rikmeijer\Teach\Resources $resources) {
         $this->resources = $resources;
+        $this->phpview = $this->resources->phpview(__DIR__ . DIRECTORY_SEPARATOR . str_replace(__NAMESPACE__ . NAMESPACE_SEPARATOR,"",__CLASS__));
     }
 
     public function handleRequest(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
@@ -21,7 +24,7 @@ class Import implements \pulledbits\Router\Handler
 
     private function handleGetRequest(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
-        return $this->resources->respond(200, $this->resources->phpview(__DIR__ . DIRECTORY_SEPARATOR . str_replace(__NAMESPACE__ . NAMESPACE_SEPARATOR,"",__CLASS__))->capture('import', ['importForm' => function (): void {
+        return $this->resources->respond(200, $this->phpview->capture('import', ['importForm' => function (): void {
             $model = 'ICS URL: <input type="text" name="url" />';
 
             $this->form("post", "Importeren", $model);
@@ -70,6 +73,6 @@ class Import implements \pulledbits\Router\Handler
         // remove future, imported contactmomenten which where not touched in this batch (today)
         $schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
 
-        return $this->resources->respond(201, $this->resources->phpview(__DIR__ . DIRECTORY_SEPARATOR . str_replace(__NAMESPACE__ . NAMESPACE_SEPARATOR,"",__CLASS__))->capture('imported', []));
+        return $this->resources->respond(201, $this->phpview->capture('imported', []));
     }
 }
