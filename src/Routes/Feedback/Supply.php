@@ -22,11 +22,14 @@ class Supply implements \pulledbits\Router\Handler
         }
     }
 
+    private function retrieveContactmomentByRequest(\Psr\Http\Message\RequestInterface $request) {
+        $schema = $this->resources->schema();
+        return $schema->readFirst('contactmoment', [], ['id' => $request->getAttribute('contactmomentIdentifier')]);
+    }
+
     private function handleGetRequest(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
-        $schema = $this->resources->schema();
-
-        $contactmoment = $schema->readFirst('contactmoment', [], ['id' => $request->getAttribute('contactmomentIdentifier')]);
+        $contactmoment = $this->retrieveContactmomentByRequest($request);
 
         $ipRating = $contactmoment->fetchFirstByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
 
@@ -80,7 +83,7 @@ class Supply implements \pulledbits\Router\Handler
         if ($csrf_token->isValid($payload['__csrf_value']) === false) {
             return $this->resources->respond(403, "This looks like a cross-site request forgery.");
         } else {
-            $contactmoment = $schema->readFirst('contactmoment', [], ['id' => $request->getAttribute('contactmomentIdentifier')]);
+            $contactmoment = $this->retrieveContactmomentByRequest($request);
             $rating = $contactmoment->fetchFirstByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
             $rating->waarde = $payload['rating'];
             $rating->inhoud = $payload['explanation'];
