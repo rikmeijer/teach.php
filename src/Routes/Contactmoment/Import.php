@@ -52,22 +52,14 @@ class Import implements \pulledbits\Router\Handler
                 continue;
             }
 
-            $contactmoment = $schema->readFirst('contactmoment', [], ['ical_uid' => $event['UID']]);
+            $lesplan = $module->fetchFirstByFkLesmodule(['jaar' => $this->resources->convertToYear($event['DTSTART']), 'kalenderweek' => $this->resources->convertToWeek($event['DTSTART'])]);
 
-            if ($contactmoment->les_id === null) {
-                $lesplan = $module->fetchFirstByFkLesmodule(['jaar' => $this->resources->convertToYear($event['DTSTART']), 'kalenderweek' => $this->resources->convertToWeek($event['DTSTART'])]);
-
-                if ($lesplan->naam === null) {
-                    $lesplan->naam = "";
-                }
-                $contactmoment->les_id = $lesplan->id;
+            if ($lesplan->naam === null) {
+                $lesplan->naam = "";
             }
 
-            $contactmoment->ical_uid = $event['UID'];
-            $contactmoment->starttijd = $this->resources->convertToSQLDateTime($event['DTSTART']);
-            $contactmoment->eindtijd = $this->resources->convertToSQLDateTime($event['DTEND']);
-            $contactmoment->ruimte = $event['LOCATION'];
-            $contactmoment->updated_at = date('Y-m-d H:i:s');
+            $schema->executeProcedure('import_ical_to_contactmoment', [$lesplan->id, $event['UID'], $this->resources->convertToSQLDateTime($event['DTSTART']), $this->resources->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
+
         }
 
         // remove future, imported contactmomenten which where not touched in this batch (today)
