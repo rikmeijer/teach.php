@@ -1,0 +1,2 @@
+#!/bin/sh
+./vendor/bin/doctrine-migrations migrations:migrate --configuration ./resources/database/migrations.xml --db-configuration ./resources/database/config.php --no-interaction --allow-no-migration
