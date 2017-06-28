@@ -4,10 +4,12 @@ class Supply implements \pulledbits\Router\Handler
 {
     private $resources;
     private $phpview;
+    private $schema;
 
     public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview) {
         $this->resources = $resources;
         $this->phpview = $phpview;
+        $this->schema = $resources->schema();
     }
 
     public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
@@ -22,14 +24,9 @@ class Supply implements \pulledbits\Router\Handler
         }
     }
 
-    private function retrieveContactmomentByRequest(\Psr\Http\Message\RequestInterface $request) {
-        $schema = $this->resources->schema();
-        return $schema->readFirst('contactmoment', [], ['id' => $request->getAttribute('contactmomentIdentifier')]);
-    }
-
     private function handleGetRequest(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
-        $contactmoment = $this->retrieveContactmomentByRequest($request);
+        $contactmoment = $this->schema->readFirst('contactmoment', [], ['id' => $request->getAttribute('contactmomentIdentifier')]);
 
         $ipRating = $contactmoment->fetchFirstByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
 
@@ -73,9 +70,8 @@ class Supply implements \pulledbits\Router\Handler
         }]));
     }
 
-    public function handlePostRequest(\Psr\Http\Message\RequestInterface $request, \rikmeijer\Teach\Resources $resources): \Psr\Http\Message\ResponseInterface
+    public function handlePostRequest(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
-        $schema = $this->resources->schema();
         $session = $this->resources->session();
         $payload = $request->getParsedBody();
 
@@ -83,14 +79,7 @@ class Supply implements \pulledbits\Router\Handler
         if ($csrf_token->isValid($payload['__csrf_value']) === false) {
             return $this->resources->respond(403, "This looks like a cross-site request forgery.");
         } else {
-            $contactmoment = $this->retrieveContactmomentByRequest($request);
-            $rating = $contactmoment->fetchFirstByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
-            $rating->waarde = $payload['rating'];
-            $rating->inhoud = $payload['explanation'];
-            if ($rating->created_at === null) {
-                $rating->created_at = date('Y-m-d H:i:s');
-            }
-            $rating->updated_at = date('Y-m-d H:i:s');
+            $this->schema->executeProcedure('rate_contactmoment', [$request->getAttribute('contactmomentIdentifier'), $_SERVER['REMOTE_ADDR'], $payload['rating'], $payload['explanation']]);
             return $this->resources->respond(201, 'Dankje!');
         }
     }
