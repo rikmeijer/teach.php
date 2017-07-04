@@ -27,7 +27,6 @@ class Import implements \pulledbits\Router\Handler
     {
         return $this->resources->respond(200, $this->phpview->capture('import', ['importForm' => function (): void {
             $model = 'ICS URL: <input type="text" name="url" />';
-
             $this->form("post", "Importeren", $model);
         }]));
     }
@@ -35,22 +34,26 @@ class Import implements \pulledbits\Router\Handler
     private function handlePostRequest(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
         $schema = $this->resources->schema();
-
         $icalReader = $this->resources->iCalReader($request->getParsedBody()['url']);
-
         foreach ($icalReader->events() as $event) {
             if (array_key_exists('SUMMARY', $event) === false) {
                 continue;
             } elseif (array_key_exists('LOCATION', $event) === false) {
                 continue;
             }
-
-            $schema->executeProcedure('import_ical_to_contactmoment', [$event['SUMMARY'], $event['UID'], $this->resources->convertToSQLDateTime($event['DTSTART']), $this->resources->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
+            $schema->executeProcedure('import_ical_to_contactmoment', [$event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
         }
-
-        // remove future, imported contactmomenten which where not touched in this batch (today)
         $schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
-
         return $this->resources->respond(201, $this->phpview->capture('imported', []));
+    }
+
+    private function reformatDateTime(string $datetime, string $format) : string {
+        $datetime = new \DateTime($datetime);
+        $datetime->setTimezone(new \DateTimeZone(ini_get('date.timezone')));
+        return $datetime->format($format);
+    }
+
+    private function convertToSQLDateTime(string $datetime) : string {
+        return $this->reformatDateTime($datetime, 'Y-m-d H:i:s');
     }
 }
