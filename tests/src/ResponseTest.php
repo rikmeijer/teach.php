@@ -12,7 +12,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testMake_When_StatusAndBodySupplied_Expect_PSRResponseWithStatusAndBody() {
-
         $object = new Response();
         $response = $object->make(200, 'HelloWorld');
         $this->assertEquals(200, $response->getStatusCode());
@@ -20,7 +19,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testMake_When_StatusAndBodyAndHeaderSupplied_Expect_PSRResponseWithStatusAndBodyAndHeader() {
-
         $object = new Response();
         $response = $object->makeWithHeaders(200, ['X-TEST' => 'Foobar'], 'HelloWorld');
         $this->assertEquals(200, $response->getStatusCode());
