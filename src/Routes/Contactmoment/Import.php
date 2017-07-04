@@ -52,13 +52,7 @@ class Import implements \pulledbits\Router\Handler
                 continue;
             }
 
-            $lesplan = $module->fetchFirstByFkLesmodule(['jaar' => $this->resources->convertToYear($event['DTSTART']), 'kalenderweek' => $this->resources->convertToWeek($event['DTSTART'])]);
-
-            if ($lesplan->naam === null) {
-                $lesplan->naam = "";
-            }
-
-            $schema->executeProcedure('import_ical_to_contactmoment', [$lesplan->id, $event['UID'], $this->resources->convertToSQLDateTime($event['DTSTART']), $this->resources->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
+            $schema->executeProcedure('import_ical_to_contactmoment', [$module->id, $event['UID'], $this->resources->convertToSQLDateTime($event['DTSTART']), $this->resources->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
 
         }
 
