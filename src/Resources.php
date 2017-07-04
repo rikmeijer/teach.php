@@ -53,26 +53,21 @@ class Resources
             }
             return (string)\GuzzleHttp\Psr7\ServerRequest::getUriFromGlobals()->withPath($path)->withQuery($query);
         });
-
-        $template->registerHelper('csrfToken',
-            function () : string {
-                $session_factory = new \Aura\Session\SessionFactory;
-                $session = $session_factory->newInstance($_COOKIE);
-                return $session->getCsrfToken()->getValue();
-            });
-        $template->registerHelper('form',
-            function (string $method, string $submitValue, string $model): void {
-                ?>
-                <form method="<?= $this->escape($method); ?>">
-                    <input type="hidden" name="__csrf_value" value="<?= $this->csrfToken(); ?>"/>
-                    <?= $model; ?>
-                    <input type="submit" value="<?= $this->escape($submitValue); ?>"/>
-                </form>
-                <?php
-            });
-
-        $template->registerHelper('qr', function(int $width, int $height, string $data) : void
-        {
+        $template->registerHelper('csrfToken', function () : string {
+            $session_factory = new \Aura\Session\SessionFactory;
+            $session = $session_factory->newInstance($_COOKIE);
+            return $session->getCsrfToken()->getValue();
+        });
+        $template->registerHelper('form', function (string $method, string $submitValue, string $model): void {
+            ?>
+            <form method="<?= $this->escape($method); ?>">
+                <input type="hidden" name="__csrf_value" value="<?= $this->csrfToken(); ?>"/>
+                <?= $model; ?>
+                <input type="submit" value="<?= $this->escape($submitValue); ?>"/>
+            </form>
+            <?php
+        });
+        $template->registerHelper('qr', function(int $width, int $height, string $data) : void {
             $renderer = new \BaconQrCode\Renderer\Image\Png();
             $renderer->setHeight($width);
             $renderer->setWidth($height);
