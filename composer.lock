@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6572f98899d4c6cd3b573ea19501c23",
+    "content-hash": "ec755c30b92d2f7187e2913d6061c7de",
     "packages": [
         {
             "name": "aura/session",
@@ -1009,6 +1009,40 @@
             ],
             "description": "proper activerecord in PHP",
             "time": "2017-06-28 09:37:22"
+        },
+        {
+            "name": "pulledbits/response",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pulledbits/response.git",
+                "reference": "25f76990977ee544bbf5c16c3571ce1a8529170a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pulledbits/response/zipball/25f76990977ee544bbf5c16c3571ce1a8529170a",
+                "reference": "25f76990977ee544bbf5c16c3571ce1a8529170a",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/psr7": "^1.3",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "pulledbits\\Response\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Simple response factory wrapped around Guzzle using PSR-7",
+            "time": "2017-07-04 11:14:32"
         },
         {
             "name": "pulledbits/router",
@@ -2689,7 +2723,8 @@
     "stability-flags": {
         "pulledbits/activerecord": 20,
         "pulledbits/view": 20,
-        "pulledbits/router": 20
+        "pulledbits/router": 20,
+        "pulledbits/response": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

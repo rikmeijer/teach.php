@@ -7,7 +7,7 @@ class Supply implements \pulledbits\Router\Handler
     private $phpview;
     private $schema;
 
-    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \rikmeijer\Teach\Response $responseFactory)
+    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory)
     {
         $this->resources = $resources;
         $this->responseFactory = $responseFactory;

@@ -6,7 +6,7 @@ class Rating implements \pulledbits\Router\Handler
     private $responseFactory;
     private $phpview;
 
-    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \rikmeijer\Teach\Response $responseFactory) {
+    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory) {
         $this->resources = $resources;
         $this->responseFactory = $responseFactory;
         $this->phpview = $phpview;

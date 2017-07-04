@@ -82,8 +82,8 @@ class Resources
         return $template;
     }
 
-    public function responseFactory() {
-        return new \rikmeijer\Teach\Response();
+    public function responseFactory() : \pulledbits\Response\Factory {
+        return new \pulledbits\Response\Factory();
     }
 
     public function iCalReader(string $uri): \ICal
