@@ -24,7 +24,7 @@ namespace rikmeijer\Teach {
 
             return new \pulledbits\Router\Router(array_map(function ($v) use ($resources) {
                 $class = __NAMESPACE__ . NAMESPACE_SEPARATOR . 'Routes' . NAMESPACE_SEPARATOR . $v;
-                return new $class($resources, $resources->phpview(DIRECTORY_SEPARATOR . str_replace(NAMESPACE_SEPARATOR, DIRECTORY_SEPARATOR, $v)));
+                return new $class($resources, $resources->phpview(__DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Routes' . DIRECTORY_SEPARATOR . str_replace(NAMESPACE_SEPARATOR, DIRECTORY_SEPARATOR, $v)));
             }, $routes));
         }
 
