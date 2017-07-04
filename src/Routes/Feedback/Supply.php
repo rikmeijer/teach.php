@@ -3,11 +3,14 @@
 class Supply implements \pulledbits\Router\Handler
 {
     private $resources;
+    private $responseFactory;
     private $phpview;
     private $schema;
 
-    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview) {
+    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \rikmeijer\Teach\Response $responseFactory)
+    {
         $this->resources = $resources;
+        $this->responseFactory = $responseFactory;
         $this->phpview = $phpview;
         $this->schema = $resources->schema();
     }
@@ -20,7 +23,7 @@ class Supply implements \pulledbits\Router\Handler
             case 'POST':
                 return $this->handlePostRequest($request);
             default:
-                return $this->resources->respond(405, 'Method not allowed');
+                return $this->responseFactory->make(405, 'Method not allowed');
         }
     }
 
@@ -45,7 +48,7 @@ class Supply implements \pulledbits\Router\Handler
         }
 
         $resources = $this->resources;
-        return $this->resources->respond(200, $this->phpview->capture('supply', ['rating' => $rating, 'explanation' => $explanation, 'contactmomentIdentifier' => $request->getAttribute('contactmomentIdentifier'), 'star' => function (int $i, $rating) use ($resources) : string {
+        return $this->responseFactory->make(200, $this->phpview->capture('supply', ['rating' => $rating, 'explanation' => $explanation, 'contactmomentIdentifier' => $request->getAttribute('contactmomentIdentifier'), 'star' => function (int $i, $rating) use ($resources) : string {
             if ($rating === null) {
                 $data = $resources->readAssetUnstar();
             } elseif ($i < $rating) {
@@ -77,10 +80,10 @@ class Supply implements \pulledbits\Router\Handler
 
         $csrf_token = $session->getCsrfToken();
         if ($csrf_token->isValid($payload['__csrf_value']) === false) {
-            return $this->resources->respond(403, "This looks like a cross-site request forgery.");
+            return $this->responseFactory->make(403, "This looks like a cross-site request forgery.");
         } else {
             $this->schema->executeProcedure('rate_contactmoment', [$request->getAttribute('contactmomentIdentifier'), $_SERVER['REMOTE_ADDR'], $payload['rating'], $payload['explanation']]);
-            return $this->resources->respond(201, 'Dankje!');
+            return $this->responseFactory->make(201, 'Dankje!');
         }
     }
 }

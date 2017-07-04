@@ -3,10 +3,12 @@
 class Qr implements \pulledbits\Router\Handler
 {
     private $resources;
+    private $responseFactory;
     private $phpview;
 
-    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview) {
+    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \rikmeijer\Teach\Response $responseFactory) {
         $this->resources = $resources;
+        $this->responseFactory = $responseFactory;
         $this->phpview = $phpview;
     }
 
@@ -14,11 +16,11 @@ class Qr implements \pulledbits\Router\Handler
     {
         $query = $request->getQueryParams();
         if (array_key_exists('data', $query) === false) {
-            return $this->resources->respond(400, 'Query incomplete');
+            return $this->responseFactory->make(400, 'Query incomplete');
         } elseif ($query['data'] === null) {
-            return $this->resources->respond(400, 'Query data incomplete');
+            return $this->responseFactory->make(400, 'Query data incomplete');
         } else {
-            return $this->resources->respondWithHeaders(200, ['Content-Type' => 'image/png'], $this->phpview->capture('qr', ['data' => $query['data']]));
+            return $this->responseFactory->makeWithHeaders(200, ['Content-Type' => 'image/png'], $this->phpview->capture('qr', ['data' => $query['data']]));
         }
     }
 }

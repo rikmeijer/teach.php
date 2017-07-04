@@ -13,6 +13,4 @@ interface Bootstrap
 
     public function request() : \Psr\Http\Message\ServerRequestInterface;
 
-    public function response(int $status, string $body) : \Psr\Http\Message\ResponseInterface;
-
 }

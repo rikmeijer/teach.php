@@ -3,12 +3,10 @@
 class Resources
 {
     private $resourcesPath;
-    private $responseFactory;
 
-    public function __construct(string $resourcesPath, \rikmeijer\Teach\Response $responseFactory)
+    public function __construct(string $resourcesPath)
     {
         $this->resourcesPath = $resourcesPath;
-        $this->responseFactory = $responseFactory;
     }
 
     public function schema(): \pulledbits\ActiveRecord\SQL\Schema
@@ -84,11 +82,8 @@ class Resources
         return $template;
     }
 
-    public function respond(int $code, string $body) {
-        return $this->responseFactory->make($code, $body);
-    }
-    public function respondWithHeaders(int $code, array $headers, string $body) {
-        return $this->responseFactory->makeWithHeaders($code, $headers, $body);
+    public function responseFactory() {
+        return new \rikmeijer\Teach\Response();
     }
 
     public function iCalReader(string $uri): \ICal

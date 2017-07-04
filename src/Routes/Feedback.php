@@ -3,10 +3,12 @@
 class Feedback implements \pulledbits\Router\Handler
 {
     private $resources;
+    private $responseFactory;
     private $phpview;
 
-    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview) {
+    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \rikmeijer\Teach\Response $responseFactory) {
         $this->resources = $resources;
+        $this->responseFactory = $responseFactory;
         $this->phpview = $phpview;
     }
 
@@ -14,6 +16,6 @@ class Feedback implements \pulledbits\Router\Handler
     {
         $schema = $this->resources->schema();
         $contactmoment = $schema->readFirst('contactmoment', [], ['id' => $request->getAttribute('contactmomentIdentifier')]);
-        return $this->resources->respond(200, $this->phpview->capture('feedback', ['contactmoment' => $contactmoment]));
+        return $this->responseFactory->make(200, $this->phpview->capture('feedback', ['contactmoment' => $contactmoment]));
     }
 }

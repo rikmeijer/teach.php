@@ -5,16 +5,9 @@ use Psr\Http\Message\ResponseInterface;
 
 class Response
 {
-    private $responseFactory;
-
-    public function __construct(callable $responseFactory)
-    {
-        $this->responseFactory = $responseFactory;
-    }
-
     public function make(int $status, string $body) : ResponseInterface
     {
-        return call_user_func($this->responseFactory, $status, $body);
+        return (new \GuzzleHttp\Psr7\Response($status))->withBody(\GuzzleHttp\Psr7\stream_for($body));
     }
 
     public function makeWithHeaders(int $status, array $headers, string $body) : ResponseInterface
