@@ -16,7 +16,7 @@ class Rating implements \pulledbits\Router\Handler
     {
         $schema = $this->resources->schema();
         $contactmomentrating = $schema->readFirst('contactmomentrating', [], ['contactmoment_id' => $request->getAttribute('contactmomentIdentifier')]);
-        return $this->responseFactory->make(200, $this->phpview->capture('rating', [
+        return $this->responseFactory->make200($this->phpview->capture('rating', [
             'rating' => $contactmomentrating->waarde,
             'starData' => $this->resources->readAssetStar(),
             'unstarData' => $this->resources->readAssetUnstar()

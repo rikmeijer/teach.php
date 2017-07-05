@@ -20,13 +20,13 @@ class Import implements \pulledbits\Router\Handler
             case 'POST':
                 return $this->handlePostRequest($request);
             default:
-                return $this->responseFactory->make(405, 'Method not allowed');
+                return $this->responseFactory->make405('Method not allowed');
         }
     }
 
     private function handleGetRequest(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
-        return $this->responseFactory->make(200, $this->phpview->capture('import', ['importForm' => function (): void {
+        return $this->responseFactory->make200($this->phpview->capture('import', ['importForm' => function (): void {
             $model = 'ICS URL: <input type="text" name="url" />';
             $this->form("post", "Importeren", $model);
         }]));
@@ -45,7 +45,7 @@ class Import implements \pulledbits\Router\Handler
             $schema->executeProcedure('import_ical_to_contactmoment', [$event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
         }
         $schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
-        return $this->responseFactory->make(201, $this->phpview->capture('imported', []));
+        return $this->responseFactory->make201($this->phpview->capture('imported', []));
     }
 
     private function reformatDateTime(string $datetime, string $format) : string {

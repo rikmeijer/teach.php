@@ -23,7 +23,7 @@ class Supply implements \pulledbits\Router\Handler
             case 'POST':
                 return $this->handlePostRequest($request);
             default:
-                return $this->responseFactory->make(405, 'Method not allowed');
+                return $this->responseFactory->make405('Method not allowed');
         }
     }
 
@@ -48,7 +48,7 @@ class Supply implements \pulledbits\Router\Handler
         }
 
         $resources = $this->resources;
-        return $this->responseFactory->make(200, $this->phpview->capture('supply', ['rating' => $rating, 'explanation' => $explanation, 'contactmomentIdentifier' => $request->getAttribute('contactmomentIdentifier'), 'star' => function (int $i, $rating) use ($resources) : string {
+        return $this->responseFactory->make200($this->phpview->capture('supply', ['rating' => $rating, 'explanation' => $explanation, 'contactmomentIdentifier' => $request->getAttribute('contactmomentIdentifier'), 'star' => function (int $i, $rating) use ($resources) : string {
             if ($rating === null) {
                 $data = $resources->readAssetUnstar();
             } elseif ($i < $rating) {
@@ -80,10 +80,10 @@ class Supply implements \pulledbits\Router\Handler
 
         $csrf_token = $session->getCsrfToken();
         if ($csrf_token->isValid($payload['__csrf_value']) === false) {
-            return $this->responseFactory->make(403, "This looks like a cross-site request forgery.");
+            return $this->responseFactory->make403("This looks like a cross-site request forgery.");
         } else {
             $this->schema->executeProcedure('rate_contactmoment', [$request->getAttribute('contactmomentIdentifier'), $_SERVER['REMOTE_ADDR'], $payload['rating'], $payload['explanation']]);
-            return $this->responseFactory->make(201, 'Dankje!');
+            return $this->responseFactory->make201('Dankje!');
         }
     }
 }

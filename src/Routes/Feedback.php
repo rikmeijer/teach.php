@@ -16,6 +16,6 @@ class Feedback implements \pulledbits\Router\Handler
     {
         $schema = $this->resources->schema();
         $contactmoment = $schema->readFirst('contactmoment', [], ['id' => $request->getAttribute('contactmomentIdentifier')]);
-        return $this->responseFactory->make(200, $this->phpview->capture('feedback', ['contactmoment' => $contactmoment]));
+        return $this->responseFactory->make200($this->phpview->capture('feedback', ['contactmoment' => $contactmoment]));
     }
 }
