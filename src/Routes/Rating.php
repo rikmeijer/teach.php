@@ -15,6 +15,11 @@ class Rating implements \pulledbits\Router\Handler
     public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
         $schema = $this->resources->schema();
-        return $this->responseFactory->makeWithHeaders(200, ['Content-Type' => 'image/png'], $this->phpview->capture('rating', ['rating' => $schema->readFirst('contactmomentrating', [], ['contactmoment_id' => $request->getAttribute('contactmomentIdentifier')])->waarde, 'starData' => $this->resources->readAssetStar(), 'unstarData' => $this->resources->readAssetUnstar()]));
+        $contactmomentrating = $schema->readFirst('contactmomentrating', [], ['contactmoment_id' => $request->getAttribute('contactmomentIdentifier')]);
+        return $this->responseFactory->makeWithHeaders(200, ['Content-Type' => 'image/png'], $this->phpview->capture('rating', [
+            'rating' => $contactmomentrating->waarde,
+            'starData' => $this->resources->readAssetStar(),
+            'unstarData' => $this->resources->readAssetUnstar()
+        ]));
     }
 }
