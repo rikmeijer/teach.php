@@ -1016,12 +1016,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pulledbits/response.git",
-                "reference": "25f76990977ee544bbf5c16c3571ce1a8529170a"
+                "reference": "8fab22fd97196a1887a65c20720b41c0f68659f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/response/zipball/25f76990977ee544bbf5c16c3571ce1a8529170a",
-                "reference": "25f76990977ee544bbf5c16c3571ce1a8529170a",
+                "url": "https://api.github.com/repos/pulledbits/response/zipball/8fab22fd97196a1887a65c20720b41c0f68659f4",
+                "reference": "8fab22fd97196a1887a65c20720b41c0f68659f4",
                 "shasum": ""
             },
             "require": {
@@ -1042,7 +1042,7 @@
                 "MIT"
             ],
             "description": "Simple response factory wrapped around Guzzle using PSR-7",
-            "time": "2017-07-04 11:14:32"
+            "time": "2017-07-05 12:30:43"
         },
         {
             "name": "pulledbits/router",

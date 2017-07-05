@@ -20,7 +20,7 @@ class Qr implements \pulledbits\Router\Handler
         } elseif ($query['data'] === null) {
             return $this->responseFactory->make(400, 'Query data incomplete');
         } else {
-            return $this->responseFactory->makeWithHeaders(200, ['Content-Type' => 'image/png'], $this->phpview->capture('qr', ['data' => $query['data']]));
+            return $this->responseFactory->make(200, $this->phpview->capture('qr', ['data' => $query['data']]));
         }
     }
 }
