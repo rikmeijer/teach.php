@@ -11,7 +11,6 @@
 </style>
 
 <?php $layout->section('body'); ?>
-<body>
 <h1>Feedback-o-meter</h1>
 <?php $url = $this->url('/feedback/' . $contactmoment->id . '/supply'); ?>
 <img src="<?= $this->url('/rating/%s', $contactmoment->id); ?>" width="500" height="100"
@@ -19,5 +18,3 @@
         src="<?= $this->url('/qr?data=%s', $url); ?>"
         width="400" height="400"/>
 <p><?= $url; ?></p>
-</body>
-</html>
