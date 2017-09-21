@@ -3,9 +3,9 @@
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\ActiveRecord\Schema;
-use pulledbits\Router\Handler;
+use pulledbits\Router\ResponseFactory;
 
-class Import implements \pulledbits\Router\Matcher
+class Import implements \pulledbits\Router\ResponseFactoryFactory
 {
     private $resources;
 
@@ -19,14 +19,14 @@ class Import implements \pulledbits\Router\Matcher
         return preg_match('#^/contactmoment/import$#', $request->getUri()->getPath()) === 1;
     }
 
-    public function makeHandler(ServerRequestInterface $request): Handler
+    public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
     {
         $phpview = $this->resources->phpview('Contactmoment\\Import');
         $responseFactory = $this->resources->responseFactory();
 
         switch ($request->getMethod()) {
             case 'GET':
-                return new class($phpview, $responseFactory) implements Handler
+                return new class($phpview, $responseFactory) implements ResponseFactory
                 {
                     private $responseFactory;
                     private $phpview;
@@ -49,7 +49,7 @@ class Import implements \pulledbits\Router\Matcher
             case 'POST':
                 $icalReader = $this->resources->iCalReader($request->getParsedBody()['url']);
                 $schema = $this->resources->schema();
-                return new class($schema, $phpview, $responseFactory, $icalReader) implements Handler
+                return new class($schema, $phpview, $responseFactory, $icalReader) implements ResponseFactory
                 {
                     private $schema;
                     private $responseFactory;

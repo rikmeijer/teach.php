@@ -2,9 +2,9 @@
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use pulledbits\Router\Handler;
+use pulledbits\Router\ResponseFactory;
 
-class Qr implements \pulledbits\Router\Matcher
+class Qr implements \pulledbits\Router\ResponseFactoryFactory
 {
     private $resources;
 
@@ -19,11 +19,11 @@ class Qr implements \pulledbits\Router\Matcher
         return preg_match('#^/qr#', $request->getUri()->getPath()) === 1;
     }
 
-    public function makeHandler(ServerRequestInterface $request): Handler
+    public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
     {
         $query = $request->getQueryParams();
 
-        return new class($this->resources, $this->resources->phpview('Qr'), $this->resources->responseFactory(), $query) implements Handler
+        return new class($this->resources, $this->resources->phpview('Qr'), $this->resources->responseFactory(), $query) implements ResponseFactory
         {
             private $resources;
             private $responseFactory;

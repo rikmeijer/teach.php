@@ -2,10 +2,10 @@
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use pulledbits\Router\Handler;
+use pulledbits\Router\ResponseFactory;
 use rikmeijer\Teach\Resources;
 
-class Supply implements \pulledbits\Router\Matcher
+class Supply implements \pulledbits\Router\ResponseFactoryFactory
 {
     private $resources;
 
@@ -19,14 +19,16 @@ class Supply implements \pulledbits\Router\Matcher
         return preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)/supply$#', $request->getUri()->getPath()) === 1;
     }
 
-    public function makeHandler(ServerRequestInterface $request): Handler
+    public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
     {
         preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getUri()->getPath(), $matches);
+
+        $responseFactory = $this->resources->responseFactory();
 
         switch ($request->getMethod()) {
             case 'GET':
                 $query = $request->getQueryParams();
-                return new class($this->resources, $this->resources->phpview('Feedback\\Supply'), $this->resources->responseFactory(), $query, $matches['contactmomentIdentifier']) implements Handler
+                return new class($this->resources, $this->resources->phpview('Feedback\\Supply'), $responseFactory, $query, $matches['contactmomentIdentifier']) implements ResponseFactory
                 {
                     private $resources;
                     private $responseFactory;
@@ -92,7 +94,7 @@ class Supply implements \pulledbits\Router\Matcher
                 };
 
             case 'POST':
-                return new class($this->resources, $this->resources->phpview('Feedback'), $this->resources->responseFactory(), $request->getParsedBody(), $matches['contactmomentIdentifier']) implements Handler
+                return new class($this->resources, $this->resources->phpview('Feedback'), $responseFactory, $request->getParsedBody(), $matches['contactmomentIdentifier']) implements ResponseFactory
                 {
                     private $resources;
                     private $responseFactory;
@@ -124,7 +126,7 @@ class Supply implements \pulledbits\Router\Matcher
                 };
 
             default:
-                return $this->responseFactory->make405('Method not allowed');
+                return $responseFactory->make405('Method not allowed');
         }
 
     }

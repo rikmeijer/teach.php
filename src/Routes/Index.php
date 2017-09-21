@@ -2,9 +2,9 @@
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use pulledbits\Router\Handler;
+use pulledbits\Router\ResponseFactory;
 
-class Index implements \pulledbits\Router\Matcher
+class Index implements \pulledbits\Router\ResponseFactoryFactory
 {
     private $resources;
 
@@ -18,9 +18,9 @@ class Index implements \pulledbits\Router\Matcher
         return preg_match('#^/#', $request->getUri()->getPath()) === 1;
     }
 
-    public function makeHandler(ServerRequestInterface $request): Handler
+    public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
     {
-        return new class($this->resources, $this->resources->phpview('Index'), $this->resources->responseFactory()) implements Handler
+        return new class($this->resources, $this->resources->phpview('Index'), $this->resources->responseFactory()) implements ResponseFactory
         {
             private $resources;
             private $responseFactory;

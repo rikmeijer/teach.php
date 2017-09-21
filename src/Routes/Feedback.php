@@ -2,9 +2,9 @@
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use pulledbits\Router\Handler;
+use pulledbits\Router\ResponseFactory;
 
-class Feedback implements \pulledbits\Router\Matcher
+class Feedback implements \pulledbits\Router\ResponseFactoryFactory
 {
     private $resources;
 
@@ -18,11 +18,11 @@ class Feedback implements \pulledbits\Router\Matcher
         return preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getUri()->getPath()) === 1;
     }
 
-    public function makeHandler(ServerRequestInterface $request): Handler
+    public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
     {
         preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getUri()->getPath(), $matches);
 
-        return new class($this->resources, $this->resources->phpview('Feedback'), $this->resources->responseFactory(), $matches['contactmomentIdentifier']) implements Handler
+        return new class($this->resources, $this->resources->phpview('Feedback'), $this->resources->responseFactory(), $matches['contactmomentIdentifier']) implements ResponseFactory
         {
             private $resources;
             private $responseFactory;
