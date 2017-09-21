@@ -1,25 +1,49 @@
 <?php namespace rikmeijer\Teach\Routes;
 
-class Rating implements \pulledbits\Router\Handler
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use pulledbits\Router\Handler;
+
+class Rating implements \pulledbits\Router\Matcher
 {
     private $resources;
-    private $responseFactory;
-    private $phpview;
 
-    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory) {
+    public function __construct(\rikmeijer\Teach\Resources $resources)
+    {
         $this->resources = $resources;
-        $this->responseFactory = $responseFactory;
-        $this->phpview = $phpview;
     }
 
-    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
+
+    public function matchRequest(ServerRequestInterface $request): bool
     {
-        $schema = $this->resources->schema();
-        $contactmomentrating = $schema->readFirst('contactmomentrating', [], ['contactmoment_id' => $request->getAttribute('contactmomentIdentifier')]);
-        return $this->responseFactory->make200($this->phpview->capture('rating', [
-            'rating' => $contactmomentrating->waarde,
-            'starData' => $this->resources->readAssetStar(),
-            'unstarData' => $this->resources->readAssetUnstar()
-        ]));
+        return preg_match('#^/rating/(?<contactmomentIdentifier>\d+)$#', $request->getUri()->getPath()) === 1;
+    }
+
+    public function makeHandler(ServerRequestInterface $request): Handler
+    {
+        preg_match('#^/rating/(?<contactmomentIdentifier>\d+)#', $request->getUri()->getPath(), $matches);
+
+        return new class($this->resources, $this->resources->phpview('Rating'), $this->resources->responseFactory(), $matches['contactmomentIdentifier']) implements Handler
+        {
+            private $resources;
+            private $responseFactory;
+            private $phpview;
+            private $contactmomentIdentifier;
+
+            public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, string $contactmomentIdentifier)
+            {
+                $this->resources = $resources;
+                $this->responseFactory = $responseFactory;
+                $this->phpview = $phpview;
+                $this->contactmomentIdentifier = $contactmomentIdentifier;
+            }
+
+            public function makeResponse(): ResponseInterface
+            {
+                $schema = $this->resources->schema();
+                $contactmomentrating = $schema->readFirst('contactmomentrating', [], ['contactmoment_id' => $this->contactmomentIdentifier]);
+                return $this->responseFactory->make200($this->phpview->capture('rating', ['rating' => $contactmomentrating->waarde, 'starData' => $this->resources->readAssetStar(), 'unstarData' => $this->resources->readAssetUnstar()]));
+            }
+        };
     }
 }
