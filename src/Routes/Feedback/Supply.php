@@ -2,6 +2,7 @@
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use pulledbits\ActiveRecord\Record;
 use pulledbits\Router\ResponseFactory;
 use rikmeijer\Teach\Resources;
 
@@ -27,32 +28,34 @@ class Supply implements \pulledbits\Router\ResponseFactoryFactory
 
         switch ($request->getMethod()) {
             case 'GET':
+                $phpview = $this->resources->phpview('Feedback\\Supply');
                 $query = $request->getQueryParams();
-                return new class($this->resources, $this->resources->phpview('Feedback\\Supply'), $responseFactory, $query, $matches['contactmomentIdentifier']) implements ResponseFactory
+                $contactmoment = $this->resources->schema()->readFirst('contactmoment', [], ['id' => $matches['contactmomentIdentifier']]);
+                $assets = [
+                        'star' => $this->resources->readAssetStar(),
+                    'unstar' => $this->resources->readAssetUnstar()
+                ];
+                return new class($contactmoment, $phpview, $responseFactory, $assets, $query) implements ResponseFactory
                 {
-                    private $resources;
+                    private $contactmoment;
                     private $responseFactory;
                     private $phpview;
+                    private $assets;
                     private $query;
-                    private $contactmomentIdentifier;
 
-                    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, array $query, string $contactmomentIdentifier)
+                    public function __construct( Record $contactmoment, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, array $assets, array $query)
                     {
-                        /**
-                         * @var Resources
-                         */
-                        $this->resources = $resources;
+                        $this->contactmoment = $contactmoment;
                         $this->responseFactory = $responseFactory;
                         $this->phpview = $phpview;
-                        $this->contactmomentIdentifier = $contactmomentIdentifier;
+                        $this->assets = $assets;
                         $this->query = $query;
                     }
 
                     public function makeResponse(): ResponseInterface
                     {
-                        $contactmoment = $this->resources->schema()->readFirst('contactmoment', [], ['id' => $this->contactmomentIdentifier]);
 
-                        $ipRating = $contactmoment->fetchFirstByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
+                        $ipRating = $this->contactmoment->fetchFirstByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
 
                         $rating = null;
                         $explanation = '';
@@ -66,18 +69,15 @@ class Supply implements \pulledbits\Router\ResponseFactoryFactory
                             $rating = $this->query['rating'];
                         }
 
-                        $resources = $this->resources;
+                        $assets = $this->assets;
                         return $this->responseFactory->make200($this->phpview->capture('supply', [
                                 'rating' => $rating,
                                 'explanation' => $explanation,
-                                'contactmomentIdentifier' => $this->contactmomentIdentifier,
-                                'star' => function (int $i, $rating) use ($resources) : string {
-                                    if ($rating === null) {
-                                        $data = $resources->readAssetUnstar();
-                                    } elseif ($i < $rating) {
-                                        $data = $resources->readAssetStar();
-                                    } else {
-                                        $data = $resources->readAssetUnstar();
+                                'contactmomentIdentifier' => $this->contactmoment->id,
+                                'star' => function (int $i, $rating) use ($assets) : string {
+                                    $data = $assets['unstar'];
+                                    if ($i < $rating) {
+                                        $data = $assets['star'];
                                     }
                                     return 'data:image/png;base64,' . base64_encode($data);
                                 }
@@ -86,19 +86,17 @@ class Supply implements \pulledbits\Router\ResponseFactoryFactory
                 };
 
             case 'POST':
-                return new class($this->resources, $this->resources->phpview('Feedback'), $responseFactory, $request->getParsedBody(), $matches['contactmomentIdentifier']) implements ResponseFactory
+                return new class($this->resources, $responseFactory, $request->getParsedBody(), $matches['contactmomentIdentifier']) implements ResponseFactory
                 {
                     private $resources;
                     private $responseFactory;
-                    private $phpview;
                     private $contactmomentIdentifier;
                     private $parsedBody;
 
-                    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, array $parsedBody, string $contactmomentIdentifier)
+                    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\Response\Factory $responseFactory, array $parsedBody, string $contactmomentIdentifier)
                     {
                         $this->resources = $resources;
                         $this->responseFactory = $responseFactory;
-                        $this->phpview = $phpview;
                         $this->contactmomentIdentifier = $contactmomentIdentifier;
                         $this->parsedBody = $parsedBody;
                     }
