@@ -67,29 +67,21 @@ class Supply implements \pulledbits\Router\ResponseFactoryFactory
                         }
 
                         $resources = $this->resources;
-                        return $this->responseFactory->make200($this->phpview->capture('supply', ['rating' => $rating, 'explanation' => $explanation, 'contactmomentIdentifier' => $this->contactmomentIdentifier, 'star' => function (int $i, $rating) use ($resources) : string {
-                            if ($rating === null) {
-                                $data = $resources->readAssetUnstar();
-                            } elseif ($i < $rating) {
-                                $data = $resources->readAssetStar();
-                            } else {
-                                $data = $resources->readAssetUnstar();
-                            }
-                            return 'data:image/png;base64,' . base64_encode($data);
-                        }, 'rateForm' => function (string $contactmomentIdentifier, $rating, string $explanation): void {
-                            ?><h1>Hoeveel sterren?</h1><?php
-                            for ($i = 0; $i < 5; $i++) {
-                                ?><a href="<?= $this->url('/feedback/%s/supply?rating=%s', $contactmomentIdentifier, $i + 1); ?>">
-                                <img
-                                        src="<?= $this->star($i, $rating); ?>" width="100"/></a><?php
-                            }
-                            if ($rating !== null) {
-                                $this->form("post", "Verzenden", '<h1>Waarom?</h1>
-                        <input type="hidden" name="rating" value="' . $this->escape($rating) . '" />
-                        <textarea rows="5" cols="75" name="explanation">' . $this->escape($explanation) . '</textarea>
-                    ');
-                            }
-                        }]));
+                        return $this->responseFactory->make200($this->phpview->capture('supply', [
+                                'rating' => $rating,
+                                'explanation' => $explanation,
+                                'contactmomentIdentifier' => $this->contactmomentIdentifier,
+                                'star' => function (int $i, $rating) use ($resources) : string {
+                                    if ($rating === null) {
+                                        $data = $resources->readAssetUnstar();
+                                    } elseif ($i < $rating) {
+                                        $data = $resources->readAssetStar();
+                                    } else {
+                                        $data = $resources->readAssetUnstar();
+                                    }
+                                    return 'data:image/png;base64,' . base64_encode($data);
+                                }
+                        ]));
                     }
                 };
 
