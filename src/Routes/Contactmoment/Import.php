@@ -2,6 +2,7 @@
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\Handler;
 
 class Import implements \pulledbits\Router\Matcher
@@ -20,17 +21,18 @@ class Import implements \pulledbits\Router\Matcher
 
     public function makeHandler(ServerRequestInterface $request): Handler
     {
+        $phpview = $this->resources->phpview('Contactmoment\\Import');
+        $responseFactory = $this->resources->responseFactory();
+
         switch ($request->getMethod()) {
             case 'GET':
-                return new class($this->resources, $this->resources->phpview('Contactmoment\\Import'), $this->resources->responseFactory()) implements Handler
+                return new class($phpview, $responseFactory) implements Handler
                 {
-                    private $resources;
                     private $responseFactory;
                     private $phpview;
 
-                    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory)
+                    public function __construct(\pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory)
                     {
-                        $this->resources = $resources;
                         $this->responseFactory = $responseFactory;
                         $this->phpview = $phpview;
                     }
@@ -45,34 +47,34 @@ class Import implements \pulledbits\Router\Matcher
                 };
 
             case 'POST':
-                return new class($this->resources, $this->resources->phpview('Contactmoment\\Import'), $this->resources->responseFactory(), $request->getParsedBody()) implements Handler
+                $icalReader = $this->resources->iCalReader($request->getParsedBody()['url']);
+                $schema = $this->resources->schema();
+                return new class($schema, $phpview, $responseFactory, $icalReader) implements Handler
                 {
-                    private $resources;
+                    private $schema;
                     private $responseFactory;
                     private $phpview;
-                    private $parsedBody;
+                    private $icalReader;
 
-                    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, array $parsedBody)
+                    public function __construct(Schema $schema, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, \ICal $icalReader)
                     {
-                        $this->resources = $resources;
+                        $this->schema = $schema;
                         $this->responseFactory = $responseFactory;
                         $this->phpview = $phpview;
-                        $this->parsedBody = $parsedBody;
+                        $this->icalReader = $icalReader;
                     }
 
                     public function makeResponse(): ResponseInterface
                     {
-                        $schema = $this->resources->schema();
-                        $icalReader = $this->resources->iCalReader($this->parsedBody['url']);
-                        foreach ($icalReader->events() as $event) {
+                        foreach ($this->icalReader->events() as $event) {
                             if (array_key_exists('SUMMARY', $event) === false) {
                                 continue;
                             } elseif (array_key_exists('LOCATION', $event) === false) {
                                 continue;
                             }
-                            $schema->executeProcedure('import_ical_to_contactmoment', [$event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
+                            $this->schema->executeProcedure('import_ical_to_contactmoment', [$event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
                         }
-                        $schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
+                        $this->schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
                         return $this->responseFactory->make201($this->phpview->capture('imported', []));
                     }
 
@@ -90,7 +92,7 @@ class Import implements \pulledbits\Router\Matcher
                 };
 
             default:
-                return $this->responseFactory->make405('Method not allowed');
+                return $responseFactory->make405('Method not allowed');
         }
 
     }
