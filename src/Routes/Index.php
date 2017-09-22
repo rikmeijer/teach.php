@@ -2,6 +2,7 @@
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ResponseFactory;
 
 class Index implements \pulledbits\Router\ResponseFactoryFactory
@@ -20,23 +21,29 @@ class Index implements \pulledbits\Router\ResponseFactoryFactory
 
     public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
     {
-        return new class($this->resources, $this->resources->phpview('Index'), $this->resources->responseFactory()) implements ResponseFactory
+        $schema = $this->resources->schema();
+        $phpview = $this->resources->phpview('Index');
+        $responseFactory = $this->resources->responseFactory();
+
+        return new class($schema, $phpview, $responseFactory) implements ResponseFactory
         {
-            private $resources;
+            private $schema;
             private $responseFactory;
             private $phpview;
 
-            public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory)
+            public function __construct(Schema $schema, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory)
             {
-                $this->resources = $resources;
+                $this->schema = $schema;
                 $this->responseFactory = $responseFactory;
                 $this->phpview = $phpview;
             }
 
             public function makeResponse(): ResponseInterface
             {
-                $schema = $this->resources->schema();
-                return $this->responseFactory->make200($this->phpview->capture('welcome', ['modules' => $schema->read('module', [], []), 'contactmomenten' => $schema->read('contactmoment_vandaag', [], [])]));
+                return $this->responseFactory->make200($this->phpview->capture('welcome', [
+                    'modules' => $this->schema->read('module', [], []),
+                    'contactmomenten' => $this->schema->read('contactmoment_vandaag', [], [])
+                ]));
             }
         };
     }
