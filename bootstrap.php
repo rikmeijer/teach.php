@@ -16,6 +16,8 @@ namespace rikmeijer\Teach {
 
     return new class implements Bootstrap
     {
+        static $resources;
+
         public function router(array $routes): \pulledbits\Router\Router
         {
             return new \pulledbits\Router\Router($routes);

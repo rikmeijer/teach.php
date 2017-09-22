@@ -4,6 +4,8 @@ class Resources
 {
     private $resourcesPath;
 
+    static $session;
+
     public function __construct(string $resourcesPath)
     {
         $this->resourcesPath = $resourcesPath;
@@ -37,8 +39,16 @@ class Resources
 
     public function session(): \Aura\Session\Session
     {
-        $session_factory = new \Aura\Session\SessionFactory;
-        return $session_factory->newInstance($_COOKIE);
+        if (isset(self::$session) === false) {
+            $session_factory = new \Aura\Session\SessionFactory;
+            self::$session = $session_factory->newInstance($_COOKIE);
+        }
+        return self::$session;
+    }
+
+    public function sso(): \Avans\OAuth\Web
+    {
+        return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'sso.php';
     }
 
     public function phpview(string $view) : \pulledbits\View\File\Template {
