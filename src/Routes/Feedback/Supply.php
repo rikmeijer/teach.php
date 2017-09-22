@@ -1,8 +1,11 @@
 <?php namespace rikmeijer\Teach\Routes\Feedback;
 
+use Aura\Session\CsrfToken;
+use Aura\Session\Session;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\ActiveRecord\Record;
+use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ResponseFactory;
 use rikmeijer\Teach\Resources;
 
@@ -86,16 +89,21 @@ class Supply implements \pulledbits\Router\ResponseFactoryFactory
                 };
 
             case 'POST':
-                return new class($this->resources, $responseFactory, $request->getParsedBody(), $matches['contactmomentIdentifier']) implements ResponseFactory
+                $resources = $this->resources;
+                $csrf_token = $this->resources->session()->getCsrfToken();
+                $schema = $this->resources->schema();
+                return new class($csrf_token, $schema, $responseFactory, $request->getParsedBody(), $matches['contactmomentIdentifier']) implements ResponseFactory
                 {
-                    private $resources;
+                    private $csrf_token;
+                    private $schema;
                     private $responseFactory;
                     private $contactmomentIdentifier;
                     private $parsedBody;
 
-                    public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\Response\Factory $responseFactory, array $parsedBody, string $contactmomentIdentifier)
+                    public function __construct(CsrfToken $csrf_token, Schema $schema, \pulledbits\Response\Factory $responseFactory, array $parsedBody, string $contactmomentIdentifier)
                     {
-                        $this->resources = $resources;
+                        $this->csrf_token = $csrf_token;
+                        $this->schema = $schema;
                         $this->responseFactory = $responseFactory;
                         $this->contactmomentIdentifier = $contactmomentIdentifier;
                         $this->parsedBody = $parsedBody;
@@ -103,13 +111,10 @@ class Supply implements \pulledbits\Router\ResponseFactoryFactory
 
                     public function makeResponse(): ResponseInterface
                     {
-                        $session = $this->resources->session();
-
-                        $csrf_token = $session->getCsrfToken();
-                        if ($csrf_token->isValid($this->parsedBody['__csrf_value']) === false) {
+                        if ($this->csrf_token->isValid($this->parsedBody['__csrf_value']) === false) {
                             return $this->responseFactory->make403("This looks like a cross-site request forgery.");
                         } else {
-                            $this->resources->schema()->executeProcedure('rate_contactmoment', [$this->contactmomentIdentifier, $_SERVER['REMOTE_ADDR'], $this->parsedBody['rating'], $this->parsedBody['explanation']]);
+                            $this->schema->executeProcedure('rate_contactmoment', [$this->contactmomentIdentifier, $_SERVER['REMOTE_ADDR'], $this->parsedBody['rating'], $this->parsedBody['explanation']]);
                             return $this->responseFactory->make201('Dankje!');
                         }
                     }
