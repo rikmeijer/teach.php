@@ -1,8 +1,10 @@
 <?php
+namespace rikmeijer\Teach;
+
 return new class {
 
     /**
-     * @var \rikmeijer\Teach\Bootstrap
+     * @var Bootstrap
      */
     private $bootstrap;
 
@@ -16,12 +18,12 @@ return new class {
         $resources = $this->bootstrap->resources();
 
         return $this->bootstrap->router([
-            new \rikmeijer\Teach\Routes\Feedback\Supply($resources),
-            new \rikmeijer\Teach\Routes\Feedback($resources),
-            new \rikmeijer\Teach\Routes\Rating($resources),
-            new \rikmeijer\Teach\Routes\Contactmoment\Import($resources),
-            new \rikmeijer\Teach\Routes\Qr($resources),
-            new \rikmeijer\Teach\Routes\Index($resources)
+            new Routes\Feedback\Supply($resources),
+            new Routes\Feedback($resources),
+            new Routes\Rating($resources),
+            new Routes\Contactmoment\Import($resources),
+            new Routes\Qr($resources),
+            new Routes\Index($resources)
         ]);
     }
 
