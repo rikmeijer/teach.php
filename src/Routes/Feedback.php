@@ -2,6 +2,7 @@
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use pulledbits\ActiveRecord\Record;
 use pulledbits\Router\ResponseFactory;
 
 class Feedback implements \pulledbits\Router\ResponseFactoryFactory
@@ -22,26 +23,27 @@ class Feedback implements \pulledbits\Router\ResponseFactoryFactory
     {
         preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getUri()->getPath(), $matches);
 
-        return new class($this->resources, $this->resources->phpview('Feedback'), $this->resources->responseFactory(), $matches['contactmomentIdentifier']) implements ResponseFactory
+        $schema = $this->resources->schema();
+        $phpview = $this->resources->phpview('Feedback');
+        $responseFactory = $this->resources->responseFactory();
+        $contactmoment = $schema->readFirst('contactmoment', [], ['id' => $matches['contactmomentIdentifier']]);
+
+        return new class($phpview, $responseFactory, $contactmoment) implements ResponseFactory
         {
-            private $resources;
             private $responseFactory;
             private $phpview;
-            private $contactmomentIdentifier;
+            private $contactmoment;
 
-            public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, string $contactmomentIdentifier)
+            public function __construct(\pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, Record $contactmoment)
             {
-                $this->resources = $resources;
                 $this->responseFactory = $responseFactory;
                 $this->phpview = $phpview;
-                $this->contactmomentIdentifier = $contactmomentIdentifier;
+                $this->contactmoment = $contactmoment;
             }
 
             public function makeResponse(): ResponseInterface
             {
-                $schema = $this->resources->schema();
-                $contactmoment = $schema->readFirst('contactmoment', [], ['id' => $this->contactmomentIdentifier]);
-                return $this->responseFactory->make200($this->phpview->capture('feedback', ['contactmoment' => $contactmoment]));
+                return $this->responseFactory->make200($this->phpview->capture('feedback', ['contactmoment' => $this->contactmoment]));
             }
         };
     }

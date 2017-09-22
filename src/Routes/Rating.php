@@ -36,7 +36,7 @@ class Rating implements \pulledbits\Router\ResponseFactoryFactory
             private $contactmomentrating;
             private $assets;
 
-            public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, Record $contactmomentrating, array $assets)
+            public function __construct(\pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, Record $contactmomentrating, array $assets)
             {
                 $this->responseFactory = $responseFactory;
                 $this->phpview = $phpview;
