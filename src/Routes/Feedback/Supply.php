@@ -1,13 +1,11 @@
 <?php namespace rikmeijer\Teach\Routes\Feedback;
 
 use Aura\Session\CsrfToken;
-use Aura\Session\Session;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\ActiveRecord\Record;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ResponseFactory;
-use rikmeijer\Teach\Resources;
 
 class Supply implements \pulledbits\Router\ResponseFactoryFactory
 {
@@ -34,10 +32,7 @@ class Supply implements \pulledbits\Router\ResponseFactoryFactory
                 $phpview = $this->resources->phpview('Feedback\\Supply');
                 $query = $request->getQueryParams();
                 $contactmoment = $this->resources->schema()->readFirst('contactmoment', [], ['id' => $matches['contactmomentIdentifier']]);
-                $assets = [
-                        'star' => $this->resources->readAssetStar(),
-                    'unstar' => $this->resources->readAssetUnstar()
-                ];
+                $assets = ['star' => $this->resources->readAssetStar(), 'unstar' => $this->resources->readAssetUnstar()];
                 return new class($contactmoment, $phpview, $responseFactory, $assets, $query) implements ResponseFactory
                 {
                     private $contactmoment;
@@ -46,7 +41,7 @@ class Supply implements \pulledbits\Router\ResponseFactoryFactory
                     private $assets;
                     private $query;
 
-                    public function __construct( Record $contactmoment, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, array $assets, array $query)
+                    public function __construct(Record $contactmoment, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, array $assets, array $query)
                     {
                         $this->contactmoment = $contactmoment;
                         $this->responseFactory = $responseFactory;
@@ -73,23 +68,17 @@ class Supply implements \pulledbits\Router\ResponseFactoryFactory
                         }
 
                         $assets = $this->assets;
-                        return $this->responseFactory->make200($this->phpview->capture('supply', [
-                                'rating' => $rating,
-                                'explanation' => $explanation,
-                                'contactmomentIdentifier' => $this->contactmoment->id,
-                                'star' => function (int $i, $rating) use ($assets) : string {
-                                    $data = $assets['unstar'];
-                                    if ($i < $rating) {
-                                        $data = $assets['star'];
-                                    }
-                                    return 'data:image/png;base64,' . base64_encode($data);
-                                }
-                        ]));
+                        return $this->responseFactory->make200($this->phpview->capture('supply', ['rating' => $rating, 'explanation' => $explanation, 'contactmomentIdentifier' => $this->contactmoment->id, 'star' => function (int $i, $rating) use ($assets) : string {
+                            $data = $assets['unstar'];
+                            if ($i < $rating) {
+                                $data = $assets['star'];
+                            }
+                            return 'data:image/png;base64,' . base64_encode($data);
+                        }]));
                     }
                 };
 
             case 'POST':
-                $resources = $this->resources;
                 $csrf_token = $this->resources->session()->getCsrfToken();
                 $schema = $this->resources->schema();
                 return new class($csrf_token, $schema, $responseFactory, $request->getParsedBody(), $matches['contactmomentIdentifier']) implements ResponseFactory
