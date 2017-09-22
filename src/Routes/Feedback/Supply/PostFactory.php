@@ -1,11 +1,4 @@
-<?php
-/**
- * User: hameijer
- * Date: 22-9-17
- * Time: 9:17
- */
-
-namespace rikmeijer\Teach\Routes\Feedback\Supply;
+<?php namespace rikmeijer\Teach\Routes\Feedback\Supply;
 
 
 use Aura\Session\CsrfToken;
