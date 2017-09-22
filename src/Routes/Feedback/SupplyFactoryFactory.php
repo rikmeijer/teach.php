@@ -7,7 +7,7 @@ use pulledbits\ActiveRecord\Record;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ResponseFactory;
 
-class Supply implements \pulledbits\Router\ResponseFactoryFactory
+class SupplyFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
 {
     private $resources;
 

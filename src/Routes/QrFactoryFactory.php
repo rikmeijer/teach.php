@@ -4,7 +4,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\ResponseFactory;
 
-class Qr implements \pulledbits\Router\ResponseFactoryFactory
+class QrFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
 {
     private $resources;
 

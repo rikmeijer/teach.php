@@ -5,7 +5,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ResponseFactory;
 
-class Index implements \pulledbits\Router\ResponseFactoryFactory
+class IndexFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
 {
     private $resources;
 

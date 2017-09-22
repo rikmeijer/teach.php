@@ -5,7 +5,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\ActiveRecord\Record;
 use pulledbits\Router\ResponseFactory;
 
-class Rating implements \pulledbits\Router\ResponseFactoryFactory
+class RatingFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
 {
     private $resources;
 

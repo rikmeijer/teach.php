@@ -18,12 +18,12 @@ return new class {
         $resources = $this->bootstrap->resources();
 
         return $this->bootstrap->router([
-            new Routes\Feedback\Supply($resources),
-            new Routes\Feedback($resources),
-            new Routes\Rating($resources),
-            new Routes\Contactmoment\Import($resources),
-            new Routes\Qr($resources),
-            new Routes\Index($resources)
+            new Routes\Feedback\SupplyFactoryFactory($resources),
+            new Routes\FeedbackFactoryFactory($resources),
+            new Routes\RatingFactoryFactory($resources),
+            new Routes\Contactmoment\ImportFactoryFactory($resources),
+            new Routes\QrFactoryFactory($resources),
+            new Routes\IndexFactoryFactory($resources)
         ]);
     }
 
