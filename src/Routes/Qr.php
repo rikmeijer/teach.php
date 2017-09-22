@@ -22,17 +22,17 @@ class Qr implements \pulledbits\Router\ResponseFactoryFactory
     public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
     {
         $query = $request->getQueryParams();
+        $phpview = $this->resources->phpview('Qr');
+        $responseFactory = $this->resources->responseFactory();
 
-        return new class($this->resources, $this->resources->phpview('Qr'), $this->resources->responseFactory(), $query) implements ResponseFactory
+        return new class($phpview, $responseFactory, $query) implements ResponseFactory
         {
-            private $resources;
             private $responseFactory;
             private $phpview;
             private $query;
 
-            public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, array $query)
+            public function __construct(\pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, array $query)
             {
-                $this->resources = $resources;
                 $this->responseFactory = $responseFactory;
                 $this->phpview = $phpview;
                 $this->query = $query;
