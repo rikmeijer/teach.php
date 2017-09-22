@@ -13,13 +13,15 @@ return new class {
     }
 
     private function initializeRouterWithRoutes() : \pulledbits\Router\Router {
+        $resources = $this->bootstrap->resources();
+
         return $this->bootstrap->router([
-            'Feedback' . NAMESPACE_SEPARATOR . 'Supply',
-            'Feedback',
-            'Rating',
-            'Contactmoment' . NAMESPACE_SEPARATOR . 'Import',
-            'Qr',
-            'Index'
+            new \rikmeijer\Teach\Routes\Feedback\Supply($resources),
+            new \rikmeijer\Teach\Routes\Feedback($resources),
+            new \rikmeijer\Teach\Routes\Rating($resources),
+            new \rikmeijer\Teach\Routes\Contactmoment\Import($resources),
+            new \rikmeijer\Teach\Routes\Qr($resources),
+            new \rikmeijer\Teach\Routes\Index($resources)
         ]);
     }
 

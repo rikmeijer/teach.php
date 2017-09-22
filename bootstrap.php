@@ -18,12 +18,11 @@ namespace rikmeijer\Teach {
     {
         public function router(array $routes): \pulledbits\Router\Router
         {
-            $resources = new Resources(__DIR__ . DIRECTORY_SEPARATOR . 'resources');
+            return new \pulledbits\Router\Router($routes);
+        }
 
-            return new \pulledbits\Router\Router(array_map(function ($v) use ($resources) {
-                $class = __NAMESPACE__ . NAMESPACE_SEPARATOR . 'Routes' . NAMESPACE_SEPARATOR . $v;
-                return new $class($resources);
-            }, $routes));
+        public function resources() : Resources {
+            return new Resources(__DIR__ . DIRECTORY_SEPARATOR . 'resources');
         }
 
         public function request(): \Psr\Http\Message\ServerRequestInterface

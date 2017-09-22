@@ -11,6 +11,8 @@ interface Bootstrap
 {
     public function router(array $routes) : \pulledbits\Router\Router;
 
+    public function resources() : Resources;
+
     public function request() : \Psr\Http\Message\ServerRequestInterface;
 
 }
