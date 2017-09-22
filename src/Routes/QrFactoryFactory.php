@@ -1,8 +1,8 @@
 <?php namespace rikmeijer\Teach\Routes;
 
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\ResponseFactory;
+use rikmeijer\Teach\Routes\Qr\Factory;
 
 class QrFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
 {
@@ -25,29 +25,6 @@ class QrFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
         $phpview = $this->resources->phpview('Qr');
         $responseFactory = $this->resources->responseFactory();
 
-        return new class($phpview, $responseFactory, $query) implements ResponseFactory
-        {
-            private $responseFactory;
-            private $phpview;
-            private $query;
-
-            public function __construct(\pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, array $query)
-            {
-                $this->responseFactory = $responseFactory;
-                $this->phpview = $phpview;
-                $this->query = $query;
-            }
-
-            public function makeResponse(): ResponseInterface
-            {
-                if (array_key_exists('data', $this->query) === false) {
-                    return $this->responseFactory->make400('Query incomplete');
-                } elseif ($this->query['data'] === null) {
-                    return $this->responseFactory->make400('Query data incomplete');
-                } else {
-                    return $this->responseFactory->make200($this->phpview->capture('qr', ['data' => $this->query['data']]));
-                }
-            }
-        };
+        return new Factory($phpview, $responseFactory, $query);
     }
 }
