@@ -2,6 +2,7 @@
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use pulledbits\ActiveRecord\Record;
 use pulledbits\Router\ResponseFactory;
 
 class Rating implements \pulledbits\Router\ResponseFactoryFactory
@@ -23,26 +24,33 @@ class Rating implements \pulledbits\Router\ResponseFactoryFactory
     {
         preg_match('#^/rating/(?<contactmomentIdentifier>\d+)#', $request->getUri()->getPath(), $matches);
 
-        return new class($this->resources, $this->resources->phpview('Rating'), $this->resources->responseFactory(), $matches['contactmomentIdentifier']) implements ResponseFactory
+        $contactmomentrating = $this->resources->schema()->readFirst('contactmomentrating', [], ['contactmoment_id' => $matches['contactmomentIdentifier']]);
+        $phpview = $this->resources->phpview('Rating');
+        $responseFactory = $this->resources->responseFactory();
+        $assets = ['star' => $this->resources->readAssetStar(), 'unstar' => $this->resources->readAssetUnstar()];
+
+        return new class($phpview, $responseFactory, $contactmomentrating, $assets) implements ResponseFactory
         {
-            private $resources;
             private $responseFactory;
             private $phpview;
-            private $contactmomentIdentifier;
+            private $contactmomentrating;
+            private $assets;
 
-            public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, string $contactmomentIdentifier)
+            public function __construct(\rikmeijer\Teach\Resources $resources, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, Record $contactmomentrating, array $assets)
             {
-                $this->resources = $resources;
                 $this->responseFactory = $responseFactory;
                 $this->phpview = $phpview;
-                $this->contactmomentIdentifier = $contactmomentIdentifier;
+                $this->contactmomentrating = $contactmomentrating;
+                $this->assets = $assets;
             }
 
             public function makeResponse(): ResponseInterface
             {
-                $schema = $this->resources->schema();
-                $contactmomentrating = $schema->readFirst('contactmomentrating', [], ['contactmoment_id' => $this->contactmomentIdentifier]);
-                return $this->responseFactory->make200($this->phpview->capture('rating', ['rating' => $contactmomentrating->waarde, 'starData' => $this->resources->readAssetStar(), 'unstarData' => $this->resources->readAssetUnstar()]));
+                return $this->responseFactory->make200($this->phpview->capture('rating', [
+                    'rating' => $this->contactmomentrating->waarde,
+                    'starData' => $this->assets['star'],
+                    'unstarData' => $this->assets['unstar']
+                ]));
             }
         };
     }
