@@ -4,6 +4,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ResponseFactory;
+use rikmeijer\Teach\Routes\Index\Factory;
 
 class IndexFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
 {
@@ -25,26 +26,6 @@ class IndexFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
         $phpview = $this->resources->phpview('Index');
         $responseFactory = $this->resources->responseFactory();
 
-        return new class($schema, $phpview, $responseFactory) implements ResponseFactory
-        {
-            private $schema;
-            private $responseFactory;
-            private $phpview;
-
-            public function __construct(Schema $schema, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory)
-            {
-                $this->schema = $schema;
-                $this->responseFactory = $responseFactory;
-                $this->phpview = $phpview;
-            }
-
-            public function makeResponse(): ResponseInterface
-            {
-                return $this->responseFactory->make200($this->phpview->capture('welcome', [
-                    'modules' => $this->schema->read('module', [], []),
-                    'contactmomenten' => $this->schema->read('contactmoment_vandaag', [], [])
-                ]));
-            }
-        };
+        return new Factory($schema, $phpview, $responseFactory);
     }
 }
