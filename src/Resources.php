@@ -1,5 +1,7 @@
 <?php namespace rikmeijer\Teach;
 
+use League\OAuth1\Client\Server\User;
+
 class Resources
 {
     private $resourcesPath;
@@ -95,5 +97,33 @@ class Resources
     public function iCalReader(string $uri): \ICal
     {
         return new \ICal($uri);
+    }
+
+    public function user() : User
+    {
+        $server = $this->sso();
+        $session = $this->session();
+
+        $sessionToken = $session->getSegment('token');
+        $tokenCredentialsSerialized = $sessionToken->get('credentials');
+        if ($tokenCredentialsSerialized === null) {
+            $temporaryCredentials = $server->getTemporaryCredentials();
+            $session->getSegment('token')->set('temporary_credentials', serialize($temporaryCredentials));
+            var_dump($temporaryCredentials);
+            session_write_close();
+            $server->authorize($temporaryCredentials);
+            exit;
+        }
+
+        $tokenCredentials = unserialize($tokenCredentialsSerialized);
+        /**
+         * @var $user User
+         */
+        $user = unserialize($sessionToken->get('user'));
+        if ($user === null) {
+            $user = $server->getUserDetails($tokenCredentials);
+            $sessionToken->set('user', serialize($user));
+        }
+        return $user;
     }
 }

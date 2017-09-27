@@ -37,22 +37,6 @@ return new class {
 
     public function handle() : \Psr\Http\Message\ResponseInterface
     {
-        $server = $this->resources->sso();
-        $session = $this->resources->session();
-
-        $sessionToken = $session->getSegment('token');
-        $tokenCredentialsSerialized = $sessionToken->get('credentials');
-        if ($tokenCredentialsSerialized !== null) {
-            $tokenCredentials = unserialize($tokenCredentialsSerialized);
-            /**
-             * @var $user User
-             */
-            $user = $sessionToken->get('user');
-            if ($user === null) {
-                $sessionToken->get('user', serialize($server->getUserDetails($tokenCredentials)));
-            }
-        }
-
         $router = $this->initializeRouterWithRoutes();
         return $router->route($this->bootstrap->request());
     }

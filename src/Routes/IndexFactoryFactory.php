@@ -1,8 +1,8 @@
 <?php namespace rikmeijer\Teach\Routes;
 
-use Psr\Http\Message\ResponseInterface;
+use Aura\Session\Exception;
 use Psr\Http\Message\ServerRequestInterface;
-use pulledbits\ActiveRecord\Schema;
+use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\ResponseFactory;
 use rikmeijer\Teach\Routes\Index\Factory;
 
@@ -22,6 +22,11 @@ class IndexFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
 
     public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
     {
+        $user = $this->resources->user();
+        if ($user->extra['employee'] === false) {
+            return ErrorFactory::makeInstance(403);
+        }
+
         $schema = $this->resources->schema();
         $phpview = $this->resources->phpview('Index');
         $responseFactory = $this->resources->responseFactory();
