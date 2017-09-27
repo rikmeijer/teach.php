@@ -109,7 +109,6 @@ class Resources
         if ($tokenCredentialsSerialized === null) {
             $temporaryCredentials = $server->getTemporaryCredentials();
             $session->getSegment('token')->set('temporary_credentials', serialize($temporaryCredentials));
-            var_dump($temporaryCredentials);
             session_write_close();
             $server->authorize($temporaryCredentials);
             exit;
