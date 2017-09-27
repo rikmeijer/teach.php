@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1dfc6791b041986ce1887e2d99b0d192",
+    "content-hash": "75477a766159a6ef1963791c9c9722d4",
     "packages": [
         {
             "name": "aura/session",
@@ -70,16 +70,16 @@
         },
         {
             "name": "avans/oauth-php",
-            "version": "0.1",
+            "version": "0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Avans/oauth-php.git",
-                "reference": "bbbb739bffe06d3f8b3dbd6aa00042e34dbd8324"
+                "reference": "824d07232980e52fb4bdad19582aea5520b9d143"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Avans/oauth-php/zipball/bbbb739bffe06d3f8b3dbd6aa00042e34dbd8324",
-                "reference": "bbbb739bffe06d3f8b3dbd6aa00042e34dbd8324",
+                "url": "https://api.github.com/repos/Avans/oauth-php/zipball/824d07232980e52fb4bdad19582aea5520b9d143",
+                "reference": "824d07232980e52fb4bdad19582aea5520b9d143",
                 "shasum": ""
             },
             "require": {
@@ -106,7 +106,7 @@
                 }
             ],
             "description": "PHP Connector to the Avans Oauth public API",
-            "time": "2017-09-21T13:21:53+00:00"
+            "time": "2017-09-27T10:52:48+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -1272,16 +1272,16 @@
         },
         {
             "name": "pulledbits/router",
-            "version": "0.1",
+            "version": "0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pulledbits/router.git",
-                "reference": "1e14324c24744c88ea6b1ab652ae7ad4b3620390"
+                "reference": "6ea53d084f965e9a48c2b9f988bc0125be60c8f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/router/zipball/1e14324c24744c88ea6b1ab652ae7ad4b3620390",
-                "reference": "1e14324c24744c88ea6b1ab652ae7ad4b3620390",
+                "url": "https://api.github.com/repos/pulledbits/router/zipball/6ea53d084f965e9a48c2b9f988bc0125be60c8f7",
+                "reference": "6ea53d084f965e9a48c2b9f988bc0125be60c8f7",
                 "shasum": ""
             },
             "require": {
@@ -1302,7 +1302,7 @@
                 "MIT"
             ],
             "description": "Simple router",
-            "time": "2017-09-21T18:09:11+00:00"
+            "time": "2017-09-27T11:30:39+00:00"
         },
         {
             "name": "pulledbits/view",
@@ -2240,16 +2240,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.7.21",
+            "version": "5.7.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3b91adfb64264ddec5a2dee9851f354aa66327db"
+                "reference": "10df877596c9906d4110b5b905313829043f2ada"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3b91adfb64264ddec5a2dee9851f354aa66327db",
-                "reference": "3b91adfb64264ddec5a2dee9851f354aa66327db",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/10df877596c9906d4110b5b905313829043f2ada",
+                "reference": "10df877596c9906d4110b5b905313829043f2ada",
                 "shasum": ""
             },
             "require": {
@@ -2318,7 +2318,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-06-21T08:11:54+00:00"
+            "time": "2017-09-24T07:23:38+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
