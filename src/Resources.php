@@ -1,5 +1,7 @@
 <?php namespace rikmeijer\Teach;
 
+use Aura\Session\Segment;
+use League\OAuth1\Client\Credentials\TokenCredentials;
 use League\OAuth1\Client\Server\User;
 
 class Resources
@@ -7,6 +9,7 @@ class Resources
     private $resourcesPath;
 
     static $session;
+    static $sso;
 
     public function __construct(string $resourcesPath)
     {
@@ -50,7 +53,10 @@ class Resources
 
     public function sso(): \Avans\OAuth\Web
     {
-        return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'sso.php';
+        if (isset(self::$sso) === false) {
+            self::$sso = require $this->resourcesPath . DIRECTORY_SEPARATOR . 'sso.php';
+        }
+        return self::$sso;
     }
 
     public function phpview(string $view) : \pulledbits\View\File\Template {
@@ -99,28 +105,36 @@ class Resources
         return new \ICal($uri);
     }
 
-    public function user() : User
+    public function token() : TokenCredentials
     {
-        $server = $this->sso();
         $session = $this->session();
-
         $sessionToken = $session->getSegment('token');
+
         $tokenCredentialsSerialized = $sessionToken->get('credentials');
         if ($tokenCredentialsSerialized === null) {
+            $server = $this->sso();
             $temporaryCredentials = $server->getTemporaryCredentials();
-            $session->getSegment('token')->set('temporary_credentials', serialize($temporaryCredentials));
-            session_write_close();
+            $this->session()->getSegment('token')->set('temporary_credentials', serialize($temporaryCredentials));
+            $session->commit();
             $server->authorize($temporaryCredentials);
             exit;
         }
+        return unserialize($tokenCredentialsSerialized);
 
-        $tokenCredentials = unserialize($tokenCredentialsSerialized);
+    }
+
+    public function userForToken(TokenCredentials $token) : User
+    {
+        $session = $this->session();
+        $sessionToken = $session->getSegment('token');
+
         /**
          * @var $user User
          */
         $user = unserialize($sessionToken->get('user'));
         if ($user === null) {
-            $user = $server->getUserDetails($tokenCredentials);
+            $server = $this->sso();
+            $user = $server->getUserDetails($token);
             $sessionToken->set('user', serialize($user));
         }
         return $user;

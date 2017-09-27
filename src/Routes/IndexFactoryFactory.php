@@ -22,7 +22,7 @@ class IndexFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
 
     public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
     {
-        $user = $this->resources->user();
+        $user = $this->resources->userForToken($this->resources->token());
         if ($user->extra['employee'] === false) {
             return ErrorFactory::makeInstance(403);
         }
