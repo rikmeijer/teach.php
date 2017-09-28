@@ -1,6 +1,7 @@
 <?php namespace rikmeijer\Teach\Routes;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UriInterface;
 use pulledbits\Router\ResponseFactory;
 use rikmeijer\Teach\Routes\Qr\Factory;
 
@@ -14,9 +15,9 @@ class QrFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
     }
 
 
-    public function matchRequest(ServerRequestInterface $request): bool
+    public function matchUri(UriInterface $uri): bool
     {
-        return preg_match('#^/qr#', $request->getUri()->getPath()) === 1;
+        return preg_match('#^/qr#', $uri->getPath()) === 1;
     }
 
     public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory

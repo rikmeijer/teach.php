@@ -1,6 +1,7 @@
 <?php namespace rikmeijer\Teach\Routes\Contactmoment;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UriInterface;
 use pulledbits\Router\ResponseFactory;
 use rikmeijer\Teach\Routes\Contactmoment\Import\GetFactory;
 use rikmeijer\Teach\Routes\Contactmoment\Import\PostFactory;
@@ -14,9 +15,9 @@ class ImportFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
         $this->resources = $resources;
     }
 
-    public function matchRequest(ServerRequestInterface $request): bool
+    public function matchUri(UriInterface $uri): bool
     {
-        return preg_match('#^/contactmoment/import$#', $request->getUri()->getPath()) === 1;
+        return preg_match('#^/contactmoment/import$#', $uri->getPath()) === 1;
     }
 
     public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory

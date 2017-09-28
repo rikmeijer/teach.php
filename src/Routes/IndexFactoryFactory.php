@@ -1,6 +1,6 @@
 <?php namespace rikmeijer\Teach\Routes;
 
-use Aura\Session\Exception;
+use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\ResponseFactory;
@@ -15,9 +15,9 @@ class IndexFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
         $this->resources = $resources;
     }
 
-    public function matchRequest(ServerRequestInterface $request): bool
+    public function matchUri(UriInterface $uri): bool
     {
-        return preg_match('#^/#', $request->getUri()->getPath()) === 1;
+        return preg_match('#^/#', $uri->getPath()) === 1;
     }
 
     public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory

@@ -1,6 +1,7 @@
 <?php namespace rikmeijer\Teach\Routes\Feedback;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UriInterface;
 use pulledbits\Router\ResponseFactory;
 use rikmeijer\Teach\Routes\Feedback\Supply\PostFactory;
 use rikmeijer\Teach\Routes\Feedback\Supply\GetFactory;
@@ -14,14 +15,14 @@ class SupplyFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
         $this->resources = $resources;
     }
 
-    public function matchRequest(ServerRequestInterface $request): bool
+    public function matchUri(UriInterface $uri): bool
     {
-        return preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)/supply$#', $request->getUri()->getPath()) === 1;
+        return preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)/supply$#', $uri->getPath()) === 1;
     }
 
     public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
     {
-        preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getUri()->getPath(), $matches);
+        preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getURI()->getPath(), $matches);
         $responseFactory = $this->resources->responseFactory();
         switch ($request->getMethod()) {
             case 'GET':

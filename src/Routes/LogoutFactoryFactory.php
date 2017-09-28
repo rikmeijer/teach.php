@@ -1,6 +1,7 @@
 <?php namespace rikmeijer\Teach\Routes;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UriInterface;
 use pulledbits\Router\ResponseFactory;
 use rikmeijer\Teach\Routes\Logout\Factory;
 
@@ -13,9 +14,9 @@ class LogoutFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
         $this->resources = $resources;
     }
 
-    public function matchRequest(ServerRequestInterface $request): bool
+    public function matchUri(UriInterface $uri): bool
     {
-        return preg_match('#^/logout#', $request->getUri()->getPath()) === 1;
+        return preg_match('#^/logout#', $uri->getPath()) === 1;
     }
 
     public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory

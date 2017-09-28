@@ -14,9 +14,9 @@ class FeedbackFactoryFactory implements \pulledbits\Router\ResponseFactoryFactor
         $this->resources = $resources;
     }
 
-    public function matchRequest(ServerRequestInterface $request): bool
+    public function matchUri(UriInterface $uri): bool
     {
-        return preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getUri()->getPath()) === 1;
+        return preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $uri->getPath()) === 1;
     }
 
     public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory

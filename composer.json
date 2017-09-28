@@ -15,7 +15,7 @@
 		"doctrine/migrations": "^1.5",
 		"pulledbits/activerecord": "dev-master",
 		"pulledbits/view": "dev-master",
-		"pulledbits/router": "^0.2",
+		"pulledbits/router": "^0.3",
 		"pulledbits/response": "dev-master"
 	},
 	"require-dev" : {

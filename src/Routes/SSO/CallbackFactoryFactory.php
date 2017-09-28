@@ -1,6 +1,7 @@
 <?php namespace rikmeijer\Teach\Routes\SSO;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UriInterface;
 use pulledbits\Router\ResponseFactory;
 use rikmeijer\Teach\Routes\SSO\Callback\Step1Factory;
 
@@ -13,9 +14,9 @@ class CallbackFactoryFactory implements \pulledbits\Router\ResponseFactoryFactor
         $this->resources = $resources;
     }
 
-    public function matchRequest(ServerRequestInterface $request): bool
+    public function matchUri(UriInterface $uri): bool
     {
-        return preg_match('#^/sso/callback#', $request->getUri()->getPath()) === 1;
+        return preg_match('#^/sso/callback#', $uri->getPath()) === 1;
     }
 
     public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
