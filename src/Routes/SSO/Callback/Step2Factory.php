@@ -24,7 +24,6 @@ class Step2Factory implements ResponseFactory
     {
         $temporaryCredentials = $this->server->getTemporaryCredentials();
         $this->session->getSegment('token')->set('temporary_credentials', serialize($temporaryCredentials));
-        $this->session->commit();
         $this->server->authorize($temporaryCredentials);
         exit;
     }

@@ -30,7 +30,6 @@ class Step1Factory implements ResponseFactory
             $tokenCredentials = $this->server->getTokenCredentials($temporaryCredentials, $this->oauthToken, $this->oauthVerifier);
             $this->session->getSegment('token')->set('temporary_credentials', null);
             $this->session->getSegment('token')->set('credentials', serialize($tokenCredentials));
-            $this->session->commit();
         }
         return $this->responseFactory->makeWithHeaders(303, ['Location' => '/'], '');
     }
