@@ -1,6 +1,6 @@
 <?php namespace rikmeijer\Teach;
 
-use Aura\Session\Segment;
+use League\OAuth1\Client\Credentials\TemporaryCredentials;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use League\OAuth1\Client\Server\User;
 
@@ -105,18 +105,29 @@ class Resources
         return new \ICal($uri);
     }
 
+    public function temporaryCredentials() : TemporaryCredentials
+    {
+        $session = $this->session();
+        $sessionToken = $session->getSegment('token');
+        $temporaryCredentialsSerialized = $sessionToken->get('temporary_credentials');
+        if ($temporaryCredentialsSerialized === null) {
+            $server = $this->sso();
+            $temporaryCredentialsSerialized = serialize($server->getTemporaryCredentials());
+            $this->session()->getSegment('token')->set('temporary_credentials', $temporaryCredentialsSerialized);
+        }
+        return unserialize($temporaryCredentialsSerialized);
+    }
+
     public function token() : TokenCredentials
     {
         $session = $this->session();
         $sessionToken = $session->getSegment('token');
-
         $tokenCredentialsSerialized = $sessionToken->get('credentials');
         if ($tokenCredentialsSerialized === null) {
+            $temporaryCredentials = $this->temporaryCredentials();
             $server = $this->sso();
-            $temporaryCredentials = $server->getTemporaryCredentials();
-            $this->session()->getSegment('token')->set('temporary_credentials', serialize($temporaryCredentials));
-            $session->commit();
-            $server->authorize($temporaryCredentials);
+            $url = $server->getAuthorizationUrl($temporaryCredentials);
+            header('Location: '.$url);
             exit;
         }
         return unserialize($tokenCredentialsSerialized);
