@@ -7,7 +7,7 @@
 	"prefer-stable" : true,
 	"require" : {
 		"php" : ">=7.1",
-		"avans/oauth-php": "^0.2",
+		"avans/oauth-php": "^0.4",
 		"bacon/bacon-qr-code" : "^1.0",
 		"johngrogg/ics-parser" : "^1.0",
 		"guzzlehttp/psr7": "^1.3",
