@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "75477a766159a6ef1963791c9c9722d4",
+    "content-hash": "98a8f460a69f76fbcd7dc57254c4c23c",
     "packages": [
         {
             "name": "aura/session",
@@ -1272,16 +1272,16 @@
         },
         {
             "name": "pulledbits/router",
-            "version": "0.2",
+            "version": "0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pulledbits/router.git",
-                "reference": "6ea53d084f965e9a48c2b9f988bc0125be60c8f7"
+                "reference": "e7053a1b0f00810c06df85c5f37e18ded47c6a7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/router/zipball/6ea53d084f965e9a48c2b9f988bc0125be60c8f7",
-                "reference": "6ea53d084f965e9a48c2b9f988bc0125be60c8f7",
+                "url": "https://api.github.com/repos/pulledbits/router/zipball/e7053a1b0f00810c06df85c5f37e18ded47c6a7f",
+                "reference": "e7053a1b0f00810c06df85c5f37e18ded47c6a7f",
                 "shasum": ""
             },
             "require": {
@@ -1302,7 +1302,7 @@
                 "MIT"
             ],
             "description": "Simple router",
-            "time": "2017-09-27T11:30:39+00:00"
+            "time": "2017-09-28T08:17:57+00:00"
         },
         {
             "name": "pulledbits/view",

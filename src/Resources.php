@@ -143,7 +143,7 @@ class Resources
          * @var $user User
          */
         $user = unserialize($sessionToken->get('user'));
-        if ($user === null) {
+        if (!($user instanceof User)) {
             $server = $this->sso();
             $user = $server->getUserDetails($token);
             $sessionToken->set('user', serialize($user));

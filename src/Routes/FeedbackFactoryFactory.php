@@ -2,6 +2,7 @@
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UriInterface;
 use pulledbits\ActiveRecord\Record;
 use pulledbits\Router\ResponseFactory;
 
