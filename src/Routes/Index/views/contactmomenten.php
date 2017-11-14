@@ -22,8 +22,8 @@
             <?php else: ?>
                 <tr>
             <?php endif; ?>
-            <td><?= $this->escape($contactmoment->fetchFirstByFkContactmomentLes()->fetchFirstByFkLeslesweek()->kalenderweek); ?></td>
-            <td><?= $this->escape($contactmoment->fetchFirstByFkContactmomentLes()->fetchFirstByFkLeslesweek()->blokweek); ?></td>
+            <td><?= $this->escape($contactmoment->kalenderweek); ?></td>
+            <td><?= $this->escape($contactmoment->blokweek); ?></td>
             <td><?= $this->escape(strftime('%A', strtotime($contactmoment->starttijd))); ?></td>
             <td><?= $this->escape(date('H:i', strtotime($contactmoment->starttijd))); ?></td>
             <td><?= $this->escape(date('H:i', strtotime($contactmoment->eindtijd))); ?></td>
