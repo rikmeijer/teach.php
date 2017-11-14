@@ -4,6 +4,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\ActiveRecord\Record;
+use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\ResponseFactory;
 
 class FeedbackFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
@@ -27,9 +28,12 @@ class FeedbackFactoryFactory implements \pulledbits\Router\ResponseFactoryFactor
         $schema = $this->resources->schema();
         $phpview = $this->resources->phpview('Feedback');
         $responseFactory = $this->resources->responseFactory();
-        $contactmoment = $schema->readFirst('contactmoment', [], ['id' => $matches['contactmomentIdentifier']]);
+        $contactmoments = $schema->read('contactmoment', [], ['id' => $matches['contactmomentIdentifier']]);
+        if (count($contactmoments) === 0) {
+            return ErrorFactory::makeInstance(404);
+        }
 
-        return new class($phpview, $responseFactory, $contactmoment) implements ResponseFactory
+        return new class($phpview, $responseFactory, $contactmoments[0]) implements ResponseFactory
         {
             private $responseFactory;
             private $phpview;
