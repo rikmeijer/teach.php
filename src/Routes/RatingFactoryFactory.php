@@ -27,6 +27,8 @@ class RatingFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
         $contactmomentratings = $this->resources->schema()->read('contactmomentrating', [], ['contactmoment_id' => $matches['contactmomentIdentifier']]);
         if (count($contactmomentratings) === 0) {
             $ratingwaarde = 0;
+        } elseif ($contactmomentratings[0]->waarde === null) {
+            $ratingwaarde = 0;
         } else {
             $ratingwaarde = $contactmomentratings[0]->waarde;
         }
