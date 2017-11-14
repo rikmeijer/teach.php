@@ -18,12 +18,13 @@ class Resources
 
     public function schema(): \pulledbits\ActiveRecord\SQL\Schema
     {
-        $pdo = require $this->resourcesPath . DIRECTORY_SEPARATOR . 'pdo.php';
+        $config = require $this->resourcesPath . DIRECTORY_SEPARATOR . 'config.php';
         /**
          * @var $factory \pulledbits\ActiveRecord\RecordFactory
          */
-        $factory = new \pulledbits\ActiveRecord\RecordFactory(\pulledbits\ActiveRecord\Source\SQL\Schema::fromPDO($pdo), sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'teach');
-        return new \pulledbits\ActiveRecord\SQL\Schema($factory, $pdo);
+        $databaseURL = $config['DB_CONNECTION'] . '://' . $config['DB_USERNAME'] . ':' . $config['DB_PASSWORD'] . '@' . $config['DB_HOST'] . ':' . $config['DB_PORT'] . '/' . $config['DB_DATABASE'];
+        $connection = \pulledbits\ActiveRecord\SQL\Connection::fromDatabaseURL($databaseURL, sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'teach');
+        return $connection->schema();
     }
 
     private function assetsDirectory()

@@ -24,7 +24,12 @@ class GetFactory implements ResponseFactory
     public function makeResponse(): ResponseInterface
     {
 
-        $ipRating = $this->contactmoment->fetchFirstByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
+        $ipRatings = $this->contactmoment->fetchByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
+        if (count($ipRatings) > 0) {
+            $ipRating = $ipRatings[0];
+        } else {
+            $ipRating = $this->contactmoment->referenceByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
+        }
 
         $rating = null;
         $explanation = '';
