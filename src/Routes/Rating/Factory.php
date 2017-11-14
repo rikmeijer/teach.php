@@ -9,21 +9,21 @@ class Factory implements ResponseFactory
 {
     private $responseFactory;
     private $phpview;
-    private $contactmomentrating;
+    private $ratingwaarde;
     private $assets;
 
-    public function __construct(\pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, Record $contactmomentrating, array $assets)
+    public function __construct(\pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, int $ratingwaarde, array $assets)
     {
         $this->responseFactory = $responseFactory;
         $this->phpview = $phpview;
-        $this->contactmomentrating = $contactmomentrating;
+        $this->ratingwaarde = $ratingwaarde;
         $this->assets = $assets;
     }
 
     public function makeResponse(): ResponseInterface
     {
         return $this->responseFactory->make200($this->phpview->capture('rating', [
-            'rating' => $this->contactmomentrating->waarde,
+            'ratingwaarde' => $this->ratingwaarde,
             'starData' => $this->assets['star'],
             'unstarData' => $this->assets['unstar']
         ]));

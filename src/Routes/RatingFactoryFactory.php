@@ -24,11 +24,17 @@ class RatingFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
     {
         preg_match('#^/rating/(?<contactmomentIdentifier>\d+)#', $request->getURI()->getPath(), $matches);
 
-        $contactmomentrating = $this->resources->schema()->readFirst('contactmomentrating', [], ['contactmoment_id' => $matches['contactmomentIdentifier']]);
+        $contactmomentratings = $this->resources->schema()->read('contactmomentrating', [], ['contactmoment_id' => $matches['contactmomentIdentifier']]);
+        if (count($contactmomentratings) === 0) {
+            $ratingwaarde = 0;
+        } else {
+            $ratingwaarde = $contactmomentratings[0]->waarde;
+        }
+
         $phpview = $this->resources->phpview('Rating');
         $responseFactory = $this->resources->responseFactory();
         $assets = ['star' => $this->resources->readAssetStar(), 'unstar' => $this->resources->readAssetUnstar()];
 
-        return new Factory($phpview, $responseFactory, $contactmomentrating, $assets);
+        return new Factory($phpview, $responseFactory, $ratingwaarde, $assets);
     }
 }

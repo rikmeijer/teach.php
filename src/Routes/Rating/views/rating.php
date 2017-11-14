@@ -8,7 +8,7 @@ imagefilledrectangle($im, 0, 0, 500, $height, $transparent);
 $star = imagecreatefromstring($starData);
 $unstar = imagecreatefromstring($unstarData);
 for ($i = 0; $i < 5; $i++) {
-    if ($i < $rating) {
+    if ($i < $ratingwaarde) {
         $source = $star;
     } else {
         $source = $unstar;
