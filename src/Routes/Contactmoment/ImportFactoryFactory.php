@@ -22,6 +22,11 @@ class ImportFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
 
     public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
     {
+        $user = $this->resources->userForToken($this->resources->token());
+        if ($user->extra['employee'] === false) {
+            return ErrorFactory::makeInstance(403);
+        }
+
         $phpview = $this->resources->phpview('Contactmoment\\Import');
         $responseFactory = $this->resources->responseFactory();
 
@@ -32,7 +37,7 @@ class ImportFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
             case 'POST':
                 $icalReader = $this->resources->iCalReader($request->getParsedBody()['url']);
                 $schema = $this->resources->schema();
-                return new PostFactory($schema, $phpview, $responseFactory, $icalReader);
+                return new PostFactory($schema, $phpview, $responseFactory, $icalReader, $user);
 
             default:
                 return $responseFactory->make405('Method not allowed');

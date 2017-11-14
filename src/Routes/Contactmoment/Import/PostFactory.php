@@ -1,5 +1,6 @@
 <?php namespace rikmeijer\Teach\Routes\Contactmoment\Import;
 
+use League\OAuth1\Client\Server\User;
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ResponseFactory;
@@ -10,13 +11,15 @@ class PostFactory implements ResponseFactory
     private $responseFactory;
     private $phpview;
     private $icalReader;
+    private $user;
 
-    public function __construct(Schema $schema, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, \ICal $icalReader)
+    public function __construct(Schema $schema, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, \ICal $icalReader, User $user)
     {
         $this->schema = $schema;
         $this->responseFactory = $responseFactory;
         $this->phpview = $phpview;
         $this->icalReader = $icalReader;
+        $this->user = $user;
     }
 
     public function makeResponse(): ResponseInterface
@@ -27,7 +30,7 @@ class PostFactory implements ResponseFactory
             } elseif (array_key_exists('LOCATION', $event) === false) {
                 continue;
             }
-            $this->schema->executeProcedure('import_ical_to_contactmoment', [$event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
+            $this->schema->executeProcedure('import_ical_to_contactmoment', [$this->user->uid, $event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
         }
         $this->schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
         return $this->responseFactory->make201($this->phpview->capture('imported', []));
