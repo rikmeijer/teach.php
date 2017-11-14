@@ -2,6 +2,7 @@
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
+use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\ResponseFactory;
 use rikmeijer\Teach\Routes\Feedback\Supply\PostFactory;
 use rikmeijer\Teach\Routes\Feedback\Supply\GetFactory;
@@ -28,9 +29,13 @@ class SupplyFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
             case 'GET':
                 $phpview = $this->resources->phpview('Feedback\\Supply');
                 $query = $request->getQueryParams();
-                $contactmoment = $this->resources->schema()->readFirst('contactmoment', [], ['id' => $matches['contactmomentIdentifier']]);
+                $contactmoments = $this->resources->schema()->read('contactmoment', [], ['id' => $matches['contactmomentIdentifier']]);
+                if (count($contactmoments) === 0) {
+                    return ErrorFactory::makeInstance(404);
+                }
+
                 $assets = ['star' => $this->resources->readAssetStar(), 'unstar' => $this->resources->readAssetUnstar()];
-                return new GetFactory($contactmoment, $phpview, $responseFactory, $assets, $query);
+                return new GetFactory($contactmoments[0], $phpview, $responseFactory, $assets, $query);
 
             case 'POST':
                 $csrf_token = $this->resources->session()->getCsrfToken();
