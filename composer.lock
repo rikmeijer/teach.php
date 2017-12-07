@@ -1156,16 +1156,16 @@
         },
         {
             "name": "pulledbits/activerecord",
-            "version": "1.0",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pulledbits/activerecord.git",
-                "reference": "663741d3d81907a11121dacbf5f7720d85a67a19"
+                "reference": "98e2e0fe04b7e49aa20d7cb2ef84e039bd08e3c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/activerecord/zipball/663741d3d81907a11121dacbf5f7720d85a67a19",
-                "reference": "663741d3d81907a11121dacbf5f7720d85a67a19",
+                "url": "https://api.github.com/repos/pulledbits/activerecord/zipball/98e2e0fe04b7e49aa20d7cb2ef84e039bd08e3c1",
+                "reference": "98e2e0fe04b7e49aa20d7cb2ef84e039bd08e3c1",
                 "shasum": ""
             },
             "require": {
@@ -1186,7 +1186,7 @@
                 "MIT"
             ],
             "description": "proper activerecord in PHP",
-            "time": "2017-12-07T11:08:57+00:00"
+            "time": "2017-12-07T11:49:24+00:00"
         },
         {
             "name": "pulledbits/response",
