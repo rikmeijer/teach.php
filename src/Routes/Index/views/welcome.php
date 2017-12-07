@@ -25,6 +25,6 @@
     <section>
         <a name="<?= $this->escape($module->naam); ?>"></a>
         <h2><?= $this->escape($module->naam); ?></h2>
-        <?php $this->render('contactmomenten', ['caption' => 'Contactmomenten', 'contactmomenten' => $module->read("contactmoment_module", ["module_id" => "id"])]); ?>
+        <?php $this->render('contactmomenten', ['caption' => 'Contactmomenten', 'contactmomenten' => $module->contactmomenten]); ?>
     </section>
 <?php endforeach; ?>

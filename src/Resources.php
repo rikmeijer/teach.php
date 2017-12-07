@@ -3,6 +3,7 @@
 use League\OAuth1\Client\Credentials\TemporaryCredentials;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use League\OAuth1\Client\Server\User;
+use pulledbits\ActiveRecord\Schema;
 use pulledbits\ActiveRecord\SQL\Connection;
 
 class Resources
@@ -20,9 +21,9 @@ class Resources
     public function schema(): \pulledbits\ActiveRecord\SQL\Schema
     {
         $config = require $this->resourcesPath . DIRECTORY_SEPARATOR . 'config.php';
-        $pdo = new \PDO($config['DB_CONNECTION'] . ':dbname=' . $config['DB_DATABASE'], $config['DB_USERNAME'], $config['DB_PASSWORD'], array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
+        $pdo = new \PDO($config['DB_CONNECTION'] . ':', $config['DB_USERNAME'], $config['DB_PASSWORD'], array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
         $connection = new Connection($pdo);
-        return $connection->schema();
+        return $connection->schema($config['DB_DATABASE']);
     }
 
     private function assetsDirectory()

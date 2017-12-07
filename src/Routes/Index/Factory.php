@@ -19,8 +19,14 @@ class Factory implements ResponseFactory
 
     public function makeResponse(): ResponseInterface
     {
+        $modules = [];
+        foreach ($this->schema->read('module', [], []) as $module) {
+            $module->contains(['contactmomenten' => $this->schema->read("contactmoment_module", [], ["module_id" => $module->id])]);
+            $modules[] = $module;
+        }
+
         return $this->responseFactory->make200($this->phpview->capture('welcome', [
-            'modules' => $this->schema->read('module', [], []),
+            'modules' => $modules,
             'contactmomenten' => $this->schema->read('contactmoment_vandaag', [], [])
         ]));
     }
