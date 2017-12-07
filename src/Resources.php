@@ -18,7 +18,7 @@ class Resources
         $this->resourcesPath = $resourcesPath;
     }
 
-    public function schema(): \pulledbits\ActiveRecord\SQL\Schema
+    public function schema(): \pulledbits\ActiveRecord\Schema
     {
         $config = require $this->resourcesPath . DIRECTORY_SEPARATOR . 'config.php';
         $pdo = new \PDO($config['DB_CONNECTION'] . ':', $config['DB_USERNAME'], $config['DB_PASSWORD'], array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
