@@ -8,28 +8,24 @@ use pulledbits\Router\ResponseFactory;
 
 class PostFactory implements ResponseFactory
 {
-    private $csrf_token;
     private $schema;
     private $responseFactory;
     private $contactmomentIdentifier;
-    private $parsedBody;
+    private $rating;
+    private $explanation;
 
-    public function __construct(CsrfToken $csrf_token, Schema $schema, \pulledbits\Response\Factory $responseFactory, array $parsedBody, string $contactmomentIdentifier)
+    public function __construct(Schema $schema, \pulledbits\Response\Factory $responseFactory, string $contactmomentIdentifier, string $rating, string $explanation)
     {
-        $this->csrf_token = $csrf_token;
         $this->schema = $schema;
         $this->responseFactory = $responseFactory;
         $this->contactmomentIdentifier = $contactmomentIdentifier;
-        $this->parsedBody = $parsedBody;
+        $this->rating = $rating;
+        $this->explanation = $explanation;
     }
 
     public function makeResponse(): ResponseInterface
     {
-        if ($this->csrf_token->isValid($this->parsedBody['__csrf_value']) === false) {
-            return $this->responseFactory->make403("This looks like a cross-site request forgery.");
-        } else {
-            $this->schema->executeProcedure('rate_contactmoment', [$this->contactmomentIdentifier, $_SERVER['REMOTE_ADDR'], $this->parsedBody['rating'], $this->parsedBody['explanation']]);
-            return $this->responseFactory->make201('Dankje!');
-        }
+        $this->schema->executeProcedure('rate_contactmoment', [$this->contactmomentIdentifier, $_SERVER['REMOTE_ADDR'], $this->rating, $this->explanation]);
+        return $this->responseFactory->make201('Dankje!');
     }
 }

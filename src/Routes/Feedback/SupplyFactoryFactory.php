@@ -39,11 +39,15 @@ class SupplyFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
 
             case 'POST':
                 $csrf_token = $this->resources->session()->getCsrfToken();
+                $parsedBody = $request->getParsedBody();
+                if ($csrf_token->isValid($parsedBody['__csrf_value']) === false) {
+                    return ErrorFactory::makeInstance('403');
+                }
                 $schema = $this->resources->schema();
-                return new PostFactory($csrf_token, $schema, $responseFactory, $request->getParsedBody(), $matches['contactmomentIdentifier']);
+                return new PostFactory($schema, $responseFactory, $matches['contactmomentIdentifier'], $parsedBody['rating'], $parsedBody['explanation']);
 
             default:
-                return $responseFactory->make405('Method not allowed');
+                return ErrorFactory::makeInstance('405');
         }
 
     }
