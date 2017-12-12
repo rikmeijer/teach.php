@@ -1,7 +1,5 @@
 <?php namespace rikmeijer\Teach\Routes\Feedback\Supply;
 
-
-use Aura\Session\CsrfToken;
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ResponseFactory;
