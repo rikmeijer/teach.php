@@ -78,7 +78,7 @@ class Resources
         $template->registerHelper('form', function (string $method, string $submitValue, string $model) use ($session) : void {
             ?>
             <form method="<?= $this->escape($method); ?>">
-                <input type="hidden" name="__csrf_value" value="<?= $session->getCsrfToken()->getValue(); ?>"/>
+                <input type="hidden" name="__csrf_value" value="<?= $this->escape($session->getCsrfToken()->getValue()); ?>"/>
                 <?= $model; ?>
                 <input type="submit" value="<?= $this->escape($submitValue); ?>"/>
             </form>
