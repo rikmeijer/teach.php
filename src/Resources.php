@@ -61,6 +61,8 @@ class Resources
     }
 
     public function phpview(string $view) : \pulledbits\View\File\Template {
+        $session = $this->session();
+
         $viewsPath = __DIR__ . DIRECTORY_SEPARATOR . 'Routes' . DIRECTORY_SEPARATOR . str_replace(NAMESPACE_SEPARATOR, DIRECTORY_SEPARATOR, $view);
         $template = new \pulledbits\View\File\Template( $viewsPath . DIRECTORY_SEPARATOR . "views", $this->resourcesPath . DIRECTORY_SEPARATOR . 'layouts');
         $template->registerHelper('url', function (string $path, string ...$unencoded): string {
@@ -73,15 +75,10 @@ class Resources
             }
             return (string)\GuzzleHttp\Psr7\ServerRequest::getUriFromGlobals()->withPath($path)->withQuery($query);
         });
-        $template->registerHelper('csrfToken', function () : string {
-            $session_factory = new \Aura\Session\SessionFactory;
-            $session = $session_factory->newInstance($_COOKIE);
-            return $session->getCsrfToken()->getValue();
-        });
-        $template->registerHelper('form', function (string $method, string $submitValue, string $model): void {
+        $template->registerHelper('form', function (string $method, string $submitValue, string $model) use ($session) : void {
             ?>
             <form method="<?= $this->escape($method); ?>">
-                <input type="hidden" name="__csrf_value" value="<?= $this->csrfToken(); ?>"/>
+                <input type="hidden" name="__csrf_value" value="<?= $session->getCsrfToken()->getValue(); ?>"/>
                 <?= $model; ?>
                 <input type="submit" value="<?= $this->escape($submitValue); ?>"/>
             </form>
