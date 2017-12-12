@@ -1,7 +1,9 @@
 <?php
 
 $bootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'application.php';
-$response = $bootstrap->handle();
+$responseFactory = $bootstrap->handle();
+
+$response = $responseFactory->makeResponse();
 
 http_response_code($response->getStatusCode());
 foreach ($response->getHeaders() as $headerIdentifier => $headerValue) {

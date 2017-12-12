@@ -40,7 +40,7 @@ class ImportFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
                 return new PostFactory($schema, $phpview, $responseFactory, $icalReader, $user);
 
             default:
-                return $responseFactory->make405('Method not allowed');
+                return ErrorFactory::makeInstance(405);
         }
 
     }
