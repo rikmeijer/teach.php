@@ -3,7 +3,6 @@
 use League\OAuth1\Client\Credentials\TemporaryCredentials;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use League\OAuth1\Client\Server\User;
-use pulledbits\ActiveRecord\Schema;
 use pulledbits\ActiveRecord\SQL\Connection;
 
 class Resources
