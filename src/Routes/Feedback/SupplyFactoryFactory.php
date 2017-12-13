@@ -33,9 +33,15 @@ class SupplyFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
                 if (count($contactmoments) === 0) {
                     return ErrorFactory::makeInstance(404);
                 }
+                $ipRatings = $contactmoments[0]->fetchByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
+                if (count($ipRatings) > 0) {
+                    $ipRating = $ipRatings[0];
+                } else {
+                    $ipRating = $contactmoments[0]->referenceByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
+                }
 
                 $assets = ['star' => $this->resources->readAssetStar(), 'unstar' => $this->resources->readAssetUnstar()];
-                return new GetFactory($contactmoments[0], $phpview, $responseFactory, $assets, $query);
+                return new GetFactory($ipRating, $phpview, $responseFactory, $assets, $query);
 
             case 'POST':
                 $csrf_token = $this->resources->session()->getCsrfToken();

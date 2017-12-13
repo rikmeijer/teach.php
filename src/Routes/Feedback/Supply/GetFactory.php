@@ -6,15 +6,15 @@ use pulledbits\Router\ResponseFactory;
 
 class GetFactory implements ResponseFactory
 {
-    private $contactmoment;
+    private $iprating;
     private $responseFactory;
     private $phpview;
     private $assets;
     private $query;
 
-    public function __construct(Record $contactmoment, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, array $assets, array $query)
+    public function __construct(Record $iprating, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, array $assets, array $query)
     {
-        $this->contactmoment = $contactmoment;
+        $this->iprating = $iprating;
         $this->responseFactory = $responseFactory;
         $this->phpview = $phpview;
         $this->assets = $assets;
@@ -23,19 +23,11 @@ class GetFactory implements ResponseFactory
 
     public function makeResponse(): ResponseInterface
     {
-
-        $ipRatings = $this->contactmoment->fetchByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
-        if (count($ipRatings) > 0) {
-            $ipRating = $ipRatings[0];
-        } else {
-            $ipRating = $this->contactmoment->referenceByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
-        }
-
         $rating = null;
         $explanation = '';
-        if ($ipRating->waarde !== null) {
-            $rating = $ipRating->waarde;
-            $explanation = $ipRating->inhoud !== null ? $ipRating->inhoud : '';
+        if ($this->iprating->waarde !== null) {
+            $rating = $this->iprating->waarde;
+            $explanation = $this->iprating->inhoud !== null ? $this->iprating->inhoud : '';
         }
 
         if (array_key_exists('rating', $this->query)) {
@@ -43,7 +35,7 @@ class GetFactory implements ResponseFactory
         }
 
         $assets = $this->assets;
-        return $this->responseFactory->make200($this->phpview->capture('supply', ['rating' => $rating, 'explanation' => $explanation, 'contactmomentIdentifier' => $this->contactmoment->id, 'star' => function (int $i, $rating) use ($assets) : string {
+        return $this->responseFactory->make200($this->phpview->capture('supply', ['rating' => $rating, 'explanation' => $explanation, 'star' => function (int $i, $rating) use ($assets) : string {
             $data = $assets['unstar'];
             if ($i < $rating) {
                 $data = $assets['star'];
