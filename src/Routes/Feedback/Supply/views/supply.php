@@ -11,9 +11,7 @@
 <?php $layout->section('body');
 ?><h1>Hoeveel sterren?</h1><?php
 for ($i = 0; $i < 5; $i++) {
-    ?><a href="<?= $this->url('/feedback/%s/supply?rating=%s', $contactmomentIdentifier, $i + 1); ?>">
-    <img
-            src="<?= $this->star($i, $rating); ?>" width="100"/></a><?php
+    ?><a href="<?= $this->url('./?rating=%s', $i + 1); ?>"><img src="<?= $this->star($i, $rating); ?>" width="100"/></a><?php
 }
 if ($rating !== null) {
     $this->form("post", "Verzenden", '<h1>Waarom?</h1>

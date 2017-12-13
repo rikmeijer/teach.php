@@ -66,7 +66,11 @@ class Resources
         $template = new \pulledbits\View\File\Template( $viewsPath . DIRECTORY_SEPARATOR . "views", $this->resourcesPath . DIRECTORY_SEPARATOR . 'layouts');
         $template->registerHelper('url', function (string $path, string ...$unencoded): string {
             $encoded = array_map('rawurlencode', $unencoded);
-            $path = sprintf($path, ...$encoded);
+            if (strpos($path, '.') === 0) {
+                $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) . '/' . $path;
+            }
+
+            $path = sprintf(get_absolute_path($path), ...$encoded);
             if (strpos($path, '?') === false) {
                 $query = '';
             } else {
