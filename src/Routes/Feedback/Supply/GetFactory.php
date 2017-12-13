@@ -34,9 +34,8 @@ class GetFactory implements ResponseFactory
         $rating = null;
         $explanation = '';
         if ($ipRating->waarde !== null) {
-            $data = ['rating' => $ipRating->waarde, 'explanation' => $ipRating->inhoud];
-            $rating = $data['rating'];
-            $explanation = $data['explanation'] !== null ? $data['explanation'] : '';
+            $rating = $ipRating->waarde;
+            $explanation = $ipRating->inhoud !== null ? $ipRating->inhoud : '';
         }
 
         if (array_key_exists('rating', $this->query)) {
