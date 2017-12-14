@@ -3,11 +3,11 @@
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\ErrorFactory;
-use pulledbits\Router\ResponseFactory;
+use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\Routes\Feedback\Supply\PostFactory;
 use rikmeijer\Teach\Routes\Feedback\Supply\GetFactory;
 
-class SupplyFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
+class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $resources;
 
@@ -21,10 +21,9 @@ class SupplyFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
         return preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)/supply$#', $uri->getPath()) === 1;
     }
 
-    public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
+    public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getURI()->getPath(), $matches);
-        $responseFactory = $this->resources->responseFactory();
         switch ($request->getMethod()) {
             case 'GET':
                 $phpview = $this->resources->phpview('Feedback\\Supply');
@@ -41,7 +40,7 @@ class SupplyFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
                 }
 
                 $assets = ['star' => $this->resources->readAssetStar(), 'unstar' => $this->resources->readAssetUnstar()];
-                return new GetFactory($ipRating, $phpview, $responseFactory, $assets, $query);
+                return new GetFactory($ipRating, $phpview, $assets, $query);
 
             case 'POST':
                 $csrf_token = $this->resources->session()->getCsrfToken();
@@ -50,7 +49,7 @@ class SupplyFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
                     return ErrorFactory::makeInstance('403');
                 }
                 $schema = $this->resources->schema();
-                return new PostFactory($schema, $responseFactory, $matches['contactmomentIdentifier'], $parsedBody['rating'], $parsedBody['explanation']);
+                return new PostFactory($schema, $matches['contactmomentIdentifier'], $parsedBody['rating'], $parsedBody['explanation']);
 
             default:
                 return ErrorFactory::makeInstance('405');

@@ -1,9 +1,9 @@
 <?php
 
 $bootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'application.php';
-$responseFactory = $bootstrap->handle();
+$routeEndPoint = $bootstrap->handle();
 
-$response = $responseFactory->makeResponse();
+$response = $routeEndPoint->respond(new \pulledbits\Response\Factory());
 
 http_response_code($response->getStatusCode());
 foreach ($response->getHeaders() as $headerIdentifier => $headerValue) {

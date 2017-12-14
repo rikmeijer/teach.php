@@ -2,26 +2,23 @@
 
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\ActiveRecord\Record;
-use pulledbits\Router\ResponseFactory;
 
-class GetFactory implements ResponseFactory
+class GetFactory implements RouteEndPoint
 {
     private $iprating;
-    private $responseFactory;
     private $phpview;
     private $assets;
     private $query;
 
-    public function __construct(Record $iprating, \pulledbits\View\Directory $phpview, \pulledbits\Response\Factory $responseFactory, array $assets, array $query)
+    public function __construct(Record $iprating, \pulledbits\View\Directory $phpview, array $assets, array $query)
     {
         $this->iprating = $iprating;
-        $this->responseFactory = $responseFactory;
         $this->phpview = $phpview;
         $this->assets = $assets;
         $this->query = $query;
     }
 
-    public function makeResponse(): ResponseInterface
+    public function respond(\pulledbits\Response\Factory $psrResponseFactory): ResponseInterface
     {
         $rating = null;
         $explanation = '';
@@ -35,7 +32,7 @@ class GetFactory implements ResponseFactory
         }
 
         $assets = $this->assets;
-        return $this->responseFactory->make200($this->phpview->capture('supply', ['rating' => $rating, 'explanation' => $explanation, 'star' => function (int $i, $rating) use ($assets) : string {
+        return $psrResponseFactory->make200($this->phpview->capture('supply', ['rating' => $rating, 'explanation' => $explanation, 'star' => function (int $i, $rating) use ($assets) : string {
             $data = $assets['unstar'];
             if ($i < $rating) {
                 $data = $assets['star'];

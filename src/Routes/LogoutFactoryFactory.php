@@ -2,10 +2,10 @@
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
-use pulledbits\Router\ResponseFactory;
+use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\Routes\Logout\Factory;
 
-class LogoutFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
+class LogoutFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $resources;
 
@@ -19,11 +19,9 @@ class LogoutFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
         return preg_match('#^/logout#', $uri->getPath()) === 1;
     }
 
-    public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
+    public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         $session = $this->resources->session();
-        $responseFactory = $this->resources->responseFactory();
-
-        return new Factory($session, $responseFactory);
+        return new Factory($session);
     }
 }

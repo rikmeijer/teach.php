@@ -2,10 +2,11 @@
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
-use pulledbits\Router\ResponseFactory;
+use pulledbits\Router\RouteEndPoint;
+use pulledbits\Router\RouteEndPointFactory;
 use rikmeijer\Teach\Routes\Qr\Factory;
 
-class QrFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
+class QrFactoryFactory implements RouteEndPointFactory
 {
     private $resources;
 
@@ -20,12 +21,10 @@ class QrFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
         return preg_match('#^/qr#', $uri->getPath()) === 1;
     }
 
-    public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
+    public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         $query = $request->getQueryParams();
         $phpview = $this->resources->phpview('Qr');
-        $responseFactory = $this->resources->responseFactory();
-
-        return new Factory($phpview, $responseFactory, $query);
+        return new Factory($phpview, $query);
     }
 }

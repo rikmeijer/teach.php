@@ -3,10 +3,10 @@
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\ErrorFactory;
-use pulledbits\Router\ResponseFactory;
+use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\Routes\Index\Factory;
 
-class IndexFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
+class IndexFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $resources;
 
@@ -20,7 +20,7 @@ class IndexFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
         return preg_match('#^/#', $uri->getPath()) === 1;
     }
 
-    public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
+    public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         $user = $this->resources->userForToken($this->resources->token());
         if ($user->extra['employee'] === false) {
@@ -29,8 +29,7 @@ class IndexFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
 
         $schema = $this->resources->schema();
         $phpview = $this->resources->phpview('Index');
-        $responseFactory = $this->resources->responseFactory();
 
-        return new Factory($schema, $phpview, $responseFactory);
+        return new Factory($schema, $phpview);
     }
 }

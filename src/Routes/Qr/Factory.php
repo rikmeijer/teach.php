@@ -1,29 +1,27 @@
 <?php namespace rikmeijer\Teach\Routes\Qr;
 
 use Psr\Http\Message\ResponseInterface;
-use pulledbits\Router\ResponseFactory;
+use pulledbits\Router\RouteEndPoint;
 
-class Factory implements ResponseFactory
+class Factory implements RouteEndPoint
 {
-    private $responseFactory;
     private $phpview;
     private $query;
 
-    public function __construct(\pulledbits\View\Directory $phpview, \pulledbits\Response\Factory $responseFactory, array $query)
+    public function __construct(\pulledbits\View\Directory $phpview, array $query)
     {
-        $this->responseFactory = $responseFactory;
         $this->phpview = $phpview;
         $this->query = $query;
     }
 
-    public function makeResponse(): ResponseInterface
+    public function respond(\pulledbits\Response\Factory $psrResponseFactory): ResponseInterface
     {
         if (array_key_exists('data', $this->query) === false) {
-            return $this->responseFactory->make400('Query incomplete');
+            return $psrResponseFactory->make400('Query incomplete');
         } elseif ($this->query['data'] === null) {
-            return $this->responseFactory->make400('Query data incomplete');
+            return $psrResponseFactory->make400('Query data incomplete');
         } else {
-            return $this->responseFactory->make200($this->phpview->load('qr')->prepare(['data' => $this->query['data']])->capture());
+            return $psrResponseFactory->make200($this->phpview->load('qr')->prepare(['data' => $this->query['data']])->capture());
         }
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3236fd8fd1352765643d526f1b2eeeb2",
+    "content-hash": "d5c421ff3d0f5741bb19dca9b0366b27",
     "packages": [
         {
             "name": "aura/session",
@@ -1190,16 +1190,16 @@
         },
         {
             "name": "pulledbits/response",
-            "version": "dev-master",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pulledbits/response.git",
-                "reference": "656a5fea61a342b61f9fc3b925aa74a17d4bbb9f"
+                "reference": "157bb6049d1d2426c5c1eb4b93c831a71ebbf394"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/response/zipball/656a5fea61a342b61f9fc3b925aa74a17d4bbb9f",
-                "reference": "656a5fea61a342b61f9fc3b925aa74a17d4bbb9f",
+                "url": "https://api.github.com/repos/pulledbits/response/zipball/157bb6049d1d2426c5c1eb4b93c831a71ebbf394",
+                "reference": "157bb6049d1d2426c5c1eb4b93c831a71ebbf394",
                 "shasum": ""
             },
             "require": {
@@ -1220,25 +1220,26 @@
                 "MIT"
             ],
             "description": "Simple response factory wrapped around Guzzle using PSR-7",
-            "time": "2017-07-05T13:11:26+00:00"
+            "time": "2017-12-14T14:48:23+00:00"
         },
         {
             "name": "pulledbits/router",
-            "version": "1.0",
+            "version": "2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pulledbits/router.git",
-                "reference": "49779d7490014b6e83e9e7890ca71c45c5b1898c"
+                "reference": "f73cabfe7a8d7d90f35c7dd9564b411799b013ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/router/zipball/49779d7490014b6e83e9e7890ca71c45c5b1898c",
-                "reference": "49779d7490014b6e83e9e7890ca71c45c5b1898c",
+                "url": "https://api.github.com/repos/pulledbits/router/zipball/f73cabfe7a8d7d90f35c7dd9564b411799b013ab",
+                "reference": "f73cabfe7a8d7d90f35c7dd9564b411799b013ab",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/psr7": "^1.3",
-                "php": ">=7.1"
+                "php": ">=7.1",
+                "pulledbits/response": "~1.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "~6"
@@ -1254,7 +1255,7 @@
                 "MIT"
             ],
             "description": "Simple router",
-            "time": "2017-12-12T13:20:09+00:00"
+            "time": "2017-12-14T15:00:50+00:00"
         },
         {
             "name": "pulledbits/view",
@@ -3043,9 +3044,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "pulledbits/response": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

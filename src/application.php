@@ -2,7 +2,7 @@
 namespace rikmeijer\Teach;
 
 use League\OAuth1\Client\Server\User;
-use pulledbits\Router\ResponseFactory;
+use pulledbits\Router\RouteEndPoint;
 
 return new class {
 
@@ -36,7 +36,7 @@ return new class {
         ]);
     }
 
-    public function handle() : ResponseFactory
+    public function handle() : RouteEndPoint
     {
         $router = $this->initializeRouterWithRoutes();
         return $router->route($this->bootstrap->request());

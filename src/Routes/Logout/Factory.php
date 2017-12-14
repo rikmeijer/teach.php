@@ -3,26 +3,23 @@
 use Aura\Session\Session;
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\ActiveRecord\Schema;
-use pulledbits\Router\ResponseFactory;
 
-class Factory implements ResponseFactory
+class Factory implements RouteEndPoint
 {
     private $session;
-    private $responseFactory;
 
-    public function __construct(Session $session, \pulledbits\Response\Factory $responseFactory)
+    public function __construct(Session $session)
     {
         $this->session = $session;
-        $this->responseFactory = $responseFactory;
     }
 
-    public function makeResponse(): ResponseInterface
+    public function respond(\pulledbits\Response\Factory $psrResponseFactory): ResponseInterface
     {
         if ($this->session->isStarted()) {
             $this->session->getSegment('token')->clear();
             $this->session->clear();
             $this->session->destroy();
         }
-        return $this->responseFactory->makeWithHeaders(303, ['Location' => '/'], '');
+        return $psrResponseFactory->makeWithHeaders(303, ['Location' => '/'], '');
     }
 }

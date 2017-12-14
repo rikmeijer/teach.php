@@ -2,10 +2,10 @@
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
-use pulledbits\Router\ResponseFactory;
+use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\Routes\SSO\Callback\Step1Factory;
 
-class CallbackFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
+class CallbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $resources;
 
@@ -19,18 +19,17 @@ class CallbackFactoryFactory implements \pulledbits\Router\ResponseFactoryFactor
         return preg_match('#^/sso/callback#', $uri->getPath()) === 1;
     }
 
-    public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
+    public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
-        $responseFactory = $this->resources->responseFactory();
         $session = $this->resources->session();
         $server = $this->resources->sso();
 
         $queryParams = $request->getQueryParams();
 
         if (array_key_exists('oauth_token', $queryParams) && array_key_exists('oauth_verifier', $queryParams)) {
-            return new Step1Factory($responseFactory, $session, $server, $queryParams['oauth_token'], $queryParams['oauth_verifier']);
+            return new Step1Factory($session, $server, $queryParams['oauth_token'], $queryParams['oauth_verifier']);
         } else {
-            return new Step2Factory($responseFactory, $session, $server);
+            return new Step2Factory($session, $server);
         }
     }
 }

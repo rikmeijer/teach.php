@@ -99,10 +99,6 @@ class Resources
         return $directory;
     }
 
-    public function responseFactory() : \pulledbits\Response\Factory {
-        return new \pulledbits\Response\Factory();
-    }
-
     public function iCalReader(string $uri): \ICal
     {
         return new \ICal($uri);

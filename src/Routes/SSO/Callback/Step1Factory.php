@@ -3,26 +3,24 @@
 use Aura\Session\Session;
 use Avans\OAuth\Web;
 use Psr\Http\Message\ResponseInterface;
-use pulledbits\Router\ResponseFactory;
+use pulledbits\Router\RouteEndPoint;
 
-class Step1Factory implements ResponseFactory
+class Step1Factory implements RouteEndPoint
 {
-    private $responseFactory;
     private $session;
     private $server;
     private $oauthToken;
     private $oauthVerifier;
 
-    public function __construct(\pulledbits\Response\Factory $responseFactory, Session $session, Web $server, string $oauthToken, string $oauthVerifier)
+    public function __construct(Session $session, Web $server, string $oauthToken, string $oauthVerifier)
     {
-        $this->responseFactory = $responseFactory;
         $this->session = $session;
         $this->server = $server;
         $this->oauthToken = $oauthToken;
         $this->oauthVerifier = $oauthVerifier;
     }
 
-    public function makeResponse(): ResponseInterface
+    public function respond(\pulledbits\Response\Factory $psrResponseFactory): ResponseInterface
     {
         $temporaryCredentialsSerialized = $this->session->getSegment('token')->get('temporary_credentials');
         if ($temporaryCredentialsSerialized !== null) {
@@ -31,6 +29,6 @@ class Step1Factory implements ResponseFactory
             $this->session->getSegment('token')->set('temporary_credentials', null);
             $this->session->getSegment('token')->set('credentials', serialize($tokenCredentials));
         }
-        return $this->responseFactory->makeWithHeaders(303, ['Location' => '/'], '');
+        return $psrResponseFactory->makeWithHeaders(303, ['Location' => '/'], '');
     }
 }

@@ -2,10 +2,10 @@
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
-use pulledbits\Router\ResponseFactory;
+use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\Routes\Rating\Factory;
 
-class RatingFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
+class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $resources;
 
@@ -20,7 +20,7 @@ class RatingFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
         return preg_match('#^/rating/(?<contactmomentIdentifier>\d+)$#', $uri->getPath()) === 1;
     }
 
-    public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
+    public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         preg_match('#^/rating/(?<contactmomentIdentifier>\d+)#', $request->getURI()->getPath(), $matches);
 
@@ -34,9 +34,8 @@ class RatingFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
         }
 
         $phpview = $this->resources->phpview('Rating');
-        $responseFactory = $this->resources->responseFactory();
         $assets = ['star' => $this->resources->readAssetStar(), 'unstar' => $this->resources->readAssetUnstar()];
 
-        return new Factory($phpview, $responseFactory, $ratingwaarde, $assets);
+        return new Factory($phpview, $ratingwaarde, $assets);
     }
 }

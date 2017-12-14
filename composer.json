@@ -15,8 +15,7 @@
 		"doctrine/migrations": "^1.5",
 		"pulledbits/activerecord": "~1",
 		"pulledbits/view": "^0.4",
-		"pulledbits/router": "~1",
-		"pulledbits/response": "dev-master"
+		"pulledbits/router": "~2"
 	},
 	"require-dev" : {
 		"phpunit/phpunit" : "~6"

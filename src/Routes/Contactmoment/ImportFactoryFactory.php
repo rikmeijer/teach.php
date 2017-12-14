@@ -2,11 +2,11 @@
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
-use pulledbits\Router\ResponseFactory;
+use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\Routes\Contactmoment\Import\GetFactory;
 use rikmeijer\Teach\Routes\Contactmoment\Import\PostFactory;
 
-class ImportFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
+class ImportFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $resources;
 
@@ -20,7 +20,7 @@ class ImportFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
         return preg_match('#^/contactmoment/import$#', $uri->getPath()) === 1;
     }
 
-    public function makeResponseFactory(ServerRequestInterface $request): ResponseFactory
+    public function makeRouteEndPointForRequest(ServerRequestInterface $request) : RouteEndPoint
     {
         $user = $this->resources->userForToken($this->resources->token());
         if ($user->extra['employee'] === false) {
@@ -28,16 +28,15 @@ class ImportFactoryFactory implements \pulledbits\Router\ResponseFactoryFactory
         }
 
         $phpview = $this->resources->phpview('Contactmoment\\Import');
-        $responseFactory = $this->resources->responseFactory();
 
         switch ($request->getMethod()) {
             case 'GET':
-                return new GetFactory($phpview, $responseFactory);
+                return new GetFactory($phpview);
 
             case 'POST':
                 $icalReader = $this->resources->iCalReader($request->getParsedBody()['url']);
                 $schema = $this->resources->schema();
-                return new PostFactory($schema, $phpview, $responseFactory, $icalReader, $user);
+                return new PostFactory($schema, $phpview, $icalReader, $user);
 
             default:
                 return ErrorFactory::makeInstance('405');
