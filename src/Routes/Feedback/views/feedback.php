@@ -18,3 +18,4 @@
         src="<?= $this->url('/qr?data=%s', $url); ?>"
         width="400" height="400"/>
 <p><?= $url; ?></p>
+<?php $layout->compile(); ?>

@@ -14,7 +14,7 @@
 		"aura/session": "^2.1",
 		"doctrine/migrations": "^1.5",
 		"pulledbits/activerecord": "~1",
-		"pulledbits/view": "^0.1",
+		"pulledbits/view": "^0.4",
 		"pulledbits/router": "~1",
 		"pulledbits/response": "dev-master"
 	},

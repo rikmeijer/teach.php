@@ -9,3 +9,4 @@
 <section>
     <p>Contactmomenten zijn ge&iuml;mporteerd</p>
 </section>
+<?php $layout->compile(); ?>

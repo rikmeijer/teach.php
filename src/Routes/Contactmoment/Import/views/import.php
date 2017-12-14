@@ -9,3 +9,4 @@
 <section>
     <?php $this->importForm(); ?>
 </section>
+<?php $layout->compile(); ?>

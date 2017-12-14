@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce58afeab4025a3735f1eff26e116c67",
+    "content-hash": "3236fd8fd1352765643d526f1b2eeeb2",
     "packages": [
         {
             "name": "aura/session",
@@ -1258,23 +1258,23 @@
         },
         {
             "name": "pulledbits/view",
-            "version": "dev-master",
+            "version": "0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pulledbits/view.git",
-                "reference": "df6549945eccec37221b9f471eb8d375acf9909d"
+                "reference": "50eb0ba77cb34d9143f158ffee38b3b8da072167"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/view/zipball/df6549945eccec37221b9f471eb8d375acf9909d",
-                "reference": "df6549945eccec37221b9f471eb8d375acf9909d",
+                "url": "https://api.github.com/repos/pulledbits/view/zipball/50eb0ba77cb34d9143f158ffee38b3b8da072167",
+                "reference": "50eb0ba77cb34d9143f158ffee38b3b8da072167",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "~5"
+                "phpunit/phpunit": "~6"
             },
             "type": "library",
             "autoload": {
@@ -1287,7 +1287,7 @@
                 "MIT"
             ],
             "description": "native PHP view engine",
-            "time": "2017-03-23T18:44:40+00:00"
+            "time": "2017-12-14T14:22:46+00:00"
         },
         {
             "name": "symfony/console",
@@ -3044,7 +3044,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "pulledbits/view": 20,
         "pulledbits/response": 20
     },
     "prefer-stable": true,

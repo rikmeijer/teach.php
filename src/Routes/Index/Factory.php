@@ -10,7 +10,7 @@ class Factory implements ResponseFactory
     private $responseFactory;
     private $phpview;
 
-    public function __construct(Schema $schema, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory)
+    public function __construct(Schema $schema, \pulledbits\View\Directory $phpview, \pulledbits\Response\Factory $responseFactory)
     {
         $this->schema = $schema;
         $this->responseFactory = $responseFactory;
@@ -25,9 +25,9 @@ class Factory implements ResponseFactory
             $modules[] = $module;
         }
 
-        return $this->responseFactory->make200($this->phpview->capture('welcome', [
+        return $this->responseFactory->make200($this->phpview->load('welcome')->prepare([
             'modules' => $modules,
             'contactmomenten' => $this->schema->read('contactmoment_vandaag', [], [])
-        ]));
+        ])->capture());
     }
 }

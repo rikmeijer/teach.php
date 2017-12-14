@@ -12,7 +12,7 @@ class GetFactory implements ResponseFactory
     private $assets;
     private $query;
 
-    public function __construct(Record $iprating, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, array $assets, array $query)
+    public function __construct(Record $iprating, \pulledbits\View\Directory $phpview, \pulledbits\Response\Factory $responseFactory, array $assets, array $query)
     {
         $this->iprating = $iprating;
         $this->responseFactory = $responseFactory;

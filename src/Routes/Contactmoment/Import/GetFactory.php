@@ -8,7 +8,7 @@ class GetFactory implements ResponseFactory
     private $responseFactory;
     private $phpview;
 
-    public function __construct(\pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory)
+    public function __construct(\pulledbits\View\Directory $phpview, \pulledbits\Response\Factory $responseFactory)
     {
         $this->responseFactory = $responseFactory;
         $this->phpview = $phpview;
@@ -16,9 +16,9 @@ class GetFactory implements ResponseFactory
 
     public function makeResponse(): ResponseInterface
     {
-        return $this->responseFactory->make200($this->phpview->capture('import', ['importForm' => function (): void {
+        return $this->responseFactory->make200($this->phpview->load('import')->prepare(['importForm' => function (): void {
             $model = 'ICS URL: <input type="text" name="url" />';
             $this->form("post", "Importeren", $model);
-        }]));
+        }])->capture());
     }
 }

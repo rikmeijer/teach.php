@@ -4,6 +4,7 @@ use League\OAuth1\Client\Credentials\TemporaryCredentials;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use League\OAuth1\Client\Server\User;
 use pulledbits\ActiveRecord\SQL\Connection;
+use pulledbits\View\Directory;
 
 class Resources
 {
@@ -59,12 +60,13 @@ class Resources
         return self::$sso;
     }
 
-    public function phpview(string $view) : \pulledbits\View\File\Template {
-        $session = $this->session();
+    public function phpview(string $view) : \pulledbits\View\Directory {
 
         $viewsPath = __DIR__ . DIRECTORY_SEPARATOR . 'Routes' . DIRECTORY_SEPARATOR . str_replace(NAMESPACE_SEPARATOR, DIRECTORY_SEPARATOR, $view);
-        $template = new \pulledbits\View\File\Template( $viewsPath . DIRECTORY_SEPARATOR . "views", $this->resourcesPath . DIRECTORY_SEPARATOR . 'layouts');
-        $template->registerHelper('url', function (string $path, string ...$unencoded): string {
+        $directory = new Directory($viewsPath . DIRECTORY_SEPARATOR . "views", $this->resourcesPath . DIRECTORY_SEPARATOR . 'layouts');
+
+        $session = $this->session();
+        $directory->registerHelper('url', function (string $path, string ...$unencoded): string {
             $encoded = array_map('rawurlencode', $unencoded);
             if (strpos($path, '.') === 0) {
                 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) . '/' . $path;
@@ -78,7 +80,7 @@ class Resources
             }
             return (string)\GuzzleHttp\Psr7\ServerRequest::getUriFromGlobals()->withPath($path)->withQuery($query);
         });
-        $template->registerHelper('form', function (string $method, string $submitValue, string $model) use ($session) : void {
+        $directory->registerHelper('form', function (string $method, string $submitValue, string $model) use ($session) : void {
             ?>
             <form method="<?= $this->escape($method); ?>">
                 <input type="hidden" name="__csrf_value" value="<?= $this->escape($session->getCsrfToken()->getValue()); ?>"/>
@@ -87,14 +89,14 @@ class Resources
             </form>
             <?php
         });
-        $template->registerHelper('qr', function(int $width, int $height, string $data) : void {
+        $directory->registerHelper('qr', function(int $width, int $height, string $data) : void {
             $renderer = new \BaconQrCode\Renderer\Image\Png();
             $renderer->setHeight($width);
             $renderer->setWidth($height);
             $writer = new \BaconQrCode\Writer($renderer);
             print $writer->writeString($data);
         });
-        return $template;
+        return $directory;
     }
 
     public function responseFactory() : \pulledbits\Response\Factory {

@@ -18,13 +18,14 @@
         </ul>
     </nav>
     <section>
-        <?php $this->render('contactmomenten', ['caption' => 'Contactmomenten vandaag', 'contactmomenten' => $contactmomenten]); ?>
+        <?php $this->sub('contactmomenten', ['caption' => 'Contactmomenten vandaag', 'contactmomenten' => $contactmomenten]); ?>
     </section>
 
 <?php foreach ($modules as $module): ?>
     <section>
         <a name="<?= $this->escape($module->naam); ?>"></a>
         <h2><?= $this->escape($module->naam); ?></h2>
-        <?php $this->render('contactmomenten', ['caption' => 'Contactmomenten', 'contactmomenten' => $module->contactmomenten]); ?>
+        <?php $this->sub('contactmomenten', ['caption' => 'Contactmomenten', 'contactmomenten' => $module->contactmomenten]); ?>
     </section>
 <?php endforeach; ?>
+<?php $layout->compile(); ?>

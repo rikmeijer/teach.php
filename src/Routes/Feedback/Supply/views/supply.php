@@ -18,3 +18,4 @@ if ($rating !== null) {
                         <input type="hidden" name="rating" value="' . $this->escape($rating) . '" />
                         <textarea rows="5" cols="75" name="explanation">' . $this->escape($explanation) . '</textarea>');
 }
+$layout->compile();

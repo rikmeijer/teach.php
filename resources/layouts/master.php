@@ -4,3 +4,4 @@
 <link rel="stylesheet" type="text/css" href="/css/lesplan.css">
 <?php $layout->section('body'); ?>
 <?= $this->harvest('content'); ?>
+<?php $layout->compile(); ?>

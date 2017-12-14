@@ -13,7 +13,7 @@ class PostFactory implements ResponseFactory
     private $icalReader;
     private $user;
 
-    public function __construct(Schema $schema, \pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, \ICal $icalReader, User $user)
+    public function __construct(Schema $schema, \pulledbits\View\Directory $phpview, \pulledbits\Response\Factory $responseFactory, \ICal $icalReader, User $user)
     {
         $this->schema = $schema;
         $this->responseFactory = $responseFactory;
@@ -33,7 +33,7 @@ class PostFactory implements ResponseFactory
             $this->schema->executeProcedure('import_ical_to_contactmoment', [$this->user->uid, $event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
         }
         $this->schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
-        return $this->responseFactory->make201($this->phpview->capture('imported', []));
+        return $this->responseFactory->make201($this->phpview->load('imported')->prepare([])->capture());
     }
 
     private function reformatDateTime(string $datetime, string $format): string

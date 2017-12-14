@@ -39,7 +39,7 @@ class FeedbackFactoryFactory implements \pulledbits\Router\ResponseFactoryFactor
             private $phpview;
             private $contactmoment;
 
-            public function __construct(\pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, Record $contactmoment)
+            public function __construct(\pulledbits\View\Directory $phpview, \pulledbits\Response\Factory $responseFactory, Record $contactmoment)
             {
                 $this->responseFactory = $responseFactory;
                 $this->phpview = $phpview;
@@ -48,7 +48,7 @@ class FeedbackFactoryFactory implements \pulledbits\Router\ResponseFactoryFactor
 
             public function makeResponse(): ResponseInterface
             {
-                return $this->responseFactory->make200($this->phpview->capture('feedback', ['contactmoment' => $this->contactmoment]));
+                return $this->responseFactory->make200($this->phpview->load('feedback')->prepare(['contactmoment' => $this->contactmoment])->capture());
             }
         };
     }

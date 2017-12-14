@@ -9,7 +9,7 @@ class Factory implements ResponseFactory
     private $phpview;
     private $query;
 
-    public function __construct(\pulledbits\View\File\Template $phpview, \pulledbits\Response\Factory $responseFactory, array $query)
+    public function __construct(\pulledbits\View\Directory $phpview, \pulledbits\Response\Factory $responseFactory, array $query)
     {
         $this->responseFactory = $responseFactory;
         $this->phpview = $phpview;
@@ -23,7 +23,7 @@ class Factory implements ResponseFactory
         } elseif ($this->query['data'] === null) {
             return $this->responseFactory->make400('Query data incomplete');
         } else {
-            return $this->responseFactory->make200($this->phpview->capture('qr', ['data' => $this->query['data']]));
+            return $this->responseFactory->make200($this->phpview->load('qr')->prepare(['data' => $this->query['data']])->capture());
         }
     }
 }
