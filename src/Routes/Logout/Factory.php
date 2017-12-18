@@ -4,6 +4,7 @@ use Aura\Session\Session;
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ResponseFactory;
+use pulledbits\Router\RouteEndPoint;
 
 class Factory implements RouteEndPoint
 {

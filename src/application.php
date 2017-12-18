@@ -24,6 +24,7 @@ return new class {
 
     private function initializeRouterWithRoutes() : \pulledbits\Router\Router {
 
+        $session = $this->resources->session();
         $user = $this->resources->userForToken($this->resources->token());
         $schema = $this->resources->schema();
         $phpviewDirectory = $this->resources->phpviewDirectory('');
@@ -35,7 +36,7 @@ return new class {
             new Routes\Contactmoment\ImportFactoryFactory($this->resources),
             new Routes\QrFactoryFactory($this->resources),
             new Routes\SSO\CallbackFactoryFactory($this->resources),
-            new Routes\LogoutFactoryFactory($this->resources),
+            new Routes\LogoutFactoryFactory($session),
             new Routes\IndexFactoryFactory($user, $schema, $phpviewDirectory)
         ]);
     }

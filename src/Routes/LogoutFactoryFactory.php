@@ -1,5 +1,6 @@
 <?php namespace rikmeijer\Teach\Routes;
 
+use Aura\Session\Session;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
@@ -7,11 +8,11 @@ use rikmeijer\Teach\Routes\Logout\Factory;
 
 class LogoutFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
-    private $resources;
+    private $session;
 
-    public function __construct(\rikmeijer\Teach\Resources $resources)
+    public function __construct(Session $session)
     {
-        $this->resources = $resources;
+        $this->session = $session;
     }
 
     public function matchUri(UriInterface $uri): bool
@@ -21,7 +22,6 @@ class LogoutFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
-        $session = $this->resources->session();
-        return new Factory($session);
+        return new Factory($this->session);
     }
 }
