@@ -46,7 +46,7 @@ class FeedbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
             public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
             {
-                return $psrResponseFactory->make(200, $this->phpview->load('feedback')->prepare(['contactmoment' => $this->contactmoment])->capture());
+                return $psrResponseFactory->make('200', $this->phpview->load('feedback')->prepare(['contactmoment' => $this->contactmoment])->capture());
             }
         };
     }

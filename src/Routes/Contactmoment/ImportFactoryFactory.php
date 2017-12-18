@@ -24,7 +24,7 @@ class ImportFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
     {
         $user = $this->resources->userForToken($this->resources->token());
         if ($user->extra['employee'] === false) {
-            return ErrorFactory::makeInstance(403);
+            return ErrorFactory::makeInstance('403');
         }
 
         $phpview = $this->resources->phpview('Contactmoment\\Import');

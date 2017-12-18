@@ -30,7 +30,7 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
                 $query = $request->getQueryParams();
                 $contactmoments = $this->resources->schema()->read('contactmoment', [], ['id' => $matches['contactmomentIdentifier']]);
                 if (count($contactmoments) === 0) {
-                    return ErrorFactory::makeInstance(404);
+                    return ErrorFactory::makeInstance('404');
                 }
                 $ipRatings = $contactmoments[0]->fetchByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
                 if (count($ipRatings) > 0) {

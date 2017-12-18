@@ -24,7 +24,7 @@ class Factory implements RouteEndPoint
             $modules[] = $module;
         }
 
-        return $psrResponseFactory->make(200, $this->phpview->load('welcome')->prepare([
+        return $psrResponseFactory->make('200', $this->phpview->load('welcome')->prepare([
             'modules' => $modules,
             'contactmomenten' => $this->schema->read('contactmoment_vandaag', [], [])
         ])->capture());
