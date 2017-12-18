@@ -22,7 +22,7 @@ class Factory implements RouteEndPoint
         } elseif ($this->query['data'] === null) {
             return $psrResponseFactory->make('400', 'Query data incomplete');
         } else {
-            return $psrResponseFactory->make('200', $this->phpview->load('qr')->prepare(['data' => $this->query['data']])->capture());
+            return $psrResponseFactory->makeWithTemplate('200', $this->phpview->load('qr')->prepare(['data' => $this->query['data']]));
         }
     }
 }

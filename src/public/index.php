@@ -20,6 +20,11 @@ $response = $routeEndPoint->respond(new class implements \pulledbits\Router\Resp
         }
         return $response;
     }
+
+    public function makeWithTemplate(string $statusCode, \pulledbits\View\TemplateInstance $templateInstance): \Psr\Http\Message\ResponseInterface
+    {
+        return $this->make($statusCode, $templateInstance->capture());
+    }
 });
 
 http_response_code($response->getStatusCode());
