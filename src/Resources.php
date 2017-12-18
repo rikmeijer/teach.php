@@ -60,8 +60,8 @@ class Resources
         return self::$sso;
     }
 
-    private function phpviewDirectory(string $templatesDirectory) {
-        $directory = new Directory($templatesDirectory, $this->resourcesPath . DIRECTORY_SEPARATOR . 'layouts');
+    public function phpviewDirectory(string $templatesDirectory) {
+        $directory = new Directory($this->resourcesPath . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . $templatesDirectory, $this->resourcesPath . DIRECTORY_SEPARATOR . 'layouts');
 
         $session = $this->session();
         $directory->registerHelper('url', function (string $path, string ...$unencoded): string {
@@ -98,7 +98,7 @@ class Resources
     }
 
     public function phpview(string $templateIdentifier) : \pulledbits\View\Template {
-        $directory = $this->phpviewDirectory($this->resourcesPath . DIRECTORY_SEPARATOR . 'views');
+        $directory = $this->phpviewDirectory('');
         return $directory->load($templateIdentifier);
     }
 
