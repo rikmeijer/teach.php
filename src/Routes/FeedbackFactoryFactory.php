@@ -5,6 +5,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\ActiveRecord\Record;
 use pulledbits\Router\ErrorFactory;
+use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
 
 class FeedbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
@@ -43,9 +44,9 @@ class FeedbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
                 $this->contactmoment = $contactmoment;
             }
 
-            public function respond(\pulledbits\Response\Factory $psrResponseFactory): ResponseInterface
+            public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
             {
-                return $psrResponseFactory->make200($this->phpview->load('feedback')->prepare(['contactmoment' => $this->contactmoment])->capture());
+                return $psrResponseFactory->make(200, $this->phpview->load('feedback')->prepare(['contactmoment' => $this->contactmoment])->capture());
             }
         };
     }

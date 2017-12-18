@@ -3,6 +3,7 @@
 use League\OAuth1\Client\Server\User;
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\ActiveRecord\Schema;
+use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
 
 class PostFactory implements RouteEndPoint
@@ -20,7 +21,7 @@ class PostFactory implements RouteEndPoint
         $this->user = $user;
     }
 
-    public function respond(\pulledbits\Response\Factory $psrResponseFactory): ResponseInterface
+    public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
     {
         foreach ($this->icalReader->events() as $event) {
             if (array_key_exists('SUMMARY', $event) === false) {
@@ -31,7 +32,7 @@ class PostFactory implements RouteEndPoint
             $this->schema->executeProcedure('import_ical_to_contactmoment', [$this->user->uid, $event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
         }
         $this->schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
-        return $psrResponseFactory->make201($this->phpview->load('imported')->prepare([])->capture());
+        return $psrResponseFactory->make(201, $this->phpview->load('imported')->prepare([])->capture());
     }
 
     private function reformatDateTime(string $datetime, string $format): string

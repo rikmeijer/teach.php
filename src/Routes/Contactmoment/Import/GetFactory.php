@@ -1,6 +1,7 @@
 <?php namespace rikmeijer\Teach\Routes\Contactmoment\Import;
 
 use Psr\Http\Message\ResponseInterface;
+use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
 
 class GetFactory implements RouteEndPoint
@@ -12,9 +13,9 @@ class GetFactory implements RouteEndPoint
         $this->phpview = $phpview;
     }
 
-    public function respond(\pulledbits\Response\Factory $psrResponseFactory): ResponseInterface
+    public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
     {
-        return $psrResponseFactory->make200($this->phpview->load('import')->prepare(['importForm' => function (): void {
+        return $psrResponseFactory->make(200, $this->phpview->load('import')->prepare(['importForm' => function (): void {
             $model = 'ICS URL: <input type="text" name="url" />';
             $this->form("post", "Importeren", $model);
         }])->capture());

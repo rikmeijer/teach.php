@@ -2,6 +2,7 @@
 
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\ActiveRecord\Schema;
+use pulledbits\Router\ResponseFactory;
 
 class PostFactory implements RouteEndPoint
 {
@@ -18,9 +19,9 @@ class PostFactory implements RouteEndPoint
         $this->explanation = $explanation;
     }
 
-    public function respond(\pulledbits\Response\Factory $psrResponseFactory): ResponseInterface
+    public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
     {
         $this->schema->executeProcedure('rate_contactmoment', [$this->contactmomentIdentifier, $_SERVER['REMOTE_ADDR'], $this->rating, $this->explanation]);
-        return $psrResponseFactory->make201('Dankje!');
+        return $psrResponseFactory->make(201, 'Dankje!');
     }
 }

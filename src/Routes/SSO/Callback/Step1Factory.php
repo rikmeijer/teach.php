@@ -3,6 +3,7 @@
 use Aura\Session\Session;
 use Avans\OAuth\Web;
 use Psr\Http\Message\ResponseInterface;
+use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
 
 class Step1Factory implements RouteEndPoint
@@ -20,7 +21,7 @@ class Step1Factory implements RouteEndPoint
         $this->oauthVerifier = $oauthVerifier;
     }
 
-    public function respond(\pulledbits\Response\Factory $psrResponseFactory): ResponseInterface
+    public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
     {
         $temporaryCredentialsSerialized = $this->session->getSegment('token')->get('temporary_credentials');
         if ($temporaryCredentialsSerialized !== null) {

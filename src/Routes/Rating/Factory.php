@@ -1,6 +1,7 @@
 <?php namespace rikmeijer\Teach\Routes\Rating;
 
 use Psr\Http\Message\ResponseInterface;
+use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
 
 class Factory implements RouteEndPoint
@@ -16,9 +17,9 @@ class Factory implements RouteEndPoint
         $this->assets = $assets;
     }
 
-    public function respond(\pulledbits\Response\Factory $psrResponseFactory): ResponseInterface
+    public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
     {
-        return $psrResponseFactory->make200($this->phpview->load('rating')->prepare([
+        return $psrResponseFactory->make(200, $this->phpview->load('rating')->prepare([
             'ratingwaarde' => $this->ratingwaarde,
             'starData' => $this->assets['star'],
             'unstarData' => $this->assets['unstar']
