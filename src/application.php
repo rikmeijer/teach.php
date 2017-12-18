@@ -24,6 +24,10 @@ return new class {
 
     private function initializeRouterWithRoutes() : \pulledbits\Router\Router {
 
+        $user = $this->resources->userForToken($this->resources->token());
+        $schema = $this->resources->schema();
+        $phpviewDirectory = $this->resources->phpviewDirectory('');
+
         return $this->bootstrap->router([
             new Routes\Feedback\SupplyFactoryFactory($this->resources),
             new Routes\FeedbackFactoryFactory($this->resources),
@@ -32,7 +36,7 @@ return new class {
             new Routes\QrFactoryFactory($this->resources),
             new Routes\SSO\CallbackFactoryFactory($this->resources),
             new Routes\LogoutFactoryFactory($this->resources),
-            new Routes\IndexFactoryFactory($this->resources)
+            new Routes\IndexFactoryFactory($user, $schema, $phpviewDirectory)
         ]);
     }
 
