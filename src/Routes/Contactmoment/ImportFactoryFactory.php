@@ -31,12 +31,12 @@ class ImportFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
         switch ($request->getMethod()) {
             case 'GET':
-                return new GetFactory($phpview);
+                return new GetFactory($phpview->load('import'));
 
             case 'POST':
                 $icalReader = $this->resources->iCalReader($request->getParsedBody()['url']);
                 $schema = $this->resources->schema();
-                return new PostFactory($schema, $phpview, $icalReader, $user);
+                return new PostFactory($schema, $phpview->load('imported'), $icalReader, $user);
 
             default:
                 return ErrorFactory::makeInstance('405');

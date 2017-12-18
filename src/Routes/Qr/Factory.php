@@ -9,7 +9,7 @@ class Factory implements RouteEndPoint
     private $phpview;
     private $query;
 
-    public function __construct(\pulledbits\View\Directory $phpview, array $query)
+    public function __construct(\pulledbits\View\Template $phpview, array $query)
     {
         $this->phpview = $phpview;
         $this->query = $query;
@@ -22,7 +22,7 @@ class Factory implements RouteEndPoint
         } elseif ($this->query['data'] === null) {
             return $psrResponseFactory->make('400', 'Query data incomplete');
         } else {
-            return $psrResponseFactory->makeWithTemplate('200', $this->phpview->load('qr')->prepare(['data' => $this->query['data']]));
+            return $psrResponseFactory->makeWithTemplate('200', $this->phpview->prepare(['data' => $this->query['data']]));
         }
     }
 }

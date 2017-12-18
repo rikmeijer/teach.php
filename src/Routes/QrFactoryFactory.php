@@ -25,6 +25,6 @@ class QrFactoryFactory implements RouteEndPointFactory
     {
         $query = $request->getQueryParams();
         $phpview = $this->resources->phpview('Qr');
-        return new Factory($phpview, $query);
+        return new Factory($phpview->load('qr'), $query);
     }
 }

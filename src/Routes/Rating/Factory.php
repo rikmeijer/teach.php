@@ -10,7 +10,7 @@ class Factory implements RouteEndPoint
     private $ratingwaarde;
     private $assets;
 
-    public function __construct(\pulledbits\View\Directory $phpview, int $ratingwaarde, array $assets)
+    public function __construct(\pulledbits\View\Template $phpview, int $ratingwaarde, array $assets)
     {
         $this->phpview = $phpview;
         $this->ratingwaarde = $ratingwaarde;
@@ -19,7 +19,7 @@ class Factory implements RouteEndPoint
 
     public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
     {
-        return $psrResponseFactory->makeWithTemplate('200', $this->phpview->load('rating')->prepare([
+        return $psrResponseFactory->makeWithTemplate('200', $this->phpview->prepare([
             'ratingwaarde' => $this->ratingwaarde,
             'starData' => $this->assets['star'],
             'unstarData' => $this->assets['unstar']

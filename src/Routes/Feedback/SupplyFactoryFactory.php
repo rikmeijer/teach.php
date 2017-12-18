@@ -40,7 +40,7 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
                 }
 
                 $assets = ['star' => $this->resources->readAssetStar(), 'unstar' => $this->resources->readAssetUnstar()];
-                return new GetFactory($ipRating, $phpview, $assets, $query);
+                return new GetFactory($ipRating, $phpview->load('supply'), $assets, $query);
 
             case 'POST':
                 $csrf_token = $this->resources->session()->getCsrfToken();

@@ -13,7 +13,7 @@ class PostFactory implements RouteEndPoint
     private $icalReader;
     private $user;
 
-    public function __construct(Schema $schema, \pulledbits\View\Directory $phpview, \ICal $icalReader, User $user)
+    public function __construct(Schema $schema, \pulledbits\View\Template $phpview, \ICal $icalReader, User $user)
     {
         $this->schema = $schema;
         $this->phpview = $phpview;
@@ -32,7 +32,7 @@ class PostFactory implements RouteEndPoint
             $this->schema->executeProcedure('import_ical_to_contactmoment', [$this->user->uid, $event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
         }
         $this->schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
-        return $psrResponseFactory->makeWithTemplate('201', $this->phpview->load('imported')->prepare([]));
+        return $psrResponseFactory->makeWithTemplate('201', $this->phpview->prepare([]));
     }
 
     private function reformatDateTime(string $datetime, string $format): string

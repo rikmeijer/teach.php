@@ -30,6 +30,6 @@ class IndexFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
         $schema = $this->resources->schema();
         $phpview = $this->resources->phpview('Index');
 
-        return new Factory($schema, $phpview);
+        return new Factory($schema, $phpview->load('welcome'));
     }
 }

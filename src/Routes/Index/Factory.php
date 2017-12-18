@@ -10,7 +10,7 @@ class Factory implements RouteEndPoint
     private $schema;
     private $phpview;
 
-    public function __construct(Schema $schema, \pulledbits\View\Directory $phpview)
+    public function __construct(Schema $schema, \pulledbits\View\Template $phpview)
     {
         $this->schema = $schema;
         $this->phpview = $phpview;
@@ -24,7 +24,7 @@ class Factory implements RouteEndPoint
             $modules[] = $module;
         }
 
-        return $psrResponseFactory->makeWithTemplate('200', $this->phpview->load('welcome')->prepare([
+        return $psrResponseFactory->makeWithTemplate('200', $this->phpview->prepare([
             'modules' => $modules,
             'contactmomenten' => $this->schema->read('contactmoment_vandaag', [], [])
         ]));
