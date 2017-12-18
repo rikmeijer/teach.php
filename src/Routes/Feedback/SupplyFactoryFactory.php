@@ -26,7 +26,6 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
         preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getURI()->getPath(), $matches);
         switch ($request->getMethod()) {
             case 'GET':
-                $phpview = $this->resources->phpview('Feedback\\Supply');
                 $query = $request->getQueryParams();
                 $contactmoments = $this->resources->schema()->read('contactmoment', [], ['id' => $matches['contactmomentIdentifier']]);
                 if (count($contactmoments) === 0) {
@@ -40,7 +39,7 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
                 }
 
                 $assets = ['star' => $this->resources->readAssetStar(), 'unstar' => $this->resources->readAssetUnstar()];
-                return new GetFactory($ipRating, $phpview->load('supply'), $assets, $query);
+                return new GetFactory($ipRating, $this->resources->phpview('feedback' . DIRECTORY_SEPARATOR . 'supply'), $assets, $query);
 
             case 'POST':
                 $csrf_token = $this->resources->session()->getCsrfToken();

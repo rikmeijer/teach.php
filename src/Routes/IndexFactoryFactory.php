@@ -26,10 +26,7 @@ class IndexFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
         if ($user->extra['employee'] === false) {
             return ErrorFactory::makeInstance('403');
         }
-
         $schema = $this->resources->schema();
-        $phpview = $this->resources->phpview('Index');
-
-        return new Factory($schema, $phpview->load('welcome'));
+        return new Factory($schema, $this->resources->phpview('welcome'));
     }
 }

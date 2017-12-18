@@ -60,10 +60,8 @@ class Resources
         return self::$sso;
     }
 
-    public function phpview(string $view) : \pulledbits\View\Directory {
-
-        $viewsPath = __DIR__ . DIRECTORY_SEPARATOR . 'Routes' . DIRECTORY_SEPARATOR . str_replace(NAMESPACE_SEPARATOR, DIRECTORY_SEPARATOR, $view);
-        $directory = new Directory($viewsPath . DIRECTORY_SEPARATOR . "views", $this->resourcesPath . DIRECTORY_SEPARATOR . 'layouts');
+    private function phpviewDirectory(string $templatesDirectory) {
+        $directory = new Directory($templatesDirectory, $this->resourcesPath . DIRECTORY_SEPARATOR . 'layouts');
 
         $session = $this->session();
         $directory->registerHelper('url', function (string $path, string ...$unencoded): string {
@@ -97,6 +95,11 @@ class Resources
             print $writer->writeString($data);
         });
         return $directory;
+    }
+
+    public function phpview(string $templateIdentifier) : \pulledbits\View\Template {
+        $directory = $this->phpviewDirectory($this->resourcesPath . DIRECTORY_SEPARATOR . 'views');
+        return $directory->load($templateIdentifier);
     }
 
     public function iCalReader(string $uri): \ICal

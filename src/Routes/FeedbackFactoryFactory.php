@@ -27,7 +27,7 @@ class FeedbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
         preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getUri()->getPath(), $matches);
 
         $schema = $this->resources->schema();
-        $phpview = $this->resources->phpview('Feedback');
+        $phpview = $this->resources->phpview('feedback');
         $contactmoments = $schema->read('contactmoment', [], ['id' => $matches['contactmomentIdentifier']]);
         if (count($contactmoments) === 0) {
             return ErrorFactory::makeInstance(404);
@@ -38,7 +38,7 @@ class FeedbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
             private $phpview;
             private $contactmoment;
 
-            public function __construct(\pulledbits\View\Directory $phpview, Record $contactmoment)
+            public function __construct(\pulledbits\View\Template $phpview, Record $contactmoment)
             {
                 $this->phpview = $phpview;
                 $this->contactmoment = $contactmoment;
@@ -46,7 +46,7 @@ class FeedbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
             public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
             {
-                return $psrResponseFactory->makeWithTemplate('200', $this->phpview->load('feedback')->prepare(['contactmoment' => $this->contactmoment]));
+                return $psrResponseFactory->makeWithTemplate('200', $this->phpview->prepare(['contactmoment' => $this->contactmoment]));
             }
         };
     }

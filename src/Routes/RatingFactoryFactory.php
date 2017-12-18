@@ -33,9 +33,8 @@ class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
             $ratingwaarde = $contactmomentratings[0]->waarde;
         }
 
-        $phpview = $this->resources->phpview('Rating');
         $assets = ['star' => $this->resources->readAssetStar(), 'unstar' => $this->resources->readAssetUnstar()];
 
-        return new Factory($phpview->load('rating'), $ratingwaarde, $assets);
+        return new Factory($this->resources->phpview('rating'), $ratingwaarde, $assets);
     }
 }
