@@ -10,10 +10,16 @@ use rikmeijer\Teach\Routes\Feedback\Supply\GetFactory;
 class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $resources;
+    private $assets;
+    private $phpviewDirectory;
+    private $session;
 
     public function __construct(\rikmeijer\Teach\Resources $resources)
     {
-        $this->resources = $resources;
+        $this->schema = $resources->schema();
+        $this->assets = ['star' => $resources->readAssetStar(), 'unstar' => $resources->readAssetUnstar()];
+        $this->phpviewDirectory = $this->resources->phpviewDirectory('feedback');
+        $this->session = $this->resources->session();
     }
 
     public function matchUri(UriInterface $uri): bool
@@ -27,7 +33,7 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
         switch ($request->getMethod()) {
             case 'GET':
                 $query = $request->getQueryParams();
-                $contactmoments = $this->resources->schema()->read('contactmoment', [], ['id' => $matches['contactmomentIdentifier']]);
+                $contactmoments = $this->schema->read('contactmoment', [], ['id' => $matches['contactmomentIdentifier']]);
                 if (count($contactmoments) === 0) {
                     return ErrorFactory::makeInstance('404');
                 }
@@ -38,17 +44,15 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
                     $ipRating = $contactmoments[0]->referenceByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
                 }
 
-                $assets = ['star' => $this->resources->readAssetStar(), 'unstar' => $this->resources->readAssetUnstar()];
-                return new GetFactory($ipRating, $this->resources->phpviewDirectory('feedback')->load('supply'), $assets, $query);
+                return new GetFactory($ipRating, $this->phpviewDirectory->load('supply'), $this->assets, $query);
 
             case 'POST':
-                $csrf_token = $this->resources->session()->getCsrfToken();
+                $csrf_token = $this->session->getCsrfToken();
                 $parsedBody = $request->getParsedBody();
                 if ($csrf_token->isValid($parsedBody['__csrf_value']) === false) {
                     return ErrorFactory::makeInstance('403');
                 }
-                $schema = $this->resources->schema();
-                return new PostFactory($schema, $matches['contactmomentIdentifier'], $parsedBody['rating'], $parsedBody['explanation']);
+                return new PostFactory($this->schema, $matches['contactmomentIdentifier'], $parsedBody['rating'], $parsedBody['explanation']);
 
             default:
                 return ErrorFactory::makeInstance('405');

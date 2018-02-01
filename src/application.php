@@ -22,14 +22,14 @@ return new class {
         $this->resources = $this->bootstrap->resources();
     }
 
-    private function initializeRouterWithRoutes() : \pulledbits\Router\Router {
-
+    public function handle() : RouteEndPoint
+    {
         $session = $this->resources->session();
         $user = $this->resources->userForToken($this->resources->token());
         $schema = $this->resources->schema();
         $phpviewDirectory = $this->resources->phpviewDirectory('');
 
-        return $this->bootstrap->router([
+        $router = $this->bootstrap->router([
             new Routes\Feedback\SupplyFactoryFactory($this->resources),
             new Routes\FeedbackFactoryFactory($this->resources),
             new Routes\RatingFactoryFactory($this->resources),
@@ -39,11 +39,6 @@ return new class {
             new Routes\LogoutFactoryFactory($session),
             new Routes\IndexFactoryFactory($user, $schema, $phpviewDirectory)
         ]);
-    }
-
-    public function handle() : RouteEndPoint
-    {
-        $router = $this->initializeRouterWithRoutes();
         return $router->route($this->bootstrap->request());
     }
 };
