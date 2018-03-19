@@ -1,25 +1,29 @@
 <?php namespace rikmeijer\Teach\Routes\Feedback;
 
+use Aura\Session\Session;
+use League\Flysystem\FilesystemInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
+use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
+use pulledbits\View\Directory;
 use rikmeijer\Teach\Routes\Feedback\Supply\PostFactory;
 use rikmeijer\Teach\Routes\Feedback\Supply\GetFactory;
 
 class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
-    private $resources;
-    private $assets;
+    private $schema;
+    private $filesystem;
     private $phpviewDirectory;
     private $session;
 
-    public function __construct(\rikmeijer\Teach\Resources $resources)
+    public function __construct(Schema $schema, FilesystemInterface $filesystem, Directory $phpviewDirectory, Session $session)
     {
-        $this->schema = $resources->schema();
-        $this->assets = ['star' => $resources->readAssetStar(), 'unstar' => $resources->readAssetUnstar()];
-        $this->phpviewDirectory = $this->resources->phpviewDirectory('feedback');
-        $this->session = $this->resources->session();
+        $this->schema = $schema;
+        $this->filesystem = $filesystem;
+        $this->phpviewDirectory = $phpviewDirectory;
+        $this->session = $session;
     }
 
     public function matchUri(UriInterface $uri): bool
@@ -44,7 +48,11 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
                     $ipRating = $contactmoments[0]->referenceByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
                 }
 
-                return new GetFactory($ipRating, $this->phpviewDirectory->load('supply'), $this->assets, $query);
+                $assets = [
+                    'star' => $this->filesystem->read(DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'star.png'),
+                    'unstar' => $this->filesystem->read(DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'unstar.png')
+                ];
+                return new GetFactory($ipRating, $this->phpviewDirectory->load('supply'), $assets, $query);
 
             case 'POST':
                 $csrf_token = $this->session->getCsrfToken();

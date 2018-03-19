@@ -15,9 +15,9 @@ class IndexFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
     private $schema;
     private $phpviewDirectory;
 
-    public function __construct(User $user, Schema $schema, Directory $phpviewDirectory)
+    public function __construct(callable $user, Schema $schema, Directory $phpviewDirectory)
     {
-        $this->user = $user;
+        $this->user = $user();
         $this->schema = $schema;
         $this->phpviewDirectory = $phpviewDirectory;
     }

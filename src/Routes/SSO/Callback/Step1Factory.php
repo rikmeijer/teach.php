@@ -8,14 +8,14 @@ use pulledbits\Router\RouteEndPoint;
 
 class Step1Factory implements RouteEndPoint
 {
-    private $session;
+    private $sessionToken;
     private $server;
     private $oauthToken;
     private $oauthVerifier;
 
-    public function __construct(Session $session, Web $server, string $oauthToken, string $oauthVerifier)
+    public function __construct(Session $sessionToken, Web $server, string $oauthToken, string $oauthVerifier)
     {
-        $this->session = $session;
+        $this->sessionToken = $sessionToken;
         $this->server = $server;
         $this->oauthToken = $oauthToken;
         $this->oauthVerifier = $oauthVerifier;
@@ -23,12 +23,14 @@ class Step1Factory implements RouteEndPoint
 
     public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
     {
-        $temporaryCredentialsSerialized = $this->session->getSegment('token')->get('temporary_credentials');
+        $temporaryCredentialsSerialized = $this->sessionToken->get('temporary_credentials');
+        syslog(LOG_DEBUG, 'Temporary credentials (before retrieving actual token): ' . var_export($temporaryCredentialsSerialized, true));
         if ($temporaryCredentialsSerialized !== null) {
             $temporaryCredentials = unserialize($temporaryCredentialsSerialized);
             $tokenCredentials = $this->server->getTokenCredentials($temporaryCredentials, $this->oauthToken, $this->oauthVerifier);
-            $this->session->getSegment('token')->set('temporary_credentials', null);
-            $this->session->getSegment('token')->set('credentials', serialize($tokenCredentials));
+            syslog(LOG_DEBUG, 'Credentials: ' . var_export($tokenCredentials, true));
+            $this->sessionToken->set('temporary_credentials', null);
+            $this->sessionToken->set('credentials', serialize($tokenCredentials));
         }
         return $psrResponseFactory->makeWithHeaders(303, ['Location' => '/'], '');
     }

@@ -25,12 +25,12 @@ return new class {
     public function handle() : RouteEndPoint
     {
         $session = $this->resources->session();
-        $user = $this->resources->userForToken($this->resources->token());
+        $user = $this->resources->userForToken();
         $schema = $this->resources->schema();
         $phpviewDirectory = $this->resources->phpviewDirectory('');
 
         $router = $this->bootstrap->router([
-            new Routes\Feedback\SupplyFactoryFactory($this->resources),
+            new Routes\Feedback\SupplyFactoryFactory($schema, $this->resources->assets(), $this->resources->phpviewDirectory('feedback'), $session),
             new Routes\FeedbackFactoryFactory($this->resources),
             new Routes\RatingFactoryFactory($this->resources),
             new Routes\Contactmoment\ImportFactoryFactory($this->resources),

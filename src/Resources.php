@@ -1,8 +1,12 @@
 <?php namespace rikmeijer\Teach;
 
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
+use League\Flysystem\FilesystemInterface;
 use League\OAuth1\Client\Credentials\TemporaryCredentials;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use League\OAuth1\Client\Server\User;
+use pulledbits\ActiveRecord\Schema;
 use pulledbits\ActiveRecord\SQL\Connection;
 use pulledbits\View\Directory;
 
@@ -24,6 +28,10 @@ class Resources
         $pdo = new \PDO($config['DB_CONNECTION'] . ':', $config['DB_USERNAME'], $config['DB_PASSWORD'], array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
         $connection = new Connection($pdo);
         return $connection->schema($config['DB_DATABASE']);
+    }
+
+    public function assets() : FilesystemInterface {
+        return new Filesystem(new Local($this->assetsDirectory()));
     }
 
     private function assetsDirectory()
@@ -112,6 +120,7 @@ class Resources
         $session = $this->session();
         $sessionToken = $session->getSegment('token');
         $temporaryCredentialsSerialized = $sessionToken->get('temporary_credentials');
+        syslog(LOG_DEBUG, 'Temporary credentials: ' . var_export($temporaryCredentialsSerialized, true));
         if ($temporaryCredentialsSerialized === null) {
             $server = $this->sso();
             $temporaryCredentialsSerialized = serialize($server->getTemporaryCredentials());
@@ -125,10 +134,27 @@ class Resources
         $session = $this->session();
         $sessionToken = $session->getSegment('token');
         $tokenCredentialsSerialized = $sessionToken->get('credentials');
-        if ($tokenCredentialsSerialized === null) {
+        syslog(LOG_DEBUG, 'Token credentials: ' . var_export($tokenCredentialsSerialized, true));
+        $server = $this->sso();
+        if (array_key_exists('oauth_token', $_GET) && array_key_exists('oauth_verifier', $_GET)) {
+            $temporaryCredentialsSerialized = $sessionToken->get('temporary_credentials');
+            syslog(LOG_DEBUG, 'Temporary credentials (before retrieving actual token): ' . var_export($temporaryCredentialsSerialized, true));
+            if ($temporaryCredentialsSerialized !== null) {
+                $temporaryCredentials = unserialize($temporaryCredentialsSerialized);
+                $tokenCredentials = $server->getTokenCredentials($temporaryCredentials, $_GET['oauth_token'], $_GET['oauth_verifier']);
+                syslog(LOG_DEBUG, 'Credentials: ' . var_export($tokenCredentials, true));
+                $sessionToken->set('temporary_credentials', null);
+                $sessionToken->set('credentials', serialize($tokenCredentials));
+            }
+            header('Location: /', true, 303);
+            exit;
+
+        } elseif ($tokenCredentialsSerialized === null) {
             $temporaryCredentials = $this->temporaryCredentials();
-            $server = $this->sso();
+
             $url = $server->getAuthorizationUrl($temporaryCredentials);
+
+            syslog(LOG_DEBUG, 'Redirecting user to ' . $url);
             header('Location: '.$url);
             exit;
         }
@@ -136,20 +162,23 @@ class Resources
 
     }
 
-    public function userForToken(TokenCredentials $token) : User
+    public function userForToken() : callable
     {
-        $session = $this->session();
-        $sessionToken = $session->getSegment('token');
+        $resources = $this;
+        return function()  use ($resources) : User {
+            $session = $this->session();
+            $sessionToken = $session->getSegment('token');
 
-        /**
-         * @var $user User
-         */
-        $user = unserialize($sessionToken->get('user'));
-        if (true || !($user instanceof User)) {
-            $server = $this->sso();
-            $user = $server->getUserDetails($token);
-            $sessionToken->set('user', serialize($user));
-        }
-        return $user;
+            /**
+             * @var $user User
+             */
+            $user = unserialize($sessionToken->get('user'));
+            if (true || !($user instanceof User)) {
+                $server = $resources->sso();
+                $user = $server->getUserDetails($resources->token());
+                $sessionToken->set('user', serialize($user));
+            }
+            return $user;
+        };
     }
 }

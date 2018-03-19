@@ -8,19 +8,19 @@ use pulledbits\Router\RouteEndPoint;
 
 class Step2Factory implements RouteEndPoint
 {
-    private $session;
+    private $sessionToken;
     private $server;
 
-    public function __construct(Session $session, Web $server)
+    public function __construct(Session $sessionToken, Web $server)
     {
-        $this->session = $session;
+        $this->sessionToken = $sessionToken;
         $this->server = $server;
     }
 
     public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
     {
         $temporaryCredentials = $this->server->getTemporaryCredentials();
-        $this->session->getSegment('token')->set('temporary_credentials', serialize($temporaryCredentials));
+        $this->sessionToken->set('temporary_credentials', serialize($temporaryCredentials));
         $this->server->authorize($temporaryCredentials);
         exit;
     }
