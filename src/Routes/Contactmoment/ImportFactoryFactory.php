@@ -10,8 +10,9 @@ class ImportFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $resources;
 
-    public function __construct(\rikmeijer\Teach\Resources $resources)
+    public function __construct(callable $user, \rikmeijer\Teach\Resources $resources)
     {
+        $this->user = $user();
         $this->resources = $resources;
     }
 
@@ -22,8 +23,7 @@ class ImportFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request) : RouteEndPoint
     {
-        $user = $this->resources->userForToken($this->resources->token());
-        if ($user->extra['employee'] === false) {
+        if ($this->user->extra['employee'] === false) {
             return ErrorFactory::makeInstance('403');
         }
 
@@ -36,7 +36,7 @@ class ImportFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
             case 'POST':
                 $icalReader = $this->resources->iCalReader($request->getParsedBody()['url']);
                 $schema = $this->resources->schema();
-                return new PostFactory($schema, $viewDirectory->load('imported'), $icalReader, $user);
+                return new PostFactory($schema, $viewDirectory->load('imported'), $icalReader, $this->user);
 
             default:
                 return ErrorFactory::makeInstance('405');

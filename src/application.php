@@ -33,7 +33,7 @@ return new class {
             new Routes\Feedback\SupplyFactoryFactory($schema, $this->resources->assets(), $this->resources->phpviewDirectory('feedback'), $session),
             new Routes\FeedbackFactoryFactory($this->resources),
             new Routes\RatingFactoryFactory($this->resources),
-            new Routes\Contactmoment\ImportFactoryFactory($this->resources),
+            new Routes\Contactmoment\ImportFactoryFactory($user, $this->resources),
             new Routes\QrFactoryFactory($this->resources),
             new Routes\SSO\CallbackFactoryFactory($this->resources),
             new Routes\LogoutFactoryFactory($session),
