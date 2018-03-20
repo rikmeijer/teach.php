@@ -31,7 +31,7 @@ return new class {
 
         $router = $this->bootstrap->router([
             new Routes\Feedback\SupplyFactoryFactory($schema, $this->resources->assets(), $this->resources->phpviewDirectory('feedback'), $session),
-            new Routes\FeedbackFactoryFactory($this->resources),
+            new Routes\FeedbackFactoryFactory($schema, $phpviewDirectory),
             new Routes\RatingFactoryFactory($this->resources),
             new Routes\Contactmoment\ImportFactoryFactory($user, $this->resources),
             new Routes\QrFactoryFactory($this->resources),

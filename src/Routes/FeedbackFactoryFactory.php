@@ -4,17 +4,20 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\ActiveRecord\Record;
+use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
 
 class FeedbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
-    private $resources;
+    private $schema;
+    private $phpviewDirectory;
 
-    public function __construct(\rikmeijer\Teach\Resources $resources)
+    public function __construct(Schema $schema, Directory $phpviewDirectory)
     {
-        $this->resources = $resources;
+        $this->schema = $schema;
+        $this->phpviewDirectory = $phpviewDirectory;
     }
 
     public function matchUri(UriInterface $uri): bool
@@ -26,14 +29,12 @@ class FeedbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
     {
         preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getUri()->getPath(), $matches);
 
-        $schema = $this->resources->schema();
-        $phpview = $this->resources->phpview('feedback');
-        $contactmoments = $schema->read('contactmoment', [], ['id' => $matches['contactmomentIdentifier']]);
+        $contactmoments = $this->schema->read('contactmoment', [], ['id' => $matches['contactmomentIdentifier']]);
         if (count($contactmoments) === 0) {
             return ErrorFactory::makeInstance(404);
         }
 
-        return new class($phpview, $contactmoments[0]) implements RouteEndPoint
+        return new class($this->phpviewDirectory->load('feedback'), $contactmoments[0]) implements RouteEndPoint
         {
             private $phpview;
             private $contactmoment;
