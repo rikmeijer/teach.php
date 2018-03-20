@@ -29,8 +29,7 @@ namespace {
 namespace rikmeijer\Teach {
 
     use Aura\Session\Session;
-    use League\OAuth1\Client\Credentials\TokenCredentials;
-    use League\OAuth1\Client\Server\User;
+    use League\OAuth1\Client\Server\Server;
 
     require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
@@ -43,7 +42,8 @@ namespace rikmeijer\Teach {
         public function router(): \pulledbits\Router\Router
         {
             $session = $this->session();
-            $user = $this->userForToken();
+            $server = $this->sso();
+            $user = $this->userForToken($server, $session);
             $schema = $this->schema();
             $assets = $this->assets();
             $phpviewDirectoryFactory = $this->phpviewDirectoryFactory($session);
@@ -54,7 +54,7 @@ namespace rikmeijer\Teach {
                 new Routes\RatingFactoryFactory($schema, $phpviewDirectoryFactory, $assets),
                 new Routes\Contactmoment\ImportFactoryFactory($schema, $this->iCalReader(), $user, $phpviewDirectoryFactory),
                 new Routes\QrFactoryFactory($phpviewDirectoryFactory),
-                new Routes\SSO\CallbackFactoryFactory($session, $this->sso()),
+                new Routes\SSO\CallbackFactoryFactory($session, $server),
                 new Routes\LogoutFactoryFactory($session),
                 new Routes\IndexFactoryFactory($user, $schema, $phpviewDirectoryFactory)
             ]);
@@ -87,49 +87,11 @@ namespace rikmeijer\Teach {
             return new PHPViewDirectoryFactory($session);
         }
 
-        private function authorize() : void
-        {
-            $session = $this->session();
-            $sessionToken = $session->getSegment('token');
-            $temporaryCredentialsSerialized = $sessionToken->get('temporary_credentials');
-            $server = $this->sso();
-            if ($temporaryCredentialsSerialized === null) {
-                $temporaryCredentialsSerialized = serialize($server->getTemporaryCredentials());
-                $this->session()->getSegment('token')->set('temporary_credentials', $temporaryCredentialsSerialized);
-            }
-            $server->authorize(unserialize($temporaryCredentialsSerialized));
-        }
 
-        private function token() : TokenCredentials
+        private function userForToken(Server $server, Session $session) : User
         {
-            $session = $this->session();
-            $sessionToken = $session->getSegment('token');
-            $tokenCredentialsSerialized = $sessionToken->get('credentials');
-            if ($tokenCredentialsSerialized === null) {
-                $this->authorize();
-                exit;
-            }
-            return unserialize($tokenCredentialsSerialized);
-        }
-
-        private function userForToken() : callable
-        {
-            $resources = $this;
-            return function()  use ($resources) : User {
-                $session = $this->session();
-                $sessionToken = $session->getSegment('token');
-
-                /**
-                 * @var $user User
-                 */
-                $user = unserialize($sessionToken->get('user'));
-                if (true || !($user instanceof User)) {
-                    $server = $resources->sso();
-                    $user = $server->getUserDetails($resources->token());
-                    $sessionToken->set('user', serialize($user));
-                }
-                return $user;
-            };
+            require $this->resourcesPath . DIRECTORY_SEPARATOR . 'User.php';
+            return new User($server, $session);
         }
     };
 

@@ -1,10 +1,10 @@
 <?php namespace rikmeijer\Teach\Routes\Contactmoment\Import;
 
-use League\OAuth1\Client\Server\User;
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
+use rikmeijer\Teach\User;
 
 class PostFactory implements RouteEndPoint
 {
@@ -29,7 +29,7 @@ class PostFactory implements RouteEndPoint
             } elseif (array_key_exists('LOCATION', $event) === false) {
                 continue;
             }
-            $this->schema->executeProcedure('import_ical_to_contactmoment', [$this->user->uid, $event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
+            $this->schema->executeProcedure('import_ical_to_contactmoment', [$this->user->getID(), $event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
         }
         $this->schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
         return $psrResponseFactory->makeWithTemplate('201', $this->phpview->prepare([]));
