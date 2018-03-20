@@ -37,8 +37,6 @@ namespace rikmeijer\Teach {
     {
         private $resourcesPath = __DIR__ . DIRECTORY_SEPARATOR . 'resources';
 
-        static $sso;
-
         public function router(): \pulledbits\Router\Router
         {
             $session = $this->session();
