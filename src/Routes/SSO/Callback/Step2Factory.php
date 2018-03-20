@@ -11,7 +11,7 @@ class Step2Factory implements RouteEndPoint
     private $sessionToken;
     private $server;
 
-    public function __construct(Session $sessionToken, Web $server)
+    public function __construct(Segment $sessionToken, Web $server)
     {
         $this->sessionToken = $sessionToken;
         $this->server = $server;

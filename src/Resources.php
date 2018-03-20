@@ -6,7 +6,6 @@ use League\Flysystem\FilesystemInterface;
 use League\OAuth1\Client\Credentials\TemporaryCredentials;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use League\OAuth1\Client\Server\User;
-use pulledbits\ActiveRecord\Schema;
 use pulledbits\ActiveRecord\SQL\Connection;
 use pulledbits\View\Directory;
 
@@ -115,17 +114,17 @@ class Resources
         return new \ICal($uri);
     }
 
-    public function temporaryCredentials() : TemporaryCredentials
+    public function authorize() : void
     {
         $session = $this->session();
         $sessionToken = $session->getSegment('token');
         $temporaryCredentialsSerialized = $sessionToken->get('temporary_credentials');
+        $server = $this->sso();
         if ($temporaryCredentialsSerialized === null) {
-            $server = $this->sso();
             $temporaryCredentialsSerialized = serialize($server->getTemporaryCredentials());
             $this->session()->getSegment('token')->set('temporary_credentials', $temporaryCredentialsSerialized);
         }
-        return unserialize($temporaryCredentialsSerialized);
+        $server->authorize(unserialize($temporaryCredentialsSerialized));
     }
 
     public function token() : TokenCredentials
@@ -133,26 +132,11 @@ class Resources
         $session = $this->session();
         $sessionToken = $session->getSegment('token');
         $tokenCredentialsSerialized = $sessionToken->get('credentials');
-        $server = $this->sso();
-        if (array_key_exists('oauth_token', $_GET) && array_key_exists('oauth_verifier', $_GET)) {
-            $temporaryCredentialsSerialized = $sessionToken->get('temporary_credentials');
-            if ($temporaryCredentialsSerialized !== null) {
-                $temporaryCredentials = unserialize($temporaryCredentialsSerialized);
-                $tokenCredentials = $server->getTokenCredentials($temporaryCredentials, $_GET['oauth_token'], $_GET['oauth_verifier']);
-                $sessionToken->set('temporary_credentials', null);
-                $sessionToken->set('credentials', serialize($tokenCredentials));
-            }
-            header('Location: /', true, 303);
-            exit;
-
-        } elseif ($tokenCredentialsSerialized === null) {
-            $temporaryCredentials = $this->temporaryCredentials();
-            $url = $server->getAuthorizationUrl($temporaryCredentials);
-            header('Location: '.$url);
+        if ($tokenCredentialsSerialized === null) {
+            $this->authorize();
             exit;
         }
         return unserialize($tokenCredentialsSerialized);
-
     }
 
     public function userForToken() : callable

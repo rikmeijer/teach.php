@@ -1,5 +1,6 @@
 <?php namespace rikmeijer\Teach\Routes\SSO\Callback;
 
+use Aura\Session\Segment;
 use Aura\Session\Session;
 use Avans\OAuth\Web;
 use Psr\Http\Message\ResponseInterface;
@@ -13,7 +14,7 @@ class Step1Factory implements RouteEndPoint
     private $oauthToken;
     private $oauthVerifier;
 
-    public function __construct(Session $sessionToken, Web $server, string $oauthToken, string $oauthVerifier)
+    public function __construct(Segment $sessionToken, Web $server, string $oauthToken, string $oauthVerifier)
     {
         $this->sessionToken = $sessionToken;
         $this->server = $server;

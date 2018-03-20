@@ -16,7 +16,7 @@ class CallbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
     public function matchUri(UriInterface $uri): bool
     {
-        return (array_key_exists('oauth_token', $_GET) && array_key_exists('oauth_verifier', $_GET)) || preg_match('#^/sso/callback#', $uri->getPath()) === 1;
+        return preg_match('#^/sso/callback#', $uri->getPath()) === 1;
     }
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
@@ -26,7 +26,7 @@ class CallbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
         $queryParams = $request->getQueryParams();
 
-        $sessionToken = $this->session->getSegment('token');
+        $sessionToken = $session->getSegment('token');
         if (array_key_exists('oauth_token', $queryParams) && array_key_exists('oauth_verifier', $queryParams)) {
             return new Step1Factory($sessionToken, $server, $queryParams['oauth_token'], $queryParams['oauth_verifier']);
         } else {
