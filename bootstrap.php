@@ -51,7 +51,7 @@ namespace rikmeijer\Teach {
             return new \pulledbits\Router\Router([
                 new Routes\Feedback\SupplyFactoryFactory($schema, $assets, $this->phpviewDirectory('feedback'), $session),
                 new Routes\FeedbackFactoryFactory($schema, $phpviewDirectory),
-                new Routes\RatingFactoryFactory($schema, $phpviewDirectory, $this->assets()->read('img' . DIRECTORY_SEPARATOR . 'star.png'), $this->assets()->read('img' . DIRECTORY_SEPARATOR . 'unstar.png')),
+                new Routes\RatingFactoryFactory($schema, $phpviewDirectory, $assets),
                 new Routes\Contactmoment\ImportFactoryFactory($schema, $this->iCalReader(), $user, $this->phpviewDirectory('contactmoment')),
                 new Routes\QrFactoryFactory($phpviewDirectory),
                 new Routes\SSO\CallbackFactoryFactory($session, $this->sso()),

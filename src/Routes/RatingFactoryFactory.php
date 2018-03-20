@@ -1,5 +1,6 @@
 <?php namespace rikmeijer\Teach\Routes;
 
+use League\Flysystem\FilesystemInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\ActiveRecord\Schema;
@@ -11,15 +12,13 @@ class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $schema;
     private $phpviewDirectory;
-    private $star;
-    private $unstar;
+    private $assets;
 
-    public function __construct(Schema $schema, Directory $phpviewDirectory, string $star, string $unstar)
+    public function __construct(Schema $schema, Directory $phpviewDirectory, FilesystemInterface $assets)
     {
         $this->schema = $schema;
         $this->phpviewDirectory = $phpviewDirectory;
-        $this->star = $star;
-        $this->unstar = $unstar;
+        $this->assets = $assets;
     }
 
 
@@ -41,8 +40,9 @@ class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
             $ratingwaarde = $contactmomentratings[0]->waarde;
         }
 
-        $assets = ['star' => $this->star, 'unstar' => $this->unstar];
-
-        return new Factory($this->phpviewDirectory->load('rating'), $ratingwaarde, $assets);
+        return new Factory($this->phpviewDirectory->load('rating'), $ratingwaarde, [
+            'star' => $this->assets->read('img' . DIRECTORY_SEPARATOR . 'star.png'),
+            'unstar' => $this->assets->read('img' . DIRECTORY_SEPARATOR . 'unstar.png')
+        ]);
     }
 }
