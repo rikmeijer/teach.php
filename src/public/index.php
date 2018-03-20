@@ -1,7 +1,7 @@
 <?php
 
 $bootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'application.php';
-$routeEndPoint = $bootstrap->handle();
+$routeEndPoint = $bootstrap->handle(\GuzzleHttp\Psr7\ServerRequest::fromGlobals());
 
 $response = $routeEndPoint->respond(new class implements \pulledbits\Router\ResponseFactory {
 

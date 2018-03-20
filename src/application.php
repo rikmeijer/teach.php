@@ -16,10 +16,9 @@ return new class {
         $this->bootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
     }
 
-    public function handle() : RouteEndPoint
+    public function handle(\Psr\Http\Message\ServerRequestInterface $request) : RouteEndPoint
     {
-        $resources = $this->bootstrap->resources();
-        $router = $this->bootstrap->router($resources->routes());
-        return $router->route($this->bootstrap->request());
+        $router = $this->bootstrap->router();
+        return $router->route($request);
     }
 };

@@ -29,22 +29,20 @@ namespace rikmeijer\Teach {
 
     require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-    return new class implements Bootstrap
+    class Bootstrap
     {
         static $resources;
 
-        public function router(array $routes): \pulledbits\Router\Router
+        public function router(): \pulledbits\Router\Router
         {
-            return new \pulledbits\Router\Router($routes);
+            $resources = $this->resources();
+            return new \pulledbits\Router\Router($resources->routes());
         }
 
         public function resources() : Resources {
             return new Resources(__DIR__ . DIRECTORY_SEPARATOR . 'resources');
         }
-
-        public function request(): \Psr\Http\Message\ServerRequestInterface
-        {
-            return \GuzzleHttp\Psr7\ServerRequest::fromGlobals();
-        }
     };
+
+    return new Bootstrap();
 }
