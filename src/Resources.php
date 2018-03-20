@@ -120,7 +120,6 @@ class Resources
         $session = $this->session();
         $sessionToken = $session->getSegment('token');
         $temporaryCredentialsSerialized = $sessionToken->get('temporary_credentials');
-        syslog(LOG_DEBUG, 'Temporary credentials: ' . var_export($temporaryCredentialsSerialized, true));
         if ($temporaryCredentialsSerialized === null) {
             $server = $this->sso();
             $temporaryCredentialsSerialized = serialize($server->getTemporaryCredentials());
@@ -134,15 +133,12 @@ class Resources
         $session = $this->session();
         $sessionToken = $session->getSegment('token');
         $tokenCredentialsSerialized = $sessionToken->get('credentials');
-        syslog(LOG_DEBUG, 'Token credentials: ' . var_export($tokenCredentialsSerialized, true));
         $server = $this->sso();
         if (array_key_exists('oauth_token', $_GET) && array_key_exists('oauth_verifier', $_GET)) {
             $temporaryCredentialsSerialized = $sessionToken->get('temporary_credentials');
-            syslog(LOG_DEBUG, 'Temporary credentials (before retrieving actual token): ' . var_export($temporaryCredentialsSerialized, true));
             if ($temporaryCredentialsSerialized !== null) {
                 $temporaryCredentials = unserialize($temporaryCredentialsSerialized);
                 $tokenCredentials = $server->getTokenCredentials($temporaryCredentials, $_GET['oauth_token'], $_GET['oauth_verifier']);
-                syslog(LOG_DEBUG, 'Credentials: ' . var_export($tokenCredentials, true));
                 $sessionToken->set('temporary_credentials', null);
                 $sessionToken->set('credentials', serialize($tokenCredentials));
             }
@@ -151,10 +147,7 @@ class Resources
 
         } elseif ($tokenCredentialsSerialized === null) {
             $temporaryCredentials = $this->temporaryCredentials();
-
             $url = $server->getAuthorizationUrl($temporaryCredentials);
-
-            syslog(LOG_DEBUG, 'Redirecting user to ' . $url);
             header('Location: '.$url);
             exit;
         }

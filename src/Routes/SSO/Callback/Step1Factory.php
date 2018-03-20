@@ -24,11 +24,9 @@ class Step1Factory implements RouteEndPoint
     public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
     {
         $temporaryCredentialsSerialized = $this->sessionToken->get('temporary_credentials');
-        syslog(LOG_DEBUG, 'Temporary credentials (before retrieving actual token): ' . var_export($temporaryCredentialsSerialized, true));
         if ($temporaryCredentialsSerialized !== null) {
             $temporaryCredentials = unserialize($temporaryCredentialsSerialized);
             $tokenCredentials = $this->server->getTokenCredentials($temporaryCredentials, $this->oauthToken, $this->oauthVerifier);
-            syslog(LOG_DEBUG, 'Credentials: ' . var_export($tokenCredentials, true));
             $this->sessionToken->set('temporary_credentials', null);
             $this->sessionToken->set('credentials', serialize($tokenCredentials));
         }
