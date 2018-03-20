@@ -4,15 +4,16 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\Router\RouteEndPointFactory;
+use pulledbits\View\Directory;
 use rikmeijer\Teach\Routes\Qr\Factory;
 
 class QrFactoryFactory implements RouteEndPointFactory
 {
-    private $resources;
+    private $phpviewDirectory;
 
-    public function __construct(\rikmeijer\Teach\Resources $resources)
+    public function __construct(Directory $phpviewDirectory)
     {
-        $this->resources = $resources;
+        $this->phpviewDirectory = $phpviewDirectory;
     }
 
 
@@ -24,6 +25,6 @@ class QrFactoryFactory implements RouteEndPointFactory
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         $query = $request->getQueryParams();
-        return new Factory($this->resources->phpview('qr'), $query);
+        return new Factory($this->phpviewDirectory->load('qr'), $query);
     }
 }

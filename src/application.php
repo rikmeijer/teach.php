@@ -32,10 +32,10 @@ return new class {
         $router = $this->bootstrap->router([
             new Routes\Feedback\SupplyFactoryFactory($schema, $this->resources->assets(), $this->resources->phpviewDirectory('feedback'), $session),
             new Routes\FeedbackFactoryFactory($schema, $phpviewDirectory),
-            new Routes\RatingFactoryFactory($this->resources),
-            new Routes\Contactmoment\ImportFactoryFactory($user, $this->resources),
-            new Routes\QrFactoryFactory($this->resources),
-            new Routes\SSO\CallbackFactoryFactory($this->resources),
+            new Routes\RatingFactoryFactory($schema, $phpviewDirectory, $this->resources->readAssetStar(), $this->resources->readAssetUnstar()),
+            new Routes\Contactmoment\ImportFactoryFactory($schema, $this->resources->iCalReaderFactory(), $user, $this->resources->phpviewDirectory('contactmoment')),
+            new Routes\QrFactoryFactory($phpviewDirectory),
+            new Routes\SSO\CallbackFactoryFactory($session, $this->resources->sso()),
             new Routes\LogoutFactoryFactory($session),
             new Routes\IndexFactoryFactory($user, $schema, $phpviewDirectory)
         ]);

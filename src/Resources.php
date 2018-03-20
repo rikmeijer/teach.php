@@ -109,9 +109,11 @@ class Resources
         return $directory->load($templateIdentifier);
     }
 
-    public function iCalReader(string $uri): \ICal
+    public function iCalReaderFactory(): callable
     {
-        return new \ICal($uri);
+        return function (string $uri) : \ICal {
+            return new \ICal($uri);
+        };
     }
 
     public function authorize() : void

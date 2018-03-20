@@ -8,6 +8,7 @@ use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
+use pulledbits\View\Directory;
 
 class FeedbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {

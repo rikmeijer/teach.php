@@ -2,19 +2,25 @@
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
+use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\RouteEndPoint;
+use pulledbits\View\Directory;
 use rikmeijer\Teach\Routes\Contactmoment\Import\GetFactory;
 use rikmeijer\Teach\Routes\Contactmoment\Import\PostFactory;
 
 class ImportFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
+    private $schema;
+    private $icalReaderFactory;
     private $userCallback;
-    private $resources;
+    private $phpviewDirectory;
 
-    public function __construct(callable $userCallback, \rikmeijer\Teach\Resources $resources)
+    public function __construct(Schema $schema, callable $icalReaderFactory, callable $userCallback, Directory $phpviewDirectory)
     {
+        $this->schema = $schema;
+        $this->icalReaderFactory = $icalReaderFactory;
         $this->userCallback = $userCallback;
-        $this->resources = $resources;
+        $this->phpviewDirectory = $phpviewDirectory;
     }
 
     public function matchUri(UriInterface $uri): bool
@@ -29,16 +35,13 @@ class ImportFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
             return ErrorFactory::makeInstance('403');
         }
 
-        $viewDirectory = $this->resources->phpviewDirectory('contactmoment');
-
         switch ($request->getMethod()) {
             case 'GET':
-                return new GetFactory($viewDirectory->load('import'));
+                return new GetFactory($this->phpviewDirectory->load('import'));
 
             case 'POST':
-                $icalReader = $this->resources->iCalReader($request->getParsedBody()['url']);
-                $schema = $this->resources->schema();
-                return new PostFactory($schema, $viewDirectory->load('imported'), $icalReader, $user);
+                $icalReader = call_user_func($this->icalReaderFactory, $request->getParsedBody()['url']);
+                return new PostFactory($this->schema, $this->phpviewDirectory->load('imported'), $icalReader, $user);
 
             default:
                 return ErrorFactory::makeInstance('405');

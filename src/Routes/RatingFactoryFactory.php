@@ -2,16 +2,24 @@
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
+use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\RouteEndPoint;
+use pulledbits\View\Directory;
 use rikmeijer\Teach\Routes\Rating\Factory;
 
 class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
-    private $resources;
+    private $schema;
+    private $phpviewDirectory;
+    private $star;
+    private $unstar;
 
-    public function __construct(\rikmeijer\Teach\Resources $resources)
+    public function __construct(Schema $schema, Directory $phpviewDirectory, string $star, string $unstar)
     {
-        $this->resources = $resources;
+        $this->schema = $schema;
+        $this->phpviewDirectory = $phpviewDirectory;
+        $this->star = $star;
+        $this->unstar = $unstar;
     }
 
 
@@ -24,7 +32,7 @@ class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
     {
         preg_match('#^/rating/(?<contactmomentIdentifier>\d+)#', $request->getURI()->getPath(), $matches);
 
-        $contactmomentratings = $this->resources->schema()->read('contactmomentrating', [], ['contactmoment_id' => $matches['contactmomentIdentifier']]);
+        $contactmomentratings = $this->schema->read('contactmomentrating', [], ['contactmoment_id' => $matches['contactmomentIdentifier']]);
         if (count($contactmomentratings) === 0) {
             $ratingwaarde = 0;
         } elseif ($contactmomentratings[0]->waarde === null) {
@@ -33,8 +41,8 @@ class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
             $ratingwaarde = $contactmomentratings[0]->waarde;
         }
 
-        $assets = ['star' => $this->resources->readAssetStar(), 'unstar' => $this->resources->readAssetUnstar()];
+        $assets = ['star' => $this->star, 'unstar' => $this->unstar];
 
-        return new Factory($this->resources->phpview('rating'), $ratingwaarde, $assets);
+        return new Factory($this->phpviewDirectory->load('rating'), $ratingwaarde, $assets);
     }
 }
