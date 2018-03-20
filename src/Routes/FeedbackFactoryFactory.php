@@ -8,17 +8,17 @@ use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
-use pulledbits\View\Directory;
+use rikmeijer\Teach\PHPViewDirectoryFactory;
 
 class FeedbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $schema;
     private $phpviewDirectory;
 
-    public function __construct(Schema $schema, Directory $phpviewDirectory)
+    public function __construct(Schema $schema, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
         $this->schema = $schema;
-        $this->phpviewDirectory = $phpviewDirectory;
+        $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
     }
 
     public function matchUri(UriInterface $uri): bool

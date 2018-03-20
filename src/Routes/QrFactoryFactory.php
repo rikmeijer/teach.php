@@ -4,16 +4,16 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\Router\RouteEndPointFactory;
-use pulledbits\View\Directory;
+use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\Routes\Qr\Factory;
 
 class QrFactoryFactory implements RouteEndPointFactory
 {
     private $phpviewDirectory;
 
-    public function __construct(Directory $phpviewDirectory)
+    public function __construct(PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
-        $this->phpviewDirectory = $phpviewDirectory;
+        $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
     }
 
 

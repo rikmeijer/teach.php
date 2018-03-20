@@ -8,6 +8,7 @@ use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\View\Directory;
+use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\Routes\Feedback\Supply\PostFactory;
 use rikmeijer\Teach\Routes\Feedback\Supply\GetFactory;
 
@@ -18,11 +19,11 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
     private $phpviewDirectory;
     private $session;
 
-    public function __construct(Schema $schema, FilesystemInterface $filesystem, Directory $phpviewDirectory, Session $session)
+    public function __construct(Schema $schema, FilesystemInterface $filesystem, PHPViewDirectoryFactory $phpviewDirectoryFactory, Session $session)
     {
         $this->schema = $schema;
         $this->filesystem = $filesystem;
-        $this->phpviewDirectory = $phpviewDirectory;
+        $this->phpviewDirectory = $phpviewDirectoryFactory->make('feedback');
         $this->session = $session;
     }
 

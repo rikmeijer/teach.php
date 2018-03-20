@@ -4,7 +4,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\RouteEndPoint;
-use pulledbits\View\Directory;
+use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\Routes\Contactmoment\Import\GetFactory;
 use rikmeijer\Teach\Routes\Contactmoment\Import\PostFactory;
 
@@ -15,12 +15,12 @@ class ImportFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
     private $userCallback;
     private $phpviewDirectory;
 
-    public function __construct(Schema $schema, \ICal $icalReader, callable $userCallback, Directory $phpviewDirectory)
+    public function __construct(Schema $schema, \ICal $icalReader, callable $userCallback, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
         $this->schema = $schema;
         $this->icalReader = $icalReader;
         $this->userCallback = $userCallback;
-        $this->phpviewDirectory = $phpviewDirectory;
+        $this->phpviewDirectory = $phpviewDirectoryFactory->make('contactmoment');
     }
 
     public function matchUri(UriInterface $uri): bool

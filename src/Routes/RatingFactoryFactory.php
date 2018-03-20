@@ -5,7 +5,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\RouteEndPoint;
-use pulledbits\View\Directory;
+use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\Routes\Rating\Factory;
 
 class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
@@ -14,10 +14,10 @@ class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
     private $phpviewDirectory;
     private $assets;
 
-    public function __construct(Schema $schema, Directory $phpviewDirectory, FilesystemInterface $assets)
+    public function __construct(Schema $schema, PHPViewDirectoryFactory $phpviewDirectoryFactory, FilesystemInterface $assets)
     {
         $this->schema = $schema;
-        $this->phpviewDirectory = $phpviewDirectory;
+        $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
         $this->assets = $assets;
     }
 

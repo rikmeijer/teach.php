@@ -28,9 +28,9 @@ namespace {
 
 namespace rikmeijer\Teach {
 
+    use Aura\Session\Session;
     use League\OAuth1\Client\Credentials\TokenCredentials;
     use League\OAuth1\Client\Server\User;
-    use pulledbits\View\Directory;
 
     require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
@@ -46,17 +46,17 @@ namespace rikmeijer\Teach {
             $user = $this->userForToken();
             $schema = $this->schema();
             $assets = $this->assets();
-            $phpviewDirectory = $this->phpviewDirectory('');
+            $phpviewDirectoryFactory = $this->phpviewDirectoryFactory($session);
 
             return new \pulledbits\Router\Router([
-                new Routes\Feedback\SupplyFactoryFactory($schema, $assets, $this->phpviewDirectory('feedback'), $session),
-                new Routes\FeedbackFactoryFactory($schema, $phpviewDirectory),
-                new Routes\RatingFactoryFactory($schema, $phpviewDirectory, $assets),
-                new Routes\Contactmoment\ImportFactoryFactory($schema, $this->iCalReader(), $user, $this->phpviewDirectory('contactmoment')),
-                new Routes\QrFactoryFactory($phpviewDirectory),
+                new Routes\Feedback\SupplyFactoryFactory($schema, $assets, $phpviewDirectoryFactory, $session),
+                new Routes\FeedbackFactoryFactory($schema, $phpviewDirectoryFactory),
+                new Routes\RatingFactoryFactory($schema, $phpviewDirectoryFactory, $assets),
+                new Routes\Contactmoment\ImportFactoryFactory($schema, $this->iCalReader(), $user, $phpviewDirectoryFactory),
+                new Routes\QrFactoryFactory($phpviewDirectoryFactory),
                 new Routes\SSO\CallbackFactoryFactory($session, $this->sso()),
                 new Routes\LogoutFactoryFactory($session),
-                new Routes\IndexFactoryFactory($user, $schema, $phpviewDirectory)
+                new Routes\IndexFactoryFactory($user, $schema, $phpviewDirectoryFactory)
             ]);
         }
 
@@ -82,42 +82,9 @@ namespace rikmeijer\Teach {
             return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'ical.php';
         }
 
-        private function phpviewDirectory(string $templatesDirectory) {
-            $directory = new Directory($this->resourcesPath . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . $templatesDirectory, $this->resourcesPath . DIRECTORY_SEPARATOR . 'layouts');
-
-            $directory->registerHelper('url', function (string $path, string ...$unencoded): string {
-                $encoded = array_map('rawurlencode', $unencoded);
-                if (strpos($path, '.') === 0) {
-                    $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) . '/' . $path;
-                }
-
-                $path = sprintf(get_absolute_path($path), ...$encoded);
-                if (strpos($path, '?') === false) {
-                    $query = '';
-                } else {
-                    list($path, $query) = explode('?', $path, 2);
-                }
-                return (string)\GuzzleHttp\Psr7\ServerRequest::getUriFromGlobals()->withPath($path)->withQuery($query);
-            });
-
-            $session = $this->session();
-            $directory->registerHelper('form', function (string $method, string $submitValue, string $model) use ($session) : void {
-                ?>
-                <form method="<?= $this->escape($method); ?>">
-                    <input type="hidden" name="__csrf_value" value="<?= $this->escape($session->getCsrfToken()->getValue()); ?>"/>
-                    <?= $model; ?>
-                    <input type="submit" value="<?= $this->escape($submitValue); ?>"/>
-                </form>
-                <?php
-            });
-            $directory->registerHelper('qr', function(int $width, int $height, string $data) : void {
-                $renderer = new \BaconQrCode\Renderer\Image\Png();
-                $renderer->setHeight($width);
-                $renderer->setWidth($height);
-                $writer = new \BaconQrCode\Writer($renderer);
-                print $writer->writeString($data);
-            });
-            return $directory;
+        private function phpviewDirectoryFactory(Session $session) : PHPViewDirectoryFactory {
+            require $this->resourcesPath . DIRECTORY_SEPARATOR . 'phpview.php';
+            return new PHPViewDirectoryFactory($session);
         }
 
         private function authorize() : void

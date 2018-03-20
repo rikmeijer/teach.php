@@ -1,12 +1,11 @@
 <?php namespace rikmeijer\Teach\Routes;
 
-use League\OAuth1\Client\Server\User;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
-use pulledbits\View\Directory;
+use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\Routes\Index\Factory;
 
 class IndexFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
@@ -15,11 +14,11 @@ class IndexFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
     private $schema;
     private $phpviewDirectory;
 
-    public function __construct(callable $userCallback, Schema $schema, Directory $phpviewDirectory)
+    public function __construct(callable $userCallback, Schema $schema, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
         $this->userCallback = $userCallback;
         $this->schema = $schema;
-        $this->phpviewDirectory = $phpviewDirectory;
+        $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
     }
 
     public function matchUri(UriInterface $uri): bool
