@@ -45,13 +45,6 @@ class PHPViewDirectoryFactory
             </form>
             <?php
         });
-        $directory->registerHelper('qr', function (int $width, int $height, string $data): void {
-            $renderer = new \BaconQrCode\Renderer\Image\Png();
-            $renderer->setHeight($width);
-            $renderer->setWidth($height);
-            $writer = new \BaconQrCode\Writer($renderer);
-            print $writer->writeString($data);
-        });
         return $directory;
     }
 }

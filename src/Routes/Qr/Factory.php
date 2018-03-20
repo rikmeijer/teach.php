@@ -17,11 +17,20 @@ class Factory implements RouteEndPoint
 
     public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
     {
+
         if (array_key_exists('data', $this->query) === false) {
             return $psrResponseFactory->make('400', 'Query incomplete');
         } elseif ($this->query['data'] === null) {
             return $psrResponseFactory->make('400', 'Query data incomplete');
         } else {
+            $this->phpview->registerHelper('qr', function (int $width, int $height, string $data): void {
+                $renderer = new \BaconQrCode\Renderer\Image\Png();
+                $renderer->setHeight($width);
+                $renderer->setWidth($height);
+                $writer = new \BaconQrCode\Writer($renderer);
+                print $writer->writeString($data);
+            });
+
             return $psrResponseFactory->makeWithTemplate('200', $this->phpview->prepare(['data' => $this->query['data']]));
         }
     }
