@@ -11,14 +11,14 @@ use rikmeijer\Teach\Routes\Contactmoment\Import\PostFactory;
 class ImportFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $schema;
-    private $icalReaderFactory;
+    private $icalReader;
     private $userCallback;
     private $phpviewDirectory;
 
-    public function __construct(Schema $schema, callable $icalReaderFactory, callable $userCallback, Directory $phpviewDirectory)
+    public function __construct(Schema $schema, \ICal $icalReader, callable $userCallback, Directory $phpviewDirectory)
     {
         $this->schema = $schema;
-        $this->icalReaderFactory = $icalReaderFactory;
+        $this->icalReader = $icalReader;
         $this->userCallback = $userCallback;
         $this->phpviewDirectory = $phpviewDirectory;
     }
@@ -40,8 +40,8 @@ class ImportFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
                 return new GetFactory($this->phpviewDirectory->load('import'));
 
             case 'POST':
-                $icalReader = call_user_func($this->icalReaderFactory, $request->getParsedBody()['url']);
-                return new PostFactory($this->schema, $this->phpviewDirectory->load('imported'), $icalReader, $user);
+                $this->icalReader->initURL($request->getParsedBody()['url']);
+                return new PostFactory($this->schema, $this->phpviewDirectory->load('imported'), $this->icalReader, $user);
 
             default:
                 return ErrorFactory::makeInstance('405');

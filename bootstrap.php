@@ -52,7 +52,7 @@ namespace rikmeijer\Teach {
                 new Routes\Feedback\SupplyFactoryFactory($schema, $assets, $this->phpviewDirectory('feedback'), $session),
                 new Routes\FeedbackFactoryFactory($schema, $phpviewDirectory),
                 new Routes\RatingFactoryFactory($schema, $phpviewDirectory, $this->assets()->read('img' . DIRECTORY_SEPARATOR . 'star.png'), $this->assets()->read('img' . DIRECTORY_SEPARATOR . 'unstar.png')),
-                new Routes\Contactmoment\ImportFactoryFactory($schema, $this->iCalReaderFactory(), $user, $this->phpviewDirectory('contactmoment')),
+                new Routes\Contactmoment\ImportFactoryFactory($schema, $this->iCalReader(), $user, $this->phpviewDirectory('contactmoment')),
                 new Routes\QrFactoryFactory($phpviewDirectory),
                 new Routes\SSO\CallbackFactoryFactory($session, $this->sso()),
                 new Routes\LogoutFactoryFactory($session),
@@ -75,6 +75,11 @@ namespace rikmeijer\Teach {
         private function sso(): \Avans\OAuth\Web
         {
             return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'sso.php';
+        }
+
+        private function iCalReader(): \ICal
+        {
+            return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'ical.php';
         }
 
         private function phpviewDirectory(string $templatesDirectory) {
@@ -113,13 +118,6 @@ namespace rikmeijer\Teach {
                 print $writer->writeString($data);
             });
             return $directory;
-        }
-
-        private function iCalReaderFactory(): callable
-        {
-            return function (string $uri) : \ICal {
-                return new \ICal($uri);
-            };
         }
 
         private function authorize() : void
