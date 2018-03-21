@@ -2,26 +2,25 @@
 
 namespace rikmeijer\Teach;
 
-use Aura\Session\Session;
+use Aura\Session\Segment;
 use League\OAuth1\Client\Server\Server;
 
 class User
 {
+    private $server;
+    private $sessionToken;
 
-    private $details;
-
-    public function __construct(Server $server, Session $session)
+    public function __construct(Server $server, Segment $sessionToken)
     {
         $this->server = $server;
-        $this->session = $session;
+        $this->sessionToken = $sessionToken;
     }
 
     private function details(): \League\OAuth1\Client\Server\User
     {
-        $sessionToken = $this->session->getSegment('token');
-        $details = unserialize($sessionToken->get('user'));
+        $details = unserialize($this->sessionToken->get('user'));
         if (!($details instanceof \League\OAuth1\Client\Server\User)) {
-            $tokenCredentialsSerialized = $sessionToken->get('credentials');
+            $tokenCredentialsSerialized = $this->sessionToken->get('credentials');
             if ($tokenCredentialsSerialized === null) {
                 $this->authorize();
                 exit;
@@ -29,7 +28,7 @@ class User
             $token = unserialize($tokenCredentialsSerialized);
 
             $details = $this->server->getUserDetails($token);
-            $sessionToken->set('user', serialize($this->details));
+            $this->sessionToken->set('user', serialize($this->details));
         }
         return $details;
     }
@@ -46,11 +45,10 @@ class User
 
     private function authorize(): void
     {
-        $sessionToken = $this->session->getSegment('token');
-        $temporaryCredentialsSerialized = $sessionToken->get('temporary_credentials');
+        $temporaryCredentialsSerialized = $this->sessionToken->get('temporary_credentials');
         if ($temporaryCredentialsSerialized === null) {
             $temporaryCredentialsSerialized = serialize($this->server->getTemporaryCredentials());
-            $this->session->getSegment('token')->set('temporary_credentials', $temporaryCredentialsSerialized);
+            $this->sessionToken->set('temporary_credentials', $temporaryCredentialsSerialized);
         }
         $this->server->authorize(unserialize($temporaryCredentialsSerialized));
     }

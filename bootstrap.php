@@ -28,9 +28,9 @@ namespace {
 
 namespace rikmeijer\Teach {
 
+    use Aura\Session\Segment;
     use Aura\Session\Session;
     use League\OAuth1\Client\Server\Server;
-    use PhpParser\Node\Scalar\MagicConst\Dir;
 
     require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
@@ -42,7 +42,7 @@ namespace rikmeijer\Teach {
         {
             $session = $this->session();
             $server = $this->sso();
-            $user = $this->userForToken($server, $session);
+            $user = $this->userForToken($server, $session->getSegment('token'));
             $schema = $this->schema();
             $assets = $this->assets();
             $phpviewDirectoryFactory = $this->phpviewDirectoryFactory($session);
@@ -87,10 +87,10 @@ namespace rikmeijer\Teach {
         }
 
 
-        private function userForToken(Server $server, Session $session) : User
+        private function userForToken(Server $server, Segment $sessionToken) : User
         {
             require $this->resourcesPath . DIRECTORY_SEPARATOR . 'User.php';
-            return new User($server, $session);
+            return new User($server, $sessionToken);
         }
     };
 
