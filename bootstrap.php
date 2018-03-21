@@ -35,11 +35,16 @@ namespace rikmeijer\Teach {
 
     class Bootstrap
     {
+        private $container;
         private $resourcesPath = __DIR__ . DIRECTORY_SEPARATOR . 'resources';
+
+        public function __construct() {
+            $this->container = require $this->resourcesPath . DIRECTORY_SEPARATOR . 'di.php';
+        }
 
         public function router(): \pulledbits\Router\Router
         {
-            $session = $this->session();
+            $session = $this->container->get(\Aura\Session\SessionFactory::class)->newInstance($_COOKIE);
             $server = $this->sso();
             $user = $this->userForToken($server, $session);
             $schema = $this->schema();
@@ -64,10 +69,6 @@ namespace rikmeijer\Teach {
 
         private function assets() : \League\Flysystem\FilesystemInterface {
             return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'assets.php';
-        }
-
-        private function session(): \Aura\Session\Session {
-            return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'session.php';
         }
 
         private function sso(): \Avans\OAuth\Web
