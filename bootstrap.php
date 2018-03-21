@@ -30,7 +30,6 @@ namespace rikmeijer\Teach {
 
     use Aura\Session\Segment;
     use Aura\Session\Session;
-    use League\OAuth1\Client\Server\Server;
 
     require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
