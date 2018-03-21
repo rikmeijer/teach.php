@@ -44,7 +44,7 @@ class User
         return $this->details()->uid;
     }
 
-    private function authorize(): void
+    private function authorize(Server $server, Session $session): void
     {
         $sessionToken = $this->session->getSegment('token');
         $temporaryCredentialsSerialized = $sessionToken->get('temporary_credentials');

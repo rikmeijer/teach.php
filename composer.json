@@ -15,8 +15,7 @@
 		"doctrine/migrations": "^1.5",
 		"pulledbits/activerecord": "~1",
 		"pulledbits/router": "~3",
-		"league/flysystem": "^1.0",
-		"php-di/php-di": "^6.0"
+		"league/flysystem": "^1.0"
 	},
 	"require-dev" : {
 		"phpunit/phpunit" : "~6"
