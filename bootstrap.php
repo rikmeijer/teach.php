@@ -30,6 +30,7 @@ namespace rikmeijer\Teach {
 
     use Aura\Session\Session;
     use League\OAuth1\Client\Server\Server;
+    use PhpParser\Node\Scalar\MagicConst\Dir;
 
     require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
@@ -59,29 +60,29 @@ namespace rikmeijer\Teach {
         }
 
         private function schema(): \pulledbits\ActiveRecord\Schema {
-            return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'connection.php';
+            return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'bootstrap.php';
         }
 
         private function assets() : \League\Flysystem\FilesystemInterface {
-            return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'assets.php';
+            return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'bootstrap.php';
         }
 
         private function session(): \Aura\Session\Session {
-            return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'session.php';
+            return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'session' . DIRECTORY_SEPARATOR . 'bootstrap.php';
         }
 
         private function sso(): \Avans\OAuth\Web
         {
-            return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'sso.php';
+            return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'sso' . DIRECTORY_SEPARATOR . 'bootstrap.php';
         }
 
         private function iCalReader(): \ICal
         {
-            return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'ical.php';
+            return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'ical' . DIRECTORY_SEPARATOR . 'bootstrap.php';
         }
 
         private function phpviewDirectoryFactory(Session $session) : PHPViewDirectoryFactory {
-            require $this->resourcesPath . DIRECTORY_SEPARATOR . 'phpview.php';
+            require $this->resourcesPath . DIRECTORY_SEPARATOR . 'phpview' . DIRECTORY_SEPARATOR . 'bootstrap.php';
             return new PHPViewDirectoryFactory($session);
         }
 

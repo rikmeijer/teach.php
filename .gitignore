@@ -66,4 +66,4 @@ Homestead.yaml
 Homestead.json
 .env
 resources/config.php
-resources/sso.php
+resources/sso/bootstrap.php
