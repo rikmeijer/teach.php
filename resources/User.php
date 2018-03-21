@@ -10,7 +10,7 @@ class User
     private $server;
     private $sessionToken;
 
-    public function __construct(Server $server, Segment $sessionToken)
+    public function __construct(\Avans\OAuth\Web $server, Segment $sessionToken)
     {
         $this->server = $server;
         $this->sessionToken = $sessionToken;

@@ -87,7 +87,7 @@ namespace rikmeijer\Teach {
         }
 
 
-        private function userForToken(Server $server, Segment $sessionToken) : User
+        private function userForToken(\Avans\OAuth\Web $server, Segment $sessionToken) : User
         {
             require $this->resourcesPath . DIRECTORY_SEPARATOR . 'User.php';
             return new User($server, $sessionToken);
