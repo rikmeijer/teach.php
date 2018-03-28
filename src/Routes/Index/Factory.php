@@ -23,8 +23,11 @@ class Factory implements RouteEndPoint
     {
         $modules = [];
         foreach ($this->schema->read('module', [], []) as $module) {
-            $module->contains(['contactmomenten' => $this->user->retrieveModulecontactmomenten($module->id)]);
-            $modules[] = $module;
+            $modulecontactmomenten = $this->user->retrieveModulecontactmomenten($module->id);
+            if (count($modulecontactmomenten) > 0) {
+                $module->contains(['contactmomenten' => $modulecontactmomenten]);
+                $modules[] = $module;
+            }
         }
 
         return $psrResponseFactory->makeWithTemplate('200', $this->phpview->prepare([
