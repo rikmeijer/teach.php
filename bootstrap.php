@@ -55,7 +55,7 @@ namespace rikmeijer\Teach {
                 new Routes\QrFactoryFactory($phpviewDirectoryFactory),
                 new Routes\SSO\CallbackFactoryFactory($session, $server),
                 new Routes\LogoutFactoryFactory($session),
-                new Routes\IndexFactoryFactory($user, $schema, $phpviewDirectoryFactory)
+                new Routes\IndexFactoryFactory($user, $phpviewDirectoryFactory)
             ]);
         }
 

@@ -70,9 +70,17 @@ class User
         $this->server->authorize(unserialize($temporaryCredentialsSerialized));
     }
 
-    public function retrieveModulecontactmomenten(string $moduleIdentifier) : array
+    public function retrieveModules() : array
     {
-        return $this->schema->read("contactmoment_module", [], ["module_id" => $moduleIdentifier, "owner" => $this->details()->uid]);
+        $modules = [];
+        foreach ($this->schema->read('module', [], []) as $module) {
+            $modulecontactmomenten = $this->schema->read("contactmoment_module", [], ["module_id" => $module->id, "owner" => $this->details()->uid]);
+            if (count($modulecontactmomenten) > 0) {
+                $module->contains(['contactmomenten' => $modulecontactmomenten]);
+                $modules[] = $module;
+            }
+        }
+        return $modules;
     }
 
     public function retrieveModulecontactmomentenToday()

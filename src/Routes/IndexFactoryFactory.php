@@ -12,13 +12,11 @@ use rikmeijer\Teach\User;
 class IndexFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $user;
-    private $schema;
     private $phpviewDirectory;
 
-    public function __construct(User $user, Schema $schema, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(User $user, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
         $this->user = $user;
-        $this->schema = $schema;
         $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
     }
 
@@ -29,9 +27,6 @@ class IndexFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
-        if ($this->user->isEmployee() === false) {
-            return ErrorFactory::makeInstance('403');
-        }
-        return new Factory($this->schema, $this->user, $this->phpviewDirectory->load('welcome'));
+        return new Factory($this->user, $this->phpviewDirectory->load('welcome'));
     }
 }
