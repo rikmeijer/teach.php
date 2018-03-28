@@ -42,6 +42,21 @@ class User
         return $this->details()->uid;
     }
 
+    public function retrieveCalendarEvents() {
+        $icalReader = new \ICal('http://rooster.avans.nl/gcal/D' . $this->details()->uid);
+        $events = [];
+        foreach ($icalReader->events() as $event) {
+            if (array_key_exists('SUMMARY', $event) === false) {
+                continue;
+            } elseif (array_key_exists('LOCATION', $event) === false) {
+                continue;
+            }
+            $event['USERID'] = $this->details()->uid;
+            $events[] = $event;
+        }
+        return $events;
+    }
+
     private function authorize(): void
     {
         $temporaryCredentialsSerialized = $this->sessionToken->get('temporary_credentials');

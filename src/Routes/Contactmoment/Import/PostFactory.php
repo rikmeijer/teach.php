@@ -10,26 +10,24 @@ class PostFactory implements RouteEndPoint
 {
     private $schema;
     private $phpview;
-    private $icalReader;
     private $user;
 
-    public function __construct(Schema $schema, \pulledbits\View\Template $phpview, \ICal $icalReader, User $user)
+    public function __construct(Schema $schema, \pulledbits\View\Template $phpview, User $user)
     {
         $this->schema = $schema;
         $this->phpview = $phpview;
-        $this->icalReader = $icalReader;
         $this->user = $user;
     }
 
     public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
     {
-        foreach ($this->icalReader->events() as $event) {
+        foreach ($this->user->retrieveCalendarEvents() as $event) {
             if (array_key_exists('SUMMARY', $event) === false) {
                 continue;
             } elseif (array_key_exists('LOCATION', $event) === false) {
                 continue;
             }
-            $this->schema->executeProcedure('import_ical_to_contactmoment', [$this->user->getID(), $event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
+            $this->schema->executeProcedure('import_ical_to_contactmoment', [$event['USERID'], $event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
         }
         $this->schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
         return $psrResponseFactory->makeWithTemplate('201', $this->phpview->prepare([]));

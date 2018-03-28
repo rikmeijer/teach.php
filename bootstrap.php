@@ -50,7 +50,7 @@ namespace rikmeijer\Teach {
                 new Routes\Feedback\SupplyFactoryFactory($schema, $assets, $phpviewDirectoryFactory, $session),
                 new Routes\FeedbackFactoryFactory($schema, $phpviewDirectoryFactory),
                 new Routes\RatingFactoryFactory($schema, $phpviewDirectoryFactory, $assets),
-                new Routes\Contactmoment\ImportFactoryFactory($schema, $this->iCalReader(), $user, $phpviewDirectoryFactory),
+                new Routes\Contactmoment\ImportFactoryFactory($schema, $user, $phpviewDirectoryFactory),
                 new Routes\QrFactoryFactory($phpviewDirectoryFactory),
                 new Routes\SSO\CallbackFactoryFactory($session, $server),
                 new Routes\LogoutFactoryFactory($session),
@@ -73,11 +73,6 @@ namespace rikmeijer\Teach {
         private function sso(): \Avans\OAuth\Web
         {
             return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'sso' . DIRECTORY_SEPARATOR . 'bootstrap.php';
-        }
-
-        private function iCalReader(): \ICal
-        {
-            return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'ical' . DIRECTORY_SEPARATOR . 'bootstrap.php';
         }
 
         private function phpviewDirectoryFactory(Session $session) : PHPViewDirectoryFactory {
