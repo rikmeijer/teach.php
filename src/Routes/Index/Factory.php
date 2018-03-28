@@ -32,7 +32,7 @@ class Factory implements RouteEndPoint
 
         return $psrResponseFactory->makeWithTemplate('200', $this->phpview->prepare([
             'modules' => $modules,
-            'contactmomenten' => $this->schema->read('contactmoment_vandaag', [], [])
+            'contactmomenten' => $this->user->retrieveModulecontactmomentenToday()
         ]));
     }
 }

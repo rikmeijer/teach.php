@@ -74,4 +74,9 @@ class User
     {
         return $this->schema->read("contactmoment_module", [], ["module_id" => $moduleIdentifier, "owner" => $this->details()->uid]);
     }
+
+    public function retrieveModulecontactmomentenToday()
+    {
+        return $this->schema->read('contactmoment_vandaag', [], ["owner" => $this->details()->uid]);
+    }
 }
