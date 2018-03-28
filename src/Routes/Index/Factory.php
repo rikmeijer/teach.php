@@ -4,15 +4,18 @@ use Psr\Http\Message\ResponseInterface;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
+use rikmeijer\Teach\User;
 
 class Factory implements RouteEndPoint
 {
     private $schema;
+    private $user;
     private $phpview;
 
-    public function __construct(Schema $schema, \pulledbits\View\Template $phpview)
+    public function __construct(Schema $schema, User $user, \pulledbits\View\Template $phpview)
     {
         $this->schema = $schema;
+        $this->user = $user;
         $this->phpview = $phpview;
     }
 
@@ -20,7 +23,7 @@ class Factory implements RouteEndPoint
     {
         $modules = [];
         foreach ($this->schema->read('module', [], []) as $module) {
-            $module->contains(['contactmomenten' => $this->schema->read("contactmoment_module", [], ["module_id" => $module->id])]);
+            $module->contains(['contactmomenten' => $this->user->retrieveModulecontactmomenten($module->id)]);
             $modules[] = $module;
         }
 

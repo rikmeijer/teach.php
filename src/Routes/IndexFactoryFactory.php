@@ -32,6 +32,6 @@ class IndexFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
         if ($this->user->isEmployee() === false) {
             return ErrorFactory::makeInstance('403');
         }
-        return new Factory($this->schema, $this->phpviewDirectory->load('welcome'));
+        return new Factory($this->schema, $this->user, $this->phpviewDirectory->load('welcome'));
     }
 }

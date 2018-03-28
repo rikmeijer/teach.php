@@ -30,6 +30,7 @@ namespace rikmeijer\Teach {
 
     use Aura\Session\Segment;
     use Aura\Session\Session;
+    use Doctrine\DBAL\Schema\Schema;
 
     require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
@@ -41,8 +42,8 @@ namespace rikmeijer\Teach {
         {
             $session = $this->session();
             $server = $this->sso();
-            $user = $this->userForToken($server, $session->getSegment('token'));
             $schema = $this->schema();
+            $user = $this->userForToken($server, $session->getSegment('token'), $schema);
             $assets = $this->assets();
             $phpviewDirectoryFactory = $this->phpviewDirectoryFactory($session);
 
@@ -81,10 +82,10 @@ namespace rikmeijer\Teach {
         }
 
 
-        private function userForToken(\Avans\OAuth\Web $server, Segment $sessionToken) : User
+        private function userForToken(\Avans\OAuth\Web $server, Segment $sessionToken, \pulledbits\ActiveRecord\Schema $schema) : User
         {
             require $this->resourcesPath . DIRECTORY_SEPARATOR . 'User.php';
-            return new User($server, $sessionToken);
+            return new User($server, $sessionToken, $schema);
         }
     };
 

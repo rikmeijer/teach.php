@@ -3,16 +3,19 @@
 namespace rikmeijer\Teach;
 
 use Aura\Session\Segment;
+use pulledbits\ActiveRecord\Schema;
 
 class User
 {
     private $server;
     private $sessionToken;
+    private $schema;
 
-    public function __construct(\Avans\OAuth\Web $server, Segment $sessionToken)
+    public function __construct(\Avans\OAuth\Web $server, Segment $sessionToken, Schema $schema)
     {
         $this->server = $server;
         $this->sessionToken = $sessionToken;
+        $this->schema = $schema;
     }
 
     private function details(): \League\OAuth1\Client\Server\User
@@ -65,5 +68,10 @@ class User
             $this->sessionToken->set('temporary_credentials', $temporaryCredentialsSerialized);
         }
         $this->server->authorize(unserialize($temporaryCredentialsSerialized));
+    }
+
+    public function retrieveModulecontactmomenten(string $moduleIdentifier) : array
+    {
+        return $this->schema->read("contactmoment_module", [], ["module_id" => $moduleIdentifier, "owner" => $this->details()->uid]);
     }
 }
