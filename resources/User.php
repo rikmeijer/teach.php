@@ -3,7 +3,6 @@
 namespace rikmeijer\Teach;
 
 use Aura\Session\Segment;
-use League\OAuth1\Client\Server\Server;
 
 class User
 {
@@ -28,7 +27,7 @@ class User
             $token = unserialize($tokenCredentialsSerialized);
 
             $details = $this->server->getUserDetails($token);
-            $this->sessionToken->set('user', serialize($this->details));
+            $this->sessionToken->set('user', serialize($details));
         }
         return $details;
     }
