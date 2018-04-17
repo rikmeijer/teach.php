@@ -2,6 +2,7 @@
 namespace rikmeijer\Teach;
 
 use League\OAuth1\Client\Server\User;
+use Psr\Http\Message\ResponseInterface;
 use pulledbits\Router\RouteEndPoint;
 
 return new class {
@@ -16,9 +17,20 @@ return new class {
         $this->bootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
     }
 
-    public function handle(\Psr\Http\Message\ServerRequestInterface $request) : RouteEndPoint
+    public function handle(\Psr\Http\Message\ServerRequestInterface $serverRequest) : ResponseInterface
     {
         $router = $this->bootstrap->router();
-        return $router->route($request);
+        $routeEndPoint = $router->route($serverRequest);
+
+        switch ($serverRequest->getMethod()) {
+            case 'POST':
+                $responseCode = '201';
+                break;
+            default:
+                $responseCode = '200';
+                break;
+        }
+
+        return $routeEndPoint->respond(new \GuzzleHttp\Psr7\Response($responseCode));
     }
 };
