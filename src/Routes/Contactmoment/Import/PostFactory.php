@@ -19,7 +19,7 @@ class PostFactory implements RouteEndPoint
         $this->user = $user;
     }
 
-    public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
+    public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
         foreach ($this->user->retrieveCalendarEvents() as $event) {
             if (array_key_exists('SUMMARY', $event) === false) {
@@ -30,7 +30,7 @@ class PostFactory implements RouteEndPoint
             $this->schema->executeProcedure('import_ical_to_contactmoment', [$event['USERID'], $event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
         }
         $this->schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
-        return $psrResponseFactory->makeWithTemplate($this->phpview->prepare([]));
+        return $this->phpview->prepareAsResponse($psrResponse, []);
     }
 
     private function reformatDateTime(string $datetime, string $format): string

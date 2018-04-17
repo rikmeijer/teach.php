@@ -15,13 +15,13 @@ class Factory implements RouteEndPoint
         $this->session = $session;
     }
 
-    public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
+    public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
         if ($this->session->isStarted()) {
             $this->session->getSegment('token')->clear();
             $this->session->clear();
             $this->session->destroy();
         }
-        return $psrResponseFactory->changeStatusCode('303')->makeWithHeaders(['Location' => '/'], '');
+        return $psrResponse->withStatus('303')->makeWithHeaders(['Location' => '/'], '');
     }
 }

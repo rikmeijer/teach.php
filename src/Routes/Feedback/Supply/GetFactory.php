@@ -20,7 +20,7 @@ class GetFactory implements RouteEndPoint
         $this->query = $query;
     }
 
-    public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
+    public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
         $rating = null;
         $explanation = '';
@@ -34,12 +34,12 @@ class GetFactory implements RouteEndPoint
         }
 
         $assets = $this->assets;
-        return $psrResponseFactory->makeWithTemplate($this->phpview->prepare(['rating' => $rating, 'explanation' => $explanation, 'star' => function (int $i, $rating) use ($assets) : string {
+        return $this->phpview->prepareAsResponse($psrResponse, ['rating' => $rating, 'explanation' => $explanation, 'star' => function (int $i, $rating) use ($assets) : string {
             $data = $assets['unstar'];
             if ($i < $rating) {
                 $data = $assets['star'];
             }
             return 'data:image/png;base64,' . base64_encode($data);
-        }]));
+        }]);
     }
 }

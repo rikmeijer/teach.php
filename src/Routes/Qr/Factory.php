@@ -15,7 +15,7 @@ class Factory implements RouteEndPoint
         $this->data = $data;
     }
 
-    public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
+    public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
         $this->phpview->registerHelper('qr', function (int $width, int $height, string $data): void {
             $renderer = new \BaconQrCode\Renderer\Image\Png();
@@ -25,6 +25,6 @@ class Factory implements RouteEndPoint
             print $writer->writeString($data);
         });
 
-        return $psrResponseFactory->makeWithTemplate($this->phpview->prepare(['data' => $this->data]));
+        return $this->phpview->prepareAsResponse($psrResponse, ['data' => $this->data]);
     }
 }

@@ -11,7 +11,7 @@ switch ($serverRequest->getMethod()) {
         $responseCode = '200';
         break;
 }
-$response = $routeEndPoint->respond(new \pulledbits\Router\ResponseFactory($responseCode));
+$response = $routeEndPoint->respond(new \GuzzleHttp\Psr7\Response($responseCode));
 
 http_response_code($response->getStatusCode());
 foreach ($response->getHeaders() as $headerIdentifier => $headerValue) {

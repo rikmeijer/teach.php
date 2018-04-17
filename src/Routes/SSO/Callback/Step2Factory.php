@@ -1,6 +1,5 @@
 <?php namespace rikmeijer\Teach\Routes\SSO\Callback;
 
-use Aura\Session\Session;
 use Avans\OAuth\Web;
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\Router\ResponseFactory;
@@ -17,7 +16,7 @@ class Step2Factory implements RouteEndPoint
         $this->server = $server;
     }
 
-    public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
+    public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
         $temporaryCredentials = $this->server->getTemporaryCredentials();
         $this->sessionToken->set('temporary_credentials', serialize($temporaryCredentials));

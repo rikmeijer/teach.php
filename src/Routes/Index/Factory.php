@@ -16,11 +16,11 @@ class Factory implements RouteEndPoint
         $this->phpview = $phpview;
     }
 
-    public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
+    public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        return $psrResponseFactory->makeWithTemplate($this->phpview->prepare([
+        return $this->phpview->prepareAsResponse($psrResponse, [
             'modules' => $this->user->retrieveModules(),
             'contactmomenten' => $this->user->retrieveModulecontactmomentenToday()
-        ]));
+        ]);
     }
 }

@@ -1,10 +1,8 @@
 <?php namespace rikmeijer\Teach\Routes\SSO\Callback;
 
 use Aura\Session\Segment;
-use Aura\Session\Session;
 use Avans\OAuth\Web;
 use Psr\Http\Message\ResponseInterface;
-use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
 
 class Step1Factory implements RouteEndPoint
@@ -22,7 +20,7 @@ class Step1Factory implements RouteEndPoint
         $this->oauthVerifier = $oauthVerifier;
     }
 
-    public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
+    public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
         $temporaryCredentialsSerialized = $this->sessionToken->get('temporary_credentials');
         if ($temporaryCredentialsSerialized !== null) {
@@ -31,6 +29,6 @@ class Step1Factory implements RouteEndPoint
             $this->sessionToken->set('temporary_credentials', null);
             $this->sessionToken->set('credentials', serialize($tokenCredentials));
         }
-        return $psrResponseFactory->changeStatusCode('303')->makeWithHeaders(['Location' => '/'], '');
+        return $psrResponse->withStatus('303')->withHeader('Location', '/');
     }
 }

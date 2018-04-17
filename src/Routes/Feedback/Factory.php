@@ -16,8 +16,8 @@ class Factory implements RouteEndPoint
         $this->contactmoment = $contactmoment;
     }
 
-    public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
+    public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        return $psrResponseFactory->makeWithTemplate($this->phpview->prepare(['contactmoment' => $this->contactmoment]));
+        return $this->phpview->prepareAsResponse($psrResponse, ['contactmoment' => $this->contactmoment]);
     }
 }

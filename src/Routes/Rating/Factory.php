@@ -17,12 +17,12 @@ class Factory implements RouteEndPoint
         $this->assets = $assets;
     }
 
-    public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
+    public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        return $psrResponseFactory->makeWithTemplate($this->phpview->prepare([
+        return $this->phpview->prepareAsResponse($psrResponse, [
             'ratingwaarde' => $this->ratingwaarde,
             'starData' => $this->assets['star'],
             'unstarData' => $this->assets['unstar']
-        ]));
+        ]);
     }
 }
