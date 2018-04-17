@@ -3,6 +3,7 @@
 namespace rikmeijer\Teach;
 
 use Aura\Session\Segment;
+use pulledbits\ActiveRecord\Record;
 use pulledbits\ActiveRecord\Schema;
 
 class User
@@ -86,5 +87,41 @@ class User
     public function retrieveModulecontactmomentenToday()
     {
         return $this->schema->read('contactmoment_vandaag', [], ["owner" => $this->details()->uid]);
+    }
+
+    public function retrieveContactmoment($contactmomentIdentifier) : Record
+    {
+        $contactmoments = $this->schema->read('contactmoment', [], ['id' => $contactmomentIdentifier, "owner" => $this->details()->uid]);
+        if (count($contactmoments) === 0) {
+            return new class implements Record {
+
+                public function contains(array $values)
+                {}
+
+                public function __get($property)
+                {
+                    return null;
+                }
+
+                public function __set($property, $value)
+                {}
+
+                public function delete(): int
+                {
+                    return 0;
+                }
+
+                public function create(): int
+                {
+                    return 0;
+                }
+
+                public function __call(string $method, array $arguments)
+                {
+                    return null;
+                }
+            };
+        }
+        return $contactmoments[0];
     }
 }
