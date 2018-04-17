@@ -7,31 +7,24 @@ use pulledbits\Router\RouteEndPoint;
 class Factory implements RouteEndPoint
 {
     private $phpview;
-    private $query;
+    private $data;
 
-    public function __construct(\pulledbits\View\Template $phpview, array $query)
+    public function __construct(\pulledbits\View\Template $phpview, string $data)
     {
         $this->phpview = $phpview;
-        $this->query = $query;
+        $this->data = $data;
     }
 
     public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
     {
+        $this->phpview->registerHelper('qr', function (int $width, int $height, string $data): void {
+            $renderer = new \BaconQrCode\Renderer\Image\Png();
+            $renderer->setHeight($width);
+            $renderer->setWidth($height);
+            $writer = new \BaconQrCode\Writer($renderer);
+            print $writer->writeString($data);
+        });
 
-        if (array_key_exists('data', $this->query) === false) {
-            return $psrResponseFactory->make('400', 'Query incomplete');
-        } elseif ($this->query['data'] === null) {
-            return $psrResponseFactory->make('400', 'Query data incomplete');
-        } else {
-            $this->phpview->registerHelper('qr', function (int $width, int $height, string $data): void {
-                $renderer = new \BaconQrCode\Renderer\Image\Png();
-                $renderer->setHeight($width);
-                $renderer->setWidth($height);
-                $writer = new \BaconQrCode\Writer($renderer);
-                print $writer->writeString($data);
-            });
-
-            return $psrResponseFactory->makeWithTemplate('200', $this->phpview->prepare(['data' => $this->query['data']]));
-        }
+        return $psrResponseFactory->makeWithTemplate($this->phpview->prepare(['data' => $this->data]));
     }
 }

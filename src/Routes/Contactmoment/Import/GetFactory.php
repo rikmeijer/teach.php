@@ -15,7 +15,7 @@ class GetFactory implements RouteEndPoint
 
     public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
     {
-        return $psrResponseFactory->makeWithTemplate('200', $this->phpview->prepare(['importForm' => function (): void {
+        return $psrResponseFactory->makeWithTemplate($this->phpview->prepare(['importForm' => function (): void {
             $model = 'rooster.avans.nl';
             $this->form("post", "Importeren", $model);
         }]));

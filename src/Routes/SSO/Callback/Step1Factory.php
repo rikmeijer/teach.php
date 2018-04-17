@@ -31,6 +31,6 @@ class Step1Factory implements RouteEndPoint
             $this->sessionToken->set('temporary_credentials', null);
             $this->sessionToken->set('credentials', serialize($tokenCredentials));
         }
-        return $psrResponseFactory->makeWithHeaders(303, ['Location' => '/'], '');
+        return $psrResponseFactory->changeStatusCode('303')->makeWithHeaders(['Location' => '/'], '');
     }
 }

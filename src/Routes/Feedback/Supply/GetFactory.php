@@ -34,7 +34,7 @@ class GetFactory implements RouteEndPoint
         }
 
         $assets = $this->assets;
-        return $psrResponseFactory->makeWithTemplate('200', $this->phpview->prepare(['rating' => $rating, 'explanation' => $explanation, 'star' => function (int $i, $rating) use ($assets) : string {
+        return $psrResponseFactory->makeWithTemplate($this->phpview->prepare(['rating' => $rating, 'explanation' => $explanation, 'star' => function (int $i, $rating) use ($assets) : string {
             $data = $assets['unstar'];
             if ($i < $rating) {
                 $data = $assets['star'];

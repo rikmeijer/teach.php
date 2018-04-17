@@ -22,6 +22,6 @@ class Factory implements RouteEndPoint
             $this->session->clear();
             $this->session->destroy();
         }
-        return $psrResponseFactory->makeWithHeaders('303', ['Location' => '/'], '');
+        return $psrResponseFactory->changeStatusCode('303')->makeWithHeaders(['Location' => '/'], '');
     }
 }

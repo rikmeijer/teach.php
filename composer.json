@@ -14,7 +14,7 @@
 		"aura/session": "^2.1",
 		"doctrine/migrations": "^1.5",
 		"pulledbits/activerecord": "~1",
-		"pulledbits/router": "~3",
+		"pulledbits/router": "~4",
 		"league/flysystem": "^1.0"
 	},
 	"require-dev" : {

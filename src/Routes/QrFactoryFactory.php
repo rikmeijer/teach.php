@@ -25,6 +25,13 @@ class QrFactoryFactory implements RouteEndPointFactory
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         $query = $request->getQueryParams();
-        return new Factory($this->phpviewDirectory->load('qr'), $query);
+        if (array_key_exists('data', $query) === false) {
+            syslog(E_USER_ERROR, 'Query incomplete');
+            return ErrorFactory::makeInstance('400');
+        } elseif ($query['data'] === null) {
+            syslog(E_USER_ERROR, 'Query data incomplete');
+            return ErrorFactory::makeInstance('400');
+        }
+        return new Factory($this->phpviewDirectory->load('qr'), $query['data']);
     }
 }

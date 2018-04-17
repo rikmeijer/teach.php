@@ -18,7 +18,7 @@ class Factory implements RouteEndPoint
 
     public function respond(ResponseFactory $psrResponseFactory): ResponseInterface
     {
-        return $psrResponseFactory->makeWithTemplate('200', $this->phpview->prepare([
+        return $psrResponseFactory->makeWithTemplate($this->phpview->prepare([
             'modules' => $this->user->retrieveModules(),
             'contactmomenten' => $this->user->retrieveModulecontactmomentenToday()
         ]));

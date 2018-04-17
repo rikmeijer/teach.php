@@ -30,7 +30,7 @@ class PostFactory implements RouteEndPoint
             $this->schema->executeProcedure('import_ical_to_contactmoment', [$event['USERID'], $event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
         }
         $this->schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
-        return $psrResponseFactory->makeWithTemplate('201', $this->phpview->prepare([]));
+        return $psrResponseFactory->makeWithTemplate($this->phpview->prepare([]));
     }
 
     private function reformatDateTime(string $datetime, string $format): string
