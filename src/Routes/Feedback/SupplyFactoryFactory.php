@@ -1,13 +1,11 @@
 <?php namespace rikmeijer\Teach\Routes\Feedback;
 
 use Aura\Session\Session;
-use League\Flysystem\FilesystemInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
-use pulledbits\View\Directory;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\Routes\Feedback\Supply\PostFactory;
 use rikmeijer\Teach\Routes\Feedback\Supply\GetFactory;
@@ -17,15 +15,13 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $user;
     private $schema;
-    private $filesystem;
     private $phpviewDirectory;
     private $session;
 
-    public function __construct(User $user, Schema $schema, FilesystemInterface $filesystem, PHPViewDirectoryFactory $phpviewDirectoryFactory, Session $session)
+    public function __construct(User $user, Schema $schema, PHPViewDirectoryFactory $phpviewDirectoryFactory, Session $session)
     {
         $this->user = $user;
         $this->schema = $schema;
-        $this->filesystem = $filesystem;
         $this->phpviewDirectory = $phpviewDirectoryFactory->make('feedback');
         $this->session = $session;
     }

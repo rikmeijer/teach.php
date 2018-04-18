@@ -49,7 +49,7 @@ namespace rikmeijer\Teach {
             $phpviewDirectoryFactory = $this->phpviewDirectoryFactory($session);
 
             return new \pulledbits\Router\Router([
-                new Routes\Feedback\SupplyFactoryFactory($user, $schema, $publicAssetsFileSystem, $phpviewDirectoryFactory, $session),
+                new Routes\Feedback\SupplyFactoryFactory($user, $schema, $phpviewDirectoryFactory, $session),
                 new Routes\FeedbackFactoryFactory($user, $phpviewDirectoryFactory),
                 new Routes\RatingFactoryFactory($user, $phpviewDirectoryFactory),
                 new Routes\Contactmoment\ImportFactoryFactory($user, $phpviewDirectoryFactory),
