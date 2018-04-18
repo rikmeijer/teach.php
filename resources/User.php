@@ -107,6 +107,10 @@ class User
                 {
                     return null;
                 }
+
+                public function bind(string $methodIdentifier, callable $callback): void
+                {
+                }
             };
         }
 
