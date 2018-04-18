@@ -1,22 +1,17 @@
 <?php namespace rikmeijer\Teach\Routes\SSO;
 
-use Aura\Session\Segment;
-use Aura\Session\Session;
-use League\OAuth1\Client\Server\Server;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
-use rikmeijer\Teach\Routes\SSO\Callback\Step1Factory;
+use rikmeijer\Teach\User;
 
 class CallbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
-    private $sessionToken;
-    private $server;
+    private $user;
 
-    public function __construct(Segment $sessionToken, Server $server)
+    public function __construct(User $user)
     {
-        $this->sessionToken = $sessionToken;
-        $this->server = $server;
+        $this->user = $user;
     }
 
     public function matchUri(UriInterface $uri): bool
@@ -29,9 +24,9 @@ class CallbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
         $queryParams = $request->getQueryParams();
 
         if (array_key_exists('oauth_token', $queryParams) && array_key_exists('oauth_verifier', $queryParams)) {
-            return new Step1Factory($this->sessionToken, $this->server, $queryParams['oauth_token'], $queryParams['oauth_verifier']);
+            return new Callback\Step1Factory($this->user, $queryParams['oauth_token'], $queryParams['oauth_verifier']);
         } else {
-            return new Step2Factory($this->sessionToken, $this->server);
+            return new Callback\Step2Factory($this->user);
         }
     }
 }

@@ -30,7 +30,6 @@ namespace rikmeijer\Teach {
 
     use Aura\Session\Segment;
     use Aura\Session\Session;
-    use Doctrine\DBAL\Schema\Schema;
 
     require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
@@ -43,7 +42,7 @@ namespace rikmeijer\Teach {
             $session = $this->session();
             $server = $this->sso();
             $schema = $this->schema();
-            $sessionToken = $this->session->getSegment('token');
+            $sessionToken = $session->getSegment('token');
             $user = $this->userForToken($server, $sessionToken, $schema);
             $assets = $this->assets();
             $phpviewDirectoryFactory = $this->phpviewDirectoryFactory($session);
@@ -54,7 +53,7 @@ namespace rikmeijer\Teach {
                 new Routes\RatingFactoryFactory($schema, $phpviewDirectoryFactory, $assets),
                 new Routes\Contactmoment\ImportFactoryFactory($user, $phpviewDirectoryFactory),
                 new Routes\QrFactoryFactory($phpviewDirectoryFactory),
-                new Routes\SSO\CallbackFactoryFactory($sessionToken, $server),
+                new Routes\SSO\CallbackFactoryFactory($user),
                 new Routes\LogoutFactoryFactory($session),
                 new Routes\IndexFactoryFactory($user, $phpviewDirectoryFactory)
             ]);
