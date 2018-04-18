@@ -1,27 +1,22 @@
 <?php namespace rikmeijer\Teach\Routes\Logout;
 
-use Aura\Session\Session;
 use Psr\Http\Message\ResponseInterface;
-use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
+use rikmeijer\Teach\User;
 
 class Factory implements RouteEndPoint
 {
-    private $session;
+    private $user;
 
-    public function __construct(Session $session)
+    public function __construct(User $user)
     {
-        $this->session = $session;
+        $this->user = $user;
     }
 
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        if ($this->session->isStarted()) {
-            $this->session->getSegment('token')->clear();
-            $this->session->clear();
-            $this->session->destroy();
-        }
+        $this->user->logout();
         return $psrResponse->withStatus('303')->makeWithHeaders(['Location' => '/'], '');
     }
 }

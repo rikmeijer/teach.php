@@ -54,7 +54,7 @@ namespace rikmeijer\Teach {
                 new Routes\Contactmoment\ImportFactoryFactory($user, $phpviewDirectoryFactory),
                 new Routes\QrFactoryFactory($phpviewDirectoryFactory),
                 new Routes\SSO\CallbackFactoryFactory($user),
-                new Routes\LogoutFactoryFactory($session),
+                new Routes\LogoutFactoryFactory($user),
                 new Routes\IndexFactoryFactory($user, $phpviewDirectoryFactory)
             ]);
         }

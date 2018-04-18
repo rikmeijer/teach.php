@@ -132,7 +132,7 @@ class User
         return $datetime->format('Y-m-d H:i:s');
     }
 
-    public function authorizeTokenCredentials(string $oauthToken, string $oauthVerifier)
+    public function authorizeTokenCredentials(string $oauthToken, string $oauthVerifier) : void
     {
         $temporaryCredentialsSerialized = $this->sessionToken->get('temporary_credentials');
         if ($temporaryCredentialsSerialized !== null) {
@@ -143,11 +143,20 @@ class User
         }
     }
 
-    public function acquireTemporaryCredentials()
+    public function acquireTemporaryCredentials() : void
     {
         $temporaryCredentials = $this->server->getTemporaryCredentials();
         $this->sessionToken->set('temporary_credentials', serialize($temporaryCredentials));
         $this->server->authorize($temporaryCredentials);
+    }
+
+    public function logout() : void
+    {
+        if ($this->session->isStarted()) {
+            $this->session->getSegment('token')->clear();
+            $this->session->clear();
+            $this->session->destroy();
+        }
     }
 
 }
