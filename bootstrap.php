@@ -30,6 +30,7 @@ namespace rikmeijer\Teach {
 
     use Aura\Session\Segment;
     use Aura\Session\Session;
+    use League\Flysystem\FilesystemInterface;
 
     require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
@@ -43,14 +44,14 @@ namespace rikmeijer\Teach {
             $server = $this->sso();
             $schema = $this->schema();
             $sessionToken = $session->getSegment('token');
-            $user = $this->userForToken($server, $sessionToken, $schema);
-            $assets = $this->assets();
+            $publicAssetsFileSystem = $this->assets();
+            $user = $this->userForToken($server, $sessionToken, $schema, $publicAssetsFileSystem);
             $phpviewDirectoryFactory = $this->phpviewDirectoryFactory($session);
 
             return new \pulledbits\Router\Router([
-                new Routes\Feedback\SupplyFactoryFactory($schema, $assets, $phpviewDirectoryFactory, $session),
+                new Routes\Feedback\SupplyFactoryFactory($schema, $publicAssetsFileSystem, $phpviewDirectoryFactory, $session),
                 new Routes\FeedbackFactoryFactory($user, $phpviewDirectoryFactory),
-                new Routes\RatingFactoryFactory($user, $phpviewDirectoryFactory, $assets),
+                new Routes\RatingFactoryFactory($user, $phpviewDirectoryFactory),
                 new Routes\Contactmoment\ImportFactoryFactory($user, $phpviewDirectoryFactory),
                 new Routes\QrFactoryFactory($phpviewDirectoryFactory),
                 new Routes\SSO\CallbackFactoryFactory($user),
@@ -82,10 +83,10 @@ namespace rikmeijer\Teach {
         }
 
 
-        private function userForToken(\Avans\OAuth\Web $server, Segment $sessionToken, \pulledbits\ActiveRecord\Schema $schema) : User
+        private function userForToken(\Avans\OAuth\Web $server, Segment $sessionToken, \pulledbits\ActiveRecord\Schema $schema, FilesystemInterface $publicAssetsFileSystem) : User
         {
             require $this->resourcesPath . DIRECTORY_SEPARATOR . 'User.php';
-            return new User($server, $sessionToken, $schema);
+            return new User($server, $sessionToken, $schema, $publicAssetsFileSystem);
         }
     };
 

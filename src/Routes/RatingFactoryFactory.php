@@ -12,13 +12,11 @@ class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $user;
     private $phpviewDirectory;
-    private $assets;
 
-    public function __construct(User $user, PHPViewDirectoryFactory $phpviewDirectoryFactory, FilesystemInterface $assets)
+    public function __construct(User $user, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
         $this->user = $user;
         $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
-        $this->assets = $assets;
     }
 
 
@@ -33,8 +31,8 @@ class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
         $ratingwaarde = $this->user->retrieveContactmomentRating($matches['contactmomentIdentifier']);
         return new Factory($this->phpviewDirectory->load('rating'), $ratingwaarde, [
-            'star' => $this->assets->read('img' . DIRECTORY_SEPARATOR . 'star.png'),
-            'unstar' => $this->assets->read('img' . DIRECTORY_SEPARATOR . 'unstar.png')
+            'star' =>  $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'star.png'),
+            'unstar' => $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'unstar.png')
         ]);
     }
 }

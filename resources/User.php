@@ -11,12 +11,14 @@ class User
     private $server;
     private $sessionToken;
     private $schema;
+    private $publicAssetsFileSystem;
 
-    public function __construct(\Avans\OAuth\Web $server, Segment $sessionToken, Schema $schema)
+    public function __construct(\Avans\OAuth\Web $server, Segment $sessionToken, Schema $schema, \League\Flysystem\FilesystemInterface $publicAssetsFileSystem)
     {
         $this->server = $server;
         $this->sessionToken = $sessionToken;
         $this->schema = $schema;
+        $this->publicAssetsFileSystem = $publicAssetsFileSystem;
     }
 
     private function details(): \League\OAuth1\Client\Server\User
@@ -168,6 +170,11 @@ class User
             return 0;
         }
         return $contactmomentratings[0]->waarde;
+    }
+
+    public function readPublicAsset(string $path)
+    {
+        return $this->publicAssetsFileSystem->read($path);
     }
 
 }
