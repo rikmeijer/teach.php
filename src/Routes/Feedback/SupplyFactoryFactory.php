@@ -34,13 +34,14 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getURI()->getPath(), $matches);
+        $contactmoment = $this->user->retrieveContactmoment($matches['contactmomentIdentifier']);
+        if ($contactmoment->id !== $matches['contactmomentIdentifier']) {
+            return ErrorFactory::makeInstance('404');
+        }
+
         switch ($request->getMethod()) {
             case 'GET':
                 $query = $request->getQueryParams();
-                $contactmoment = $this->user->retrieveContactmoment($matches['contactmomentIdentifier']);
-                if ($contactmoment->id !== $matches['contactmomentIdentifier']) {
-                    return ErrorFactory::makeInstance('404');
-                }
                 $ipRatings = $contactmoment->fetchByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
                 if (count($ipRatings) > 0) {
                     $ipRating = $ipRatings[0];
@@ -60,7 +61,7 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
                 if ($csrf_token->isValid($parsedBody['__csrf_value']) === false) {
                     return ErrorFactory::makeInstance('403');
                 }
-                return new PostFactory($this->schema, $matches['contactmomentIdentifier'], $parsedBody['rating'], $parsedBody['explanation']);
+                return new PostFactory($contactmoment, $parsedBody['rating'], $parsedBody['explanation']);
 
             default:
                 return ErrorFactory::makeInstance('405');

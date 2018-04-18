@@ -1293,16 +1293,16 @@
         },
         {
             "name": "pulledbits/activerecord",
-            "version": "1.2.1",
+            "version": "1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pulledbits/activerecord.git",
-                "reference": "2219881bc7c3da2a0b18005b5e086c89496a385c"
+                "reference": "bc594dc050b984551415812607895ff968f91838"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/activerecord/zipball/2219881bc7c3da2a0b18005b5e086c89496a385c",
-                "reference": "2219881bc7c3da2a0b18005b5e086c89496a385c",
+                "url": "https://api.github.com/repos/pulledbits/activerecord/zipball/bc594dc050b984551415812607895ff968f91838",
+                "reference": "bc594dc050b984551415812607895ff968f91838",
                 "shasum": ""
             },
             "require": {
@@ -1323,7 +1323,7 @@
                 "MIT"
             ],
             "description": "proper activerecord in PHP",
-            "time": "2017-12-07T15:53:33+00:00"
+            "time": "2018-04-18T13:54:41+00:00"
         },
         {
             "name": "pulledbits/router",
@@ -2043,23 +2043,23 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.7.5",
+            "version": "1.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401"
+                "reference": "33a7e3c4fda54e912ff6338c48823bd5c0f0b712"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/dfd6be44111a7c41c2e884a336cc4f461b3b2401",
-                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/33a7e3c4fda54e912ff6338c48823bd5c0f0b712",
+                "reference": "33a7e3c4fda54e912ff6338c48823bd5c0f0b712",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
                 "php": "^5.3|^7.0",
                 "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0",
-                "sebastian/comparator": "^1.1|^2.0",
+                "sebastian/comparator": "^1.1|^2.0|^3.0",
                 "sebastian/recursion-context": "^1.0|^2.0|^3.0"
             },
             "require-dev": {
@@ -2102,7 +2102,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2018-02-19T10:16:54+00:00"
+            "time": "2018-04-18T13:57:24+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

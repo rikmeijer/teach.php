@@ -109,6 +109,12 @@ class User
                 }
             };
         }
+
+        $schema = $this->schema;
+        $contactmoments[0]->bind('rate', function(string $ipAddress, string $rating, string $explanation) use ($schema) {
+            $schema->executeProcedure('rate_contactmoment', [$this->__get('id'), $ipAddress, $rating, $explanation]);
+        });
+
         return $contactmoments[0];
     }
 
