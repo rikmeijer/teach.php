@@ -24,9 +24,9 @@ class CallbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
         $queryParams = $request->getQueryParams();
 
         if (array_key_exists('oauth_token', $queryParams) && array_key_exists('oauth_verifier', $queryParams)) {
-            return new Callback\Step1Factory($this->user, $queryParams['oauth_token'], $queryParams['oauth_verifier']);
+            return new Callback\TokenAuthorizationFactory($this->user, $queryParams['oauth_token'], $queryParams['oauth_verifier']);
         } else {
-            return new Callback\Step2Factory($this->user);
+            return new Callback\TemporaryTokenCredentialsAcquisitionFactory($this->user);
         }
     }
 }

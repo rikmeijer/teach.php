@@ -4,7 +4,7 @@ use Psr\Http\Message\ResponseInterface;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\User;
 
-class Step2Factory implements RouteEndPoint
+class TemporaryTokenCredentialsAcquisitionFactory implements RouteEndPoint
 {
     private $user;
 

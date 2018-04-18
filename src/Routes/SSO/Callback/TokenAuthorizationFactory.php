@@ -4,7 +4,7 @@ use Psr\Http\Message\ResponseInterface;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\User;
 
-class Step1Factory implements RouteEndPoint
+class TokenAuthorizationFactory implements RouteEndPoint
 {
     private $user;
     private $oauthToken;
