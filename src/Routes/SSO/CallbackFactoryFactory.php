@@ -1,5 +1,6 @@
 <?php namespace rikmeijer\Teach\Routes\SSO;
 
+use Aura\Session\Segment;
 use Aura\Session\Session;
 use League\OAuth1\Client\Server\Server;
 use Psr\Http\Message\ServerRequestInterface;
@@ -9,12 +10,12 @@ use rikmeijer\Teach\Routes\SSO\Callback\Step1Factory;
 
 class CallbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
-    private $session;
+    private $sessionToken;
     private $server;
 
-    public function __construct(Session $session, Server $server)
+    public function __construct(Segment $sessionToken, Server $server)
     {
-        $this->session = $session;
+        $this->sessionToken = $sessionToken;
         $this->server = $server;
     }
 
@@ -27,11 +28,10 @@ class CallbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
     {
         $queryParams = $request->getQueryParams();
 
-        $sessionToken = $this->session->getSegment('token');
         if (array_key_exists('oauth_token', $queryParams) && array_key_exists('oauth_verifier', $queryParams)) {
-            return new Step1Factory($sessionToken, $this->server, $queryParams['oauth_token'], $queryParams['oauth_verifier']);
+            return new Step1Factory($this->sessionToken, $this->server, $queryParams['oauth_token'], $queryParams['oauth_verifier']);
         } else {
-            return new Step2Factory($sessionToken, $this->server);
+            return new Step2Factory($this->sessionToken, $this->server);
         }
     }
 }

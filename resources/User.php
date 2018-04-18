@@ -46,21 +46,6 @@ class User
         return $this->details()->uid;
     }
 
-    public function retrieveCalendarEvents() {
-        $icalReader = new \ICal('http://rooster.avans.nl/gcal/D' . $this->details()->uid);
-        $events = [];
-        foreach ($icalReader->events() as $event) {
-            if (array_key_exists('SUMMARY', $event) === false) {
-                continue;
-            } elseif (array_key_exists('LOCATION', $event) === false) {
-                continue;
-            }
-            $event['USERID'] = $this->details()->uid;
-            $events[] = $event;
-        }
-        return $events;
-    }
-
     private function authorize(): void
     {
         $temporaryCredentialsSerialized = $this->sessionToken->get('temporary_credentials');
@@ -124,4 +109,27 @@ class User
         }
         return $contactmoments[0];
     }
+
+    public function importCalendarEvents()
+    {
+        $userId = $this->details()->uid;
+        $icalReader = new \ICal('http://rooster.avans.nl/gcal/D' . $this->details()->uid);
+        foreach ($icalReader->events() as $event) {
+            if (array_key_exists('SUMMARY', $event) === false) {
+                continue;
+            } elseif (array_key_exists('LOCATION', $event) === false) {
+                continue;
+            }
+            $this->schema->executeProcedure('import_ical_to_contactmoment', [$userId, $event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
+        }
+        $this->schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
+    }
+
+    private function convertToSQLDateTime(string $datetime): string
+    {
+        $datetime = new \DateTime($datetime);
+        $datetime->setTimezone(new \DateTimeZone(ini_get('date.timezone')));
+        return $datetime->format('Y-m-d H:i:s');
+    }
+
 }

@@ -43,7 +43,8 @@ namespace rikmeijer\Teach {
             $session = $this->session();
             $server = $this->sso();
             $schema = $this->schema();
-            $user = $this->userForToken($server, $session->getSegment('token'), $schema);
+            $sessionToken = $this->session->getSegment('token');
+            $user = $this->userForToken($server, $sessionToken, $schema);
             $assets = $this->assets();
             $phpviewDirectoryFactory = $this->phpviewDirectoryFactory($session);
 
@@ -51,9 +52,9 @@ namespace rikmeijer\Teach {
                 new Routes\Feedback\SupplyFactoryFactory($schema, $assets, $phpviewDirectoryFactory, $session),
                 new Routes\FeedbackFactoryFactory($user, $phpviewDirectoryFactory),
                 new Routes\RatingFactoryFactory($schema, $phpviewDirectoryFactory, $assets),
-                new Routes\Contactmoment\ImportFactoryFactory($schema, $user, $phpviewDirectoryFactory),
+                new Routes\Contactmoment\ImportFactoryFactory($user, $phpviewDirectoryFactory),
                 new Routes\QrFactoryFactory($phpviewDirectoryFactory),
-                new Routes\SSO\CallbackFactoryFactory($session, $server),
+                new Routes\SSO\CallbackFactoryFactory($sessionToken, $server),
                 new Routes\LogoutFactoryFactory($session),
                 new Routes\IndexFactoryFactory($user, $phpviewDirectoryFactory)
             ]);

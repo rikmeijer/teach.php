@@ -11,13 +11,11 @@ use rikmeijer\Teach\User;
 
 class ImportFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
-    private $schema;
     private $user;
     private $phpviewDirectory;
 
-    public function __construct(Schema $schema, User $user, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(User $user, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
-        $this->schema = $schema;
         $this->user = $user;
         $this->phpviewDirectory = $phpviewDirectoryFactory->make('contactmoment');
     }
@@ -38,7 +36,7 @@ class ImportFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
                 return new GetFactory($this->phpviewDirectory->load('import'));
 
             case 'POST':
-                return new PostFactory($this->schema, $this->phpviewDirectory->load('imported'), $this->user);
+                return new PostFactory($this->phpviewDirectory->load('imported'), $this->user);
 
             default:
                 return ErrorFactory::makeInstance('405');
