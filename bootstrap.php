@@ -50,7 +50,7 @@ namespace rikmeijer\Teach {
             return new \pulledbits\Router\Router([
                 new Routes\Feedback\SupplyFactoryFactory($schema, $assets, $phpviewDirectoryFactory, $session),
                 new Routes\FeedbackFactoryFactory($user, $phpviewDirectoryFactory),
-                new Routes\RatingFactoryFactory($schema, $phpviewDirectoryFactory, $assets),
+                new Routes\RatingFactoryFactory($user, $phpviewDirectoryFactory, $assets),
                 new Routes\Contactmoment\ImportFactoryFactory($user, $phpviewDirectoryFactory),
                 new Routes\QrFactoryFactory($phpviewDirectoryFactory),
                 new Routes\SSO\CallbackFactoryFactory($user),

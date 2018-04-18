@@ -159,4 +159,15 @@ class User
         }
     }
 
+    public function retrieveContactmomentRating($contactmomentIdentifier)
+    {
+        $contactmomentratings = $this->schema->read('contactmomentrating', [], ['contactmoment_id' => $contactmomentIdentifier]);
+        if (count($contactmomentratings) === 0) {
+            return 0;
+        } elseif ($contactmomentratings[0]->waarde === null) {
+            return 0;
+        }
+        return $contactmomentratings[0]->waarde;
+    }
+
 }

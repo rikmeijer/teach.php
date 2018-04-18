@@ -3,20 +3,20 @@
 use League\Flysystem\FilesystemInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
-use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\Routes\Rating\Factory;
+use rikmeijer\Teach\User;
 
 class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
-    private $schema;
+    private $user;
     private $phpviewDirectory;
     private $assets;
 
-    public function __construct(Schema $schema, PHPViewDirectoryFactory $phpviewDirectoryFactory, FilesystemInterface $assets)
+    public function __construct(User $user, PHPViewDirectoryFactory $phpviewDirectoryFactory, FilesystemInterface $assets)
     {
-        $this->schema = $schema;
+        $this->user = $user;
         $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
         $this->assets = $assets;
     }
@@ -31,15 +31,7 @@ class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
     {
         preg_match('#^/rating/(?<contactmomentIdentifier>\d+)#', $request->getURI()->getPath(), $matches);
 
-        $contactmomentratings = $this->schema->read('contactmomentrating', [], ['contactmoment_id' => $matches['contactmomentIdentifier']]);
-        if (count($contactmomentratings) === 0) {
-            $ratingwaarde = 0;
-        } elseif ($contactmomentratings[0]->waarde === null) {
-            $ratingwaarde = 0;
-        } else {
-            $ratingwaarde = $contactmomentratings[0]->waarde;
-        }
-
+        $ratingwaarde = $this->user->retrieveContactmomentRating($matches['contactmomentIdentifier']);
         return new Factory($this->phpviewDirectory->load('rating'), $ratingwaarde, [
             'star' => $this->assets->read('img' . DIRECTORY_SEPARATOR . 'star.png'),
             'unstar' => $this->assets->read('img' . DIRECTORY_SEPARATOR . 'unstar.png')

@@ -19,7 +19,7 @@ class Factory implements RouteEndPoint
 
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        return $this->phpview->prepareAsResponse($psrResponse, [
+        return $this->phpview->prepareAsResponse($psrResponse->withHeader('Content-Type', 'image/png'), [
             'ratingwaarde' => $this->ratingwaarde,
             'starData' => $this->assets['star'],
             'unstarData' => $this->assets['unstar']
