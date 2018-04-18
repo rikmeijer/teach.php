@@ -37,15 +37,15 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
         switch ($request->getMethod()) {
             case 'GET':
                 $query = $request->getQueryParams();
-                $contactmoments = $this->schema->read('contactmoment', [], ['id' => $matches['contactmomentIdentifier']]);
-                if (count($contactmoments) === 0) {
+                $contactmoment = $this->user->retrieveContactmoment($matches['contactmomentIdentifier']);
+                if ($contactmoment->id !== $matches['contactmomentIdentifier']) {
                     return ErrorFactory::makeInstance('404');
                 }
-                $ipRatings = $contactmoments[0]->fetchByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
+                $ipRatings = $contactmoment->fetchByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
                 if (count($ipRatings) > 0) {
                     $ipRating = $ipRatings[0];
                 } else {
-                    $ipRating = $contactmoments[0]->referenceByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
+                    $ipRating = $contactmoment->referenceByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
                 }
 
                 $assets = [
