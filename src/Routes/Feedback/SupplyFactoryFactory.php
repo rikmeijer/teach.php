@@ -11,16 +11,19 @@ use pulledbits\View\Directory;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\Routes\Feedback\Supply\PostFactory;
 use rikmeijer\Teach\Routes\Feedback\Supply\GetFactory;
+use rikmeijer\Teach\User;
 
 class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
+    private $user;
     private $schema;
     private $filesystem;
     private $phpviewDirectory;
     private $session;
 
-    public function __construct(Schema $schema, FilesystemInterface $filesystem, PHPViewDirectoryFactory $phpviewDirectoryFactory, Session $session)
+    public function __construct(User $user, Schema $schema, FilesystemInterface $filesystem, PHPViewDirectoryFactory $phpviewDirectoryFactory, Session $session)
     {
+        $this->user = $user;
         $this->schema = $schema;
         $this->filesystem = $filesystem;
         $this->phpviewDirectory = $phpviewDirectoryFactory->make('feedback');
@@ -50,8 +53,8 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
                 }
 
                 $assets = [
-                    'star' => $this->filesystem->read(DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'star.png'),
-                    'unstar' => $this->filesystem->read(DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'unstar.png')
+                    'star' =>  $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'star.png'),
+                    'unstar' => $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'unstar.png')
                 ];
                 return new GetFactory($ipRating, $this->phpviewDirectory->load('supply'), $assets, $query);
 
