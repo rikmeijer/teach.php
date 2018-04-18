@@ -42,13 +42,8 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
         switch ($request->getMethod()) {
             case 'GET':
                 $query = $request->getQueryParams();
-                $ipRatings = $contactmoment->fetchByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
-                if (count($ipRatings) > 0) {
-                    $ipRating = $ipRatings[0];
-                } else {
-                    $ipRating = $contactmoment->referenceByFkRatingContactmoment(['ipv4' => $_SERVER['REMOTE_ADDR']]);
-                }
 
+                $ipRating = $contactmoment->findRatingFromIP($_SERVER['REMOTE_ADDR']);
                 $assets = [
                     'star' =>  $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'star.png'),
                     'unstar' => $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'unstar.png')

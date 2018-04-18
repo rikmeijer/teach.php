@@ -111,6 +111,15 @@ class User
         }
 
         $schema = $this->schema;
+        $contactmoments[0]->bind('findRatingFromIP', function(string $ipAddress) use ($schema) {
+            $ipRatings = $this->fetchByFkRatingContactmoment(['ipv4' => $ipAddress]);
+            if (count($ipRatings) > 0) {
+                return $ipRatings[0];
+            } else {
+                return $this->referenceByFkRatingContactmoment(['ipv4' => $ipAddress]);
+            }
+        });
+
         $contactmoments[0]->bind('rate', function(string $ipAddress, string $rating, string $explanation) use ($schema) {
             $schema->executeProcedure('rate_contactmoment', [$this->__get('id'), $ipAddress, $rating, $explanation]);
         });
