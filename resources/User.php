@@ -195,4 +195,9 @@ class User
         return $this->publicAssetsFileSystem->read($path);
     }
 
+    public function verifyCSRFToken(string $CSRFToken) : bool
+    {
+        return $this->session->getCsrfToken()->isValid($CSRFToken);
+    }
+
 }
