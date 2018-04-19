@@ -74,8 +74,8 @@ namespace rikmeijer\Teach {
 
         private function sso(Session $session): SSO
         {
-            require $this->resourcesPath . DIRECTORY_SEPARATOR . 'sso' . DIRECTORY_SEPARATOR . 'bootstrap.php';
-            return new SSO($session);
+            $server = require $this->resourcesPath . DIRECTORY_SEPARATOR . 'sso' . DIRECTORY_SEPARATOR . 'bootstrap.php';
+            return new SSO($server, $session);
         }
 
         private function phpviewDirectoryFactory(Session $session) : PHPViewDirectoryFactory {

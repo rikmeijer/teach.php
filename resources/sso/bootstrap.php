@@ -1,17 +1,14 @@
 <?php namespace rikmeijer\Teach;
 // ID: 299
 
-use Aura\Session\Session;
-
 class SSO {
 
     private $sessionToken;
     private $server;
 
-    public function __construct(Session $session)
+    public function __construct(\League\OAuth1\Client\Server\Server $server, \Aura\Session\Session $session)
     {
-        $config = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config.php';
-        $this->server = new \Avans\OAuth\Web($config['SSO']);
+        $this->server = $server;
         $this->sessionToken = $session->getSegment('token');
     }
 
@@ -50,3 +47,6 @@ class SSO {
         return $details;
     }
 }
+
+$config = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config.php';
+return new \Avans\OAuth\Web($config['SSO']);
