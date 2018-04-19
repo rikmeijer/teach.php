@@ -7,34 +7,23 @@ use pulledbits\Router\RouteEndPoint;
 
 class GetFactory implements RouteEndPoint
 {
-    private $iprating;
     private $phpview;
     private $assets;
-    private $query;
+    private $rating;
+    private $explanation;
 
-    public function __construct(Record $iprating, \pulledbits\View\Template $phpview, array $assets, array $query)
+    public function __construct(\pulledbits\View\Template $phpview, array $assets, string $rating, string $explanation)
     {
-        $this->iprating = $iprating;
         $this->phpview = $phpview;
         $this->assets = $assets;
-        $this->query = $query;
+        $this->rating = $rating;
+        $this->explanation = $explanation;
     }
 
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        $rating = null;
-        $explanation = '';
-        if ($this->iprating->waarde !== null) {
-            $rating = $this->iprating->waarde;
-            $explanation = $this->iprating->inhoud !== null ? $this->iprating->inhoud : '';
-        }
-
-        if (array_key_exists('rating', $this->query)) {
-            $rating = $this->query['rating'];
-        }
-
         $assets = $this->assets;
-        return $this->phpview->prepareAsResponse($psrResponse, ['rating' => $rating, 'explanation' => $explanation, 'star' => function (int $i, $rating) use ($assets) : string {
+        return $this->phpview->prepareAsResponse($psrResponse, ['rating' => $this->rating, 'explanation' => $this->explanation, 'star' => function (int $i, $rating) use ($assets) : string {
             $data = $assets['unstar'];
             if ($i < $rating) {
                 $data = $assets['star'];

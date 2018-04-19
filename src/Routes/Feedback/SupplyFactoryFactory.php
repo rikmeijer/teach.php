@@ -44,7 +44,18 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
                     'star' =>  $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'star.png'),
                     'unstar' => $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'unstar.png')
                 ];
-                return new GetFactory($ipRating, $this->phpviewDirectory->load('supply'), $assets, $query);
+
+                $rating = null;
+                $explanation = '';
+                if ($this->iprating->waarde !== null) {
+                    $rating = $this->iprating->waarde;
+                    $explanation = $this->iprating->inhoud !== null ? $this->iprating->inhoud : '';
+                }
+
+                if (array_key_exists('rating', $query)) {
+                    $rating = $query['rating'];
+                }
+                return new GetFactory($ipRating, $this->phpviewDirectory->load('supply'), $assets, $rating, $explanation);
 
             case 'POST':
                 $parsedBody = $request->getParsedBody();
