@@ -123,6 +123,20 @@ class User
             }
         });
 
+        $contactmoments[0]->bind('retrieveRating', function ()
+        {
+            $contactmomentratings = $this->fetchByFkRatingContactmoment();
+            if (count($contactmomentratings) === 0) {
+                return 0;
+            }
+            $value = 0;
+            foreach ($contactmomentratings as $contactmomentrating) {
+                $value += $contactmomentrating->waarde;
+            }
+            return $value / count($contactmomentratings);
+        });
+
+
         $contactmoments[0]->bind('rate', function(string $ipAddress, string $rating, string $explanation) {
             $this->entityType->call('rate_contactmoment', [$this->__get('id'), $ipAddress, $rating, $explanation]);
         });
@@ -177,17 +191,6 @@ class User
             $this->session->clear();
             $this->session->destroy();
         }
-    }
-
-    public function retrieveContactmomentRating($contactmomentIdentifier)
-    {
-        $contactmomentratings = $this->schema->read('contactmomentrating', [], ['contactmoment_id' => $contactmomentIdentifier]);
-        if (count($contactmomentratings) === 0) {
-            return 0;
-        } elseif ($contactmomentratings[0]->waarde === null) {
-            return 0;
-        }
-        return $contactmomentratings[0]->waarde;
     }
 
     public function readPublicAsset(string $path)

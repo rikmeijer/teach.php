@@ -27,10 +27,8 @@ class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
-        preg_match('#^/rating/(?<contactmomentIdentifier>\d+)#', $request->getURI()->getPath(), $matches);
-
-        $ratingwaarde = $this->user->retrieveContactmomentRating($matches['contactmomentIdentifier']);
-        return new Factory($this->phpviewDirectory->load('rating'), $ratingwaarde, [
+        preg_match('#^/rating/(?<value>\d+)#', $request->getURI()->getPath(), $matches);
+        return new Factory($this->phpviewDirectory->load('rating'), $matches['value'], [
             'star' =>  $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'star.png'),
             'unstar' => $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'unstar.png')
         ]);
