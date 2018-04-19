@@ -43,9 +43,8 @@ namespace rikmeijer\Teach {
             $session = $this->session();
             $server = $this->sso();
             $schema = $this->schema();
-            $sessionToken = $session->getSegment('token');
             $publicAssetsFileSystem = $this->assets();
-            $user = $this->userForToken($server, $sessionToken, $schema, $publicAssetsFileSystem);
+            $user = $this->userForToken($server, $session, $schema, $publicAssetsFileSystem);
             $phpviewDirectoryFactory = $this->phpviewDirectoryFactory($session);
 
             return new \pulledbits\Router\Router([
@@ -83,10 +82,10 @@ namespace rikmeijer\Teach {
         }
 
 
-        private function userForToken(\Avans\OAuth\Web $server, Segment $sessionToken, \pulledbits\ActiveRecord\Schema $schema, FilesystemInterface $publicAssetsFileSystem) : User
+        private function userForToken(\Avans\OAuth\Web $server, Session $session, \pulledbits\ActiveRecord\Schema $schema, FilesystemInterface $publicAssetsFileSystem) : User
         {
             require $this->resourcesPath . DIRECTORY_SEPARATOR . 'User.php';
-            return new User($server, $sessionToken, $schema, $publicAssetsFileSystem);
+            return new User($server, $session, $schema, $publicAssetsFileSystem);
         }
     };
 

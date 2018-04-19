@@ -3,6 +3,7 @@
 namespace rikmeijer\Teach;
 
 use Aura\Session\Segment;
+use Aura\Session\Session;
 use pulledbits\ActiveRecord\Record;
 use pulledbits\ActiveRecord\Schema;
 
@@ -13,10 +14,11 @@ class User
     private $schema;
     private $publicAssetsFileSystem;
 
-    public function __construct(\Avans\OAuth\Web $server, Segment $sessionToken, Schema $schema, \League\Flysystem\FilesystemInterface $publicAssetsFileSystem)
+    public function __construct(\Avans\OAuth\Web $server, Session $session, Schema $schema, \League\Flysystem\FilesystemInterface $publicAssetsFileSystem)
     {
         $this->server = $server;
-        $this->sessionToken = $sessionToken;
+        $this->session = $session;
+        $this->sessionToken = $session->getSegment('token');
         $this->schema = $schema;
         $this->publicAssetsFileSystem = $publicAssetsFileSystem;
     }

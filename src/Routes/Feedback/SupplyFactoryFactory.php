@@ -47,15 +47,15 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
                 $rating = null;
                 $explanation = '';
-                if ($this->iprating->waarde !== null) {
-                    $rating = $this->iprating->waarde;
-                    $explanation = $this->iprating->inhoud !== null ? $this->iprating->inhoud : '';
+                if ($ipRating->waarde !== null) {
+                    $rating = $ipRating->waarde;
+                    $explanation = $ipRating->inhoud !== null ? $ipRating->inhoud : '';
                 }
 
                 if (array_key_exists('rating', $query)) {
                     $rating = $query['rating'];
                 }
-                return new GetFactory($ipRating, $this->phpviewDirectory->load('supply'), $assets, $rating, $explanation);
+                return new GetFactory($this->phpviewDirectory->load('supply'), $assets, $rating, $explanation);
 
             case 'POST':
                 $parsedBody = $request->getParsedBody();
