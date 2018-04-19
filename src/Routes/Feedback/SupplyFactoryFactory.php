@@ -40,10 +40,6 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
                 $query = $request->getQueryParams();
 
                 $ipRating = $contactmoment->findRatingFromIP($_SERVER['REMOTE_ADDR']);
-                $assets = [
-                    'star' =>  $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'star.png'),
-                    'unstar' => $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'unstar.png')
-                ];
 
                 $rating = null;
                 $explanation = '';
@@ -55,7 +51,7 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
                 if (array_key_exists('rating', $query)) {
                     $rating = $query['rating'];
                 }
-                return new GetFactory($this->phpviewDirectory->load('supply'), $assets, $rating, $explanation);
+                return new GetFactory($this->phpviewDirectory->load('supply'), $rating, $explanation);
 
             case 'POST':
                 $parsedBody = $request->getParsedBody();
