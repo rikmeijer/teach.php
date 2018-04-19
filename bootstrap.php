@@ -41,7 +41,7 @@ namespace rikmeijer\Teach {
         public function router(): \pulledbits\Router\Router
         {
             $session = $this->session();
-            $server = $this->sso();
+            $server = $this->sso($session);
             $schema = $this->schema();
             $publicAssetsFileSystem = $this->assets();
             $user = $this->userForToken($server, $session, $schema, $publicAssetsFileSystem);
@@ -53,8 +53,8 @@ namespace rikmeijer\Teach {
                 new Routes\RatingFactoryFactory($user, $phpviewDirectoryFactory),
                 new Routes\Contactmoment\ImportFactoryFactory($user, $phpviewDirectoryFactory),
                 new Routes\QrFactoryFactory($phpviewDirectoryFactory),
-                new Routes\SSO\AuthorizeFactoryFactory($user),
-                new Routes\SSO\CallbackFactoryFactory($user),
+                new Routes\SSO\AuthorizeFactoryFactory($server),
+                new Routes\SSO\CallbackFactoryFactory($server),
                 new Routes\LogoutFactoryFactory($user),
                 new Routes\IndexFactoryFactory($user, $phpviewDirectoryFactory)
             ]);
@@ -72,9 +72,10 @@ namespace rikmeijer\Teach {
             return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'session' . DIRECTORY_SEPARATOR . 'bootstrap.php';
         }
 
-        private function sso(): \Avans\OAuth\Web
+        private function sso(Session $session): SSO
         {
-            return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'sso' . DIRECTORY_SEPARATOR . 'bootstrap.php';
+            require $this->resourcesPath . DIRECTORY_SEPARATOR . 'sso' . DIRECTORY_SEPARATOR . 'bootstrap.php';
+            return new SSO($session);
         }
 
         private function phpviewDirectoryFactory(Session $session) : PHPViewDirectoryFactory {
@@ -83,7 +84,7 @@ namespace rikmeijer\Teach {
         }
 
 
-        private function userForToken(\Avans\OAuth\Web $server, Session $session, \pulledbits\ActiveRecord\Schema $schema, FilesystemInterface $publicAssetsFileSystem) : User
+        private function userForToken(SSO $server, Session $session, \pulledbits\ActiveRecord\Schema $schema, FilesystemInterface $publicAssetsFileSystem) : User
         {
             require $this->resourcesPath . DIRECTORY_SEPARATOR . 'User.php';
             return new User($server, $session, $schema, $publicAssetsFileSystem);

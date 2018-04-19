@@ -2,20 +2,20 @@
 
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\Router\RouteEndPoint;
-use rikmeijer\Teach\User;
+use rikmeijer\Teach\SSO;
 
 class TemporaryTokenCredentialsAcquisitionFactory implements RouteEndPoint
 {
-    private $user;
+    private $sso;
 
-    public function __construct(User $user)
+    public function __construct(SSO $sso)
     {
-        $this->user = $user;
+        $this->sso = $sso;
     }
 
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        $this->user->acquireTemporaryCredentials();
+        $this->sso->acquireTemporaryCredentials();
         exit;
     }
 }

@@ -3,15 +3,15 @@
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
-use rikmeijer\Teach\User;
+use rikmeijer\Teach\SSO;
 
 class AuthorizeFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
-    private $user;
+    private $sso;
 
-    public function __construct(User $user)
+    public function __construct(SSO $sso)
     {
-        $this->user = $user;
+        $this->sso = $sso;
     }
 
     public function matchUri(UriInterface $uri): bool
@@ -21,6 +21,6 @@ class AuthorizeFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
-        return new Authorize\TemporaryTokenCredentialsAcquisitionFactory($this->user);
+        return new Authorize\TemporaryTokenCredentialsAcquisitionFactory($this->sso);
     }
 }

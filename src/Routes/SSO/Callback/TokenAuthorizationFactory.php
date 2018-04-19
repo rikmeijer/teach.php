@@ -2,24 +2,24 @@
 
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\Router\RouteEndPoint;
-use rikmeijer\Teach\User;
+use rikmeijer\Teach\SSO;
 
 class TokenAuthorizationFactory implements RouteEndPoint
 {
-    private $user;
+    private $sso;
     private $oauthToken;
     private $oauthVerifier;
 
-    public function __construct(User $user, string $oauthToken, string $oauthVerifier)
+    public function __construct(SSO $sso, string $oauthToken, string $oauthVerifier)
     {
-        $this->user = $user;
+        $this->sso = $sso;
         $this->oauthToken = $oauthToken;
         $this->oauthVerifier = $oauthVerifier;
     }
 
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        $this->user->authorizeTokenCredentials($this->oauthToken, $this->oauthVerifier);
+        $this->sso->authorizeTokenCredentials($this->oauthToken, $this->oauthVerifier);
         return $psrResponse->withStatus('303')->withHeader('Location', '/');
     }
 }

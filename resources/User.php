@@ -9,34 +9,20 @@ use pulledbits\ActiveRecord\Schema;
 class User
 {
     private $server;
-    private $sessionToken;
     private $schema;
     private $publicAssetsFileSystem;
 
-    public function __construct(\Avans\OAuth\Web $server, Session $session, Schema $schema, \League\Flysystem\FilesystemInterface $publicAssetsFileSystem)
+    public function __construct(SSO $server, Session $session, Schema $schema, \League\Flysystem\FilesystemInterface $publicAssetsFileSystem)
     {
-        $this->server = $server;
         $this->session = $session;
-        $this->sessionToken = $session->getSegment('token');
         $this->schema = $schema;
         $this->publicAssetsFileSystem = $publicAssetsFileSystem;
+        $this->server = $server;
     }
 
     private function details(): \League\OAuth1\Client\Server\User
     {
-        $details = unserialize($this->sessionToken->get('user'));
-        if (!($details instanceof \League\OAuth1\Client\Server\User)) {
-            $tokenCredentialsSerialized = $this->sessionToken->get('credentials');
-            if ($tokenCredentialsSerialized === null) {
-                header('Location: /sso/authorize', true, 302);
-                exit;
-            }
-            $token = unserialize($tokenCredentialsSerialized);
-
-            $details = $this->server->getUserDetails($token);
-            $this->sessionToken->set('user', serialize($details));
-        }
-        return $details;
+        return $this->server->getUserDetails();
     }
 
     public function isEmployee()
@@ -155,24 +141,6 @@ class User
         $datetime = new \DateTime($datetime);
         $datetime->setTimezone(new \DateTimeZone(ini_get('date.timezone')));
         return $datetime->format('Y-m-d H:i:s');
-    }
-
-    public function authorizeTokenCredentials(string $oauthToken, string $oauthVerifier) : void
-    {
-        $temporaryCredentialsSerialized = $this->sessionToken->get('temporary_credentials');
-        if ($temporaryCredentialsSerialized !== null) {
-            $temporaryCredentials = unserialize($temporaryCredentialsSerialized);
-            $tokenCredentials = $this->server->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
-            $this->sessionToken->set('temporary_credentials', null);
-            $this->sessionToken->set('credentials', serialize($tokenCredentials));
-        }
-    }
-
-    public function acquireTemporaryCredentials() : void
-    {
-        $temporaryCredentials = $this->server->getTemporaryCredentials();
-        $this->sessionToken->set('temporary_credentials', serialize($temporaryCredentials));
-        $this->server->authorize($temporaryCredentials);
     }
 
     public function logout() : void
