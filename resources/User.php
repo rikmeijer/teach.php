@@ -28,7 +28,7 @@ class User
         if (!($details instanceof \League\OAuth1\Client\Server\User)) {
             $tokenCredentialsSerialized = $this->sessionToken->get('credentials');
             if ($tokenCredentialsSerialized === null) {
-                $this->authorize();
+                header('Location: /sso/callback/', true, 302);
                 exit;
             }
             $token = unserialize($tokenCredentialsSerialized);
@@ -47,16 +47,6 @@ class User
     public function getID()
     {
         return $this->details()->uid;
-    }
-
-    private function authorize(): void
-    {
-        $temporaryCredentialsSerialized = $this->sessionToken->get('temporary_credentials');
-        if ($temporaryCredentialsSerialized === null) {
-            $temporaryCredentialsSerialized = serialize($this->server->getTemporaryCredentials());
-            $this->sessionToken->set('temporary_credentials', $temporaryCredentialsSerialized);
-        }
-        $this->server->authorize(unserialize($temporaryCredentialsSerialized));
     }
 
     public function retrieveModules() : array
