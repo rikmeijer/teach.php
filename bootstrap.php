@@ -28,15 +28,20 @@ namespace {
 
 namespace rikmeijer\Teach {
 
-    use Aura\Session\Segment;
     use Aura\Session\Session;
     use League\Flysystem\FilesystemInterface;
 
-    require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
     class Bootstrap
     {
-        private $resourcesPath = __DIR__ . DIRECTORY_SEPARATOR . 'resources';
+        private $autoloader;
+        private $resourcesPath;
+
+        public function __construct()
+        {
+            $this->autoloader = require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+            $this->resourcesPath = __DIR__ . DIRECTORY_SEPARATOR . 'resources';
+        }
 
         public function router(): \pulledbits\Router\Router
         {
