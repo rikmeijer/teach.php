@@ -2,7 +2,6 @@
 
 namespace rikmeijer\Teach;
 
-use Aura\Session\Segment;
 use Aura\Session\Session;
 use pulledbits\ActiveRecord\Record;
 use pulledbits\ActiveRecord\Schema;
