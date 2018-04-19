@@ -1,4 +1,4 @@
-<?php namespace rikmeijer\Teach\Routes\SSO\Callback;
+<?php namespace rikmeijer\Teach\Routes\SSO\Authorize;
 
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\Router\RouteEndPoint;

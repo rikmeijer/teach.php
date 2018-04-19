@@ -28,7 +28,7 @@ class User
         if (!($details instanceof \League\OAuth1\Client\Server\User)) {
             $tokenCredentialsSerialized = $this->sessionToken->get('credentials');
             if ($tokenCredentialsSerialized === null) {
-                header('Location: /sso/callback/', true, 302);
+                header('Location: /sso/authorize', true, 302);
                 exit;
             }
             $token = unserialize($tokenCredentialsSerialized);

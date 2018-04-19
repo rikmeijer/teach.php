@@ -53,6 +53,7 @@ namespace rikmeijer\Teach {
                 new Routes\RatingFactoryFactory($user, $phpviewDirectoryFactory),
                 new Routes\Contactmoment\ImportFactoryFactory($user, $phpviewDirectoryFactory),
                 new Routes\QrFactoryFactory($phpviewDirectoryFactory),
+                new Routes\SSO\AuthorizeFactoryFactory($user),
                 new Routes\SSO\CallbackFactoryFactory($user),
                 new Routes\LogoutFactoryFactory($user),
                 new Routes\IndexFactoryFactory($user, $phpviewDirectoryFactory)
