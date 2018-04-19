@@ -14,13 +14,11 @@ use rikmeijer\Teach\User;
 class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $user;
-    private $schema;
     private $phpviewDirectory;
 
-    public function __construct(User $user, Schema $schema, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(User $user, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
         $this->user = $user;
-        $this->schema = $schema;
         $this->phpviewDirectory = $phpviewDirectoryFactory->make('feedback');
     }
 
