@@ -4,7 +4,7 @@ use Psr\Http\Message\ResponseInterface;
 use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
 
-class GetFactory implements RouteEndPoint
+class Form implements RouteEndPoint
 {
     private $phpview;
 
