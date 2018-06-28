@@ -7,6 +7,6 @@
     <h1>Contactmomenten ge&iuml;mporteerd</h1>
 </header>
 <section>
-    <p>Contactmomenten zijn ge&iuml;mporteerd</p>
+    <p><?= $this->escape($numberImported); ?> contactmomenten zijn ge&iuml;mporteerd</p>
 </section>
 <?php $layout->compile(); ?>

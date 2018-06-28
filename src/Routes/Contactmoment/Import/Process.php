@@ -19,7 +19,8 @@ class Process implements RouteEndPoint
 
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        $this->user->importCalendarEvents();
-        return $this->phpview->prepareAsResponse($psrResponse, []);
+        return $this->phpview->prepareAsResponse($psrResponse, [
+            "numberImported" => $this->user->importCalendarEvents()
+        ]);
     }
 }

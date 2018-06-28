@@ -116,14 +116,15 @@ class User
         return $contactmoments[0];
     }
 
-    public function importCalendarEvents()
+    public function importCalendarEvents() : int
     {
         if ($this->isEmployee() === false) {
-            return;
+            return 0;
         }
 
         $userId = $this->details()->uid;
         $icalReader = new \ICal('http://rooster.avans.nl/gcal/D' . $this->details()->uid);
+        $count = 0;
         foreach ($icalReader->events() as $event) {
             if (array_key_exists('SUMMARY', $event) === false) {
                 continue;
@@ -131,8 +132,11 @@ class User
                 continue;
             }
             $this->schema->executeProcedure('import_ical_to_contactmoment', [$userId, $event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
+            $count++;
         }
         $this->schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
+
+        return $count;
     }
 
     private function convertToSQLDateTime(string $datetime): string
