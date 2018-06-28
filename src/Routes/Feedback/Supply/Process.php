@@ -1,25 +1,27 @@
 <?php namespace rikmeijer\Teach\Routes\Feedback\Supply;
 
+use function GuzzleHttp\Psr7\stream_for;
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\ActiveRecord\Record;
 use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
 
-class GetFactory implements RouteEndPoint
+class Process implements RouteEndPoint
 {
-    private $phpview;
+    private $contactmoment;
     private $rating;
     private $explanation;
 
-    public function __construct(\pulledbits\View\Template $phpview, string $rating, string $explanation)
+    public function __construct(Record $contactmoment, string $rating, string $explanation)
     {
-        $this->phpview = $phpview;
+        $this->contactmoment = $contactmoment;
         $this->rating = $rating;
         $this->explanation = $explanation;
     }
 
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        return $this->phpview->prepareAsResponse($psrResponse, ['rating' => $this->rating, 'explanation' => $this->explanation]);
+        $this->contactmoment->rate($_SERVER['REMOTE_ADDR'], $this->rating, $this->explanation);
+        return $psrResponse->withBody(stream_for('Dankje!'));
     }
 }

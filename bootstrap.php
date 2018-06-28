@@ -53,14 +53,14 @@ namespace rikmeijer\Teach {
             $phpviewDirectoryFactory = $this->phpviewDirectoryFactory($session);
 
             return new \pulledbits\Router\Router([
-                new Routes\Feedback\SupplyFactoryFactory($user, $phpviewDirectoryFactory),
-                new Routes\FeedbackFactoryFactory($user, $phpviewDirectoryFactory),
-                new Routes\RatingFactoryFactory($user, $phpviewDirectoryFactory),
-                new Routes\Contactmoment\ImportFactoryFactory($user, $phpviewDirectoryFactory),
-                new Routes\QrFactoryFactory($phpviewDirectoryFactory),
+                new Routes\Feedback\SupplyEndPointFactory($user, $phpviewDirectoryFactory),
+                new Routes\FeedbackEndPointFactory($user, $phpviewDirectoryFactory),
+                new Routes\RatingEndPointFactory($user, $phpviewDirectoryFactory),
+                new Routes\Contactmoment\ImportEndPointFactory($user, $phpviewDirectoryFactory),
+                new Routes\QrEndPointFactory($phpviewDirectoryFactory),
                 new Routes\SSO\AuthorizeFactoryFactory($server),
                 new Routes\SSO\CallbackFactoryFactory($server),
-                new Routes\LogoutFactoryFactory($user),
+                new Routes\UserEndPointFactory($user),
                 new Routes\IndexFactoryFactory($user, $phpviewDirectoryFactory)
             ]);
         }

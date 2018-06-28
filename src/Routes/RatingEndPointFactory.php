@@ -5,10 +5,10 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
-use rikmeijer\Teach\Routes\Rating\Factory;
+use rikmeijer\Teach\Routes\Rating\Image;
 use rikmeijer\Teach\User;
 
-class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
+class RatingEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $user;
     private $phpviewDirectory;
@@ -28,7 +28,7 @@ class RatingFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         preg_match('#^/rating/(?<value>\d+)#', $request->getURI()->getPath(), $matches);
-        return new Factory($this->phpviewDirectory->load('rating'), $matches['value'], [
+        return new Image($this->phpviewDirectory->load('rating'), $matches['value'], [
             'star' =>  $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'star.png'),
             'unstar' => $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'unstar.png')
         ]);

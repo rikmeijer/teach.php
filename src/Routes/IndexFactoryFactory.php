@@ -6,7 +6,7 @@ use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
-use rikmeijer\Teach\Routes\Index\Factory;
+use rikmeijer\Teach\Routes\Index\Overview;
 use rikmeijer\Teach\User;
 
 class IndexFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
@@ -27,6 +27,6 @@ class IndexFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
-        return new Factory($this->user, $this->phpviewDirectory->load('welcome'));
+        return new Overview($this->user, $this->phpviewDirectory->load('welcome'));
     }
 }

@@ -7,7 +7,7 @@ use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\User;
 
-class FeedbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
+class FeedbackEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $user;
     private $phpviewDirectory;
@@ -30,6 +30,6 @@ class FeedbackFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
         if ($contactmoment->id !== $matches['contactmomentIdentifier']) {
             return ErrorFactory::makeInstance(404);
         }
-        return new Feedback\Factory($this->phpviewDirectory->load('feedback'), $contactmoment);
+        return new Feedback\Meter($this->phpviewDirectory->load('feedback'), $contactmoment);
     }
 }

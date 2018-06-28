@@ -6,10 +6,10 @@ use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\Routes\Contactmoment\Import\Form;
-use rikmeijer\Teach\Routes\Contactmoment\Import\PostFactory;
+use rikmeijer\Teach\Routes\Contactmoment\Import\Process;
 use rikmeijer\Teach\User;
 
-class ImportFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
+class ImportEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $user;
     private $phpviewDirectory;
@@ -36,7 +36,7 @@ class ImportFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
                 return new Form($this->phpviewDirectory->load('import'));
 
             case 'POST':
-                return new PostFactory($this->phpviewDirectory->load('imported'), $this->user);
+                return new Process($this->phpviewDirectory->load('imported'), $this->user);
 
             default:
                 return ErrorFactory::makeInstance('405');

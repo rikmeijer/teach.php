@@ -4,7 +4,7 @@ use Psr\Http\Message\ResponseInterface;
 use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
 
-class Factory implements RouteEndPoint
+class Image implements RouteEndPoint
 {
     private $phpview;
     private $ratingwaarde;

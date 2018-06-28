@@ -5,9 +5,9 @@ use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\Router\RouteEndPointFactory;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
-use rikmeijer\Teach\Routes\Qr\Factory;
+use rikmeijer\Teach\Routes\Qr\Code;
 
-class QrFactoryFactory implements RouteEndPointFactory
+class QrEndPointFactory implements RouteEndPointFactory
 {
     private $phpviewDirectory;
 
@@ -32,6 +32,6 @@ class QrFactoryFactory implements RouteEndPointFactory
             syslog(E_USER_ERROR, 'Query data incomplete');
             return ErrorFactory::makeInstance('400');
         }
-        return new Factory($this->phpviewDirectory->load('qr'), $query['data']);
+        return new Code($this->phpviewDirectory->load('qr'), $query['data']);
     }
 }

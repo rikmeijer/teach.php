@@ -5,7 +5,7 @@ use pulledbits\ActiveRecord\Record;
 use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
 
-class Factory implements RouteEndPoint
+class Meter implements RouteEndPoint
 {
     private $phpview;
     private $contactmoment;

@@ -1,11 +1,11 @@
-<?php namespace rikmeijer\Teach\Routes\Logout;
+<?php namespace rikmeijer\Teach\Routes\User;
 
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\User;
 
-class Factory implements RouteEndPoint
+class Logout implements RouteEndPoint
 {
     private $user;
 

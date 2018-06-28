@@ -1,17 +1,15 @@
 <?php namespace rikmeijer\Teach\Routes\Feedback;
 
-use Aura\Session\Session;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
-use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
-use rikmeijer\Teach\Routes\Feedback\Supply\PostFactory;
-use rikmeijer\Teach\Routes\Feedback\Supply\GetFactory;
+use rikmeijer\Teach\Routes\Feedback\Supply\Process;
+use rikmeijer\Teach\Routes\Feedback\Supply\Form;
 use rikmeijer\Teach\User;
 
-class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
+class SupplyEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $user;
     private $phpviewDirectory;
@@ -51,14 +49,14 @@ class SupplyFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
                 if (array_key_exists('rating', $query)) {
                     $rating = $query['rating'];
                 }
-                return new GetFactory($this->phpviewDirectory->load('supply'), $rating, $explanation);
+                return new Form($this->phpviewDirectory->load('supply'), $rating, $explanation);
 
             case 'POST':
                 $parsedBody = $request->getParsedBody();
                 if ($this->user->verifyCSRFToken($parsedBody['__csrf_value']) === false) {
                     return ErrorFactory::makeInstance('403');
                 }
-                return new PostFactory($contactmoment, $parsedBody['rating'], $parsedBody['explanation']);
+                return new Process($contactmoment, $parsedBody['rating'], $parsedBody['explanation']);
 
             default:
                 return ErrorFactory::makeInstance('405');

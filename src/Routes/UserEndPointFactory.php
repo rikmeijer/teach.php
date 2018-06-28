@@ -3,10 +3,10 @@
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
-use rikmeijer\Teach\Routes\Logout\Factory;
+use rikmeijer\Teach\Routes\User\Logout;
 use rikmeijer\Teach\User;
 
-class LogoutFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
+class UserEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $user;
 
@@ -22,6 +22,6 @@ class LogoutFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
-        return new Factory($this->user);
+        return new Logout($this->user);
     }
 }

@@ -6,7 +6,7 @@ use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\User;
 
-class PostFactory implements RouteEndPoint
+class Process implements RouteEndPoint
 {
     private $phpview;
     private $user;
