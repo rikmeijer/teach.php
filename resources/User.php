@@ -25,14 +25,9 @@ class User
         return $this->server->getUserDetails();
     }
 
-    public function isEmployee()
+    private function isEmployee()
     {
         return $this->details()->extra['employee'];
-    }
-
-    public function getID()
-    {
-        return $this->details()->uid;
     }
 
     public function retrieveModules() : array
