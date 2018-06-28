@@ -27,10 +27,6 @@ class ImportEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request) : RouteEndPoint
     {
-        if ($this->user->isEmployee() === false) {
-            return ErrorFactory::makeInstance('403');
-        }
-
         switch ($request->getMethod()) {
             case 'GET':
                 return new Form($this->phpviewDirectory->load('import'));

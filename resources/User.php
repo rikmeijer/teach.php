@@ -123,6 +123,10 @@ class User
 
     public function importCalendarEvents()
     {
+        if ($this->isEmployee() === false) {
+            return;
+        }
+
         $userId = $this->details()->uid;
         $icalReader = new \ICal('http://rooster.avans.nl/gcal/D' . $this->details()->uid);
         foreach ($icalReader->events() as $event) {
