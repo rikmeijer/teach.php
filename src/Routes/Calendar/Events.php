@@ -23,7 +23,6 @@ class Events implements RouteEndPoint
     {
 
         return $this->phpview->prepareAsResponse($psrResponse
-            ->withHeader('Date', date(DATE_RFC7231, mktime(0,0,0)))
             ->withHeader('Last-Modified', date(DATE_RFC7231, mktime(0,0,0)))
             ->withHeader('Content-Type', 'text/calendar; charset=utf-8')
             ->withHeader('Content-Disposition','attachment; filename="' . $this->calendar->getProdId() . '.ics"'), ['calendar' => $this->calendar]);
