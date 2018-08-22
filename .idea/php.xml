@@ -64,6 +64,7 @@
       <path value="$PROJECT_DIR$/vendor/pulledbits/view" />
       <path value="$PROJECT_DIR$/vendor/league/flysystem" />
       <path value="$PROJECT_DIR$/vendor/pulledbits/router" />
+      <path value="$PROJECT_DIR$/vendor/eluceo/ical" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />

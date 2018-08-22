@@ -3,6 +3,8 @@
 namespace rikmeijer\Teach;
 
 use Aura\Session\Session;
+use Eluceo\iCal\Component\Calendar;
+use Eluceo\iCal\Component\Event;
 use pulledbits\ActiveRecord\Record;
 use pulledbits\ActiveRecord\Schema;
 
@@ -46,6 +48,22 @@ class User
     public function retrieveModulecontactmomentenToday()
     {
         return $this->schema->read('contactmoment_vandaag', [], ["owner" => $this->details()->uid]);
+    }
+
+    public function retrieveCalendar(string $calendarIdentifier) : Calendar {
+        $calendar = new Calendar($calendarIdentifier);
+        switch ($calendarIdentifier) {
+            case 'weeks':
+                $event = new Event();
+                $event->setSummary('LW0');
+                $calendar->addComponent($event);
+                break;
+
+            default:
+                error_log('Unknown calendar ' . $calendarIdentifier . ' requested');
+                break;
+        }
+        return $calendar;
     }
 
     public function retrieveContactmoment($contactmomentIdentifier) : Record
