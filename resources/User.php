@@ -60,6 +60,7 @@ class User
                     $lesweekEvent->setNoTime(true);
                     $week_start = new \DateTime();
                     $week_start->setISODate($lesweek->jaar, $lesweek->kalenderweek);
+                    $lesweekEvent->setUniqueId(sha1($lesweek->jaar . $lesweek->kalenderweek));
                     $lesweekEvent->setDtStart($week_start);
                     $lesweekEvent->setDtEnd($week_start);
                     $lesweekEvent->setSummary('OW' .  $lesweek->onderwijsweek . '/BW' . $lesweek->blokweek);
