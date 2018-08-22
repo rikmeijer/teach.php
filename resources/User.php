@@ -54,9 +54,16 @@ class User
         $calendar = new Calendar($calendarIdentifier);
         switch ($calendarIdentifier) {
             case 'weeks':
-                $event = new Event();
-                $event->setSummary('LW0');
-                $calendar->addComponent($event);
+                $lesweken = $this->schema->read('lesweek', [], []);
+                foreach ($lesweken as $lesweek) {
+                    $lesweekEvent = new Event();
+                    $lesweekEvent->setNoTime(true);
+                    $week_start = new \DateTime();
+                    $week_start->setISODate($lesweek->jaar, $lesweek->kalenderweek);
+                    $lesweekEvent->setDtStart($week_start);
+                    $lesweekEvent->setSummary('OW' .  $lesweek->onderwijsweek . '/BW' . $lesweek->blokweek);
+                    $calendar->addComponent($lesweekEvent);
+                }
                 break;
 
             default:
