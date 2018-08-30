@@ -10,6 +10,16 @@ Please adhere to above color codes
 	margin: 25mm 10mm; /* change the margins as you want them to be. */
 }
 
+@media print {
+	body header,
+	body>nav, body>section {
+		width: 210mm;
+	}
+	body>header, body>section {
+		page-break-after: always;
+	}
+}
+
 html, body {
 	margin: 0;
 	padding: 0;
@@ -26,12 +36,16 @@ body {
 	background: #ffffff;
 }
 
+body header,
+body>nav, body>section {
+	width: 80%;
+	margin: 0 auto;
+}
+
 body header {
 	text-align: left;
 	border-top: 20px solid rgb(226, 19, 80);
 	height: 94px;
-	width: 210mm;
-	margin: 0 auto;
 	padding-top: 20px;
 }
 
@@ -54,8 +68,6 @@ body header h2 {
 
 body>nav, body>section {
 	border-top: 1px solid rgb(199, 0, 43);
-	width: 210mm;
-	margin: 0 auto;
 }
 
 body section h2 {
@@ -76,10 +88,25 @@ table {
 
 table caption {
 	color: rgb(99, 0, 21);
-	border-bottom: 1px solid rgb(99, 0, 21);
 	text-align: left;
 	line-height: 2em;
 	font-weight: bold;
+}
+
+table td, table th {
+	padding: 2px;
+	vertical-align: top;
+	text-align: left;
+}
+table tr td:last-of-type {
+	text-align: right;
+}
+table tr th {
+	background-color: rgb(226, 19, 80);
+	color: #ffffff;
+}
+table tr:nth-child(2n+1) td {
+	background-color: #efefef;
 }
 
 table tr.active td {
@@ -90,15 +117,10 @@ table tr.past td {
 	color: rgb(172, 172, 172);
 }
 
-table tr.past td a, table tr.past td a:active, table tr.past td a:visited
-	{
+table tr.past td a, table tr.past td a:active, table tr.past td a:visited {
 	color: rgb(255, 100, 150);
 }
 
-table td, table th {
-	padding: 2px;
-	vertical-align: top;
-}
 
 table.multicol th {
 	text-align: right;
@@ -128,10 +150,4 @@ ul.horizontal-menu {
 ul.horizontal-menu li {
 	list-style: none;
 	display: inline;
-}
-
-@media print {
-	body>header, body>section {
-		page-break-after: always;
-	}
 }
