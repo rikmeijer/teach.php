@@ -2,7 +2,6 @@
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
-use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\Routes\Contactmoment\Import\Form;
