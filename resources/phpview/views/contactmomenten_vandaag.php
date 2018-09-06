@@ -5,6 +5,7 @@
         <caption><?= $this->escape($caption); ?></caption>
         <thead>
         <tr>
+            <th width="80">Module</th>
             <th width="30">KW</th>
             <th width="30">BW</th>
             <th width="80">Dag</th>
@@ -22,6 +23,7 @@
             <?php else: ?>
                 <tr>
             <?php endif; ?>
+            <td><?= $this->escape($contactmoment->modulenaam); ?></td>
             <td><?= $this->escape($contactmoment->kalenderweek); ?></td>
             <td><?= $this->escape($contactmoment->blokweek); ?></td>
             <td><?= $this->escape(strftime('%A', strtotime($contactmoment->starttijd))); ?></td>

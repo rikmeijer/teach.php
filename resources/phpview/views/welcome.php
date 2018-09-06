@@ -18,7 +18,7 @@
         </ul>
     </nav>
     <section>
-        <?php $this->sub('contactmomenten', ['caption' => 'Contactmomenten vandaag', 'contactmomenten' => $contactmomenten]); ?>
+        <?php $this->sub('contactmomenten_vandaag', ['caption' => 'Contactmomenten vandaag', 'contactmomenten' => $contactmomenten]); ?>
     </section>
 
 <?php foreach ($modules as $module): ?>
