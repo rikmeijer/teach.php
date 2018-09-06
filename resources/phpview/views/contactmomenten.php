@@ -22,6 +22,7 @@
             <?php else: ?>
                 <tr>
             <?php endif; ?>
+            <td><?= $this->escape($contactmoment->modulenaam); ?></td>
             <td><?= $this->escape($contactmoment->kalenderweek); ?></td>
             <td><?= $this->escape($contactmoment->blokweek); ?></td>
             <td><?= $this->escape(strftime('%A', strtotime($contactmoment->starttijd))); ?></td>
