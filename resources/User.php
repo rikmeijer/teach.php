@@ -36,7 +36,7 @@ class User
     {
         $modules = [];
         foreach ($this->schema->read('module', [], []) as $module) {
-            $modulecontactmomenten = $this->schema->read("contactmoment_module", [], ["module_id" => $module->id, "owner" => $this->details()->uid]);
+            $modulecontactmomenten = $this->schema->read("contactmoment_module", [], ["modulenaam" => $module->naam, "owner" => $this->details()->uid]);
             if (count($modulecontactmomenten) > 0) {
                 $module->contains(['contactmomenten' => $modulecontactmomenten]);
                 $modules[] = $module;
