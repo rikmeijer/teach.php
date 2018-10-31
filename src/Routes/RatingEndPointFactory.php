@@ -1,6 +1,5 @@
 <?php namespace rikmeijer\Teach\Routes;
 
-use League\Flysystem\FilesystemInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
@@ -22,7 +21,7 @@ class RatingEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 
     public function matchUri(UriInterface $uri): bool
     {
-        return preg_match('#^/rating/(?<contactmomentIdentifier>\d+)$#', $uri->getPath()) === 1;
+        return preg_match('#^/rating/(?<contactmomentIdentifier>[\d\.]+)$#', $uri->getPath()) === 1;
     }
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
