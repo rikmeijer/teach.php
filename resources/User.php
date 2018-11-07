@@ -40,26 +40,18 @@ class User
             if (count($modulecontactmomenten) > 0) {
                 $module->contains(['contactmomenten' => $modulecontactmomenten]);
 
-                $module->bind('retrieveRating', function () use ($modulecontactmomenten)
+                $user = $this;
+                $module->bind('retrieveRating', function () use ($user, $modulecontactmomenten)
                 {
                     $ratings = [];
                     foreach ($modulecontactmomenten as $modulecontactmoment) {
-
-                        $contactmomentratings = $modulecontactmoment->fetchByFkRatingContactmoment();
-                        if (count($contactmomentratings) === 0) {
-                            continue;
-                        }
-                        $value = 0;
-                        foreach ($contactmomentratings as $contactmomentrating) {
-                            $value += $contactmomentrating->waarde;
-                        }
-                        $ratings[] = $value / count($contactmomentratings);
+                        $ratings[] = $user->retrieveContactmoment($modulecontactmoment->id)->retrieveRating();
                     }
-
-                    if (count($ratings) === 0) {
+                    $numericRatings = array_filter($ratings, 'is_numeric');
+                    if (count($numericRatings) === 0) {
                         return 0;
                     }
-                    return array_sum($ratings) / count($ratings);
+                    return array_sum($numericRatings) / count($numericRatings);
                 });
 
                 $modules[] = $module;
@@ -149,7 +141,7 @@ class User
         {
             $contactmomentratings = $this->fetchByFkRatingContactmoment();
             if (count($contactmomentratings) === 0) {
-                return 0;
+                return null;
             }
             $value = 0;
             foreach ($contactmomentratings as $contactmomentrating) {
