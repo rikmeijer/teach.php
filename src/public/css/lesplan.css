@@ -71,6 +71,7 @@ body>nav, body>section {
 }
 
 body section h2 {
+	margin-top: 2em;
 	color: rgb(199, 0, 43);
 }
 

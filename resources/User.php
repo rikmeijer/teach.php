@@ -39,6 +39,29 @@ class User
             $modulecontactmomenten = $this->schema->read("contactmoment_module", [], ["modulenaam" => $module->naam, "owner" => $this->details()->uid]);
             if (count($modulecontactmomenten) > 0) {
                 $module->contains(['contactmomenten' => $modulecontactmomenten]);
+
+                $module->bind('retrieveRating', function () use ($modulecontactmomenten)
+                {
+                    $ratings = [];
+                    foreach ($modulecontactmomenten as $modulecontactmoment) {
+
+                        $contactmomentratings = $modulecontactmoment->fetchByFkRatingContactmoment();
+                        if (count($contactmomentratings) === 0) {
+                            continue;
+                        }
+                        $value = 0;
+                        foreach ($contactmomentratings as $contactmomentrating) {
+                            $value += $contactmomentrating->waarde;
+                        }
+                        $ratings[] = $value / count($contactmomentratings);
+                    }
+
+                    if (count($ratings) === 0) {
+                        return 0;
+                    }
+                    return array_sum($ratings) / count($ratings);
+                });
+
                 $modules[] = $module;
             }
         }
