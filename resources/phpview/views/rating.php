@@ -6,12 +6,16 @@ imagesavealpha($im, true);
 $transparent = imagecolorallocatealpha($im, 255, 255, 255, 127);
 imagefilledrectangle($im, 0, 0, 500, $height, $transparent);
 
+function copyStar($target, $source, $offset) {
+    if (imagecopyresampled($target, $source, 100 * $offset, (100 / 2) - (100 / 2), 0, 0, 100, 100, imagesx($source), imagesy($source)) === false) {
+        exit('fail to copy image');
+    }
+}
+
 if ($ratingwaarde === null) {
     $source = imagecreatefromstring($nostarData);
     for ($i = 0; $i < 5; $i++) {
-        if (imagecopyresampled($im, $source, 100 * $i, ($height / 2) - (100 / 2), 0, 0, 100, 100, imagesx($source), imagesy($source)) === false) {
-            exit('fail to copy image');
-        }
+        copyStar($im, $source, $i);
     }
 } else {
     $star = imagecreatefromstring($starData);
@@ -22,9 +26,7 @@ if ($ratingwaarde === null) {
         } else {
             $source = $unstar;
         }
-        if (imagecopyresampled($im, $source, 100 * $i, ($height / 2) - (100 / 2), 0, 0, 100, 100, imagesx($source), imagesy($source)) === false) {
-            exit('fail to copy image');
-        }
+        copyStar($im, $source, $i);
     }
 }
 
