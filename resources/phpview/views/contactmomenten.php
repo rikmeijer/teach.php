@@ -2,7 +2,7 @@
     <p>Geen <?= $this->escape(strtolower($caption)); ?></p>
 <?php else: ?>
     <table>
-        <caption><?= $this->escape($caption); ?></caption>
+        <caption><a href="#" onclick="if (this.closest('table').querySelector('tbody.collapsed') != null) { this.closest('table').querySelector('tbody.collapsed').className = null; } else { this.closest('table').querySelector('tbody').className = 'collapsed'; }"><?= $this->escape($caption); ?></a></caption>
         <thead>
         <tr>
             <th width="30">KW</th>
@@ -13,7 +13,7 @@
             <th>&nbsp;</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="collapsed">
         <?php foreach ($contactmomenten as $contactmoment): ?>
             <?php if (strtotime($contactmoment->starttijd) <= time() && strtotime($contactmoment->starttijd) >= time()): ?>
                 <tr class="active">

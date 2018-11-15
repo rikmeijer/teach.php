@@ -87,11 +87,19 @@ table {
 	table-layout: fixed;
 }
 
-table caption {
+table caption,
+table caption a,
+table caption a:visited ,
+table caption a:active {
 	color: rgb(99, 0, 21);
 	text-align: left;
 	line-height: 2em;
 	font-weight: bold;
+	text-decoration: none;
+}
+
+table tbody.collapsed tr.past {
+	display: none;
 }
 
 table td, table th {
@@ -106,6 +114,11 @@ table tr th {
 	background-color: rgb(226, 19, 80);
 	color: #ffffff;
 }
+
+table tr th:last-of-type {
+	text-align: right;
+}
+
 table tr:nth-child(2n+1) td {
 	background-color: #efefef;
 }
