@@ -15,7 +15,7 @@
 <h1>Feedback-o-meter</h1>
 <?php $url = $this->url('/feedback/%s/supply', $contactmoment->id); ?>
 <?php $rating = $contactmoment->retrieveRating(); ?>
-<img src="<?= $this->url('/rating/%s', $rating !== null ? $contactmoment->retrieveRating() : 0); ?>" width="500" height="100"  style="margin: 25px 0;"/><br /> <img
+<img src="<?= $this->url('/rating/%s', $rating ?? 'N'); ?>" width="500" height="100"  style="margin: 25px 0;"/><br /> <img
         src="<?= $this->url('/qr?data=%s', $url); ?>"
         width="400" height="400"/>
 <p><?= $url; ?></p>
