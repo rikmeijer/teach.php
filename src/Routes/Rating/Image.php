@@ -10,7 +10,7 @@ class Image implements RouteEndPoint
     private $ratingwaarde;
     private $assets;
 
-    public function __construct(\pulledbits\View\Template $phpview, int $ratingwaarde, array $assets)
+    public function __construct(\pulledbits\View\Template $phpview, $ratingwaarde, array $assets)
     {
         $this->phpview = $phpview;
         $this->ratingwaarde = $ratingwaarde;
@@ -22,7 +22,8 @@ class Image implements RouteEndPoint
         return $this->phpview->prepareAsResponse($psrResponse->withHeader('Content-Type', 'image/png'), [
             'ratingwaarde' => $this->ratingwaarde,
             'starData' => $this->assets['star'],
-            'unstarData' => $this->assets['unstar']
+            'unstarData' => $this->assets['unstar'],
+            'nostarData' => $this->assets['nostar']
         ]);
     }
 }

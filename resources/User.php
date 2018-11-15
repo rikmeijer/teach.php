@@ -37,19 +37,21 @@ class User
         $modules = [];
         foreach ($this->schema->read('module', [], []) as $module) {
             $modulecontactmomenten = $this->schema->read("contactmoment_module", [], ["modulenaam" => $module->naam, "owner" => $this->details()->uid]);
+            foreach ($modulecontactmomenten as $contactmoment) {
+                $this->bindRetrieveRating($contactmoment);
+            }
+
             if (count($modulecontactmomenten) > 0) {
                 $module->contains(['contactmomenten' => $modulecontactmomenten]);
-
-                $user = $this;
-                $module->bind('retrieveRating', function () use ($user, $modulecontactmomenten)
+                $module->bind('retrieveRating', function () use ($modulecontactmomenten)
                 {
                     $ratings = [];
                     foreach ($modulecontactmomenten as $modulecontactmoment) {
-                        $ratings[] = $user->retrieveContactmoment($modulecontactmoment->id)->retrieveRating();
+                        $ratings[] = $modulecontactmoment->retrieveRating();
                     }
                     $numericRatings = array_filter($ratings, 'is_numeric');
                     if (count($numericRatings) === 0) {
-                        return 0;
+                        return null;
                     }
                     return array_sum($numericRatings) / count($numericRatings);
                 });
@@ -60,9 +62,28 @@ class User
         return $modules;
     }
 
+    private function bindRetrieveRating(Record $contactmoment) {
+        $contactmoment->bind('retrieveRating', function ()
+        {
+            $contactmomentratings = $this->fetchByFkRatingContactmoment();
+            if (count($contactmomentratings) === 0) {
+                return null;
+            }
+            $value = 0;
+            foreach ($contactmomentratings as $contactmomentrating) {
+                $value += $contactmomentrating->waarde;
+            }
+            return $value / count($contactmomentratings);
+        });
+    }
+
     public function retrieveModulecontactmomentenToday()
     {
-        return $this->schema->read('contactmoment_vandaag', [], ["owner" => $this->details()->uid]);
+        $contactmomenten = $this->schema->read('contactmoment_vandaag', [], ["owner" => $this->details()->uid]);
+        foreach ($contactmomenten as $contactmoment) {
+            $this->bindRetrieveRating($contactmoment);
+        }
+        return $contactmomenten;
     }
 
     public function retrieveCalendar(string $calendarIdentifier) : Calendar {
@@ -136,19 +157,7 @@ class User
                 return $this->referenceByFkRatingContactmoment(['ipv4' => $ipAddress]);
             }
         });
-
-        $contactmoments[0]->bind('retrieveRating', function ()
-        {
-            $contactmomentratings = $this->fetchByFkRatingContactmoment();
-            if (count($contactmomentratings) === 0) {
-                return null;
-            }
-            $value = 0;
-            foreach ($contactmomentratings as $contactmomentrating) {
-                $value += $contactmomentrating->waarde;
-            }
-            return $value / count($contactmomentratings);
-        });
+        $this->bindRetrieveRating($contactmoments[0]);
 
 
         $contactmoments[0]->bind('rate', function(string $ipAddress, string $rating, string $explanation) {
