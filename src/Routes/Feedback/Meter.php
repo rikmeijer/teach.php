@@ -1,16 +1,16 @@
 <?php namespace rikmeijer\Teach\Routes\Feedback;
 
 use Psr\Http\Message\ResponseInterface;
-use pulledbits\ActiveRecord\Record;
 use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
+use rikmeijer\Teach\Contactmoment;
 
 class Meter implements RouteEndPoint
 {
     private $phpview;
     private $contactmoment;
 
-    public function __construct(\pulledbits\View\Template $phpview, Record $contactmoment)
+    public function __construct(\pulledbits\View\Template $phpview, Contactmoment $contactmoment)
     {
         $this->phpview = $phpview;
         $this->contactmoment = $contactmoment;

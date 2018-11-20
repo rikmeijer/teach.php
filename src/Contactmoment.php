@@ -28,7 +28,7 @@ class Contactmoment
         return array_map([__CLASS__, 'wrapAround'], $schema->read('contactmoment_vandaag', [], ["owner" => $owner]));
     }
 
-    static function read(Schema $schema, string $owner, string $identifier) {
+    static function read(Schema $schema, string $owner, string $identifier) : self {
         $contactmoments = $schema->read('contactmoment', [], ['id' => $identifier, "owner" => $owner]);
         if (count($contactmoments) === 0) {
             $contactmoments[0] = new class implements Record {
@@ -64,7 +64,7 @@ class Contactmoment
                 }
             };
         }
-        return array_map([__CLASS__, 'wrapAround'], $contactmoments);
+        return array_map([__CLASS__, 'wrapAround'], $contactmoments)[0];
     }
 
     public function retrieveRating() {

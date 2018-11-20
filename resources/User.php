@@ -40,10 +40,10 @@ class User
 
             if (count($modulecontactmomenten) > 0) {
                 $module->contains(['contactmomenten' => $modulecontactmomenten]);
-                $module->bind('retrieveRating', function () use ($modulecontactmomenten)
+                $module->bind('retrieveRating', function ()
                 {
                     $ratings = [];
-                    foreach ($modulecontactmomenten as $modulecontactmoment) {
+                    foreach ($this->contactmomenten as $modulecontactmoment) {
                         $ratings[] = $modulecontactmoment->retrieveRating();
                     }
                     $numericRatings = array_filter($ratings, 'is_numeric');
@@ -89,7 +89,7 @@ class User
         return $calendar;
     }
 
-    public function retrieveContactmoment($contactmomentIdentifier) : Record
+    public function retrieveContactmoment($contactmomentIdentifier) : Contactmoment
     {
         return Contactmoment::read($this->schema, $this->details()->uid, $contactmomentIdentifier);
     }
