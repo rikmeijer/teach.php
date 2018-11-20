@@ -16,32 +16,6 @@ class Contactmoment
         $this->record = $record;
     }
 
-    public function retrieveRating() {
-        $contactmomentratings = $this->record->fetchByFkRatingContactmoment();
-        if (count($contactmomentratings) === 0) {
-            return null;
-        }
-        $value = 0;
-        foreach ($contactmomentratings as $contactmomentrating) {
-            $value += $contactmomentrating->waarde;
-        }
-        return $value / count($contactmomentratings);
-    }
-
-
-    public function findRatingFromIP(string $ipAddress) {
-        $ipRatings = $this->fetchByFkRatingContactmoment(['ipv4' => $ipAddress]);
-        if (count($ipRatings) > 0) {
-            return $ipRatings[0];
-        } else {
-            return $this->referenceByFkRatingContactmoment(['ipv4' => $ipAddress]);
-        }
-    }
-
-    public function rate(string $ipAddress, string $rating, string $explanation) {
-        $this->entityType->call('rate_contactmoment', [$this->__get('id'), $ipAddress, $rating, $explanation]);
-    }
-
     static function wrapAround(Record $record) {
         return new self($record);
     }
@@ -92,6 +66,33 @@ class Contactmoment
         }
         return array_map([__CLASS__, 'wrapAround'], $contactmoments);
     }
+
+    public function retrieveRating() {
+        $contactmomentratings = $this->record->fetchByFkRatingContactmoment();
+        if (count($contactmomentratings) === 0) {
+            return null;
+        }
+        $value = 0;
+        foreach ($contactmomentratings as $contactmomentrating) {
+            $value += $contactmomentrating->waarde;
+        }
+        return $value / count($contactmomentratings);
+    }
+
+
+    public function findRatingFromIP(string $ipAddress) {
+        $ipRatings = $this->fetchByFkRatingContactmoment(['ipv4' => $ipAddress]);
+        if (count($ipRatings) > 0) {
+            return $ipRatings[0];
+        } else {
+            return $this->referenceByFkRatingContactmoment(['ipv4' => $ipAddress]);
+        }
+    }
+
+    public function rate(string $ipAddress, string $rating, string $explanation) {
+        $this->entityType->call('rate_contactmoment', [$this->__get('id'), $ipAddress, $rating, $explanation]);
+    }
+
 
     public function __get($name)
     {
