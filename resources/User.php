@@ -79,11 +79,7 @@ class User
 
     public function retrieveModulecontactmomentenToday()
     {
-        $contactmomenten = $this->schema->read('contactmoment_vandaag', [], ["owner" => $this->details()->uid]);
-        foreach ($contactmomenten as $contactmoment) {
-            $this->bindRetrieveRating($contactmoment);
-        }
-        return $contactmomenten;
+        return Contactmoment::readVandaag($this->schema, $this->details()->uid);
     }
 
     public function retrieveCalendar(string $calendarIdentifier) : Calendar {
