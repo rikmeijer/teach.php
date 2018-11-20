@@ -16,9 +16,9 @@
         </thead>
         <tbody>
         <?php foreach ($contactmomenten as $contactmoment): ?>
-            <?php if (strtotime($contactmoment->starttijd) <= time() && strtotime($contactmoment->starttijd) >= time()): ?>
+            <?php if ($contactmoment->active): ?>
                 <tr class="active">
-            <?php elseif (strtotime($contactmoment->eindtijd) <= time()): ?>
+            <?php elseif ($contactmoment->past): ?>
                 <tr class="past">
             <?php else: ?>
                 <tr>
@@ -26,9 +26,9 @@
             <td><?= $this->escape($contactmoment->modulenaam); ?></td>
             <td><?= $this->escape($contactmoment->kalenderweek); ?></td>
             <td><?= $this->escape($contactmoment->blokweek); ?></td>
-            <td><?= $this->escape(strftime('%A', strtotime($contactmoment->starttijd))); ?></td>
-            <td><?= $this->escape(date('H:i', strtotime($contactmoment->starttijd))); ?></td>
-            <td><?= $this->escape(date('H:i', strtotime($contactmoment->eindtijd))); ?></td>
+            <td><?= $this->escape($contactmoment->starttijd->format('l')); ?></td>
+            <td><?= $this->escape($contactmoment->starttijd->format('H:i')); ?></td>
+            <td><?= $this->escape($contactmoment->eindtijd->format('H:i')); ?></td>
             <td><a href="<?= $this->url('/feedback/%s', $contactmoment->id); ?>" target="_blank">Feedback</a>
             </td>
             </tr>

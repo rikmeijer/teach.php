@@ -96,7 +96,20 @@ class Contactmoment
 
     public function __get($name)
     {
-        return $this->record->$name;
+        $value = $this->record->$name;
+        switch ($name) {
+            case 'starttijd':
+            case 'eindtijd':
+                return new \DateTime($value);
+
+            case 'active':
+                return strtotime($this->record->starttijd) <= time() && strtotime($this->record->starttijd) >= time();
+            case 'past':
+                return strtotime($this->record->eindtijd) <= time();
+
+            default:
+                return $value;
+        }
     }
 
 }
