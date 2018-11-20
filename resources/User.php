@@ -36,10 +36,7 @@ class User
     {
         $modules = [];
         foreach ($this->schema->read('module', [], []) as $module) {
-            $modulecontactmomenten = $this->schema->read("contactmoment_module", [], ["modulenaam" => $module->naam, "owner" => $this->details()->uid]);
-            foreach ($modulecontactmomenten as $contactmoment) {
-                $this->bindRetrieveRating($contactmoment);
-            }
+            $modulecontactmomenten = Contactmoment::readByModuleName($this->schema, $this->details()->uid, $module->naam);
 
             if (count($modulecontactmomenten) > 0) {
                 $module->contains(['contactmomenten' => $modulecontactmomenten]);
@@ -60,21 +57,6 @@ class User
             }
         }
         return $modules;
-    }
-
-    private function bindRetrieveRating(Record $contactmoment) {
-        $contactmoment->bind('retrieveRating', function ()
-        {
-            $contactmomentratings = $this->fetchByFkRatingContactmoment();
-            if (count($contactmomentratings) === 0) {
-                return null;
-            }
-            $value = 0;
-            foreach ($contactmomentratings as $contactmomentrating) {
-                $value += $contactmomentrating->waarde;
-            }
-            return $value / count($contactmomentratings);
-        });
     }
 
     public function retrieveModulecontactmomentenToday()
@@ -109,58 +91,7 @@ class User
 
     public function retrieveContactmoment($contactmomentIdentifier) : Record
     {
-        $contactmoments = $this->schema->read('contactmoment', [], ['id' => $contactmomentIdentifier, "owner" => $this->details()->uid]);
-        if (count($contactmoments) === 0) {
-            return new class implements Record {
-
-                public function contains(array $values)
-                {}
-
-                public function __get($property)
-                {
-                    return null;
-                }
-
-                public function __set($property, $value)
-                {}
-
-                public function delete(): int
-                {
-                    return 0;
-                }
-
-                public function create(): int
-                {
-                    return 0;
-                }
-
-                public function __call(string $method, array $arguments)
-                {
-                    return null;
-                }
-
-                public function bind(string $methodIdentifier, callable $callback): void
-                {
-                }
-            };
-        }
-
-        $contactmoments[0]->bind('findRatingFromIP', function(string $ipAddress) {
-            $ipRatings = $this->fetchByFkRatingContactmoment(['ipv4' => $ipAddress]);
-            if (count($ipRatings) > 0) {
-                return $ipRatings[0];
-            } else {
-                return $this->referenceByFkRatingContactmoment(['ipv4' => $ipAddress]);
-            }
-        });
-        $this->bindRetrieveRating($contactmoments[0]);
-
-
-        $contactmoments[0]->bind('rate', function(string $ipAddress, string $rating, string $explanation) {
-            $this->entityType->call('rate_contactmoment', [$this->__get('id'), $ipAddress, $rating, $explanation]);
-        });
-
-        return $contactmoments[0];
+        return Contactmoment::read($this->schema, $this->details()->uid, $contactmomentIdentifier);
     }
 
     public function importCalendarEvents() : int
