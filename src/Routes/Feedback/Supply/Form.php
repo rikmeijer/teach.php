@@ -11,7 +11,7 @@ class Form implements RouteEndPoint
     private $rating;
     private $explanation;
 
-    public function __construct(\pulledbits\View\Template $phpview, string $rating, string $explanation)
+    public function __construct(\pulledbits\View\Template $phpview, ?string $rating, string $explanation)
     {
         $this->phpview = $phpview;
         $this->rating = $rating;

@@ -2,9 +2,9 @@
 
 use function GuzzleHttp\Psr7\stream_for;
 use Psr\Http\Message\ResponseInterface;
-use pulledbits\ActiveRecord\Record;
 use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
+use rikmeijer\Teach\Contactmoment;
 
 class Process implements RouteEndPoint
 {
@@ -12,7 +12,7 @@ class Process implements RouteEndPoint
     private $rating;
     private $explanation;
 
-    public function __construct(Record $contactmoment, string $rating, string $explanation)
+    public function __construct(Contactmoment $contactmoment, string $rating, string $explanation)
     {
         $this->contactmoment = $contactmoment;
         $this->rating = $rating;

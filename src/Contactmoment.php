@@ -4,20 +4,20 @@
 namespace rikmeijer\Teach;
 
 
-use pulledbits\ActiveRecord\Record;
+use pulledbits\ActiveRecord\Entity;
 use pulledbits\ActiveRecord\Schema;
 
 class Contactmoment
 {
     private $record;
 
-    public function __construct(Record $record)
+    public function __construct(Entity $entity)
     {
-        $this->record = $record;
+        $this->record = $entity;
     }
 
-    static function wrapAround(Record $record) {
-        return new self($record);
+    static function wrapAround(Entity $entity) {
+        return new self($entity);
     }
 
     static function readByModuleName(Schema $schema, string $owner, string $moduleNaam) {
@@ -81,16 +81,15 @@ class Contactmoment
 
 
     public function findRatingFromIP(string $ipAddress) {
-        $ipRatings = $this->fetchByFkRatingContactmoment(['ipv4' => $ipAddress]);
-        if (count($ipRatings) > 0) {
-            return $ipRatings[0];
-        } else {
-            return $this->referenceByFkRatingContactmoment(['ipv4' => $ipAddress]);
+        $ipRatings = $this->record->fetchByFkRatingContactmoment(['ipv4' => $ipAddress]);
+        if (count($ipRatings) === 0) {
+            return $this->record->referenceByFkRatingContactmoment(['ipv4' => $ipAddress]);
         }
+        return $ipRatings[0];
     }
 
     public function rate(string $ipAddress, string $rating, string $explanation) {
-        $this->entityType->call('rate_contactmoment', [$this->__get('id'), $ipAddress, $rating, $explanation]);
+        $this->record->rate_contactmoment($this->record->id, $ipAddress, $rating, $explanation);
     }
 
 

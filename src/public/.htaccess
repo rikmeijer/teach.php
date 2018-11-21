@@ -18,3 +18,10 @@
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </IfModule>
+
+
+#<IfModule mod_ssl.c>
+#    SSLVerifyClient optional
+#    SSLVerifyDepth 0
+#    SSLOptions +StdEnvVars
+#</IfModule>
