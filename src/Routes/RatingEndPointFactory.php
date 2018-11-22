@@ -3,8 +3,9 @@
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
+use rikmeijer\Teach\ImagePngEndPoint;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
-use rikmeijer\Teach\Routes\Rating\Image;
+use rikmeijer\Teach\PHPviewEndPoint;
 use rikmeijer\Teach\User;
 
 class RatingEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
@@ -29,7 +30,7 @@ class RatingEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         preg_match(self::URL_MATCH, $request->getURI()->getPath(), $matches);
-        return new Image($this->phpviewDirectory->load('rating', [
+        return new ImagePngEndPoint(new PHPviewEndPoint($this->phpviewDirectory->load('rating', [
             'ratingwaarde' => $matches['value'] == 'N' ? null : $matches['value'],
             'ratingWidth' => 500,
             'ratingHeight' => 100,
@@ -37,6 +38,6 @@ class RatingEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
             'star' =>  $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'star.png'),
             'unstar' => $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'unstar.png'),
             'nostar' => $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'nostar.png')
-        ]));
+        ])));
     }
 }
