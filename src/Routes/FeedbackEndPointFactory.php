@@ -5,6 +5,7 @@ use Psr\Http\Message\UriInterface;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
+use rikmeijer\Teach\PHPviewEndPoint;
 use rikmeijer\Teach\User;
 
 class FeedbackEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
@@ -30,6 +31,6 @@ class FeedbackEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
         if ($contactmoment->id !== $matches['contactmomentIdentifier']) {
             return ErrorFactory::makeInstance(404);
         }
-        return new Feedback\Meter($this->phpviewDirectory->load('feedback', ['contactmoment' => $contactmoment]));
+        return new PHPviewEndPoint($this->phpviewDirectory->load('feedback', ['contactmoment' => $contactmoment]));
     }
 }

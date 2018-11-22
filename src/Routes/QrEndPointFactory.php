@@ -5,6 +5,7 @@ use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\Router\RouteEndPointFactory;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
+use rikmeijer\Teach\PHPviewEndPoint;
 use rikmeijer\Teach\Routes\Qr\Code;
 
 class QrEndPointFactory implements RouteEndPointFactory
@@ -32,7 +33,7 @@ class QrEndPointFactory implements RouteEndPointFactory
             syslog(E_USER_ERROR, 'Query data incomplete');
             return ErrorFactory::makeInstance('400');
         }
-        return new Code($this->phpviewDirectory->load('qr', [
+        return new PHPviewEndPoint($this->phpviewDirectory->load('qr', [
             'data' => $query['data'],
             'qr' => function (int $width, int $height, string $data): void {
                 $renderer = new \BaconQrCode\Renderer\Image\Png();

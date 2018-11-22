@@ -4,6 +4,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
+use rikmeijer\Teach\PHPviewEndPoint;
 use rikmeijer\Teach\Routes\Index\Overview;
 use rikmeijer\Teach\User;
 
@@ -25,7 +26,7 @@ class IndexFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
-        return new Overview($this->phpviewDirectory->load('welcome', [
+        return new PHPviewEndPoint($this->phpviewDirectory->load('welcome', [
             'modules' => $this->user->retrieveModules(),
             'contactmomenten' => $this->user->retrieveModulecontactmomentenToday()
         ]));

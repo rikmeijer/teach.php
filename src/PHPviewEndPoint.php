@@ -1,10 +1,10 @@
-<?php namespace rikmeijer\Teach\Routes\Contactmoment\Import;
+<?php
+namespace rikmeijer\Teach;
 
 use Psr\Http\Message\ResponseInterface;
-use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
 
-class Process implements RouteEndPoint
+class PHPviewEndPoint implements RouteEndPoint
 {
     private $phpview;
 
@@ -17,4 +17,5 @@ class Process implements RouteEndPoint
     {
         return $this->phpview->prepareAsResponse($psrResponse);
     }
+
 }

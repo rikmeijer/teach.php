@@ -5,6 +5,7 @@ use Psr\Http\Message\UriInterface;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
+use rikmeijer\Teach\PHPviewEndPoint;
 use rikmeijer\Teach\Routes\Feedback\Supply\Process;
 use rikmeijer\Teach\Routes\Feedback\Supply\Form;
 use rikmeijer\Teach\User;
@@ -49,7 +50,7 @@ class SupplyEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
                 if (array_key_exists('rating', $query)) {
                     $rating = $query['rating'];
                 }
-                return new Form($this->phpviewDirectory->load('supply', ['rating' => $rating, 'explanation' => $explanation]));
+                return new PHPviewEndPoint($this->phpviewDirectory->load('supply', ['rating' => $rating, 'explanation' => $explanation]));
 
             case 'POST':
                 $parsedBody = $request->getParsedBody();
