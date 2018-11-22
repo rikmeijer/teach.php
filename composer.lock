@@ -1115,16 +1115,16 @@
         },
         {
             "name": "pulledbits/view",
-            "version": "0.5.2",
+            "version": "0.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pulledbits/view.git",
-                "reference": "1c3db4432f3f79d9a1e1a9301e4b0c5509d7c1ee"
+                "reference": "6c97e8e0225d28d45d87b20faabcec9cb30520b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/view/zipball/1c3db4432f3f79d9a1e1a9301e4b0c5509d7c1ee",
-                "reference": "1c3db4432f3f79d9a1e1a9301e4b0c5509d7c1ee",
+                "url": "https://api.github.com/repos/pulledbits/view/zipball/6c97e8e0225d28d45d87b20faabcec9cb30520b5",
+                "reference": "6c97e8e0225d28d45d87b20faabcec9cb30520b5",
                 "shasum": ""
             },
             "require": {
@@ -1145,7 +1145,7 @@
                 "MIT"
             ],
             "description": "native PHP view engine",
-            "time": "2018-04-17T12:29:13+00:00"
+            "time": "2018-11-22T11:27:48+00:00"
         },
         {
             "name": "symfony/console",

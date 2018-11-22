@@ -29,10 +29,13 @@ class RatingEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         preg_match(self::URL_MATCH, $request->getURI()->getPath(), $matches);
-        return new Image($this->phpviewDirectory->load('rating'), $matches['value'] == 'N' ? null : $matches['value'], [
+        return new Image($this->phpviewDirectory->load('rating', [
+            'ratingwaarde' => $matches['value'] == 'N' ? null : $matches['value'],
+            'width' => 500,
+            'height' => 100,
             'star' =>  $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'star.png'),
             'unstar' => $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'unstar.png'),
             'nostar' => $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'nostar.png')
-        ]);
+        ]));
     }
 }

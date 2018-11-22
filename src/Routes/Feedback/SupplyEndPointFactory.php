@@ -49,14 +49,15 @@ class SupplyEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
                 if (array_key_exists('rating', $query)) {
                     $rating = $query['rating'];
                 }
-                return new Form($this->phpviewDirectory->load('supply'), $rating, $explanation);
+                return new Form($this->phpviewDirectory->load('supply', ['rating' => $rating, 'explanation' => $explanation]));
 
             case 'POST':
                 $parsedBody = $request->getParsedBody();
                 if ($this->user->verifyCSRFToken($parsedBody['__csrf_value']) === false) {
                     return ErrorFactory::makeInstance('403');
                 }
-                return new Process($contactmoment, $parsedBody['rating'], $parsedBody['explanation']);
+                $contactmoment->rate($_SERVER['REMOTE_ADDR'], $parsedBody['rating'], $parsedBody['explanation']);
+                return new Process();
 
             default:
                 return ErrorFactory::makeInstance('405');

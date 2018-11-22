@@ -15,9 +15,6 @@ class Form implements RouteEndPoint
 
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        return $this->phpview->prepareAsResponse($psrResponse, ['importForm' => function (): void {
-            $model = 'rooster.avans.nl';
-            $this->form("post", "Importeren", $model);
-        }]);
+        return $this->phpview->prepareAsResponse($psrResponse);
     }
 }

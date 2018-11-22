@@ -8,16 +8,14 @@ use rikmeijer\Teach\Contactmoment;
 class Meter implements RouteEndPoint
 {
     private $phpview;
-    private $contactmoment;
 
-    public function __construct(\pulledbits\View\Template $phpview, Contactmoment $contactmoment)
+    public function __construct(\pulledbits\View\Template $phpview)
     {
         $this->phpview = $phpview;
-        $this->contactmoment = $contactmoment;
     }
 
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        return $this->phpview->prepareAsResponse($psrResponse, ['contactmoment' => $this->contactmoment]);
+        return $this->phpview->prepareAsResponse($psrResponse);
     }
 }

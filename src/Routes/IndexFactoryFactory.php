@@ -25,6 +25,9 @@ class IndexFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
-        return new Overview($this->user, $this->phpviewDirectory->load('welcome'));
+        return new Overview($this->phpviewDirectory->load('welcome', [
+            'modules' => $this->user->retrieveModules(),
+            'contactmomenten' => $this->user->retrieveModulecontactmomentenToday()
+        ]));
     }
 }

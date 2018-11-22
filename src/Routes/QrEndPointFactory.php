@@ -32,6 +32,15 @@ class QrEndPointFactory implements RouteEndPointFactory
             syslog(E_USER_ERROR, 'Query data incomplete');
             return ErrorFactory::makeInstance('400');
         }
-        return new Code($this->phpviewDirectory->load('qr'), $query['data']);
+        return new Code($this->phpviewDirectory->load('qr', [
+            'data' => $query['data'],
+            'qr' => function (int $width, int $height, string $data): void {
+                $renderer = new \BaconQrCode\Renderer\Image\Png();
+                $renderer->setHeight($width);
+                $renderer->setWidth($height);
+                $writer = new \BaconQrCode\Writer($renderer);
+                print $writer->writeString($data);
+            }
+        ]));
     }
 }

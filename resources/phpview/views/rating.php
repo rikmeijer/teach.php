@@ -5,16 +5,21 @@ function copyStar($target, $source, $offset) {
     }
 }
 
+$im = imagecreatetruecolor($width, $height);
+imagealphablending($im, false);
+imagesavealpha($im, true);
+imagefilledrectangle($im, 0, 0, 500, imagesy($im), imagecolorallocatealpha($im, 255, 255, 255, 127));
+
 if ($ratingwaarde === null) {
     for ($i = 0; $i < 5; $i++) {
-        copyStar($im, $nostar, $i);
+        copyStar($im, imagecreatefromstring($nostar), $i);
     }
 } else {
     for ($i = 0; $i < 5; $i++) {
         if ($i < $ratingwaarde) {
-            $source = $star;
+            $source = imagecreatefromstring($star);
         } else {
-            $source = $unstar;
+            $source = imagecreatefromstring($unstar);
         }
         copyStar($im, $source, $i);
     }

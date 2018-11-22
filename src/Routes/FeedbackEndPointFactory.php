@@ -30,6 +30,6 @@ class FeedbackEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
         if ($contactmoment->id !== $matches['contactmomentIdentifier']) {
             return ErrorFactory::makeInstance(404);
         }
-        return new Feedback\Meter($this->phpviewDirectory->load('feedback'), $contactmoment);
+        return new Feedback\Meter($this->phpviewDirectory->load('feedback', ['contactmoment' => $contactmoment]));
     }
 }

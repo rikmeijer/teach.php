@@ -8,18 +8,14 @@ use pulledbits\Router\RouteEndPoint;
 class Form implements RouteEndPoint
 {
     private $phpview;
-    private $rating;
-    private $explanation;
 
-    public function __construct(\pulledbits\View\Template $phpview, ?string $rating, string $explanation)
+    public function __construct(\pulledbits\View\Template $phpview)
     {
         $this->phpview = $phpview;
-        $this->rating = $rating;
-        $this->explanation = $explanation;
     }
 
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        return $this->phpview->prepareAsResponse($psrResponse, ['rating' => $this->rating, 'explanation' => $this->explanation]);
+        return $this->phpview->prepareAsResponse($psrResponse);
     }
 }

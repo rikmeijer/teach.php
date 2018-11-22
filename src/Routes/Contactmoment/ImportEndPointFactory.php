@@ -28,10 +28,16 @@ class ImportEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
     {
         switch ($request->getMethod()) {
             case 'GET':
-                return new Form($this->phpviewDirectory->load('import'));
+                return new Form($this->phpviewDirectory->load('import', [
+                    'importForm' => function (): void {
+                        $this->form("post", "Importeren", 'rooster.avans.nl');
+                    }
+                ]));
 
             case 'POST':
-                return new Process($this->phpviewDirectory->load('imported'), $this->user);
+                return new Process($this->phpviewDirectory->load('imported', [
+                    "numberImported" => $this->user->importCalendarEvents()
+                ]));
 
             default:
                 return ErrorFactory::makeInstance('405');

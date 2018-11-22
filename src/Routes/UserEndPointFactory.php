@@ -22,6 +22,7 @@ class UserEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
+        $this->user->logout();
         return new Logout($this->user);
     }
 }
