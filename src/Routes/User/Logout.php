@@ -1,7 +1,6 @@
 <?php namespace rikmeijer\Teach\Routes\User;
 
 use Psr\Http\Message\ResponseInterface;
-use pulledbits\Router\ResponseFactory;
 use pulledbits\Router\RouteEndPoint;
 
 class Logout implements RouteEndPoint
