@@ -2,20 +2,13 @@
 
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\Router\ResponseFactory;
-use pulledbits\Router\RouteEndPoint;
+use rikmeijer\Teach\PHPviewEndPoint;
 
-class Image implements RouteEndPoint
+class Image extends PHPviewEndPoint
 {
-    private $phpview;
-
-    public function __construct(\pulledbits\View\Template $phpview)
-    {
-        $this->phpview = $phpview;
-    }
-
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
 
-        return $this->phpview->prepareAsResponse($psrResponse->withHeader('Content-Type', 'image/png'));
+        return parent::respond($psrResponse->withHeader('Content-Type', 'image/png'));
     }
 }

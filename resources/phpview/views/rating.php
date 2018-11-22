@@ -1,27 +1,31 @@
 <?php
-function copyStar($target, $source, $offset) {
-    if (imagecopyresampled($target, $source, 100 * $offset, (imagesy($target) / 2) - (imagesy($target) / 2), 0, 0, 100, imagesy($target), imagesx($source), imagesy($source)) === false) {
-        exit('fail to copy image');
-    }
-}
-
-$im = imagecreatetruecolor($width, $height);
+$im = imagecreatetruecolor($ratingWidth, $ratingHeight);
 imagealphablending($im, false);
 imagesavealpha($im, true);
-imagefilledrectangle($im, 0, 0, 500, imagesy($im), imagecolorallocatealpha($im, 255, 255, 255, 127));
+imagefilledrectangle($im, 0, 0, $ratingWidth, $ratingHeight, imagecolorallocatealpha($im, 255, 255, 255, 127));
+
+$star = imagecreatefromstring($star);
+$unstar = imagecreatefromstring($unstar);
+$nostar = imagecreatefromstring($nostar);
+
+$sourceWidth = imagesx($star);
+$sourceHeight = imagesy($star);
+
+$starWidth = $ratingWidth / $repetition;
+$starHeight = $ratingHeight;
 
 if ($ratingwaarde === null) {
-    for ($i = 0; $i < 5; $i++) {
-        copyStar($im, imagecreatefromstring($nostar), $i);
+    for ($offset = 0; $offset < $repetition; $offset++) {
+        imagecopyresampled($im, $nostar, $starWidth * $offset, ($ratingHeight / 2) - ($ratingHeight / 2), 0, 0, $starWidth, $ratingHeight, $sourceWidth, $sourceHeight);
     }
 } else {
-    for ($i = 0; $i < 5; $i++) {
-        if ($i < $ratingwaarde) {
-            $source = imagecreatefromstring($star);
+    for ($offset = 0; $offset < $repetition; $offset++) {
+        if ($offset < $ratingwaarde) {
+            $source = $star;
         } else {
-            $source = imagecreatefromstring($unstar);
+            $source = $unstar;
         }
-        copyStar($im, $source, $i);
+        imagecopyresampled($im, $source, $starWidth * $offset, ($ratingHeight / 2) - ($ratingHeight / 2), 0, 0, $starWidth, $ratingHeight, $sourceWidth, $sourceHeight);
     }
 }
 

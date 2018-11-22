@@ -31,8 +31,9 @@ class RatingEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
         preg_match(self::URL_MATCH, $request->getURI()->getPath(), $matches);
         return new Image($this->phpviewDirectory->load('rating', [
             'ratingwaarde' => $matches['value'] == 'N' ? null : $matches['value'],
-            'width' => 500,
-            'height' => 100,
+            'ratingWidth' => 500,
+            'ratingHeight' => 100,
+            'repetition' => 5,
             'star' =>  $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'star.png'),
             'unstar' => $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'unstar.png'),
             'nostar' => $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'nostar.png')
