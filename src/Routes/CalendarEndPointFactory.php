@@ -3,11 +3,10 @@
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
+use rikmeijer\Teach\CalendarEndPoint;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\PHPviewEndPoint;
-use rikmeijer\Teach\Routes\Calendar\CalendarEndPoint;
 use rikmeijer\Teach\User;
-use SebastianBergmann\CodeCoverage\Report\PHP;
 
 class CalendarEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 {

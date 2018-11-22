@@ -1,6 +1,6 @@
 <?php
 
-namespace rikmeijer\Teach\Routes\Calendar;
+namespace rikmeijer\Teach;
 
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\Router\RouteEndPoint;
