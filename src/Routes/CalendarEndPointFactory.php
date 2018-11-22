@@ -4,8 +4,10 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
-use rikmeijer\Teach\Routes\Calendar\Events;
+use rikmeijer\Teach\PHPviewEndPoint;
+use rikmeijer\Teach\Routes\Calendar\CalendarEndPoint;
 use rikmeijer\Teach\User;
+use SebastianBergmann\CodeCoverage\Report\PHP;
 
 class CalendarEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 {
@@ -29,8 +31,8 @@ class CalendarEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
     {
         preg_match(self::URI_PATTERN, $request->getUri()->getPath(), $matches);
         $calendar = $this->user->retrieveCalendar($matches['calendarIdentifier']);
-        return new Events($this->phpviewDirectory->load('calendar', [
+        return new CalendarEndPoint(new PHPviewEndPoint($this->phpviewDirectory->load('calendar', [
             'calendar' => $calendar
-        ]), $calendar->getProdId());
+        ])), $calendar->getProdId());
     }
 }
