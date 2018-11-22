@@ -6,6 +6,7 @@
         body {
             font-family: arial, sans-serif;
             text-align: center;
+            background-color: #ffffff;
         }
     </style>
 <?php $layout->section('body');

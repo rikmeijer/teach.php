@@ -58,7 +58,7 @@ class SupplyEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
                     return ErrorFactory::makeInstance('403');
                 }
                 $contactmoment->rate($_SERVER['REMOTE_ADDR'], $parsedBody['rating'], $parsedBody['explanation']);
-                return new Process();
+                return new PHPviewEndPoint($this->phpviewDirectory->load('processed'));
 
             default:
                 return ErrorFactory::makeInstance('405');
