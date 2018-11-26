@@ -1,19 +1,12 @@
 <?php namespace rikmeijer\Teach;
 
 use Psr\Http\Message\ResponseInterface;
-use pulledbits\Router\RouteEndPoint;
+use pulledbits\Router\RouteEndPointDecorator;
 
-class ImagePngEndPoint implements RouteEndPoint
+class ImagePngEndPoint extends RouteEndPointDecorator
 {
-    private $wrappedEndPoint;
-
-    public function __construct(RouteEndPoint $wrappedEndPoint)
-    {
-        $this->wrappedEndPoint = $wrappedEndPoint;
-    }
-
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        return $this->wrappedEndPoint->respond($psrResponse->withHeader('Content-Type', 'image/png'));
+        return parent::respond($psrResponse->withHeader('Content-Type', 'image/png'));
     }
 }
