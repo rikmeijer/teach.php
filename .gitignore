@@ -66,4 +66,3 @@ Homestead.yaml
 Homestead.json
 .env
 resources/config.php
-resources/cache/

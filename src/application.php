@@ -1,6 +1,10 @@
 <?php
 namespace rikmeijer\Teach;
 
+use League\OAuth1\Client\Server\User;
+use Psr\Http\Message\ResponseInterface;
+use pulledbits\Router\RouteEndPoint;
+
 return new class {
 
     /**
@@ -13,32 +17,20 @@ return new class {
         $this->bootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
     }
 
-    public function handle(\Psr\Http\Message\ServerRequestInterface $serverRequest) : array
+    public function handle(\Psr\Http\Message\ServerRequestInterface $serverRequest) : ResponseInterface
     {
-        $cache = $this->bootstrap->cache();
-        $cacheId = sha1(serialize(array_merge([$serverRequest->getUri()->__toString()], $serverRequest->getAttributes(), $serverRequest->getCookieParams(), $serverRequest->getQueryParams())));
-        if ($cache->has($cacheId) === false) {
+        $router = $this->bootstrap->router();
+        $routeEndPoint = $router->route($serverRequest);
 
-            $router = $this->bootstrap->router();
-            $routeEndPoint = $router->route($serverRequest);
-
-            switch ($serverRequest->getMethod()) {
-                case 'POST':
-                    $responseCode = '201';
-                    break;
-                default:
-                    $responseCode = '200';
-                    break;
-            }
-
-            $handledRequest = $routeEndPoint->respond(new \GuzzleHttp\Psr7\Response($responseCode));
-
-            $cache->set($cacheId, [
-                'status' => $handledRequest->getStatusCode(),
-                'headers' => $handledRequest->getHeaders(),
-                'body' => $handledRequest->getBody()->getContents()
-            ]);
+        switch ($serverRequest->getMethod()) {
+            case 'POST':
+                $responseCode = '201';
+                break;
+            default:
+                $responseCode = '200';
+                break;
         }
-        return $cache->get($cacheId);
+
+        return $routeEndPoint->respond(new \GuzzleHttp\Psr7\Response($responseCode));
     }
 };

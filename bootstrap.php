@@ -29,11 +29,7 @@ namespace {
 namespace rikmeijer\Teach {
 
     use Aura\Session\Session;
-    use Cache\Adapter\Filesystem\FilesystemCachePool;
-    use League\Flysystem\Adapter\Local;
-    use League\Flysystem\Filesystem;
     use League\Flysystem\FilesystemInterface;
-    use Psr\SimpleCache\CacheInterface;
 
 
     class Bootstrap
@@ -70,14 +66,6 @@ namespace rikmeijer\Teach {
             ]);
         }
 
-        public function cache() : CacheInterface {
-
-            $filesystemAdapter = new Local(__DIR__.'/resources');
-            $filesystem        = new Filesystem($filesystemAdapter);
-
-            return new FilesystemCachePool($filesystem);
-        }
-
         private function schema(): \pulledbits\ActiveRecord\Schema {
             return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'bootstrap.php';
         }
@@ -107,7 +95,6 @@ namespace rikmeijer\Teach {
             require $this->resourcesPath . DIRECTORY_SEPARATOR . 'User.php';
             return new User($server, $session, $schema, $publicAssetsFileSystem);
         }
-
     };
 
     return new Bootstrap();
