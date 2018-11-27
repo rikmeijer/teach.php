@@ -17,7 +17,10 @@ return new class {
     {
         $cache = $this->bootstrap->cache();
         $cacheId = sha1(serialize(array_merge([$serverRequest->getUri()->__toString()], $serverRequest->getAttributes(), $serverRequest->getCookieParams(), $serverRequest->getQueryParams())));
-        if ($serverRequest->getMethod() !== 'GET' || $cache->has($cacheId) === false) {
+        if ($cache->has($cacheId) === false) {
+
+            $router = $this->bootstrap->router();
+            $routeEndPoint = $router->route($serverRequest);
 
             switch ($serverRequest->getMethod()) {
                 case 'POST':
@@ -27,9 +30,6 @@ return new class {
                     $responseCode = '200';
                     break;
             }
-
-            $router = $this->bootstrap->router();
-            $routeEndPoint = $router->route($serverRequest);
 
             $handledRequest = $routeEndPoint->respond(new \GuzzleHttp\Psr7\Response($responseCode));
 
