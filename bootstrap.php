@@ -30,6 +30,7 @@ namespace rikmeijer\Teach {
 
     use Aura\Session\Session;
     use League\Flysystem\FilesystemInterface;
+    use Psr\SimpleCache\CacheInterface;
 
 
     class Bootstrap
@@ -49,7 +50,8 @@ namespace rikmeijer\Teach {
             $server = $this->sso($session);
             $schema = $this->schema();
             $publicAssetsFileSystem = $this->assets();
-            $user = $this->userForToken($server, $session, $schema, $publicAssetsFileSystem);
+            $cache = $this->cache();
+            $user = $this->userForToken($server, $session, $schema, $publicAssetsFileSystem, $cache);
             $phpviewDirectoryFactory = $this->phpviewDirectoryFactory($session);
 
             return new \pulledbits\Router\Router([
@@ -64,6 +66,10 @@ namespace rikmeijer\Teach {
                 new Routes\CalendarEndPointFactory($user, $phpviewDirectoryFactory),
                 new Routes\IndexFactoryFactory($user, $phpviewDirectoryFactory)
             ]);
+        }
+
+        private function cache() : CacheInterface {
+            return require $this->resourcesPath . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'bootstrap.php';
         }
 
         private function schema(): \pulledbits\ActiveRecord\Schema {
@@ -90,10 +96,10 @@ namespace rikmeijer\Teach {
         }
 
 
-        private function userForToken(SSO $server, Session $session, \pulledbits\ActiveRecord\Schema $schema, FilesystemInterface $publicAssetsFileSystem) : User
+        private function userForToken(SSO $server, Session $session, \pulledbits\ActiveRecord\Schema $schema, FilesystemInterface $publicAssetsFileSystem, CacheInterface $cache) : User
         {
             require $this->resourcesPath . DIRECTORY_SEPARATOR . 'User.php';
-            return new User($server, $session, $schema, $publicAssetsFileSystem);
+            return new User($server, $session, $schema, $publicAssetsFileSystem, $cache);
         }
     };
 

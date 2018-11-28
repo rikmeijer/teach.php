@@ -5,6 +5,7 @@ namespace rikmeijer\Teach;
 use Aura\Session\Session;
 use Eluceo\iCal\Component\Calendar;
 use Eluceo\iCal\Component\Event;
+use Psr\SimpleCache\CacheInterface;
 use pulledbits\ActiveRecord\Record;
 use pulledbits\ActiveRecord\Schema;
 
@@ -13,13 +14,15 @@ class User
     private $server;
     private $schema;
     private $publicAssetsFileSystem;
+    private $cache;
 
-    public function __construct(SSO $server, Session $session, Schema $schema, \League\Flysystem\FilesystemInterface $publicAssetsFileSystem)
+    public function __construct(SSO $server, Session $session, Schema $schema, \League\Flysystem\FilesystemInterface $publicAssetsFileSystem, CacheInterface $cache)
     {
         $this->session = $session;
         $this->schema = $schema;
         $this->publicAssetsFileSystem = $publicAssetsFileSystem;
         $this->server = $server;
+        $this->cache = $cache;
     }
 
     private function details(): \League\OAuth1\Client\Server\User
@@ -141,6 +144,20 @@ class User
     public function verifyCSRFToken(string $CSRFToken) : bool
     {
         return $this->session->getCsrfToken()->isValid($CSRFToken);
+    }
+
+    private function createCacheKey(string $key) {
+        return '|' . $this->details()->uid . '|' . $key;
+    }
+
+    public function cached(string $key) : bool {
+        return $this->cache->has($this->createCacheKey($key));
+    }
+    public function cache(string $key, $value) : void {
+        $this->cache->set($this->createCacheKey($key), $value);
+    }
+    public function retrieveFromCache(string $key) {
+        return $this->cache->get($this->createCacheKey($key));
     }
 
 }
