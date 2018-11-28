@@ -15,7 +15,7 @@ class PHPviewEndPoint implements RouteEndPoint
 
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        return $this->phpview->prepareAsResponse($psrResponse);
+        return $psrResponse->withBody(\GuzzleHttp\Psr7\stream_for($this->phpview->prepare()->capture()));
     }
 
 }
