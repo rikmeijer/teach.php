@@ -13,28 +13,28 @@ class CachedEndPoint extends RouteEndPointDecorator
     /**
      * @var RouteEndPoint
      */
-    private $cachedResponse;
+    private $suspendedResponseBody;
     private $lastModified;
     private $eTag;
 
     public function __construct(RouteEndPoint $wrappedEndPoint, \DateTime $lastModified, string $eTag)
     {
         parent::__construct($wrappedEndPoint);
-        $this->cachedResponse = new class($wrappedEndPoint) implements StreamInterface {
+        $this->suspendedResponseBody = new class($wrappedEndPoint) implements StreamInterface {
 
             /**
              * @var RouteEndPoint
              */
             private $wrappedEndPoint;
-            private $response;
+            private $responseBody;
 
             public function __construct(RouteEndPoint $wrappedEndPoint)
             {
                 $this->wrappedEndPoint = $wrappedEndPoint;
             }
 
-            private function response() {
-                return $this->response??$this->wrappedEndPoint->respond(new Response());
+            private function responseBody() : StreamInterface {
+                return $this->responseBody = ($this->responseBody??$this->wrappedEndPoint->respond(new Response())->getBody());
             }
 
             /**
@@ -53,7 +53,7 @@ class CachedEndPoint extends RouteEndPointDecorator
              */
             public function __toString()
             {
-                return $this->response()->__toString();
+                return $this->responseBody()->__toString();
             }
 
             /**
@@ -63,7 +63,7 @@ class CachedEndPoint extends RouteEndPointDecorator
              */
             public function close()
             {
-                return $this->response()->close();
+                return $this->responseBody()->close();
             }
 
             /**
@@ -75,7 +75,7 @@ class CachedEndPoint extends RouteEndPointDecorator
              */
             public function detach()
             {
-                return $this->response()->detach();
+                return $this->responseBody()->detach();
             }
 
             /**
@@ -85,7 +85,7 @@ class CachedEndPoint extends RouteEndPointDecorator
              */
             public function getSize()
             {
-                return $this->response()->getSize();
+                return $this->responseBody()->getSize();
             }
 
             /**
@@ -96,7 +96,7 @@ class CachedEndPoint extends RouteEndPointDecorator
              */
             public function tell()
             {
-                return $this->response()->tell();
+                return $this->responseBody()->tell();
             }
 
             /**
@@ -106,7 +106,7 @@ class CachedEndPoint extends RouteEndPointDecorator
              */
             public function eof()
             {
-                return $this->response()->eof();
+                return $this->responseBody()->eof();
             }
 
             /**
@@ -116,7 +116,7 @@ class CachedEndPoint extends RouteEndPointDecorator
              */
             public function isSeekable()
             {
-                return $this->response()->isSeekable();
+                return $this->responseBody()->isSeekable();
             }
 
             /**
@@ -133,7 +133,7 @@ class CachedEndPoint extends RouteEndPointDecorator
              */
             public function seek($offset, $whence = SEEK_SET)
             {
-                return $this->response()->seek($offset, $whence);
+                return $this->responseBody()->seek($offset, $whence);
             }
 
             /**
@@ -148,7 +148,7 @@ class CachedEndPoint extends RouteEndPointDecorator
              */
             public function rewind()
             {
-                return $this->response()->rewind();
+                return $this->responseBody()->rewind();
             }
 
             /**
@@ -158,7 +158,7 @@ class CachedEndPoint extends RouteEndPointDecorator
              */
             public function isWritable()
             {
-                return $this->response()->isWritable();
+                return $this->responseBody()->isWritable();
             }
 
             /**
@@ -170,7 +170,7 @@ class CachedEndPoint extends RouteEndPointDecorator
              */
             public function write($string)
             {
-                return $this->response()->write($string);
+                return $this->responseBody()->write($string);
             }
 
             /**
@@ -180,7 +180,7 @@ class CachedEndPoint extends RouteEndPointDecorator
              */
             public function isReadable()
             {
-                return $this->response()->isReadable();
+                return $this->responseBody()->isReadable();
             }
 
             /**
@@ -195,7 +195,7 @@ class CachedEndPoint extends RouteEndPointDecorator
              */
             public function read($length)
             {
-                return $this->response()->read($length);
+                return $this->responseBody()->read($length);
             }
 
             /**
@@ -207,7 +207,7 @@ class CachedEndPoint extends RouteEndPointDecorator
              */
             public function getContents()
             {
-                return $this->response()->getContents();
+                return $this->responseBody()->getContents();
             }
 
             /**
@@ -224,7 +224,7 @@ class CachedEndPoint extends RouteEndPointDecorator
              */
             public function getMetadata($key = null)
             {
-                return $this->response()->getMetadata($key);
+                return $this->responseBody()->getMetadata($key);
             }
         };
         $this->lastModified = $lastModified;
@@ -237,6 +237,6 @@ class CachedEndPoint extends RouteEndPointDecorator
             ->withHeader('Last-Modified', $this->lastModified->format(DATE_RFC7231))
             ->withHeader('Etag', $this->eTag)
             ->withHeader('Cache-Control', 'public')
-            ->withBody($this->cachedResponse);
+            ->withBody($this->suspendedResponseBody);
     }
 }
