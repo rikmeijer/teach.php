@@ -51,13 +51,13 @@ namespace rikmeijer\Teach {
             $schema = $this->schema();
             $publicAssetsFileSystem = $this->assets();
             $cache = $this->cache();
-            $user = $this->userForToken($server, $session, $schema, $publicAssetsFileSystem, $cache);
+            $user = $this->userForToken($server, $session, $schema);
             $phpviewDirectoryFactory = $this->phpviewDirectoryFactory($session);
 
             return new \pulledbits\Router\Router([
                 new Routes\Feedback\SupplyEndPointFactory($user, $phpviewDirectoryFactory),
                 new Routes\FeedbackEndPointFactory($user, $phpviewDirectoryFactory),
-                new Routes\RatingEndPointFactory($user, $phpviewDirectoryFactory),
+                new Routes\RatingEndPointFactory($cache, $publicAssetsFileSystem, $phpviewDirectoryFactory),
                 new Routes\Contactmoment\ImportEndPointFactory($user, $phpviewDirectoryFactory),
                 new Routes\QrEndPointFactory($phpviewDirectoryFactory),
                 new Routes\SSO\AuthorizeFactoryFactory($server),
@@ -96,10 +96,9 @@ namespace rikmeijer\Teach {
         }
 
 
-        private function userForToken(SSO $server, Session $session, \pulledbits\ActiveRecord\Schema $schema, FilesystemInterface $publicAssetsFileSystem, CacheInterface $cache) : User
+        private function userForToken(SSO $server, Session $session, \pulledbits\ActiveRecord\Schema $schema) : User
         {
-            require $this->resourcesPath . DIRECTORY_SEPARATOR . 'User.php';
-            return new User($server, $session, $schema, $publicAssetsFileSystem, $cache);
+            return new User($server, $session, $schema);
         }
     };
 

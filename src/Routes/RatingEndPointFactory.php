@@ -2,6 +2,7 @@
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
+use Psr\SimpleCache\CacheInterface;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\CachedEndPoint;
 use rikmeijer\Teach\ImagePngEndPoint;
@@ -12,16 +13,20 @@ use rikmeijer\Teach\User;
 class RatingEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     /**
-     * @var User
+     * @var CacheInterface
      */
-    private $user;
+    private $cache;
+
+    private $filesystem;
+
     private $phpviewDirectory;
 
     const URL_MATCH = '#^/rating/(?<value>(N|[\d\.]+))$#';
 
-    public function __construct(User $user, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(CacheInterface $cache, \League\Flysystem\FilesystemInterface $filesystem, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
-        $this->user = $user;
+        $this->cache = $cache;
+        $this->filesystem = $filesystem;
         $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
     }
 
@@ -37,8 +42,8 @@ class RatingEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 
         $eTag = md5(($matches['value'] == 'N' ? null : $matches['value']).'500'.'100'.'5');
 
-        if ($this->user->cached($eTag) === false) {
-            $this->user->cache($eTag, new \DateTime());
+        if ($this->cache->has($eTag) === false) {
+            $this->cache->set($eTag, new \DateTime());
         }
 
         return new CachedEndPoint(new ImagePngEndPoint(new PHPviewEndPoint($this->phpviewDirectory->load('rating', [
@@ -46,9 +51,9 @@ class RatingEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
             'ratingWidth' => 500,
             'ratingHeight' => 100,
             'repetition' => 5,
-            'star' =>  $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'star.png'),
-            'unstar' => $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'unstar.png'),
-            'nostar' => $this->user->readPublicAsset('img' . DIRECTORY_SEPARATOR . 'nostar.png')
-        ]))), $this->user->retrieveFromCache($eTag), $eTag);
+            'star' =>  $this->filesystem->read('img' . DIRECTORY_SEPARATOR . 'star.png'),
+            'unstar' => $this->filesystem->read('img' . DIRECTORY_SEPARATOR . 'unstar.png'),
+            'nostar' => $this->filesystem->read('img' . DIRECTORY_SEPARATOR . 'nostar.png')
+        ]))), $this->cache->get($eTag), $eTag);
     }
 }
