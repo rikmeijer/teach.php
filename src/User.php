@@ -89,7 +89,7 @@ class User
 
     public function retrieveContactmoment($contactmomentIdentifier) : Contactmoment
     {
-        return Contactmoment::read($this->schema, $this->details()->uid, $contactmomentIdentifier);
+        return Contactmoment::read($this->schema, $contactmomentIdentifier);
     }
 
     public function importCalendarEvents() : int
