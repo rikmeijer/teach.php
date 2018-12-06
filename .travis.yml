@@ -1,4 +1,5 @@
 language: php
+before_script: phpenv config-add travis.php.ini
 install:
   - composer install
 php:
