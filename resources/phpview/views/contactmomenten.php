@@ -27,8 +27,7 @@
             <td><?= $this->escape($contactmoment->starttijd->format('l')); ?></td>
             <td><?= $this->escape($contactmoment->starttijd->format('H:i')); ?></td>
             <td><?= $this->escape($contactmoment->eindtijd->format('H:i')); ?></td>
-            <td><a href="<?= $this->url('/feedback/%s', $contactmoment->id); ?>" target="_blank"><img src="<?= $this->url('/rating/%s', $contactmoment->retrieveRating()??'N'); ?>" width="75" height="15" style="float: right;" /></a>
-            </td>
+            <td><a href="<?= $this->url('/webboard'); ?>" target="_blank">webboard</a> - <a href="<?= $this->url('/feedback/%s', $contactmoment->id); ?>" target="_blank"><img src="<?= $this->url('/rating/%s', $contactmoment->retrieveRating()??'N'); ?>" width="75" height="15" style="float: right;" /></a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
