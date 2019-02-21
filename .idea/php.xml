@@ -67,6 +67,8 @@
       <path value="$PROJECT_DIR$/vendor/cache/tag-interop" />
       <path value="$PROJECT_DIR$/vendor/cache/adapter-common" />
       <path value="$PROJECT_DIR$/vendor/cache/hierarchical-cache" />
+      <path value="$PROJECT_DIR$/vendor/symfony/contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />

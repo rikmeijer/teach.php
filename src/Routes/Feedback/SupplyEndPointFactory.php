@@ -1,5 +1,6 @@
 <?php namespace rikmeijer\Teach\Routes\Feedback;
 
+use Lifo\IP\IP;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\ErrorFactory;
