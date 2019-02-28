@@ -53,9 +53,11 @@ namespace rikmeijer\Teach {
             $user = $this->userForToken($server, $session, $schema);
             $phpviewDirectoryFactory = $this->phpviewDirectoryFactory($session);
 
+            $feedbackGUI = new GUI\Feedback($session, $schema);
+
             return new \pulledbits\Router\Router([
-                new Routes\Feedback\SupplyEndPointFactory($user, $phpviewDirectoryFactory),
-                new Routes\FeedbackEndPointFactory(new GUI\Feedback($schema), $phpviewDirectoryFactory),
+                new Routes\Feedback\SupplyEndPointFactory($feedbackGUI, $phpviewDirectoryFactory),
+                new Routes\FeedbackEndPointFactory($feedbackGUI, $phpviewDirectoryFactory),
                 new Routes\RatingEndPointFactory($cache, $publicAssetsFileSystem, $phpviewDirectoryFactory),
                 new Routes\Contactmoment\ImportEndPointFactory($user, $phpviewDirectoryFactory),
                 new Routes\QrEndPointFactory($phpviewDirectoryFactory),

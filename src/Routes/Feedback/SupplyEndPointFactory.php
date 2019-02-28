@@ -5,20 +5,20 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
+use rikmeijer\Teach\GUI\Feedback;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\PHPviewEndPoint;
 use rikmeijer\Teach\Routes\Feedback\Supply\Process;
 use rikmeijer\Teach\Routes\Feedback\Supply\Form;
-use rikmeijer\Teach\User;
 
 class SupplyEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 {
-    private $user;
+    private $useCase;
     private $phpviewDirectory;
 
-    public function __construct(User $user, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(Feedback $useCase, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
-        $this->user = $user;
+        $this->useCase = $useCase;
         $this->phpviewDirectory = $phpviewDirectoryFactory->make('feedback');
     }
 
@@ -30,8 +30,8 @@ class SupplyEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getURI()->getPath(), $matches);
-        $contactmoment = $this->user->retrieveContactmoment($matches['contactmomentIdentifier']);
-        if ($contactmoment->id !== $matches['contactmomentIdentifier']) {
+        $contactmoment = $this->useCase->retrieveContactmoment($matches['contactmomentIdentifier']);
+        if ($contactmoment->id === null) {
             return ErrorFactory::makeInstance('404');
         }
 
@@ -55,7 +55,7 @@ class SupplyEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 
             case 'POST':
                 $parsedBody = $request->getParsedBody();
-                if ($this->user->verifyCSRFToken($parsedBody['__csrf_value']) === false) {
+                if ($this->useCase->verifyCSRFToken($parsedBody['__csrf_value']) === false) {
                     return ErrorFactory::makeInstance('403');
                 }
                 $contactmoment->rate($_SERVER['REMOTE_ADDR'], $parsedBody['rating'], $parsedBody['explanation']);

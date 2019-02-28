@@ -7,6 +7,7 @@ use pulledbits\ActiveRecord\Schema;
 
 final class User
 {
+    private $session;
     private $server;
     private $schema;
 
@@ -25,11 +26,6 @@ final class User
     private function isEmployee() : bool
     {
         return $this->details()->extra['employee'];
-    }
-
-    public function retrieveContactmoment(string $contactmomentIdentifier) : Contactmoment
-    {
-        return Contactmoment::read($this->schema, $contactmomentIdentifier);
     }
 
     public function importCalendarEvents() : int
@@ -74,10 +70,5 @@ final class User
             $this->session->clear();
             $this->session->destroy();
         }
-    }
-
-    public function verifyCSRFToken(string $CSRFToken) : bool
-    {
-        return $this->session->getCsrfToken()->isValid($CSRFToken);
     }
 }
