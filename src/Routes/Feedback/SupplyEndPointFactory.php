@@ -13,6 +13,8 @@ use rikmeijer\Teach\Routes\Feedback\Supply\Form;
 
 class SupplyEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 {
+    const URI_PATTERN = '#^/feedback/(?<contactmomentIdentifier>\d+)/supply$#';
+
     private $useCase;
     private $phpviewDirectory;
 
@@ -24,12 +26,12 @@ class SupplyEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 
     public function matchUri(UriInterface $uri): bool
     {
-        return preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)/supply$#', $uri->getPath()) === 1;
+        return preg_match(self::URI_PATTERN, $uri->getPath()) === 1;
     }
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
-        preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getURI()->getPath(), $matches);
+        preg_match(self::URI_PATTERN, $request->getURI()->getPath(), $matches);
         $contactmoment = $this->useCase->retrieveContactmoment($matches['contactmomentIdentifier']);
         if ($contactmoment->id === null) {
             return ErrorFactory::makeInstance('404');
