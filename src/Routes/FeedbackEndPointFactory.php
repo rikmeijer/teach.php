@@ -4,7 +4,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
-use rikmeijer\Teach\GUI\FeedbackGUI;
+use rikmeijer\Teach\GUI\Feedback;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\PHPviewEndPoint;
 
@@ -13,7 +13,7 @@ final class FeedbackEndPointFactory implements \pulledbits\Router\RouteEndPointF
     private $useCase;
     private $phpviewDirectory;
 
-    public function __construct(FeedbackGUI $useCase, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(Feedback $useCase, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
         $this->useCase = $useCase;
         $this->phpviewDirectory = $phpviewDirectoryFactory->make('');

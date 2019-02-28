@@ -6,7 +6,7 @@ namespace rikmeijer\Teach\GUI;
 use pulledbits\ActiveRecord\Schema;
 use rikmeijer\Teach\Contactmoment;
 
-final class FeedbackGUI
+final class Feedback
 {
     private $schema;
 

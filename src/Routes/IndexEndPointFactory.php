@@ -12,7 +12,7 @@ final class IndexEndPointFactory implements \pulledbits\Router\RouteEndPointFact
     private $useCase;
     private $phpviewDirectory;
 
-    public function __construct(GUI\IndexGUI $useCase, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(GUI\Index $useCase, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
         $this->useCase = $useCase;
         $this->phpviewDirectory = $phpviewDirectoryFactory->make('');

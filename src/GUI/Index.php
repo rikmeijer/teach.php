@@ -5,11 +5,10 @@ namespace rikmeijer\Teach\GUI;
 
 
 use pulledbits\ActiveRecord\Schema;
-use pulledbits\View\Template;
 use rikmeijer\Teach\Contactmoment;
 use rikmeijer\Teach\SSO;
 
-final class IndexGUI
+final class Index
 {
     private $server;
     private $schema;

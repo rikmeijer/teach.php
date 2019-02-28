@@ -1,13 +1,11 @@
 <?php
 namespace rikmeijer\Teach\GUI;
 
-use Eluceo\iCal\Component\Calendar;
 use Eluceo\iCal\Component\Event;
 use pulledbits\ActiveRecord\Schema;
-use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\SSO;
 
-final class CalendarGUI
+final class Calendar
 {
     private $server;
     private $schema;
@@ -19,7 +17,7 @@ final class CalendarGUI
     }
 
     public function retrieveCalendar(string $calendarIdentifier) : Calendar {
-        $calendar = new Calendar($calendarIdentifier);
+        $calendar = new \Eluceo\iCal\Component\Calendar($calendarIdentifier);
         switch ($calendarIdentifier) {
             case 'weeks':
                 $lesweken = $this->schema->read('lesweek', [], []);

@@ -4,7 +4,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\CalendarEndPoint;
-use rikmeijer\Teach\GUI\CalendarGUI;
+use rikmeijer\Teach\GUI\Calendar;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\PHPviewEndPoint;
 
@@ -15,7 +15,7 @@ final class CalendarEndPointFactory implements \pulledbits\Router\RouteEndPointF
     private $useCase;
     private $phpviewDirectory;
 
-    public function __construct(CalendarGUI $useCase, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(Calendar $useCase, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
         $this->useCase = $useCase;
         $this->phpviewDirectory = $phpviewDirectoryFactory->make('');

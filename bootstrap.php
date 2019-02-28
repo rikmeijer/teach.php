@@ -55,15 +55,15 @@ namespace rikmeijer\Teach {
 
             return new \pulledbits\Router\Router([
                 new Routes\Feedback\SupplyEndPointFactory($user, $phpviewDirectoryFactory),
-                new Routes\FeedbackEndPointFactory(new GUI\FeedbackGUI($schema), $phpviewDirectoryFactory),
+                new Routes\FeedbackEndPointFactory(new GUI\Feedback($schema), $phpviewDirectoryFactory),
                 new Routes\RatingEndPointFactory($cache, $publicAssetsFileSystem, $phpviewDirectoryFactory),
                 new Routes\Contactmoment\ImportEndPointFactory($user, $phpviewDirectoryFactory),
                 new Routes\QrEndPointFactory($phpviewDirectoryFactory),
                 new Routes\SSO\AuthorizeFactoryFactory($server),
                 new Routes\SSO\CallbackFactoryFactory($server),
                 new Routes\UserEndPointFactory($user),
-                new Routes\CalendarEndPointFactory(new GUI\CalendarGUI($server, $schema), $phpviewDirectoryFactory),
-                new Routes\IndexEndPointFactory(new GUI\IndexGUI($server, $schema), $phpviewDirectoryFactory)
+                new Routes\CalendarEndPointFactory(new GUI\Calendar($server, $schema), $phpviewDirectoryFactory),
+                new Routes\IndexEndPointFactory(new GUI\Index($server, $schema), $phpviewDirectoryFactory)
             ]);
         }
 
