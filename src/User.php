@@ -18,6 +18,42 @@ class User
         $this->session = $session;
         $this->schema = $schema;
         $this->server = $server;
+
+        $this->actions = [
+            'retrieveModules' => function() use ($schema, $server) : array  {
+                $modules = [];
+                foreach ($this->schema->read('module', [], []) as $module) {
+                    $modulecontactmomenten = Contactmoment::readByModuleName($schema, $server->getUserDetails()->uid, $module->naam);
+
+                    if (count($modulecontactmomenten) > 0) {
+                        $module->contains(['contactmomenten' => $modulecontactmomenten]);
+                        $module->bind('retrieveRating', function ()
+                        {
+                            $ratings = [];
+                            foreach ($this->contactmomenten as $modulecontactmoment) {
+                                $ratings[] = $modulecontactmoment->retrieveRating();
+                            }
+                            $numericRatings = array_filter($ratings, 'is_numeric');
+                            if (count($numericRatings) === 0) {
+                                return null;
+                            }
+                            return array_sum($numericRatings) / count($numericRatings);
+                        });
+
+                        $modules[] = $module;
+                    }
+                }
+                return $modules;
+            }
+        ];
+    }
+
+    public function __call(string $name, array $arguments)
+    {
+        if (array_key_exists($name, $this->actions) === false) {
+            return null;
+        }
+        return $this->actions[$name](...$arguments);
     }
 
     private function details(): \League\OAuth1\Client\Server\User
@@ -28,33 +64,6 @@ class User
     private function isEmployee()
     {
         return $this->details()->extra['employee'];
-    }
-
-    public function retrieveModules() : array
-    {
-        $modules = [];
-        foreach ($this->schema->read('module', [], []) as $module) {
-            $modulecontactmomenten = Contactmoment::readByModuleName($this->schema, $this->details()->uid, $module->naam);
-
-            if (count($modulecontactmomenten) > 0) {
-                $module->contains(['contactmomenten' => $modulecontactmomenten]);
-                $module->bind('retrieveRating', function ()
-                {
-                    $ratings = [];
-                    foreach ($this->contactmomenten as $modulecontactmoment) {
-                        $ratings[] = $modulecontactmoment->retrieveRating();
-                    }
-                    $numericRatings = array_filter($ratings, 'is_numeric');
-                    if (count($numericRatings) === 0) {
-                        return null;
-                    }
-                    return array_sum($numericRatings) / count($numericRatings);
-                });
-
-                $modules[] = $module;
-            }
-        }
-        return $modules;
     }
 
     public function retrieveModulecontactmomentenToday()
