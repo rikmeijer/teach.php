@@ -8,7 +8,7 @@ use rikmeijer\Teach\PHPviewEndPoint;
 use rikmeijer\Teach\Routes\Index\Overview;
 use rikmeijer\Teach\User;
 
-class IndexFactoryFactory implements \pulledbits\Router\RouteEndPointFactory
+class IndexEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $user;
     private $phpviewDirectory;

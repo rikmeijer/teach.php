@@ -64,7 +64,7 @@ namespace rikmeijer\Teach {
                 new Routes\SSO\CallbackFactoryFactory($server),
                 new Routes\UserEndPointFactory($user),
                 new Routes\CalendarEndPointFactory($user, $phpviewDirectoryFactory),
-                new Routes\IndexFactoryFactory($user, $phpviewDirectoryFactory)
+                new Routes\IndexEndPointFactory($user, $phpviewDirectoryFactory)
             ]);
         }
 
