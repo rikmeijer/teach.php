@@ -24,6 +24,6 @@
 if ($rating !== null) {
     $this->form("post", "Verzenden", '<h1>Waarom?</h1>
                         <input type="hidden" name="rating" value="' . $this->escape($rating) . '" />
-                        <textarea rows="5" cols="75" name="explanation">' . $this->escape($explanation) . '</textarea>');
+                        <textarea rows="5" cols="75" name="explanation">' . $this->escape($explanation??'') . '</textarea>');
 }
 $layout->compile();
