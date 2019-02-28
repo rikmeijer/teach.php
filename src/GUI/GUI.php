@@ -4,7 +4,7 @@ namespace rikmeijer\Teach\GUI;
 
 use pulledbits\View\Template;
 
-interface UseCase
+interface GUI
 {
     public function view(array $urlParameters): Template;
 }

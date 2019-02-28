@@ -8,7 +8,7 @@ use pulledbits\View\Template;
 use rikmeijer\Teach\Contactmoment;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 
-final class FeedBackUseCase implements UseCase
+final class FeedBackGUI implements GUI
 {
     private $schema;
     private $phpviewDirectory;

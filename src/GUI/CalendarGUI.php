@@ -8,7 +8,7 @@ use pulledbits\View\Template;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\SSO;
 
-final class CalendarUseCase implements UseCase
+final class CalendarGUI implements GUI
 {
     private $server;
     private $schema;

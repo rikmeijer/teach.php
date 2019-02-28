@@ -10,7 +10,7 @@ use rikmeijer\Teach\Contactmoment;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\SSO;
 
-final class IndexUseCase implements UseCase
+final class IndexGUI implements GUI
 {
     private $server;
     private $schema;

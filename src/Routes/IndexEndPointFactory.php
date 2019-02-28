@@ -3,14 +3,14 @@
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
-use rikmeijer\Teach\GUI\UseCase;
+use rikmeijer\Teach\GUI\GUI;
 use rikmeijer\Teach\PHPviewEndPoint;
 
 final class IndexEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 {
     private $useCase;
 
-    public function __construct(UseCase $useCase)
+    public function __construct(GUI $useCase)
     {
         $this->useCase = $useCase;
     }
@@ -22,6 +22,6 @@ final class IndexEndPointFactory implements \pulledbits\Router\RouteEndPointFact
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
-        return new PHPviewEndPoint($this->useCase->view());
+        return new PHPviewEndPoint($this->useCase->view([]));
     }
 }
