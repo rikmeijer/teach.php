@@ -10,7 +10,7 @@ use rikmeijer\Teach\Contactmoment;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\SSO;
 
-final class IndexUseCase
+final class IndexUseCase implements UseCase
 {
     private $server;
     private $schema;
@@ -49,7 +49,7 @@ final class IndexUseCase
         return $modules;
     }
 
-    public function makeView() : Template
+    public function makeView(array $matches) : Template
     {
         return $this->phpviewDirectory->load('welcome', [
             'modules' => $this->retrieveModules(),

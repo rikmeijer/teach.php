@@ -4,7 +4,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\CalendarEndPoint;
-use rikmeijer\Teach\GUI\CalendarUseCase;
+use rikmeijer\Teach\GUI\UseCase;
 use rikmeijer\Teach\PHPviewEndPoint;
 
 final class CalendarEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
@@ -13,7 +13,7 @@ final class CalendarEndPointFactory implements \pulledbits\Router\RouteEndPointF
 
     private $useCase;
 
-    public function __construct(CalendarUseCase $useCase)
+    public function __construct(UseCase $useCase)
     {
         $this->useCase = $useCase;
     }
