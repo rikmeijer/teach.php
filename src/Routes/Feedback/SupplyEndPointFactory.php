@@ -37,19 +37,16 @@ class SupplyEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 
         switch ($request->getMethod()) {
             case 'GET':
+                $ipRating = $contactmoment->findRatingByIP(($request->getServerParams())['REMOTE_ADDR']);
+
                 $query = $request->getQueryParams();
-
-                $ipRating = $contactmoment->findRatingByIP($_SERVER['REMOTE_ADDR']);
-
-                $explanation = $ipRating->inhoud;
-
                 if (array_key_exists('rating', $query)) {
                     $rating = $query['rating'];
                 } else {
                     $rating = $ipRating->waarde;
                 }
 
-                return new PHPviewEndPoint($this->phpviewDirectory->load('supply', ['rating' => $rating, 'explanation' => $explanation]));
+                return new PHPviewEndPoint($this->phpviewDirectory->load('supply', ['rating' => $rating, 'explanation' => $ipRating->inhoud]));
 
             case 'POST':
                 $parsedBody = $request->getParsedBody();
