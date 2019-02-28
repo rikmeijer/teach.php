@@ -7,24 +7,20 @@ namespace rikmeijer\Teach\GUI;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\View\Template;
 use rikmeijer\Teach\Contactmoment;
-use rikmeijer\Teach\GUI;
-use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\SSO;
 
-final class IndexGUI implements GUI
+final class IndexGUI
 {
     private $server;
     private $schema;
-    private $phpviewDirectory;
 
-    public function __construct(SSO $server, Schema $schema, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(SSO $server, Schema $schema)
     {
         $this->server = $server;
         $this->schema = $schema;
-        $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
     }
 
-    private function retrieveModules(): array
+    public function retrieveModules(): array
     {
         $modules = [];
         foreach ($this->schema->read('module', [], []) as $module) {
@@ -50,11 +46,7 @@ final class IndexGUI implements GUI
         return $modules;
     }
 
-    public function view(array $urlParameters) : Template
-    {
-        return $this->phpviewDirectory->load('welcome', [
-            'modules' => $this->retrieveModules(),
-            'contactmomenten' => Contactmoment::readVandaag($this->schema, $this->server->getUserDetails()->uid)
-        ]);
+    public function retrieveContactmomenten() {
+        return Contactmoment::readVandaag($this->schema, $this->server->getUserDetails()->uid);
     }
 }

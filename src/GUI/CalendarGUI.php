@@ -4,22 +4,18 @@ namespace rikmeijer\Teach\GUI;
 use Eluceo\iCal\Component\Calendar;
 use Eluceo\iCal\Component\Event;
 use pulledbits\ActiveRecord\Schema;
-use pulledbits\View\Template;
-use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\SSO;
 
-final class CalendarGUI implements GUI
+final class CalendarGUI
 {
     private $server;
     private $schema;
-    private $phpviewDirectory;
 
-    public function __construct(SSO $server, Schema $schema, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(SSO $server, Schema $schema)
     {
         $this->server = $server;
         $this->schema = $schema;
-        $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
     }
 
     public function retrieveCalendar(string $calendarIdentifier) : Calendar {
@@ -49,13 +45,4 @@ final class CalendarGUI implements GUI
         }
         return $calendar;
     }
-
-    public function view(array $matches) : Template
-    {
-        $calendar = $this->retrieveCalendar($matches['calendarIdentifier']);
-        return $this->phpviewDirectory->load('calendar', [
-            'calendar' => $calendar
-        ]);
-    }
-
 }

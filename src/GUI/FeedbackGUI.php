@@ -4,25 +4,19 @@
 namespace rikmeijer\Teach\GUI;
 
 use pulledbits\ActiveRecord\Schema;
-use pulledbits\View\Template;
 use rikmeijer\Teach\Contactmoment;
-use rikmeijer\Teach\PHPViewDirectoryFactory;
 
-final class FeedbackGUI implements \rikmeijer\Teach\GUI
+final class FeedbackGUI
 {
     private $schema;
-    private $phpviewDirectory;
 
-    public function __construct(Schema $schema, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(Schema $schema)
     {
         $this->schema = $schema;
-        $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
     }
 
-    public function view(array $urlParameters): Template
+    public function retrieveContactmoment(string $contactmomentIdentifier) : Contactmoment
     {
-        return $this->phpviewDirectory->load('feedback', [
-            'contactmoment' => Contactmoment::read($this->schema, $urlParameters['contactmomentIdentifier'])
-        ]);
+        return Contactmoment::read($this->schema, $contactmomentIdentifier);
     }
 }

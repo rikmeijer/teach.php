@@ -30,9 +30,6 @@ namespace rikmeijer\Teach {
 
     use Aura\Session\Session;
     use Psr\SimpleCache\CacheInterface;
-    use rikmeijer\Teach\GUI\CalendarGUI;
-    use rikmeijer\Teach\GUI\FeedbackGUI;
-    use rikmeijer\Teach\GUI\IndexGUI;
 
 
     final class Bootstrap
@@ -58,15 +55,15 @@ namespace rikmeijer\Teach {
 
             return new \pulledbits\Router\Router([
                 new Routes\Feedback\SupplyEndPointFactory($user, $phpviewDirectoryFactory),
-                new Routes\FeedbackEndPointFactory(new FeedbackGUI($schema, $phpviewDirectoryFactory)),
+                new Routes\FeedbackEndPointFactory(new GUI\FeedbackGUI($schema), $phpviewDirectoryFactory),
                 new Routes\RatingEndPointFactory($cache, $publicAssetsFileSystem, $phpviewDirectoryFactory),
                 new Routes\Contactmoment\ImportEndPointFactory($user, $phpviewDirectoryFactory),
                 new Routes\QrEndPointFactory($phpviewDirectoryFactory),
                 new Routes\SSO\AuthorizeFactoryFactory($server),
                 new Routes\SSO\CallbackFactoryFactory($server),
                 new Routes\UserEndPointFactory($user),
-                new Routes\CalendarEndPointFactory(new CalendarGUI($server, $schema, $phpviewDirectoryFactory)),
-                new Routes\IndexEndPointFactory(new IndexGUI($server, $schema, $phpviewDirectoryFactory))
+                new Routes\CalendarEndPointFactory(new GUI\CalendarGUI($server, $schema), $phpviewDirectoryFactory),
+                new Routes\IndexEndPointFactory(new GUI\IndexGUI($server, $schema), $phpviewDirectoryFactory)
             ]);
         }
 

@@ -4,7 +4,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\CalendarEndPoint;
-use rikmeijer\Teach\GUI;
+use rikmeijer\Teach\GUI\CalendarGUI;
+use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\PHPviewEndPoint;
 
 final class CalendarEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
@@ -12,10 +13,12 @@ final class CalendarEndPointFactory implements \pulledbits\Router\RouteEndPointF
     const URI_PATTERN = '#^/calendar/(?<calendarIdentifier>[^/]+)#';
 
     private $useCase;
+    private $phpviewDirectory;
 
-    public function __construct(GUI $useCase)
+    public function __construct(CalendarGUI $useCase, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
         $this->useCase = $useCase;
+        $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
     }
 
     public function matchUri(UriInterface $uri): bool
@@ -26,6 +29,7 @@ final class CalendarEndPointFactory implements \pulledbits\Router\RouteEndPointF
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         preg_match(self::URI_PATTERN, $request->getUri()->getPath(), $matches);
-        return new CalendarEndPoint(new PHPviewEndPoint($this->useCase->view($matches)), $matches['calendarIdentifier']);
+        $calendar = $this->retrieveCalendar($matches['calendarIdentifier']);
+        return new CalendarEndPoint(new PHPviewEndPoint($this->phpviewDirectory->load('calendar', ['calendar' => $calendar])), $matches['calendarIdentifier']);
     }
 }
