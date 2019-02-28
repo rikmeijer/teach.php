@@ -2,21 +2,17 @@
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
-use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
-use rikmeijer\Teach\PHPViewDirectoryFactory;
+use rikmeijer\Teach\GUI\UseCase;
 use rikmeijer\Teach\PHPviewEndPoint;
-use rikmeijer\Teach\User;
 
-class FeedbackEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
+final class FeedbackEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 {
-    private $user;
-    private $phpviewDirectory;
+    private $useCase;
 
-    public function __construct(User $user, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(UseCase $useCase)
     {
-        $this->user = $user;
-        $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
+        $this->useCase = $useCase;
     }
 
     public function matchUri(UriInterface $uri): bool
@@ -27,10 +23,6 @@ class FeedbackEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getUri()->getPath(), $matches);
-        $contactmoment = $this->user->retrieveContactmoment($matches['contactmomentIdentifier']);
-        if ($contactmoment->id !== $matches['contactmomentIdentifier']) {
-            return ErrorFactory::makeInstance(404);
-        }
-        return new PHPviewEndPoint($this->phpviewDirectory->load('feedback', ['contactmoment' => $contactmoment]));
+        return new PHPviewEndPoint($this->useCase->makeView($matches));
     }
 }

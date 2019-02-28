@@ -49,7 +49,7 @@ final class IndexUseCase implements UseCase
         return $modules;
     }
 
-    public function makeView(array $matches) : Template
+    public function makeView(array $urlParameters) : Template
     {
         return $this->phpviewDirectory->load('welcome', [
             'modules' => $this->retrieveModules(),

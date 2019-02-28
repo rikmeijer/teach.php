@@ -6,5 +6,5 @@ use pulledbits\View\Template;
 
 interface UseCase
 {
-    public function makeView(array $matches): Template;
+    public function makeView(array $urlParameters): Template;
 }

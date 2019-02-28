@@ -31,6 +31,7 @@ namespace rikmeijer\Teach {
     use Aura\Session\Session;
     use Psr\SimpleCache\CacheInterface;
     use rikmeijer\Teach\GUI\CalendarUseCase;
+    use rikmeijer\Teach\GUI\FeedBackUseCase;
     use rikmeijer\Teach\GUI\IndexUseCase;
 
 
@@ -57,7 +58,7 @@ namespace rikmeijer\Teach {
 
             return new \pulledbits\Router\Router([
                 new Routes\Feedback\SupplyEndPointFactory($user, $phpviewDirectoryFactory),
-                new Routes\FeedbackEndPointFactory($user, $phpviewDirectoryFactory),
+                new Routes\FeedbackEndPointFactory(new FeedBackUseCase($schema, $phpviewDirectoryFactory)),
                 new Routes\RatingEndPointFactory($cache, $publicAssetsFileSystem, $phpviewDirectoryFactory),
                 new Routes\Contactmoment\ImportEndPointFactory($user, $phpviewDirectoryFactory),
                 new Routes\QrEndPointFactory($phpviewDirectoryFactory),

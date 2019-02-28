@@ -7,7 +7,7 @@ namespace rikmeijer\Teach;
 use pulledbits\ActiveRecord\Entity;
 use pulledbits\ActiveRecord\Schema;
 
-class Contactmoment
+final class Contactmoment
 {
     private $record;
 
@@ -16,11 +16,11 @@ class Contactmoment
         $this->record = $entity;
     }
 
-    static function wrapAround(Entity $entity) {
+    static function wrapAround(Entity $entity) : self {
         return new self($entity);
     }
 
-    static function readByModuleName(Schema $schema, string $owner, string $moduleNaam) {
+    static function readByModuleName(Schema $schema, string $owner, string $moduleNaam) : array {
         return array_map([__CLASS__, 'wrapAround'], $schema->read("contactmoment_module", [], ["modulenaam" => $moduleNaam, "owner" => $owner]));
     }
 
@@ -31,35 +31,38 @@ class Contactmoment
     static function read(Schema $schema, string $identifier) : self {
         $contactmoments = $schema->read('contactmoment', [], ['id' => $identifier]);
         if (count($contactmoments) === 0) {
-            $contactmoments[0] = new class implements Record {
+            $contactmoments[0] = new class implements Entity {
 
-                public function contains(array $values)
+                final public function contains(array $values) : void
                 {}
 
-                public function __get($property)
+                final public function __get($property)
                 {
                     return null;
                 }
 
-                public function __set($property, $value)
+                final public function __set($property, $value)
                 {}
 
-                public function delete(): int
+                final public function __isset($property)
+                {}
+
+                final public function delete(): int
                 {
                     return 0;
                 }
 
-                public function create(): int
+                final public function create(): int
                 {
                     return 0;
                 }
 
-                public function __call(string $method, array $arguments)
+                final public function __call(string $method, array $arguments)
                 {
                     return null;
                 }
 
-                public function bind(string $methodIdentifier, callable $callback): void
+                final public function bind(string $methodIdentifier, callable $callback): void
                 {
                 }
             };
@@ -93,13 +96,17 @@ class Contactmoment
     }
 
 
-    public function __get($name)
+    public function __get(string $name)
     {
         $value = $this->record->$name;
         switch ($name) {
             case 'starttijd':
             case 'eindtijd':
-                return new \DateTime($value);
+                try {
+                    return new \DateTime($value);
+                } catch (\Exception $e) {
+                    return $value;
+                }
 
             case 'active':
                 return strtotime($this->record->starttijd) <= time() && strtotime($this->record->starttijd) >= time();
@@ -111,4 +118,13 @@ class Contactmoment
         }
     }
 
+    public function __set(string $name, $value)
+    {
+        $this->record->$name = $value;
+    }
+
+    public function __isset(string $name)
+    {
+        return isset($this->record->$name);
+    }
 }
