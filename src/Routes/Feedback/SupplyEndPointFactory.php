@@ -41,16 +41,20 @@ class SupplyEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 
                 $ipRating = $contactmoment->findRatingFromIP($_SERVER['REMOTE_ADDR']);
 
-                $rating = null;
-                $explanation = '';
-                if ($ipRating->waarde !== null) {
-                    $rating = $ipRating->waarde;
-                    $explanation = $ipRating->inhoud !== null ? $ipRating->inhoud : '';
+                if ($ipRating->inhoud !== null) {
+                    $explanation = $ipRating->inhoud;
+                } else {
+                    $explanation = '';
                 }
 
                 if (array_key_exists('rating', $query)) {
                     $rating = $query['rating'];
+                } elseif ($ipRating->waarde !== null) {
+                    $rating = $ipRating->waarde;
+                } else {
+                    $rating = null;
                 }
+
                 return new PHPviewEndPoint($this->phpviewDirectory->load('supply', ['rating' => $rating, 'explanation' => $explanation]));
 
             case 'POST':
