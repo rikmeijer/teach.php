@@ -19,13 +19,10 @@ final class FeedBackGUI implements \rikmeijer\Teach\GUI
         $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
     }
 
-    public function retrieveContactmoment(string $contactmomentIdentifier) : Contactmoment
-    {
-        return Contactmoment::read($this->schema, $contactmomentIdentifier);
-    }
-
     public function view(array $urlParameters): Template
     {
-        return $this->phpviewDirectory->load('feedback', ['contactmoment' => $this->retrieveContactmoment($urlParameters['contactmomentIdentifier'])]);
+        return $this->phpviewDirectory->load('feedback', [
+            'contactmoment' => Contactmoment::read($this->schema, $urlParameters['contactmomentIdentifier'])
+        ]);
     }
 }
