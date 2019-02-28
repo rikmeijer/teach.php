@@ -5,10 +5,9 @@ namespace rikmeijer\Teach;
 use Aura\Session\Session;
 use Eluceo\iCal\Component\Calendar;
 use Eluceo\iCal\Component\Event;
-use pulledbits\ActiveRecord\Record;
 use pulledbits\ActiveRecord\Schema;
 
-class User
+final class User
 {
     private $server;
     private $schema;
@@ -18,42 +17,6 @@ class User
         $this->session = $session;
         $this->schema = $schema;
         $this->server = $server;
-
-        $this->actions = [
-            'retrieveModules' => function() use ($schema, $server) : array  {
-                $modules = [];
-                foreach ($this->schema->read('module', [], []) as $module) {
-                    $modulecontactmomenten = Contactmoment::readByModuleName($schema, $server->getUserDetails()->uid, $module->naam);
-
-                    if (count($modulecontactmomenten) > 0) {
-                        $module->contains(['contactmomenten' => $modulecontactmomenten]);
-                        $module->bind('retrieveRating', function ()
-                        {
-                            $ratings = [];
-                            foreach ($this->contactmomenten as $modulecontactmoment) {
-                                $ratings[] = $modulecontactmoment->retrieveRating();
-                            }
-                            $numericRatings = array_filter($ratings, 'is_numeric');
-                            if (count($numericRatings) === 0) {
-                                return null;
-                            }
-                            return array_sum($numericRatings) / count($numericRatings);
-                        });
-
-                        $modules[] = $module;
-                    }
-                }
-                return $modules;
-            }
-        ];
-    }
-
-    public function __call(string $name, array $arguments)
-    {
-        if (array_key_exists($name, $this->actions) === false) {
-            return null;
-        }
-        return $this->actions[$name](...$arguments);
     }
 
     private function details(): \League\OAuth1\Client\Server\User
@@ -61,14 +24,9 @@ class User
         return $this->server->getUserDetails();
     }
 
-    private function isEmployee()
+    private function isEmployee() : bool
     {
         return $this->details()->extra['employee'];
-    }
-
-    public function retrieveModulecontactmomentenToday()
-    {
-        return Contactmoment::readVandaag($this->schema, $this->details()->uid);
     }
 
     public function retrieveCalendar(string $calendarIdentifier) : Calendar {
@@ -79,13 +37,16 @@ class User
                 foreach ($lesweken as $lesweek) {
                     $lesweekEvent = new Event();
                     $lesweekEvent->setNoTime(true);
-                    $week_start = new \DateTime();
-                    $week_start->setISODate($lesweek->jaar, $lesweek->kalenderweek);
                     $lesweekEvent->setUniqueId(sha1($lesweek->jaar . $lesweek->kalenderweek));
-                    $lesweekEvent->setDtStart($week_start);
-                    $lesweekEvent->setDtEnd($week_start);
                     $lesweekEvent->setSummary('OW' .  $lesweek->onderwijsweek . '/BW' . $lesweek->blokweek);
-                    $calendar->addComponent($lesweekEvent);
+                    try {
+                        $week_start = new \DateTime();
+                        $week_start->setISODate($lesweek->jaar, $lesweek->kalenderweek);
+                        $lesweekEvent->setDtStart($week_start);
+                        $lesweekEvent->setDtEnd($week_start);
+                        $calendar->addComponent($lesweekEvent);
+                    } catch (\Exception $e) {
+                    }
                 }
                 break;
 
@@ -96,7 +57,7 @@ class User
         return $calendar;
     }
 
-    public function retrieveContactmoment($contactmomentIdentifier) : Contactmoment
+    public function retrieveContactmoment(string $contactmomentIdentifier) : Contactmoment
     {
         return Contactmoment::read($this->schema, $contactmomentIdentifier);
     }
@@ -113,7 +74,8 @@ class User
         foreach ($icalReader->events() as $event) {
             if (array_key_exists('SUMMARY', $event) === false) {
                 continue;
-            } elseif (array_key_exists('LOCATION', $event) === false) {
+            }
+            if (array_key_exists('LOCATION', $event) === false) {
                 continue;
             }
             $this->schema->executeProcedure('import_ical_to_contactmoment', [$userId, $event['SUMMARY'], $event['UID'], $this->convertToSQLDateTime($event['DTSTART']), $this->convertToSQLDateTime($event['DTEND']), $event['LOCATION']]);
@@ -124,11 +86,15 @@ class User
         return $count;
     }
 
-    private function convertToSQLDateTime(string $datetime): string
+    private function convertToSQLDateTime(string $icaldatetime): string
     {
-        $datetime = new \DateTime($datetime);
-        $datetime->setTimezone(new \DateTimeZone(ini_get('date.timezone')));
-        return $datetime->format('Y-m-d H:i:s');
+        try {
+            $datetime = new \DateTime($icaldatetime);
+            $datetime->setTimezone(new \DateTimeZone(ini_get('date.timezone')));
+            return $datetime->format('Y-m-d H:i:s');
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 
     public function logout() : void

@@ -3,20 +3,16 @@
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
-use rikmeijer\Teach\PHPViewDirectoryFactory;
+use rikmeijer\Teach\GUI\IndexUseCase;
 use rikmeijer\Teach\PHPviewEndPoint;
-use rikmeijer\Teach\Routes\Index\Overview;
-use rikmeijer\Teach\User;
 
-class IndexEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
+final class IndexEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 {
-    private $user;
-    private $phpviewDirectory;
+    private $useCase;
 
-    public function __construct(User $user, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(IndexUseCase $useCase)
     {
-        $this->user = $user;
-        $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
+        $this->useCase = $useCase;
     }
 
     public function matchUri(UriInterface $uri): bool
@@ -26,9 +22,6 @@ class IndexEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
-        return new PHPviewEndPoint($this->phpviewDirectory->load('welcome', [
-            'modules' => $this->user->retrieveModules(),
-            'contactmomenten' => $this->user->retrieveModulecontactmomentenToday()
-        ]));
+        return new PHPviewEndPoint($this->useCase->makeView());
     }
 }

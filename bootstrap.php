@@ -15,8 +15,8 @@ namespace {
         $parts = array_filter(explode(DIRECTORY_SEPARATOR, $path), 'strlen');
         $absolutes = array();
         foreach ($parts as $part) {
-            if ('.' == $part) continue;
-            if ('..' == $part) {
+            if ('.' === $part) continue;
+            if ('..' === $part) {
                 array_pop($absolutes);
             } else {
                 $absolutes[] = $part;
@@ -29,11 +29,11 @@ namespace {
 namespace rikmeijer\Teach {
 
     use Aura\Session\Session;
-    use League\Flysystem\FilesystemInterface;
     use Psr\SimpleCache\CacheInterface;
+    use rikmeijer\Teach\GUI\IndexUseCase;
 
 
-    class Bootstrap
+    final class Bootstrap
     {
         private $autoloader;
         private $resourcesPath;
@@ -64,7 +64,7 @@ namespace rikmeijer\Teach {
                 new Routes\SSO\CallbackFactoryFactory($server),
                 new Routes\UserEndPointFactory($user),
                 new Routes\CalendarEndPointFactory($user, $phpviewDirectoryFactory),
-                new Routes\IndexEndPointFactory($user, $phpviewDirectoryFactory)
+                new Routes\IndexEndPointFactory(new IndexUseCase($server, $schema, $phpviewDirectoryFactory))
             ]);
         }
 
