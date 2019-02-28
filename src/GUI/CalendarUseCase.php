@@ -49,7 +49,7 @@ final class CalendarUseCase implements UseCase
         return $calendar;
     }
 
-    public function makeView(array $matches) : Template
+    public function view(array $matches) : Template
     {
         $calendar = $this->retrieveCalendar($matches['calendarIdentifier']);
         return $this->phpviewDirectory->load('calendar', [

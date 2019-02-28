@@ -22,6 +22,6 @@ final class IndexEndPointFactory implements \pulledbits\Router\RouteEndPointFact
 
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
-        return new PHPviewEndPoint($this->useCase->makeView());
+        return new PHPviewEndPoint($this->useCase->view());
     }
 }

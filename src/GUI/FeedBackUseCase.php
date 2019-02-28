@@ -24,7 +24,7 @@ final class FeedBackUseCase implements UseCase
         return Contactmoment::read($this->schema, $contactmomentIdentifier);
     }
 
-    public function makeView(array $urlParameters): Template
+    public function view(array $urlParameters): Template
     {
         return $this->phpviewDirectory->load('feedback', ['contactmoment' => $this->retrieveContactmoment($urlParameters['contactmomentIdentifier'])]);
     }

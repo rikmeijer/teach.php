@@ -23,6 +23,6 @@ final class FeedbackEndPointFactory implements \pulledbits\Router\RouteEndPointF
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         preg_match('#^/feedback/(?<contactmomentIdentifier>\d+)#', $request->getUri()->getPath(), $matches);
-        return new PHPviewEndPoint($this->useCase->makeView($matches));
+        return new PHPviewEndPoint($this->useCase->view($matches));
     }
 }
