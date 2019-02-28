@@ -3,7 +3,7 @@
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use pulledbits\Router\RouteEndPoint;
-use rikmeijer\Teach\GUI\GUI;
+use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\PHPviewEndPoint;
 
 final class FeedbackEndPointFactory implements \pulledbits\Router\RouteEndPointFactory

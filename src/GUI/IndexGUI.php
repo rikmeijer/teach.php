@@ -7,6 +7,7 @@ namespace rikmeijer\Teach\GUI;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\View\Template;
 use rikmeijer\Teach\Contactmoment;
+use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\SSO;
 

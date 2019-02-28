@@ -5,6 +5,7 @@ use Eluceo\iCal\Component\Calendar;
 use Eluceo\iCal\Component\Event;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\View\Template;
+use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\SSO;
 

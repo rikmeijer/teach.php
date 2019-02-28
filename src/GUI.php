@@ -1,6 +1,6 @@
 <?php
 
-namespace rikmeijer\Teach\GUI;
+namespace rikmeijer\Teach;
 
 use pulledbits\View\Template;
 
