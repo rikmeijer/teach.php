@@ -49,10 +49,8 @@ class SupplyEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
 
                 if (array_key_exists('rating', $query)) {
                     $rating = $query['rating'];
-                } elseif ($ipRating->waarde !== null) {
-                    $rating = $ipRating->waarde;
                 } else {
-                    $rating = null;
+                    $rating = $ipRating->waarde;
                 }
 
                 return new PHPviewEndPoint($this->phpviewDirectory->load('supply', ['rating' => $rating, 'explanation' => $explanation]));
