@@ -39,7 +39,7 @@ class SupplyEndPointFactory implements \pulledbits\Router\RouteEndPointFactory
             case 'GET':
                 $query = $request->getQueryParams();
 
-                $ipRating = $contactmoment->findRatingFromIP($_SERVER['REMOTE_ADDR']);
+                $ipRating = $contactmoment->findRatingByIP($_SERVER['REMOTE_ADDR']);
 
                 if ($ipRating->inhoud !== null) {
                     $explanation = $ipRating->inhoud;

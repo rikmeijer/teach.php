@@ -83,7 +83,7 @@ final class Contactmoment
     }
 
 
-    public function findRatingFromIP(string $ipAddress) {
+    public function findRatingByIP(string $ipAddress) {
         $ipRatings = $this->record->fetchByFkRatingContactmoment(['ip' => $ipAddress]);
         if (count($ipRatings) === 0) {
             return $this->record->referenceByFkRatingContactmoment(['ip' => $ipAddress]);
