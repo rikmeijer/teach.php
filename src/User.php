@@ -3,8 +3,6 @@
 namespace rikmeijer\Teach;
 
 use Aura\Session\Session;
-use Eluceo\iCal\Component\Calendar;
-use Eluceo\iCal\Component\Event;
 use pulledbits\ActiveRecord\Schema;
 
 final class User
@@ -27,34 +25,6 @@ final class User
     private function isEmployee() : bool
     {
         return $this->details()->extra['employee'];
-    }
-
-    public function retrieveCalendar(string $calendarIdentifier) : Calendar {
-        $calendar = new Calendar($calendarIdentifier);
-        switch ($calendarIdentifier) {
-            case 'weeks':
-                $lesweken = $this->schema->read('lesweek', [], []);
-                foreach ($lesweken as $lesweek) {
-                    $lesweekEvent = new Event();
-                    $lesweekEvent->setNoTime(true);
-                    $lesweekEvent->setUniqueId(sha1($lesweek->jaar . $lesweek->kalenderweek));
-                    $lesweekEvent->setSummary('OW' .  $lesweek->onderwijsweek . '/BW' . $lesweek->blokweek);
-                    try {
-                        $week_start = new \DateTime();
-                        $week_start->setISODate($lesweek->jaar, $lesweek->kalenderweek);
-                        $lesweekEvent->setDtStart($week_start);
-                        $lesweekEvent->setDtEnd($week_start);
-                        $calendar->addComponent($lesweekEvent);
-                    } catch (\Exception $e) {
-                    }
-                }
-                break;
-
-            default:
-                error_log('Unknown calendar ' . $calendarIdentifier . ' requested');
-                break;
-        }
-        return $calendar;
     }
 
     public function retrieveContactmoment(string $contactmomentIdentifier) : Contactmoment

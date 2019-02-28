@@ -30,6 +30,7 @@ namespace rikmeijer\Teach {
 
     use Aura\Session\Session;
     use Psr\SimpleCache\CacheInterface;
+    use rikmeijer\Teach\GUI\CalendarUseCase;
     use rikmeijer\Teach\GUI\IndexUseCase;
 
 
@@ -63,7 +64,7 @@ namespace rikmeijer\Teach {
                 new Routes\SSO\AuthorizeFactoryFactory($server),
                 new Routes\SSO\CallbackFactoryFactory($server),
                 new Routes\UserEndPointFactory($user),
-                new Routes\CalendarEndPointFactory($user, $phpviewDirectoryFactory),
+                new Routes\CalendarEndPointFactory(new CalendarUseCase($server, $schema, $phpviewDirectoryFactory)),
                 new Routes\IndexEndPointFactory(new IndexUseCase($server, $schema, $phpviewDirectoryFactory))
             ]);
         }
