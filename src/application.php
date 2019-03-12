@@ -1,9 +1,7 @@
 <?php
 namespace rikmeijer\Teach;
 
-use League\OAuth1\Client\Server\User;
 use Psr\Http\Message\ResponseInterface;
-use pulledbits\Router\RouteEndPoint;
 
 return new class {
 
