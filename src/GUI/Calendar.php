@@ -16,7 +16,7 @@ final class Calendar
         $this->schema = $schema;
     }
 
-    public function retrieveCalendar(string $calendarIdentifier) : Calendar {
+    public function retrieveCalendar(string $calendarIdentifier) : \Eluceo\iCal\Component\Calendar {
         $calendar = new \Eluceo\iCal\Component\Calendar($calendarIdentifier);
         switch ($calendarIdentifier) {
             case 'weeks':

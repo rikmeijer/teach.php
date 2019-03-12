@@ -29,7 +29,7 @@ final class CalendarEndPointFactory implements \pulledbits\Router\RouteEndPointF
     public function makeRouteEndPointForRequest(ServerRequestInterface $request): RouteEndPoint
     {
         preg_match(self::URI_PATTERN, $request->getUri()->getPath(), $matches);
-        $calendar = $this->retrieveCalendar($matches['calendarIdentifier']);
+        $calendar = $this->useCase->retrieveCalendar($matches['calendarIdentifier']);
         return new CalendarEndPoint(new PHPviewEndPoint($this->phpviewDirectory->load('calendar', ['calendar' => $calendar])), $matches['calendarIdentifier']);
     }
 }
