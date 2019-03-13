@@ -14,7 +14,7 @@
 		"doctrine/migrations": "^1.5",
 		"pulledbits/view": "^0.6",
 		"pulledbits/activerecord": "~1",
-		"pulledbits/router": "~5",
+		"pulledbits/router": "~6",
 		"league/flysystem": "^1.0",
 		"eluceo/ical": "^0.14.0",
       	"ext-gd": "*",

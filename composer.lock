@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e10c65bc523cb428b67f0d50358abf7",
+    "content-hash": "1e43a967d0e80d05794e27cc51bb6d2e",
     "packages": [
         {
             "name": "aura/session",
@@ -1129,16 +1129,16 @@
         },
         {
             "name": "ocramius/package-versions",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ocramius/PackageVersions.git",
-                "reference": "4489d5002c49d55576fa0ba786f42dbb009be46f"
+                "reference": "a4d4b60d0e60da2487bd21a2c6ac089f85570dbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/4489d5002c49d55576fa0ba786f42dbb009be46f",
-                "reference": "4489d5002c49d55576fa0ba786f42dbb009be46f",
+                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/a4d4b60d0e60da2487bd21a2c6ac089f85570dbb",
+                "reference": "a4d4b60d0e60da2487bd21a2c6ac089f85570dbb",
                 "shasum": ""
             },
             "require": {
@@ -1147,6 +1147,7 @@
             },
             "require-dev": {
                 "composer/composer": "^1.6.3",
+                "doctrine/coding-standard": "^5.0.1",
                 "ext-zip": "*",
                 "infection/infection": "^0.7.1",
                 "phpunit/phpunit": "^7.0.0"
@@ -1174,7 +1175,7 @@
                 }
             ],
             "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
-            "time": "2018-02-05T13:05:30+00:00"
+            "time": "2019-02-21T12:16:21+00:00"
         },
         {
             "name": "ocramius/proxy-manager",
@@ -1473,16 +1474,16 @@
         },
         {
             "name": "pulledbits/router",
-            "version": "5.3.2",
+            "version": "6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pulledbits/router.git",
-                "reference": "8bdba62ef65d3d4564b3213d7b42de2cf3b6e0cb"
+                "reference": "cde622411e60f41147830d944edfc6528a5325dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/router/zipball/8bdba62ef65d3d4564b3213d7b42de2cf3b6e0cb",
-                "reference": "8bdba62ef65d3d4564b3213d7b42de2cf3b6e0cb",
+                "url": "https://api.github.com/repos/pulledbits/router/zipball/cde622411e60f41147830d944edfc6528a5325dc",
+                "reference": "cde622411e60f41147830d944edfc6528a5325dc",
                 "shasum": ""
             },
             "require": {
@@ -1504,7 +1505,7 @@
                 "MIT"
             ],
             "description": "Simple router",
-            "time": "2018-11-22T15:23:50+00:00"
+            "time": "2019-03-12T14:44:49+00:00"
         },
         {
             "name": "pulledbits/view",
@@ -1542,16 +1543,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4"
+                "reference": "9dc2299a016497f9ee620be94524e6c0af0280a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4",
-                "reference": "1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4",
+                "url": "https://api.github.com/repos/symfony/console/zipball/9dc2299a016497f9ee620be94524e6c0af0280a9",
+                "reference": "9dc2299a016497f9ee620be94524e6c0af0280a9",
                 "shasum": ""
             },
             "require": {
@@ -1610,7 +1611,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-25T14:35:16+00:00"
+            "time": "2019-02-23T15:17:42+00:00"
         },
         {
             "name": "symfony/contracts",
@@ -3375,7 +3376,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "ext-gd": "*",
         "ext-memcached": "*"
     },
