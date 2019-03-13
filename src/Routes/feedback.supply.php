@@ -1,7 +1,7 @@
 <?php return function($bootstrap) {
     $session = $bootstrap->session();
     $schema = $bootstrap->schema();
-    $phpviewDirectoryFactory = $bootstrap->phpviewDirectoryFactory($session);
+    $phpviewDirectoryFactory = $bootstrap->phpviewDirectoryFactory();
 
     $feedbackGUI = new \rikmeijer\Teach\GUI\Feedback($session, $schema);
 

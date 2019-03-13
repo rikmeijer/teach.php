@@ -57,24 +57,12 @@ namespace rikmeijer\Teach {
             $user = $this->userForToken();
             $phpviewDirectoryFactory = $this->phpviewDirectoryFactory();
 
-            $feedbackGUI = new GUI\Feedback($session, $schema);
             $calendarGUI = new GUI\Calendar($server, $schema);
             $indexGUI = new GUI\Index($server, $schema);
 
             return new \pulledbits\Router\Router([
                 '^/feedback/(?<contactmomentIdentifier>\d+)/supply$' => (require __DIR__ . '/src/Routes/feedback.supply.php')($this),
-                '^/feedback/(?<contactmomentIdentifier>\d+)' => function(ServerRequestInterface $request) use ($feedbackGUI, $phpviewDirectoryFactory): RouteEndPoint
-                {
-                    $phpviewDirectory = $phpviewDirectoryFactory->make('');
-
-                    $contactmoment = $feedbackGUI->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
-                    if ($contactmoment->id === null) {
-                        return ErrorFactory::makeInstance(404);
-                    }
-                    return new PHPviewEndPoint($phpviewDirectory->load('feedback', [
-                        'contactmoment' => $contactmoment
-                    ]));
-                },
+                '^/feedback/(?<contactmomentIdentifier>\d+)' => (require __DIR__ . '/src/Routes/feedback.php')($this),
                 '^/rating/(?<value>(N|[\d\.]+))$' => function(ServerRequestInterface $request) use ($cache, $publicAssetsFileSystem, $phpviewDirectoryFactory): RouteEndPoint
                 {
                     $phpviewDirectory = $phpviewDirectoryFactory->make('');
