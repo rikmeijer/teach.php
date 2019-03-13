@@ -105,7 +105,8 @@ namespace rikmeijer\Teach {
         {
             static $sso;
             if (!isset($sso)) {
-                $sso = new SSO($this->oauthServer(), $this->session());
+                $server = $this->oauthServer();
+                $sso = new SSO($server, $this->session());
             }
             return $sso;
         }

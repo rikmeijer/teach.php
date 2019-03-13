@@ -11,12 +11,10 @@ use rikmeijer\Teach\SSO;
 
 final class Calendar
 {
-    private $server;
     private $schema;
 
-    public function __construct(SSO $server, Schema $schema)
+    public function __construct(Schema $schema)
     {
-        $this->server = $server;
         $this->schema = $schema;
     }
 
@@ -50,12 +48,11 @@ final class Calendar
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-    $server = $bootstrap->sso();
     $schema = $bootstrap->schema();
     $phpviewDirectory = $bootstrap->phpviewDirectoryFactory()->make('');
 
-    $bootstrap->router()->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', function(ServerRequestInterface $request) use ($server, $schema, $phpviewDirectory): RouteEndPoint {
-        $calendarGUI = new Calendar($server, $schema);
+    $bootstrap->router()->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', function(ServerRequestInterface $request) use ($schema, $phpviewDirectory): RouteEndPoint {
+        $calendarGUI = new Calendar($schema);
         $calendar = $calendarGUI->retrieveCalendar($request->getAttribute('calendarIdentifier'));
         return new CalendarEndPoint(new PHPviewEndPoint($phpviewDirectory->load('calendar', ['calendar' => $calendar])), $request->getAttribute('calendarIdentifier'));
     });

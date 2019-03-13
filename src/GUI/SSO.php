@@ -31,7 +31,7 @@ class SSO
 
     public function authorizeTokenCredentials(string $oauthToken, string $oauthVerifier) : void
     {
-        $temporaryCredentialsSerialized = $this->sessionToken->get('temporary_credentials');
+        $temporaryCredentialsSerialized = $this->session->getSegment('token')->get('temporary_credentials');
         if ($temporaryCredentialsSerialized !== null) {
             $temporaryCredentials = unserialize($temporaryCredentialsSerialized);
             $tokenCredentials = $this->server->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
@@ -51,7 +51,7 @@ class SSO
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-    $sso = new \rikmeijer\Teach\SSO($bootstrap->oauthServer(), $bootstrap->session());
+    $sso = new \rikmeijer\Teach\GUI\SSO($bootstrap->oauthServer(), $bootstrap->session());
 
     $bootstrap->router()->addRoute('^/sso/authorize', function(ServerRequestInterface $request) use ($sso): RouteEndPoint {
         return new SeeOtherEndPoint($sso->acquireTemporaryCredentials());
