@@ -60,8 +60,8 @@ namespace rikmeijer\Teach {
             $indexGUI = new GUI\Index($server, $schema);
 
             return new \pulledbits\Router\Router([
-                '^/feedback/(?<contactmomentIdentifier>\d+)/supply$' => (require __DIR__ . '/src/Routes/feedback.supply.php')($this),
-                '^/feedback/(?<contactmomentIdentifier>\d+)' => (require __DIR__ . '/src/Routes/feedback.php')($this),
+                '^/feedback/(?<contactmomentIdentifier>\d+)/supply$' => GUI\Feedback::supply($this),
+                '^/feedback/(?<contactmomentIdentifier>\d+)' => GUI\Feedback::view($this),
                 '^/rating/(?<value>(N|[\d\.]+))$' => function(ServerRequestInterface $request) use ($cache, $publicAssetsFileSystem, $phpviewDirectoryFactory): RouteEndPoint
                 {
                     $phpviewDirectory = $phpviewDirectoryFactory->make('');
