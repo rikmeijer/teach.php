@@ -5,7 +5,9 @@ namespace rikmeijer\Teach\GUI;
 
 
 use Psr\Http\Message\ServerRequestInterface;
+use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
+use rikmeijer\Teach\SeeOtherEndPoint;
 
 class SSO
 {
@@ -23,7 +25,7 @@ return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
         $queryParams = $request->getQueryParams();
 
         if (array_key_exists('oauth_token', $queryParams) && array_key_exists('oauth_verifier', $queryParams)) {
-            return new Routes\SSO\Callback\TokenAuthorizationFactory($server, $queryParams['oauth_token'], $queryParams['oauth_verifier']);
+            return new \rikmeijer\Teach\Routes\SSO\Callback\TokenAuthorizationFactory($server, $queryParams['oauth_token'], $queryParams['oauth_verifier']);
         } else {
             return ErrorFactory::makeInstance(400);
         }
