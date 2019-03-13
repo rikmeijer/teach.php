@@ -93,12 +93,19 @@ namespace rikmeijer\Teach {
             return $session = require $this->resourcesPath . DIRECTORY_SEPARATOR . 'session' . DIRECTORY_SEPARATOR . 'bootstrap.php';
         }
 
+        public function oauthServer() {
+            static $server;
+            if (isset($server)) {
+                return $server;
+            }
+            return $server = require $this->resourcesPath . DIRECTORY_SEPARATOR . 'sso' . DIRECTORY_SEPARATOR . 'bootstrap.php';
+
+        }
         public function sso(): SSO
         {
             static $sso;
             if (!isset($sso)) {
-                $server = require $this->resourcesPath . DIRECTORY_SEPARATOR . 'sso' . DIRECTORY_SEPARATOR . 'bootstrap.php';
-                $sso = new SSO($server, $this->session());
+                $sso = new SSO($this->oauthServer(), $this->session());
             }
             return $sso;
         }

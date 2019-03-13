@@ -62,13 +62,4 @@ final class User
             return null;
         }
     }
-
-    public function logout() : void
-    {
-        if ($this->session->isStarted()) {
-            $this->session->getSegment('token')->clear();
-            $this->session->clear();
-            $this->session->destroy();
-        }
-    }
 }
