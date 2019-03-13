@@ -7,6 +7,7 @@ namespace rikmeijer\Teach\GUI;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
+use rikmeijer\Teach\ClosureEndPoint;
 use rikmeijer\Teach\SeeOtherEndPoint;
 
 class SSO
@@ -19,13 +20,14 @@ return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
     $user = $bootstrap->userForToken();
 
     $bootstrap->router()->addRoute('^/sso/authorize', function(ServerRequestInterface $request) use ($server): RouteEndPoint {
-        return new \rikmeijer\Teach\Routes\SSO\Authorize\TemporaryTokenCredentialsAcquisitionFactory($server);
+        return new SeeOtherEndPoint($server->acquireTemporaryCredentials());
     });
     $bootstrap->router()->addRoute('^/sso/callback', function(ServerRequestInterface $request) use ($server): RouteEndPoint {
         $queryParams = $request->getQueryParams();
 
         if (array_key_exists('oauth_token', $queryParams) && array_key_exists('oauth_verifier', $queryParams)) {
-            return new \rikmeijer\Teach\Routes\SSO\Callback\TokenAuthorizationFactory($server, $queryParams['oauth_token'], $queryParams['oauth_verifier']);
+            $server->authorizeTokenCredentials($queryParams['oauth_token'], $queryParams['oauth_verifier']);
+            return new SeeOtherEndPoint('/');
         } else {
             return ErrorFactory::makeInstance(400);
         }

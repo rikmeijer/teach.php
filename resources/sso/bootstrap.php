@@ -12,11 +12,11 @@ class SSO {
         $this->sessionToken = $session->getSegment('token');
     }
 
-    public function acquireTemporaryCredentials() : void
+    public function acquireTemporaryCredentials() : string
     {
         $temporaryCredentials = $this->server->getTemporaryCredentials();
         $this->sessionToken->set('temporary_credentials', serialize($temporaryCredentials));
-        $this->server->authorize($temporaryCredentials);
+        return $this->server->getAuthorizationUrl($temporaryCredentials);
     }
 
     public function authorizeTokenCredentials(string $oauthToken, string $oauthVerifier) : void
