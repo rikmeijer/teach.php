@@ -22,10 +22,6 @@ final class Index
         $this->schema = $schema;
     }
 
-    static function bootstrap(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-        $bootstrap->router()->addRoute('^/$', self::view($bootstrap));
-    }
-
     public static function view(\rikmeijer\Teach\Bootstrap $bootstrap)
     {
         $server = $bootstrap->sso();
@@ -74,3 +70,7 @@ final class Index
         return Contactmoment::readVandaag($this->schema, $this->server->getUserDetails()->uid);
     }
 }
+
+return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+    $bootstrap->router()->addRoute('^/$', Index::view($bootstrap));
+};

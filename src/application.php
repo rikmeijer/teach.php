@@ -16,7 +16,7 @@ return new class {
         $this->router = $bootstrap->router();
 
         foreach (glob(__DIR__ . DIRECTORY_SEPARATOR . 'GUI' . DIRECTORY_SEPARATOR . '*.php') as $file) {
-            (__NAMESPACE__ . NAMESPACE_SEPARATOR . 'GUI' . NAMESPACE_SEPARATOR . basename($file, '.php') . '::bootstrap')($bootstrap);
+            (require $file)($bootstrap);
         }
     }
 

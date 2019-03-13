@@ -9,10 +9,6 @@ use rikmeijer\Teach\PHPviewEndPoint;
 
 class Contactmoment
 {
-    static function bootstrap(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-        $bootstrap->router()->addRoute('^/contactmoment/import$', self::import($bootstrap));
-    }
-
     public static function import(\rikmeijer\Teach\Bootstrap $bootstrap)
     {
         $user = $bootstrap->userForToken();
@@ -40,3 +36,7 @@ class Contactmoment
         };
     }
 }
+
+return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+    $bootstrap->router()->addRoute('^/contactmoment/import$', Contactmoment::import($bootstrap));
+};

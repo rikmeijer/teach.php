@@ -13,10 +13,6 @@ use rikmeijer\Teach\PHPviewEndPoint;
 
 class Rating
 {
-    static function bootstrap(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-        $bootstrap->router()->addRoute('^/rating/(?<value>(N|[\d\.]+))$', self::view($bootstrap));
-    }
-
     static function view(Bootstrap $bootstrap) : callable {
         $publicAssetsFileSystem = $bootstrap->assets();
         $cache = $bootstrap->cache();
@@ -42,3 +38,7 @@ class Rating
         };
     }
 }
+
+return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+    $bootstrap->router()->addRoute('^/rating/(?<value>(N|[\d\.]+))$', Rating::view($bootstrap));
+};

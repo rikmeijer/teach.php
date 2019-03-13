@@ -9,13 +9,6 @@ use pulledbits\Router\RouteEndPoint;
 
 class SSO
 {
-
-    static function bootstrap(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-        $bootstrap->router()->addRoute('^/sso/authorize', self::authorize($bootstrap));
-        $bootstrap->router()->addRoute('^/sso/callback', self::callback($bootstrap));
-        $bootstrap->router()->addRoute('^/logout', self::logout($bootstrap));
-    }
-
     public static function authorize(\rikmeijer\Teach\Bootstrap $bootstrap)
     {
         $server = $bootstrap->sso();
@@ -50,3 +43,9 @@ class SSO
         };
     }
 }
+
+return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+    $bootstrap->router()->addRoute('^/sso/authorize', SSO::authorize($bootstrap));
+    $bootstrap->router()->addRoute('^/sso/callback', SSO::callback($bootstrap));
+    $bootstrap->router()->addRoute('^/logout', SSO::logout($bootstrap));
+};

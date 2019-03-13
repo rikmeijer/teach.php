@@ -20,10 +20,6 @@ final class Calendar
         $this->schema = $schema;
     }
 
-    static function bootstrap(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-        $bootstrap->router()->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', self::view($bootstrap));
-    }
-
     public static function view(\rikmeijer\Teach\Bootstrap $bootstrap)
     {
         $server = $bootstrap->sso();
@@ -66,3 +62,7 @@ final class Calendar
         return $calendar;
     }
 }
+
+return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+    $bootstrap->router()->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', Calendar::view($bootstrap));
+};

@@ -18,11 +18,6 @@ final class Feedback
         $this->schema = $schema;
     }
 
-    static function bootstrap(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-        $bootstrap->router()->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', self::supply($bootstrap));
-        $bootstrap->router()->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', self::view($bootstrap));
-    }
-
     static function view(\rikmeijer\Teach\Bootstrap $bootstrap) : callable {
         $session = $bootstrap->session();
         $schema = $bootstrap->schema();
@@ -91,3 +86,8 @@ final class Feedback
         return Contactmoment::read($this->schema, $contactmomentIdentifier);
     }
 }
+
+return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+    $bootstrap->router()->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', Feedback::supply($bootstrap));
+    $bootstrap->router()->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', Feedback::view($bootstrap));
+};
