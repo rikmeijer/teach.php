@@ -61,27 +61,7 @@ namespace rikmeijer\Teach {
                 '^/feedback/(?<contactmomentIdentifier>\d+)/supply$' => GUI\Feedback::supply($this),
                 '^/feedback/(?<contactmomentIdentifier>\d+)' => GUI\Feedback::view($this),
                 '^/rating/(?<value>(N|[\d\.]+))$' => GUI\Rating::view($this),
-                '^/contactmoment/import$' => function(ServerRequestInterface $request) use ($user, $phpviewDirectoryFactory) : RouteEndPoint
-                {
-                    $phpviewDirectory = $phpviewDirectoryFactory->make('contactmoment');
-                    switch ($request->getMethod()) {
-                        case 'GET':
-                            return new PHPviewEndPoint($phpviewDirectory->load('import', [
-                                'importForm' => function (): void {
-                                    $this->form("post", "Importeren", 'rooster.avans.nl');
-                                }
-                            ]));
-
-                        case 'POST':
-                            return new PHPviewEndPoint($phpviewDirectory->load('imported', [
-                                "numberImported" => $user->importCalendarEvents()
-                            ]));
-
-                        default:
-                            return ErrorFactory::makeInstance('405');
-                    }
-
-                },
+                '^/contactmoment/import$' => GUI\Contactmoment::import($this),
                 '^/qr' => function(ServerRequestInterface $request) use ($phpviewDirectoryFactory): RouteEndPoint
                 {
                     $phpviewDirectory = $phpviewDirectoryFactory->make('');
