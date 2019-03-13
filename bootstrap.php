@@ -50,8 +50,6 @@ namespace rikmeijer\Teach {
         {
             $server = $this->sso();
             $schema = $this->schema();
-            $publicAssetsFileSystem = $this->assets();
-            $cache = $this->cache();
 
             $user = $this->userForToken();
             $phpviewDirectoryFactory = $this->phpviewDirectoryFactory();
@@ -62,26 +60,7 @@ namespace rikmeijer\Teach {
             return new \pulledbits\Router\Router([
                 '^/feedback/(?<contactmomentIdentifier>\d+)/supply$' => GUI\Feedback::supply($this),
                 '^/feedback/(?<contactmomentIdentifier>\d+)' => GUI\Feedback::view($this),
-                '^/rating/(?<value>(N|[\d\.]+))$' => function(ServerRequestInterface $request) use ($cache, $publicAssetsFileSystem, $phpviewDirectoryFactory): RouteEndPoint
-                {
-                    $phpviewDirectory = $phpviewDirectoryFactory->make('');
-
-                    $eTag = md5(($request->getAttribute('value') === 'N' ? null : $request->getAttribute('value')).'500'.'100'.'5');
-
-                    if ($cache->has($eTag) === false) {
-                        $cache->set($eTag, new \DateTime());
-                    }
-
-                    return new CachedEndPoint(new ImagePngEndPoint(new PHPviewEndPoint($phpviewDirectory->load('rating', [
-                        'ratingwaarde' => $request->getAttribute('value') == 'N' ? null : $request->getAttribute('value'),
-                        'ratingWidth' => 500,
-                        'ratingHeight' => 100,
-                        'repetition' => 5,
-                        'star' =>  $publicAssetsFileSystem->read('img' . DIRECTORY_SEPARATOR . 'star.png'),
-                        'unstar' => $publicAssetsFileSystem->read('img' . DIRECTORY_SEPARATOR . 'unstar.png'),
-                        'nostar' => $publicAssetsFileSystem->read('img' . DIRECTORY_SEPARATOR . 'nostar.png')
-                    ]))), $cache->get($eTag), $eTag);
-                },
+                '^/rating/(?<value>(N|[\d\.]+))$' => GUI\Rating::view($this),
                 '^/contactmoment/import$' => function(ServerRequestInterface $request) use ($user, $phpviewDirectoryFactory) : RouteEndPoint
                 {
                     $phpviewDirectory = $phpviewDirectoryFactory->make('contactmoment');
