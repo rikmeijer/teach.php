@@ -15,9 +15,7 @@ return new class {
         $bootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
         $this->router = $bootstrap->router();
 
-        foreach (glob(__DIR__ . DIRECTORY_SEPARATOR . 'GUI' . DIRECTORY_SEPARATOR . '*.php') as $file) {
-            (require $file)($bootstrap);
-        }
+        $bootstrap->load(__DIR__ . DIRECTORY_SEPARATOR . 'GUI');
     }
 
     public function handle(\Psr\Http\Message\ServerRequestInterface $serverRequest) : ResponseInterface

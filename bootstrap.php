@@ -46,6 +46,12 @@ namespace rikmeijer\Teach {
             $this->resourcesPath = __DIR__ . DIRECTORY_SEPARATOR . 'resources';
         }
 
+        public function load(string $directory) : void {
+            foreach (glob($directory . DIRECTORY_SEPARATOR . '*.php') as $file) {
+                (require $file)($this);
+            }
+        }
+
         public function router(): \pulledbits\Router\Router
         {
             static $router;
