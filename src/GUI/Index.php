@@ -22,24 +22,6 @@ final class Index
         $this->schema = $schema;
     }
 
-    public static function view(\rikmeijer\Teach\Bootstrap $bootstrap)
-    {
-        $server = $bootstrap->sso();
-        $schema = $bootstrap->schema();
-
-        $phpviewDirectory = $bootstrap->phpviewDirectoryFactory()->make('');
-
-        $indexGUI = new self($server, $schema);
-
-        return function(ServerRequestInterface $request) use ($indexGUI, $phpviewDirectory): RouteEndPoint
-        {
-            return new PHPviewEndPoint($phpviewDirectory->load('welcome', [
-                'modules' => $indexGUI->retrieveModules(),
-                'contactmomenten' => $indexGUI->retrieveContactmomenten()
-            ]));
-        };
-    }
-
     public function retrieveModules(): array
     {
         $modules = [];
@@ -72,5 +54,15 @@ final class Index
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-    $bootstrap->router()->addRoute('^/$', Index::view($bootstrap));
+    $server = $bootstrap->sso();
+    $schema = $bootstrap->schema();
+    $phpviewDirectory = $bootstrap->phpviewDirectoryFactory()->make('');
+
+    $bootstrap->router()->addRoute('^/$', function(ServerRequestInterface $request) use ($server, $schema, $phpviewDirectory): RouteEndPoint {
+        $indexGUI = new Index($server, $schema);
+        return new PHPviewEndPoint($phpviewDirectory->load('welcome', [
+            'modules' => $indexGUI->retrieveModules(),
+            'contactmomenten' => $indexGUI->retrieveContactmomenten()
+        ]));
+    });
 };

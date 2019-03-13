@@ -20,20 +20,6 @@ final class Calendar
         $this->schema = $schema;
     }
 
-    public static function view(\rikmeijer\Teach\Bootstrap $bootstrap)
-    {
-        $server = $bootstrap->sso();
-        $schema = $bootstrap->schema();
-        $calendarGUI = new self($server, $schema);
-
-        $phpviewDirectory = $bootstrap->phpviewDirectoryFactory()->make('');
-        return function(ServerRequestInterface $request) use ($calendarGUI, $phpviewDirectory): RouteEndPoint
-        {
-            $calendar = $calendarGUI->retrieveCalendar($request->getAttribute('calendarIdentifier'));
-            return new CalendarEndPoint(new PHPviewEndPoint($phpviewDirectory->load('calendar', ['calendar' => $calendar])), $request->getAttribute('calendarIdentifier'));
-        };
-    }
-
     public function retrieveCalendar(string $calendarIdentifier) : \Eluceo\iCal\Component\Calendar {
         $calendar = new \Eluceo\iCal\Component\Calendar($calendarIdentifier);
         switch ($calendarIdentifier) {
@@ -64,5 +50,13 @@ final class Calendar
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-    $bootstrap->router()->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', Calendar::view($bootstrap));
+    $server = $bootstrap->sso();
+    $schema = $bootstrap->schema();
+    $phpviewDirectory = $bootstrap->phpviewDirectoryFactory()->make('');
+
+    $bootstrap->router()->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', function(ServerRequestInterface $request) use ($server, $schema, $phpviewDirectory): RouteEndPoint {
+        $calendarGUI = new Calendar($server, $schema);
+        $calendar = $calendarGUI->retrieveCalendar($request->getAttribute('calendarIdentifier'));
+        return new CalendarEndPoint(new PHPviewEndPoint($phpviewDirectory->load('calendar', ['calendar' => $calendar])), $request->getAttribute('calendarIdentifier'));
+    });
 };
