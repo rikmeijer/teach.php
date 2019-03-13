@@ -53,7 +53,6 @@ namespace rikmeijer\Teach {
             $publicAssetsFileSystem = $this->assets();
             $cache = $this->cache();
 
-            $session = $this->session();
             $user = $this->userForToken();
             $phpviewDirectoryFactory = $this->phpviewDirectoryFactory();
 
