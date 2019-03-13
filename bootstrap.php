@@ -48,18 +48,12 @@ namespace rikmeijer\Teach {
 
         public function router(): \pulledbits\Router\Router
         {
-            return new \pulledbits\Router\Router([
-                '^/feedback/(?<contactmomentIdentifier>\d+)/supply$' => GUI\Feedback::supply($this),
-                '^/feedback/(?<contactmomentIdentifier>\d+)' => GUI\Feedback::view($this),
-                '^/rating/(?<value>(N|[\d\.]+))$' => GUI\Rating::view($this),
-                '^/contactmoment/import$' => GUI\Contactmoment::import($this),
-                '^/qr' => GUI\QR::view($this),
-                '^/sso/authorize' => GUI\SSO::authorize($this),
-                '^/sso/callback' => GUI\SSO::callback($this),
-                '^/logout' => GUI\SSO::logout($this),
-                '^/calendar/(?<calendarIdentifier>[^/]+)' => GUI\Calendar::view($this),
-                '^/' => GUI\Index::view($this)
-            ]);
+            $router = new \pulledbits\Router\Router([]);
+            foreach (glob(__DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'GUI' . DIRECTORY_SEPARATOR . '*.php') as $file) {
+                $class = basename($file, '.php');
+                (__NAMESPACE__ . NAMESPACE_SEPARATOR . 'GUI' . NAMESPACE_SEPARATOR . $class . '::bootstrap')($router, $this);
+            }
+            return $router;
         }
 
         public function cache() : CacheInterface {

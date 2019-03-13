@@ -12,6 +12,10 @@ use rikmeijer\Teach\PHPviewEndPoint;
 class QR
 {
 
+    static function bootstrap(\pulledbits\Router\Router $router, \rikmeijer\Teach\Bootstrap $bootstrap) : void {
+        $router->addRoute('^/qr', self::view($bootstrap));
+    }
+
     public static function view(\rikmeijer\Teach\Bootstrap $bootstrap)
     {
         $phpviewDirectory = $bootstrap->phpviewDirectoryFactory()->make('');

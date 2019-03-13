@@ -10,12 +10,10 @@ use pulledbits\Router\RouteEndPoint;
 class SSO
 {
 
-    /**
-     * SSO constructor.
-     * @param array $array
-     */
-    public function __construct(array $array)
-    {
+    static function bootstrap(\pulledbits\Router\Router $router, \rikmeijer\Teach\Bootstrap $bootstrap) : void {
+        $router->addRoute('^/sso/authorize', self::authorize($bootstrap));
+        $router->addRoute('^/sso/callback', self::callback($bootstrap));
+        $router->addRoute('^/logout', self::logout($bootstrap));
     }
 
     public static function authorize(\rikmeijer\Teach\Bootstrap $bootstrap)
