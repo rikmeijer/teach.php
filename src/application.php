@@ -8,17 +8,21 @@ return new class {
     /**
      * @var Bootstrap
      */
-    private $bootstrap;
+    private $router;
 
     public function __construct()
     {
-        $this->bootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
+        $bootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
+        $this->router = $bootstrap->router();
+
+        foreach (glob(__DIR__ . DIRECTORY_SEPARATOR . 'GUI' . DIRECTORY_SEPARATOR . '*.php') as $file) {
+            (__NAMESPACE__ . NAMESPACE_SEPARATOR . 'GUI' . NAMESPACE_SEPARATOR . basename($file, '.php') . '::bootstrap')($this->router, $bootstrap);
+        }
     }
 
     public function handle(\Psr\Http\Message\ServerRequestInterface $serverRequest) : ResponseInterface
     {
-        $router = $this->bootstrap->router();
-        $routeEndPoint = $router->route($serverRequest);
+        $routeEndPoint = $this->router->route($serverRequest);
 
         switch ($serverRequest->getMethod()) {
             case 'POST':

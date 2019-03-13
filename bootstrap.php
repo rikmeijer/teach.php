@@ -48,12 +48,7 @@ namespace rikmeijer\Teach {
 
         public function router(): \pulledbits\Router\Router
         {
-            $router = new \pulledbits\Router\Router([]);
-            foreach (glob(__DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'GUI' . DIRECTORY_SEPARATOR . '*.php') as $file) {
-                $class = basename($file, '.php');
-                (__NAMESPACE__ . NAMESPACE_SEPARATOR . 'GUI' . NAMESPACE_SEPARATOR . $class . '::bootstrap')($router, $this);
-            }
-            return $router;
+            return new \pulledbits\Router\Router([]);
         }
 
         public function cache() : CacheInterface {
