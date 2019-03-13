@@ -21,12 +21,10 @@ final class Feedback
     static function view(\rikmeijer\Teach\Bootstrap $bootstrap) : callable {
         $session = $bootstrap->session();
         $schema = $bootstrap->schema();
-        $phpviewDirectoryFactory = $bootstrap->phpviewDirectoryFactory();
-        $feedbackGUI = new \rikmeijer\Teach\GUI\Feedback($session, $schema);
+        $phpviewDirectory = $bootstrap->phpviewDirectoryFactory()->make('');
+        $feedbackGUI = new self($session, $schema);
 
-        return function(\Psr\Http\Message\ServerRequestInterface $request) use ($feedbackGUI, $phpviewDirectoryFactory): \pulledbits\Router\RouteEndPoint {
-            $phpviewDirectory = $phpviewDirectoryFactory->make('');
-
+        return function(\Psr\Http\Message\ServerRequestInterface $request) use ($feedbackGUI, $phpviewDirectory): \pulledbits\Router\RouteEndPoint {
             $contactmoment = $feedbackGUI->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
             if ($contactmoment->id === null) {
                 return \pulledbits\Router\ErrorFactory::makeInstance(404);
@@ -40,12 +38,11 @@ final class Feedback
     static function supply(\rikmeijer\Teach\Bootstrap $bootstrap) : callable {
         $session = $bootstrap->session();
         $schema = $bootstrap->schema();
-        $phpviewDirectoryFactory = $bootstrap->phpviewDirectoryFactory();
+        $phpviewDirectory = $bootstrap->phpviewDirectoryFactory()->make('feedback');
 
-        $feedbackGUI = new \rikmeijer\Teach\GUI\Feedback($session, $schema);
+        $feedbackGUI = new self($session, $schema);
 
-        return function(\Psr\Http\Message\ServerRequestInterface $request) use ($feedbackGUI, $phpviewDirectoryFactory): \pulledbits\Router\RouteEndPoint {
-            $phpviewDirectory = $phpviewDirectoryFactory->make('feedback');
+        return function(\Psr\Http\Message\ServerRequestInterface $request) use ($feedbackGUI, $phpviewDirectory): \pulledbits\Router\RouteEndPoint {
             $contactmoment = $feedbackGUI->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
             if ($contactmoment->id === null) {
                 return \pulledbits\Router\ErrorFactory::makeInstance('404');
