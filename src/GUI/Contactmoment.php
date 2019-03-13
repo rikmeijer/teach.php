@@ -9,15 +9,6 @@ use rikmeijer\Teach\PHPviewEndPoint;
 
 class Contactmoment
 {
-
-    /**
-     * Contactmoment constructor.
-     * @param array $array
-     */
-    public function __construct(array $array)
-    {
-    }
-
     public static function import(\rikmeijer\Teach\Bootstrap $bootstrap)
     {
         $user = $bootstrap->userForToken();

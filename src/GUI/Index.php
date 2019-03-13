@@ -4,8 +4,11 @@
 namespace rikmeijer\Teach\GUI;
 
 
+use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\ActiveRecord\Schema;
+use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\Contactmoment;
+use rikmeijer\Teach\PHPviewEndPoint;
 use rikmeijer\Teach\SSO;
 
 final class Index
@@ -17,6 +20,24 @@ final class Index
     {
         $this->server = $server;
         $this->schema = $schema;
+    }
+
+    public static function view(\rikmeijer\Teach\Bootstrap $bootstrap)
+    {
+        $server = $bootstrap->sso();
+        $schema = $bootstrap->schema();
+
+        $phpviewDirectory = $bootstrap->phpviewDirectoryFactory()->make('');
+
+        $indexGUI = new self($server, $schema);
+
+        return function(ServerRequestInterface $request) use ($indexGUI, $phpviewDirectory): RouteEndPoint
+        {
+            return new PHPviewEndPoint($phpviewDirectory->load('welcome', [
+                'modules' => $indexGUI->retrieveModules(),
+                'contactmomenten' => $indexGUI->retrieveContactmomenten()
+            ]));
+        };
     }
 
     public function retrieveModules(): array

@@ -48,78 +48,17 @@ namespace rikmeijer\Teach {
 
         public function router(): \pulledbits\Router\Router
         {
-            $server = $this->sso();
-            $schema = $this->schema();
-
-            $user = $this->userForToken();
-            $phpviewDirectoryFactory = $this->phpviewDirectoryFactory();
-
-            $calendarGUI = new GUI\Calendar($server, $schema);
-            $indexGUI = new GUI\Index($server, $schema);
-
             return new \pulledbits\Router\Router([
                 '^/feedback/(?<contactmomentIdentifier>\d+)/supply$' => GUI\Feedback::supply($this),
                 '^/feedback/(?<contactmomentIdentifier>\d+)' => GUI\Feedback::view($this),
                 '^/rating/(?<value>(N|[\d\.]+))$' => GUI\Rating::view($this),
                 '^/contactmoment/import$' => GUI\Contactmoment::import($this),
-                '^/qr' => function(ServerRequestInterface $request) use ($phpviewDirectoryFactory): RouteEndPoint
-                {
-                    $phpviewDirectory = $phpviewDirectoryFactory->make('');
-
-                    $query = $request->getQueryParams();
-                    if (array_key_exists('data', $query) === false) {
-                        syslog(E_USER_ERROR, 'Query incomplete');
-                        return ErrorFactory::makeInstance('400');
-                    } elseif ($query['data'] === null) {
-                        syslog(E_USER_ERROR, 'Query data incomplete');
-                        return ErrorFactory::makeInstance('400');
-                    }
-                    return new PHPviewEndPoint($phpviewDirectory->load('qr', [
-                        'data' => $query['data'],
-                        'qr' => function (int $width, int $height, string $data): void {
-                            $renderer = new \BaconQrCode\Renderer\Image\Png();
-                            $renderer->setHeight($width);
-                            $renderer->setWidth($height);
-                            $writer = new \BaconQrCode\Writer($renderer);
-                            print $writer->writeString($data);
-                        }
-                    ]));
-                },
-                '^/sso/authorize' => function(ServerRequestInterface $request) use ($server): RouteEndPoint
-                {
-                    return new Routes\SSO\Authorize\TemporaryTokenCredentialsAcquisitionFactory($server);
-                },
-                '^/sso/callback' => function(ServerRequestInterface $request) use ($server): RouteEndPoint
-                {
-                    $queryParams = $request->getQueryParams();
-
-                    if (array_key_exists('oauth_token', $queryParams) && array_key_exists('oauth_verifier', $queryParams)) {
-                        return new Routes\SSO\Callback\TokenAuthorizationFactory($server, $queryParams['oauth_token'], $queryParams['oauth_verifier']);
-                    } else {
-                        return ErrorFactory::makeInstance(400);
-                    }
-                },
-                '^/logout' => function(ServerRequestInterface $request) use ($user): RouteEndPoint
-                {
-                    $user->logout();
-                    return new SeeOtherEndPoint('/');
-                },
-                '^/calendar/(?<calendarIdentifier>[^/]+)' => function(ServerRequestInterface $request) use ($calendarGUI, $phpviewDirectoryFactory): RouteEndPoint
-                {
-                    $phpviewDirectory = $phpviewDirectoryFactory->make('');
-
-                    $calendar = $calendarGUI->retrieveCalendar($request->getAttribute('calendarIdentifier'));
-                    return new CalendarEndPoint(new PHPviewEndPoint($phpviewDirectory->load('calendar', ['calendar' => $calendar])), $request->getAttribute('calendarIdentifier'));
-                },
-                '^/' => function(ServerRequestInterface $request) use ($indexGUI, $phpviewDirectoryFactory): RouteEndPoint
-                {
-                    $phpviewDirectory = $phpviewDirectoryFactory->make('');
-
-                    return new PHPviewEndPoint($phpviewDirectory->load('welcome', [
-                        'modules' => $indexGUI->retrieveModules(),
-                        'contactmomenten' => $indexGUI->retrieveContactmomenten()
-                    ]));
-                }
+                '^/qr' => GUI\QR::view($this),
+                '^/sso/authorize' => GUI\SSO::authorize($this),
+                '^/sso/callback' => GUI\SSO::callback($this),
+                '^/logout' => GUI\SSO::logout($this),
+                '^/calendar/(?<calendarIdentifier>[^/]+)' => GUI\Calendar::view($this),
+                '^/' => GUI\Index::view($this)
             ]);
         }
 

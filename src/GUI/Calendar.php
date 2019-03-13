@@ -2,7 +2,11 @@
 namespace rikmeijer\Teach\GUI;
 
 use Eluceo\iCal\Component\Event;
+use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\ActiveRecord\Schema;
+use pulledbits\Router\RouteEndPoint;
+use rikmeijer\Teach\CalendarEndPoint;
+use rikmeijer\Teach\PHPviewEndPoint;
 use rikmeijer\Teach\SSO;
 
 final class Calendar
@@ -14,6 +18,20 @@ final class Calendar
     {
         $this->server = $server;
         $this->schema = $schema;
+    }
+
+    public static function view(\rikmeijer\Teach\Bootstrap $bootstrap)
+    {
+        $server = $bootstrap->sso();
+        $schema = $bootstrap->schema();
+        $calendarGUI = new self($server, $schema);
+
+        $phpviewDirectory = $bootstrap->phpviewDirectoryFactory()->make('');
+        return function(ServerRequestInterface $request) use ($calendarGUI, $phpviewDirectory): RouteEndPoint
+        {
+            $calendar = $calendarGUI->retrieveCalendar($request->getAttribute('calendarIdentifier'));
+            return new CalendarEndPoint(new PHPviewEndPoint($phpviewDirectory->load('calendar', ['calendar' => $calendar])), $request->getAttribute('calendarIdentifier'));
+        };
     }
 
     public function retrieveCalendar(string $calendarIdentifier) : \Eluceo\iCal\Component\Calendar {
