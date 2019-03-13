@@ -1,4 +1,4 @@
-<?php return function($bootstrap) {
+<?php return function(\rikmeijer\Teach\Bootstrap $bootstrap) {
     $session = $bootstrap->session();
     $schema = $bootstrap->schema();
     $phpviewDirectoryFactory = $bootstrap->phpviewDirectoryFactory();
