@@ -18,9 +18,9 @@ final class Feedback
         $this->schema = $schema;
     }
 
-    static function bootstrap(\pulledbits\Router\Router $router, \rikmeijer\Teach\Bootstrap $bootstrap) : void {
-        $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', self::supply($bootstrap));
-        $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', self::view($bootstrap));
+    static function bootstrap(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+        $bootstrap->router()->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', self::supply($bootstrap));
+        $bootstrap->router()->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', self::view($bootstrap));
     }
 
     static function view(\rikmeijer\Teach\Bootstrap $bootstrap) : callable {

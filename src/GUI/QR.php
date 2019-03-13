@@ -12,8 +12,8 @@ use rikmeijer\Teach\PHPviewEndPoint;
 class QR
 {
 
-    static function bootstrap(\pulledbits\Router\Router $router, \rikmeijer\Teach\Bootstrap $bootstrap) : void {
-        $router->addRoute('^/qr', self::view($bootstrap));
+    static function bootstrap(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+        $bootstrap->router()->addRoute('^/qr', self::view($bootstrap));
     }
 
     public static function view(\rikmeijer\Teach\Bootstrap $bootstrap)

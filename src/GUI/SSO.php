@@ -10,10 +10,10 @@ use pulledbits\Router\RouteEndPoint;
 class SSO
 {
 
-    static function bootstrap(\pulledbits\Router\Router $router, \rikmeijer\Teach\Bootstrap $bootstrap) : void {
-        $router->addRoute('^/sso/authorize', self::authorize($bootstrap));
-        $router->addRoute('^/sso/callback', self::callback($bootstrap));
-        $router->addRoute('^/logout', self::logout($bootstrap));
+    static function bootstrap(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+        $bootstrap->router()->addRoute('^/sso/authorize', self::authorize($bootstrap));
+        $bootstrap->router()->addRoute('^/sso/callback', self::callback($bootstrap));
+        $bootstrap->router()->addRoute('^/logout', self::logout($bootstrap));
     }
 
     public static function authorize(\rikmeijer\Teach\Bootstrap $bootstrap)

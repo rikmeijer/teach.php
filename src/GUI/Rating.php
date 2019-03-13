@@ -13,8 +13,8 @@ use rikmeijer\Teach\PHPviewEndPoint;
 
 class Rating
 {
-    static function bootstrap(\pulledbits\Router\Router $router, \rikmeijer\Teach\Bootstrap $bootstrap) : void {
-        $router->addRoute('^/rating/(?<value>(N|[\d\.]+))$', self::view($bootstrap));
+    static function bootstrap(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+        $bootstrap->router()->addRoute('^/rating/(?<value>(N|[\d\.]+))$', self::view($bootstrap));
     }
 
     static function view(Bootstrap $bootstrap) : callable {

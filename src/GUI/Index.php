@@ -22,8 +22,8 @@ final class Index
         $this->schema = $schema;
     }
 
-    static function bootstrap(\pulledbits\Router\Router $router, \rikmeijer\Teach\Bootstrap $bootstrap) : void {
-        $router->addRoute('^/$', self::view($bootstrap));
+    static function bootstrap(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+        $bootstrap->router()->addRoute('^/$', self::view($bootstrap));
     }
 
     public static function view(\rikmeijer\Teach\Bootstrap $bootstrap)

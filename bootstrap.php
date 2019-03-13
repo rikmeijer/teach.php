@@ -48,7 +48,11 @@ namespace rikmeijer\Teach {
 
         public function router(): \pulledbits\Router\Router
         {
-            return new \pulledbits\Router\Router([]);
+            static $router;
+            if (isset($router)) {
+                return $router;
+            }
+            return $router = new \pulledbits\Router\Router([]);
         }
 
         public function cache() : CacheInterface {
