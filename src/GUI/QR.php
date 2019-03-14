@@ -7,16 +7,17 @@ namespace rikmeijer\Teach\GUI;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
+use pulledbits\Router\Router;
 use rikmeijer\Teach\PHPviewEndPoint;
 
 class QR
 {
 }
 
-return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
     $phpviewDirectory = $bootstrap->resource('phpview')->make('');
 
-    $bootstrap->router()->addRoute('^/qr', function(ServerRequestInterface $request) use ($phpviewDirectory): RouteEndPoint
+    $router->addRoute('^/qr', function(ServerRequestInterface $request) use ($phpviewDirectory): RouteEndPoint
     {
         $query = $request->getQueryParams();
         if (array_key_exists('data', $query) === false) {

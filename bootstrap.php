@@ -45,12 +45,6 @@ namespace rikmeijer\Teach {
             $this->autoloader = require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
             $this->resourcesPath = __DIR__ . DIRECTORY_SEPARATOR . 'resources';
         }
-
-        public function load(string $directory) : void {
-            foreach (glob($directory . DIRECTORY_SEPARATOR . '*.php') as $file) {
-                $this->bootstrap($file);
-            }
-        }
         public function bootstrap(string $file) {
             return (require $file)($this);
         }
@@ -64,15 +58,6 @@ namespace rikmeijer\Teach {
 
         public function config(string $section) : array {
             return (require __DIR__ . DIRECTORY_SEPARATOR . 'config.php')[$section];
-        }
-
-        public function router(): \pulledbits\Router\Router
-        {
-            static $router;
-            if (isset($router)) {
-                return $router;
-            }
-            return $router = new \pulledbits\Router\Router([]);
         }
     };
 

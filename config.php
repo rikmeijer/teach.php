@@ -18,5 +18,8 @@
     'MEMCACHED' => [
         'host' => 'localhost',
         'port' => 11211
+    ],
+    'ROUTER' => [
+        'path' => __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'GUI'
     ]
 ];

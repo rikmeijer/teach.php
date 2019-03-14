@@ -5,9 +5,9 @@ use Eluceo\iCal\Component\Event;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\RouteEndPoint;
+use pulledbits\Router\Router;
 use rikmeijer\Teach\CalendarEndPoint;
 use rikmeijer\Teach\PHPviewEndPoint;
-use rikmeijer\Teach\SSO;
 
 final class Calendar
 {
@@ -47,11 +47,11 @@ final class Calendar
     }
 }
 
-return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
     $schema = $bootstrap->resource('database');
     $phpviewDirectory = $bootstrap->resource('phpview')->make('');
 
-    $bootstrap->router()->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', function(ServerRequestInterface $request) use ($schema, $phpviewDirectory): RouteEndPoint {
+    $router->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', function(ServerRequestInterface $request) use ($schema, $phpviewDirectory): RouteEndPoint {
         $calendarGUI = new Calendar($schema);
         $calendar = $calendarGUI->retrieveCalendar($request->getAttribute('calendarIdentifier'));
         return new CalendarEndPoint(new PHPviewEndPoint($phpviewDirectory->load('calendar', ['calendar' => $calendar])), $request->getAttribute('calendarIdentifier'));

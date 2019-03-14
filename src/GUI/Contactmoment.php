@@ -5,17 +5,18 @@ namespace rikmeijer\Teach\GUI;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
+use pulledbits\Router\Router;
 use rikmeijer\Teach\PHPviewEndPoint;
 
 class Contactmoment
 {
 }
 
-return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
     $user = $bootstrap->resource('user');
     $phpviewDirectory = $bootstrap->resource('phpview')->make('contactmoment');
 
-    $bootstrap->router()->addRoute('^/contactmoment/import$', function(ServerRequestInterface $request) use ($user, $phpviewDirectory) : RouteEndPoint
+    $router->addRoute('^/contactmoment/import$', function(ServerRequestInterface $request) use ($user, $phpviewDirectory) : RouteEndPoint
     {
         switch ($request->getMethod()) {
             case 'GET':

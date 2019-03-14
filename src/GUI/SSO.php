@@ -7,6 +7,7 @@ namespace rikmeijer\Teach\GUI;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
+use pulledbits\Router\Router;
 use rikmeijer\Teach\ClosureEndPoint;
 use rikmeijer\Teach\SeeOtherEndPoint;
 
@@ -50,13 +51,13 @@ class SSO
     }
 }
 
-return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
     $sso = new \rikmeijer\Teach\GUI\SSO($bootstrap->resource('oauth'), $bootstrap->resource('session'));
 
-    $bootstrap->router()->addRoute('^/sso/authorize', function(ServerRequestInterface $request) use ($sso): RouteEndPoint {
+    $router->addRoute('^/sso/authorize', function(ServerRequestInterface $request) use ($sso): RouteEndPoint {
         return new SeeOtherEndPoint($sso->acquireTemporaryCredentials());
     });
-    $bootstrap->router()->addRoute('^/sso/callback', function(ServerRequestInterface $request) use ($sso): RouteEndPoint {
+    $router->addRoute('^/sso/callback', function(ServerRequestInterface $request) use ($sso): RouteEndPoint {
         $queryParams = $request->getQueryParams();
 
         if (array_key_exists('oauth_token', $queryParams) && array_key_exists('oauth_verifier', $queryParams)) {
@@ -66,7 +67,7 @@ return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
             return ErrorFactory::makeInstance(400);
         }
     });
-    $bootstrap->router()->addRoute('^/logout', function(ServerRequestInterface $request) use ($sso): RouteEndPoint {
+    $router->addRoute('^/logout', function(ServerRequestInterface $request) use ($sso): RouteEndPoint {
         $sso->logout();
         return new SeeOtherEndPoint('/');
     });

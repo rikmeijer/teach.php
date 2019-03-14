@@ -13,9 +13,7 @@ return new class {
     public function __construct()
     {
         $bootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
-        $this->router = $bootstrap->router();
-
-        $bootstrap->load(__DIR__ . DIRECTORY_SEPARATOR . 'GUI');
+        $this->router = $bootstrap->resource('router');
     }
 
     public function handle(\Psr\Http\Message\ServerRequestInterface $serverRequest) : ResponseInterface

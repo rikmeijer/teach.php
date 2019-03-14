@@ -5,6 +5,7 @@ namespace rikmeijer\Teach\GUI;
 
 use Aura\Session\Session;
 use pulledbits\ActiveRecord\Schema;
+use pulledbits\Router\Router;
 use rikmeijer\Teach\Contactmoment;
 
 final class Feedback
@@ -29,12 +30,12 @@ final class Feedback
     }
 }
 
-return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
     $session = $bootstrap->resource('session');
     $schema = $bootstrap->resource('database');
     $phpviewDirectoryFactory = $bootstrap->resource('phpview');
 
-    $bootstrap->router()->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', function(\Psr\Http\Message\ServerRequestInterface $request) use ($session, $schema, $phpviewDirectoryFactory): \pulledbits\Router\RouteEndPoint {
+    $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', function(\Psr\Http\Message\ServerRequestInterface $request) use ($session, $schema, $phpviewDirectoryFactory): \pulledbits\Router\RouteEndPoint {
 
         $feedbackGUI = new Feedback($session, $schema);
         $phpviewDirectory = $phpviewDirectoryFactory->make('feedback');
@@ -69,7 +70,7 @@ return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
                 return \pulledbits\Router\ErrorFactory::makeInstance('405');
         }
     });
-    $bootstrap->router()->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', function(\Psr\Http\Message\ServerRequestInterface $request) use ($session, $schema, $phpviewDirectoryFactory): \pulledbits\Router\RouteEndPoint {
+    $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', function(\Psr\Http\Message\ServerRequestInterface $request) use ($session, $schema, $phpviewDirectoryFactory): \pulledbits\Router\RouteEndPoint {
         $feedbackGUI = new Feedback($session, $schema);
         $phpviewDirectory = $phpviewDirectoryFactory->make('');
 

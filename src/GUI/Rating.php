@@ -6,6 +6,7 @@ namespace rikmeijer\Teach\GUI;
 
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\RouteEndPoint;
+use pulledbits\Router\Router;
 use rikmeijer\Teach\Bootstrap;
 use rikmeijer\Teach\CachedEndPoint;
 use rikmeijer\Teach\ImagePngEndPoint;
@@ -15,12 +16,12 @@ class Rating
 {
 }
 
-return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
+return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
     $publicAssetsFileSystem = $bootstrap->resource('assets');
     $cache = $bootstrap->resource('cache');
     $phpviewDirectory = $bootstrap->resource('phpview')->make('');
 
-    $bootstrap->router()->addRoute('^/rating/(?<value>(N|[\d\.]+))$', function(ServerRequestInterface $request) use ($cache, $publicAssetsFileSystem, $phpviewDirectory): RouteEndPoint
+    $router->addRoute('^/rating/(?<value>(N|[\d\.]+))$', function(ServerRequestInterface $request) use ($cache, $publicAssetsFileSystem, $phpviewDirectory): RouteEndPoint
     {
         $eTag = md5(($request->getAttribute('value') === 'N' ? null : $request->getAttribute('value')).'500'.'100'.'5');
 
