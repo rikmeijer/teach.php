@@ -31,5 +31,5 @@ class SSO {
 }
 
 return function(Bootstrap $bootstrap) {
-    return new SSO($bootstrap->oauthServer(), $bootstrap->session());
+    return new SSO($bootstrap->resource('oauth'), $bootstrap->resource('session'));
 };

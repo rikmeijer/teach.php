@@ -16,9 +16,9 @@ class Rating
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-    $publicAssetsFileSystem = $bootstrap->assets();
-    $cache = $bootstrap->cache();
-    $phpviewDirectory = $bootstrap->phpviewDirectoryFactory()->make('');
+    $publicAssetsFileSystem = $bootstrap->resource('assets');
+    $cache = $bootstrap->resource('cache');
+    $phpviewDirectory = $bootstrap->resource('phpview')->make('');
 
     $bootstrap->router()->addRoute('^/rating/(?<value>(N|[\d\.]+))$', function(ServerRequestInterface $request) use ($cache, $publicAssetsFileSystem, $phpviewDirectory): RouteEndPoint
     {

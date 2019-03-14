@@ -1,5 +1,4 @@
 <?php
-
 namespace rikmeijer\Teach;
 
 use Aura\Session\Session;
@@ -63,3 +62,7 @@ final class User
         }
     }
 }
+
+return function(\rikmeijer\Teach\Bootstrap $bootstrap) : User  {
+    return new \rikmeijer\Teach\User($bootstrap->resource('sso'), $bootstrap->resource('session'), $bootstrap->resource('database'));
+};

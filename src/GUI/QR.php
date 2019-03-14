@@ -14,7 +14,7 @@ class QR
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-    $phpviewDirectory = $bootstrap->phpviewDirectoryFactory()->make('');
+    $phpviewDirectory = $bootstrap->resource('phpview')->make('');
 
     $bootstrap->router()->addRoute('^/qr', function(ServerRequestInterface $request) use ($phpviewDirectory): RouteEndPoint
     {

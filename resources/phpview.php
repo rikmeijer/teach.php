@@ -50,5 +50,5 @@ class PHPViewDirectoryFactory
 }
 
 return function(Bootstrap $bootstrap) {
-    return new PHPViewDirectoryFactory($bootstrap->session());
+    return new PHPViewDirectoryFactory($bootstrap->resource('session'));
 };

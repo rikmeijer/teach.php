@@ -54,9 +54,9 @@ final class Index
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-    $server = $bootstrap->sso();
-    $schema = $bootstrap->schema();
-    $phpviewDirectory = $bootstrap->phpviewDirectoryFactory()->make('');
+    $server = $bootstrap->resource('sso');
+    $schema = $bootstrap->resource('database');
+    $phpviewDirectory = $bootstrap->resource('phpview')->make('');
 
     $bootstrap->router()->addRoute('^/$', function(ServerRequestInterface $request) use ($server, $schema, $phpviewDirectory): RouteEndPoint {
         $indexGUI = new Index($server, $schema);

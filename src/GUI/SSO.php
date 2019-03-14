@@ -51,7 +51,7 @@ class SSO
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-    $sso = new \rikmeijer\Teach\GUI\SSO($bootstrap->oauthServer(), $bootstrap->session());
+    $sso = new \rikmeijer\Teach\GUI\SSO($bootstrap->resource('oauth'), $bootstrap->resource('session'));
 
     $bootstrap->router()->addRoute('^/sso/authorize', function(ServerRequestInterface $request) use ($sso): RouteEndPoint {
         return new SeeOtherEndPoint($sso->acquireTemporaryCredentials());

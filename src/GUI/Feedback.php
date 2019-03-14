@@ -30,9 +30,9 @@ final class Feedback
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-    $session = $bootstrap->session();
-    $schema = $bootstrap->schema();
-    $phpviewDirectoryFactory = $bootstrap->phpviewDirectoryFactory();
+    $session = $bootstrap->resource('session');
+    $schema = $bootstrap->resource('database');
+    $phpviewDirectoryFactory = $bootstrap->resource('phpview');
 
     $bootstrap->router()->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', function(\Psr\Http\Message\ServerRequestInterface $request) use ($session, $schema, $phpviewDirectoryFactory): \pulledbits\Router\RouteEndPoint {
 

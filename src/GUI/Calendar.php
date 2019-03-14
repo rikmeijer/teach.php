@@ -48,8 +48,8 @@ final class Calendar
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-    $schema = $bootstrap->schema();
-    $phpviewDirectory = $bootstrap->phpviewDirectoryFactory()->make('');
+    $schema = $bootstrap->resource('database');
+    $phpviewDirectory = $bootstrap->resource('phpview')->make('');
 
     $bootstrap->router()->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', function(ServerRequestInterface $request) use ($schema, $phpviewDirectory): RouteEndPoint {
         $calendarGUI = new Calendar($schema);

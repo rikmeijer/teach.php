@@ -74,41 +74,6 @@ namespace rikmeijer\Teach {
             }
             return $router = new \pulledbits\Router\Router([]);
         }
-
-        public function cache() : CacheInterface {
-            return $this->resource('cache');
-        }
-
-        public function schema(): \pulledbits\ActiveRecord\Schema {
-            return $this->resource('database');
-        }
-
-        public function assets() : \League\Flysystem\FilesystemInterface {
-            return $this->resource('assets');
-        }
-
-        public function session(): \Aura\Session\Session {
-            return $this->resource('session');
-        }
-
-        public function oauthServer() {
-            return $this->resource('oauth');
-
-        }
-        public function sso(): SSO
-        {
-            return $this->resource('sso');
-        }
-
-        public function phpviewDirectoryFactory() : PHPViewDirectoryFactory {
-            return $this->resource('phpview');
-        }
-
-
-        public function userForToken() : User
-        {
-            return new User($this->sso(), $this->session(), $this->schema());
-        }
     };
 
     return new Bootstrap();

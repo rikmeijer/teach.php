@@ -12,8 +12,8 @@ class Contactmoment
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap) : void {
-    $user = $bootstrap->userForToken();
-    $phpviewDirectory = $bootstrap->phpviewDirectoryFactory()->make('contactmoment');
+    $user = $bootstrap->resource('user');
+    $phpviewDirectory = $bootstrap->resource('phpview')->make('contactmoment');
 
     $bootstrap->router()->addRoute('^/contactmoment/import$', function(ServerRequestInterface $request) use ($user, $phpviewDirectory) : RouteEndPoint
     {
