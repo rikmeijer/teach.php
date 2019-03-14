@@ -48,3 +48,7 @@ class PHPViewDirectoryFactory
         return $directory;
     }
 }
+
+return function(Bootstrap $bootstrap) {
+    return new PHPViewDirectoryFactory($bootstrap->session());
+};

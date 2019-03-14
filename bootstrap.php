@@ -48,8 +48,18 @@ namespace rikmeijer\Teach {
 
         public function load(string $directory) : void {
             foreach (glob($directory . DIRECTORY_SEPARATOR . '*.php') as $file) {
-                (require $file)($this);
+                $this->bootstrap($file);
             }
+        }
+        public function bootstrap(string $file) {
+            return (require $file)($this);
+        }
+        public function resource(string $resource) {
+            static $resources = [];
+            if (array_key_exists($resource, $resources)) {
+                return $resources[$resource];
+            }
+            return $resources[$resource] = $this->bootstrap($this->resourcesPath . DIRECTORY_SEPARATOR . $resource . DIRECTORY_SEPARATOR . 'bootstrap.php');
         }
 
         public function router(): \pulledbits\Router\Router
@@ -62,57 +72,32 @@ namespace rikmeijer\Teach {
         }
 
         public function cache() : CacheInterface {
-            static $cache;
-            if (isset($cache)) {
-                return $cache;
-            }
-            return $cache = require $this->resourcesPath . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'bootstrap.php';
+            return $this->resource('cache');
         }
 
         public function schema(): \pulledbits\ActiveRecord\Schema {
-            static $schema;
-            if (isset($schema)) {
-                return $schema;
-            }
-            return $schema = require $this->resourcesPath . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'bootstrap.php';
+            return $this->resource('database');
         }
 
         public function assets() : \League\Flysystem\FilesystemInterface {
-            static $assets;
-            if (isset($assets)) {
-                return $assets;
-            }
-            return $assets = require $this->resourcesPath . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'bootstrap.php';
+            return $this->resource('assets');
         }
 
         public function session(): \Aura\Session\Session {
-            static $session;
-            if (isset($session)) {
-                return $session;
-            }
-            return $session = require $this->resourcesPath . DIRECTORY_SEPARATOR . 'session' . DIRECTORY_SEPARATOR . 'bootstrap.php';
+            return $this->resource('session');
         }
 
         public function oauthServer() {
-            static $server;
-            if (isset($server)) {
-                return $server;
-            }
-            return $server = require $this->resourcesPath . DIRECTORY_SEPARATOR . 'oauth' . DIRECTORY_SEPARATOR . 'bootstrap.php';
+            return $this->resource('oauth');
 
         }
         public function sso(): SSO
         {
-            static $sso;
-            if (!isset($sso)) {
-                $sso = (require $this->resourcesPath . DIRECTORY_SEPARATOR . 'sso' . DIRECTORY_SEPARATOR . 'bootstrap.php')($this);
-            }
-            return $sso;
+            return $this->resource('sso');
         }
 
         public function phpviewDirectoryFactory() : PHPViewDirectoryFactory {
-            require_once $this->resourcesPath . DIRECTORY_SEPARATOR . 'phpview' . DIRECTORY_SEPARATOR . 'bootstrap.php';
-            return new PHPViewDirectoryFactory($this->session());
+            return $this->resource('phpview');
         }
 
 
