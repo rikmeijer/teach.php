@@ -12,7 +12,7 @@ class SSO {
         $this->sessionToken = $session->getSegment('token');
     }
 
-    public function getUserDetails()
+    public function getUserDetails() : \League\OAuth1\Client\Server\User
     {
         $details = unserialize($this->sessionToken->get('user'));
         if (!($details instanceof \League\OAuth1\Client\Server\User)) {
@@ -30,5 +30,6 @@ class SSO {
     }
 }
 
-$config = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config.php';
-return new \Avans\OAuth\Web($config['SSO']);
+return function(Bootstrap $bootstrap) {
+    return new SSO($bootstrap->oauthServer(), $bootstrap->session());
+};
