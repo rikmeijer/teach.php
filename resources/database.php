@@ -1,5 +1,7 @@
 <?php return function(\rikmeijer\Teach\Bootstrap $bootstrap) {
-    $pdo = require __DIR__ . DIRECTORY_SEPARATOR . 'database/pdo.php';
+    $pdo = $bootstrap->resource('pdo');
+
+    $config = $bootstrap->config('DB');
     $connection = new pulledbits\ActiveRecord\SQL\Connection($pdo);
-    return $connection->schema($config['DB_DATABASE']);
+    return $connection->schema($config['DATABASE']);
 };

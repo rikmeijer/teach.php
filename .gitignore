@@ -65,4 +65,4 @@ resources/activerecord
 Homestead.yaml
 Homestead.json
 .env
-resources/config.php
+/config.php

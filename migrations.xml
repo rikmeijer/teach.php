@@ -8,5 +8,5 @@
 
     <migrations-namespace>DoctrineMigrations</migrations-namespace>
 
-    <migrations-directory>./migrations</migrations-directory>
+    <migrations-directory>./database/migrations</migrations-directory>
 </doctrine-migrations>

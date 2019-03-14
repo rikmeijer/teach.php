@@ -62,6 +62,10 @@ namespace rikmeijer\Teach {
             return $resources[$resource] = $this->bootstrap($this->resourcesPath . DIRECTORY_SEPARATOR . $resource . '.php');
         }
 
+        public function config(string $section) : array {
+            return (require __DIR__ . DIRECTORY_SEPARATOR . 'config.php')[$section];
+        }
+
         public function router(): \pulledbits\Router\Router
         {
             static $router;
