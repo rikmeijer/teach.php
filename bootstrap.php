@@ -59,7 +59,7 @@ namespace rikmeijer\Teach {
             if (array_key_exists($resource, $resources)) {
                 return $resources[$resource];
             }
-            return $resources[$resource] = $this->bootstrap($this->resourcesPath . DIRECTORY_SEPARATOR . $resource . DIRECTORY_SEPARATOR . 'bootstrap.php');
+            return $resources[$resource] = $this->bootstrap($this->resourcesPath . DIRECTORY_SEPARATOR . $resource . '.php');
         }
 
         public function router(): \pulledbits\Router\Router

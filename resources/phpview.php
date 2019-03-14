@@ -17,7 +17,7 @@ class PHPViewDirectoryFactory
 
     public function make(string $templatesDirectory)
     {
-        $directory = new Directory(__DIR__ . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . $templatesDirectory, __DIR__ . DIRECTORY_SEPARATOR . 'layouts');
+        $directory = new Directory(__DIR__ . DIRECTORY_SEPARATOR . 'phpview'. DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . $templatesDirectory, __DIR__ . DIRECTORY_SEPARATOR . 'phpview' . DIRECTORY_SEPARATOR . 'layouts');
 
         $directory->registerHelper('url', function (string $path, string ...$unencoded): string {
             $encoded = array_map('rawurlencode', $unencoded);
