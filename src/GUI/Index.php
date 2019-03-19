@@ -54,28 +54,26 @@ final class Index implements GUI
         return Contactmoment::readVandaag($this->schema, $this->server->getUserDetails()->uid);
     }
 
-    public function makeRoute() : Route {
-        return new class($this, $this->phpviewDirectory) implements Route {
-            private $gui;
-            private $phpviewDirectory;
-
-            public function __construct(\rikmeijer\Teach\GUI\Index $gui, Directory $phpviewDirectory)
-            {
-                $this->gui = $gui;
-                $this->phpviewDirectory = $phpviewDirectory;
-            }
-
-            public function handleRequest(ServerRequestInterface $request)  : RouteEndPoint {
-                return new PHPviewEndPoint($this->phpviewDirectory->load('welcome', [
-                    'modules' => $this->gui->retrieveModules(),
-                    'contactmomenten' => $this->gui->retrieveContactmomenten()
-                ]));
-            }
-        };
-    }
-
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('^/$', λize($this, 'makeRoute'));
+        $router->addRoute('^/$', function() : Route {
+            return new class($this, $this->phpviewDirectory) implements Route {
+                private $gui;
+                private $phpviewDirectory;
+
+                public function __construct(\rikmeijer\Teach\GUI\Index $gui, Directory $phpviewDirectory)
+                {
+                    $this->gui = $gui;
+                    $this->phpviewDirectory = $phpviewDirectory;
+                }
+
+                public function handleRequest(ServerRequestInterface $request)  : RouteEndPoint {
+                    return new PHPviewEndPoint($this->phpviewDirectory->load('welcome', [
+                        'modules' => $this->gui->retrieveModules(),
+                        'contactmomenten' => $this->gui->retrieveContactmomenten()
+                    ]));
+                }
+            };
+        });
     }
 }

@@ -44,12 +44,10 @@ final class Calendar implements GUI
         return $calendar;
     }
 
-    public function makeRouteView() : Route {
-        return new Calendar\View($this, $this->phpviewDirectory);
-    }
-
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', λize($this, 'makeRouteView'));
+        $router->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', function() : Route {
+            return new Calendar\View($this, $this->phpviewDirectory);
+        });
     }
 }

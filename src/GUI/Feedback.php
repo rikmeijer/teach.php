@@ -30,17 +30,13 @@ final class Feedback implements GUI
         return Contactmoment::read($this->schema, $contactmomentIdentifier);
     }
 
-    public function makeRouteSupply() : \pulledbits\Router\Route {
-        return new Supply($this, $this->phpviewDirectoryFactory->make('feedback'));
-    }
-
-    public function makeRouteView() : \pulledbits\Router\Route {
-        return new View($this, $this->phpviewDirectoryFactory->make(''));
-    }
-
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', λize($this, 'makeRouteSupply'));
-        $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', λize($this, 'makeRouteView'));
+        $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', function() : \pulledbits\Router\Route {
+            return new Supply($this, $this->phpviewDirectoryFactory->make('feedback'));
+        });
+        $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', function() : \pulledbits\Router\Route {
+            return new View($this, $this->phpviewDirectoryFactory->make(''));
+        });
     }
 }

@@ -19,12 +19,10 @@ class Contactmoment implements GUI
         return $this->user->importCalendarEvents();
     }
 
-    public function makeRouteImport() : \pulledbits\Router\Route {
-        return new Contactmoment\Import($this, $this->phpviewDirectory);
-    }
-
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('^/contactmoment/import$', λize($this, 'makeRouteImport'));
+        $router->addRoute('^/contactmoment/import$', function() : \pulledbits\Router\Route {
+            return new Contactmoment\Import($this, $this->phpviewDirectory);
+        });
     }
 }

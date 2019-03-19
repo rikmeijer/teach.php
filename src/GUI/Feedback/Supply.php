@@ -4,10 +4,11 @@
 namespace rikmeijer\Teach\GUI\Feedback;
 
 
+use pulledbits\Router\Route;
 use pulledbits\View\Directory;
 use rikmeijer\Teach\GUI\Feedback;
 
-class Supply
+class Supply implements Route
 {
     private $gui;
     private $phpviewDirectory;

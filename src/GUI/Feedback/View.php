@@ -4,9 +4,12 @@
 namespace rikmeijer\Teach\GUI\Feedback;
 
 
+use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
+use pulledbits\View\Directory;
+use rikmeijer\Teach\GUI\Feedback;
 
-class View
+class View implements Route
 {
     private $gui;
     private $phpviewDirectory;
