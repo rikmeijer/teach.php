@@ -6,9 +6,12 @@ namespace rikmeijer\Teach\GUI;
 
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\ActiveRecord\Schema;
+use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\Router\Router;
+use pulledbits\View\Directory;
 use rikmeijer\Teach\Contactmoment;
+use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\PHPviewEndPoint;
 use rikmeijer\Teach\SSO;
 
@@ -16,11 +19,13 @@ final class Index
 {
     private $server;
     private $schema;
+    private $phpviewDirectory;
 
-    public function __construct(SSO $server, Schema $schema)
+    public function __construct(SSO $server, Schema $schema, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
         $this->server = $server;
         $this->schema = $schema;
+        $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
     }
 
     public function retrieveModules(): array
@@ -52,18 +57,31 @@ final class Index
     public function retrieveContactmomenten() {
         return Contactmoment::readVandaag($this->schema, $this->server->getUserDetails()->uid);
     }
+
+    public function makeRoute() : Route {
+        return new class($this, $this->phpviewDirectory) implements Route {
+            private $gui;
+            private $phpviewDirectory;
+
+            public function __construct(\rikmeijer\Teach\GUI\Index $gui, Directory $phpviewDirectory)
+            {
+                $this->gui = $gui;
+                $this->phpviewDirectory = $phpviewDirectory;
+            }
+
+            public function handleRequest(ServerRequestInterface $request)  : RouteEndPoint {
+                return new PHPviewEndPoint($this->phpviewDirectory->load('welcome', [
+                    'modules' => $this->gui->retrieveModules(),
+                    'contactmomenten' => $this->gui->retrieveContactmomenten()
+                ]));
+            }
+        };
+    }
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
     $server = $bootstrap->resource('sso');
     $schema = $bootstrap->resource('database');
-    $phpviewDirectory = $bootstrap->resource('phpview')->make('');
-
-    $router->addRoute('^/$', function(ServerRequestInterface $request) use ($server, $schema, $phpviewDirectory): RouteEndPoint {
-        $indexGUI = new Index($server, $schema);
-        return new PHPviewEndPoint($phpviewDirectory->load('welcome', [
-            'modules' => $indexGUI->retrieveModules(),
-            'contactmomenten' => $indexGUI->retrieveContactmomenten()
-        ]));
-    });
+    $indexGUI = new Index($server, $schema, $bootstrap->resource('phpview'));
+    $router->addRoute('^/$', λize($indexGUI, 'makeRoute'));
 };

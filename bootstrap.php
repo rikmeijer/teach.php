@@ -1,8 +1,6 @@
 <?php
 
 namespace {
-
-
     define('NAMESPACE_SEPARATOR', '\\');
 
     function get_class_shortname($object) {
@@ -25,11 +23,32 @@ namespace {
         return implode(DIRECTORY_SEPARATOR, $absolutes);
     }
 
-    function fn() : Closure {
-        $args = func_get_args();
-        return function() use ($args) {
-            return call_user_func_array($args, func_get_args());
-        };
+    function reflectUserFunction($userFunction) : ReflectionFunctionAbstract {
+        if (is_string($userFunction)) {
+            return new \ReflectionFunction($userFunction);
+        } elseif (is_array($userFunction)) {
+            return new ReflectionMethod($userFunction[0], $userFunction[1]);
+        }
+        trigger_error("Invalid user function", E_USER_ERROR);
+    }
+
+    function λize() : Closure {
+        if (func_num_args() === 1) {
+            $userFunction = func_get_arg(0);
+        } elseif (func_num_args() === 2) {
+            $userFunction = func_get_args();
+        } else {
+            trigger_error('Invalid number of arguments', E_USER_ERROR);
+        }
+        $reflection = reflectUserFunction($userFunction);
+        if ($reflection->hasReturnType() === false || $reflection->getReturnType()->getName() === 'void') {
+            return function() use ($userFunction) : void {
+                call_user_func_array($userFunction, func_get_args());
+            };
+        }
+        return eval('return function() use ($userFunction) : ' . $reflection->getReturnType()->getName() . ' {
+            return call_user_func_array($userFunction, func_get_args());
+        };');
     }
 }
 

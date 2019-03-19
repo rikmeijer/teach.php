@@ -18,7 +18,19 @@ class Supply
         $this->phpviewDirectory = $phpviewDirectory;
     }
 
-    public function handleGet(\Psr\Http\Message\ServerRequestInterface $request)
+    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request) : \pulledbits\Router\RouteEndPoint {
+        switch ($request->getMethod()) {
+            case 'GET':
+                return $this->handleGet($request);
+
+            case 'POST':
+                return $this->handlePost($request);
+            default:
+                return \pulledbits\Router\ErrorFactory::makeInstance('405');
+        }
+    }
+
+    private function handleGet(\Psr\Http\Message\ServerRequestInterface $request) : \pulledbits\Router\RouteEndPoint
     {
         $contactmoment = $this->gui->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
         if ($contactmoment->id === null) {
@@ -37,7 +49,7 @@ class Supply
         return new \rikmeijer\Teach\PHPviewEndPoint($this->phpviewDirectory->load('supply', ['rating' => $rating, 'explanation' => $ipRating->inhoud]));
     }
 
-    public function handlePost(\Psr\Http\Message\ServerRequestInterface $request)
+    private function handlePost(\Psr\Http\Message\ServerRequestInterface $request) : \pulledbits\Router\RouteEndPoint
     {
         $contactmoment = $this->gui->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
         if ($contactmoment->id === null) {

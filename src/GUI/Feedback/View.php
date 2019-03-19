@@ -4,6 +4,8 @@
 namespace rikmeijer\Teach\GUI\Feedback;
 
 
+use pulledbits\Router\RouteEndPoint;
+
 class View
 {
     private $gui;
@@ -15,7 +17,7 @@ class View
         $this->phpviewDirectory = $phpviewDirectory;
     }
 
-    public function handleGet(\Psr\Http\Message\ServerRequestInterface $request)
+    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request) : RouteEndPoint
     {
         $contactmoment = $this->gui->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
         if ($contactmoment->id === null) {

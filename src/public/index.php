@@ -21,7 +21,6 @@ if ($response->getHeaderLine('Cache-Control') === 'public') {
     }
 }
 
-
 http_response_code($response->getStatusCode());
 foreach ($response->getHeaders() as $headerIdentifier => $headerValue) {
     header($headerIdentifier . ': ' . implode(', ', $headerValue));
