@@ -2,20 +2,17 @@
 
 namespace rikmeijer\Teach;
 
-use Aura\Session\Session;
-use pulledbits\ActiveRecord\Schema;
-
 final class User
 {
     private $session;
     private $server;
     private $schema;
 
-    public function __construct(SSO $server, Session $session, Schema $schema)
+    public function __construct(Bootstrap $bootstrap)
     {
-        $this->session = $session;
-        $this->schema = $schema;
-        $this->server = $server;
+        $this->session = $bootstrap->resource('session');
+        $this->schema = $bootstrap->resource('database');
+        $this->server = $bootstrap->resource('sso');
     }
 
     public function importCalendarEvents(): int

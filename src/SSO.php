@@ -2,14 +2,13 @@
 
 class SSO
 {
-
     private $sessionToken;
     private $server;
 
-    public function __construct(\League\OAuth1\Client\Server\Server $server, \Aura\Session\Session $session)
+    public function __construct(Bootstrap $bootstrap)
     {
-        $this->server = $server;
-        $this->sessionToken = $session->getSegment('token');
+        $this->server = $bootstrap->resource('oauth');
+        $this->sessionToken = $bootstrap->resource('session')->getSegment('token');
     }
 
     public function getUserDetails(): \League\OAuth1\Client\Server\User

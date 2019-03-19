@@ -2,7 +2,6 @@
 
 namespace rikmeijer\Teach;
 
-use Aura\Session\Session;
 use pulledbits\View\Directory;
 
 class PHPViewDirectoryFactory
@@ -10,18 +9,17 @@ class PHPViewDirectoryFactory
 
     private $session;
 
-    public function __construct(Session $session)
+    public function __construct(Bootstrap $bootstrap)
     {
-        $this->session = $session;
+        $this->session = $bootstrap->resource('session');
+        $this->basedir = $bootstrap->config('PHPVIEW')['path'];
     }
 
     public function make(string $templatesDirectory)
     {
-        $basedir = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'phpview';
-
         $directory = new Directory(
-            $basedir . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . $templatesDirectory,
-            $basedir . DIRECTORY_SEPARATOR . 'layouts'
+            $this->basedir . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . $templatesDirectory,
+            $this->basedir . DIRECTORY_SEPARATOR . 'layouts'
         );
 
         $directory->registerHelper(

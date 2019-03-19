@@ -21,5 +21,8 @@
     ],
     'ROUTER' => [
         'path' => __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'GUI'
+    ],
+    'PHPVIEW' => [
+        'path' => __DIR__ . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'phpview'
     ]
 ];
