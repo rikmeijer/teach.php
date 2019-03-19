@@ -6,11 +6,11 @@ namespace rikmeijer\Teach\GUI;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
-use pulledbits\Router\Router;
 use rikmeijer\Teach\Bootstrap;
+use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\PHPviewEndPoint;
 
-class QR
+class QR implements GUI
 {
     private $phpviewDirectory;
 
@@ -52,9 +52,9 @@ class QR
             }
         };
     }
-}
 
-return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
-    $qrGUI = new QR($bootstrap);
-    $router->addRoute('^/qr', λize($qrGUI, 'makeRoute'));
-};
+    public function addRoutesToRouter(\pulledbits\Router\Router $router): void
+    {
+        $router->addRoute('^/qr', λize($this, 'makeRoute'));
+    }
+}

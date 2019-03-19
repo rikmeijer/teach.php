@@ -1,9 +1,9 @@
 <?php
 namespace rikmeijer\Teach\GUI;
 
-use pulledbits\Router\Router;
+use rikmeijer\Teach\GUI;
 
-class Contactmoment
+class Contactmoment implements GUI
 {
     private $user;
     private $phpviewDirectory;
@@ -22,9 +22,9 @@ class Contactmoment
     public function makeRouteImport() : \pulledbits\Router\Route {
         return new Contactmoment\Import($this, $this->phpviewDirectory);
     }
-}
 
-return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
-    $gui = new Contactmoment($bootstrap);
-    $router->addRoute('^/contactmoment/import$', λize($gui, 'makeRouteImport'));
-};
+    public function addRoutesToRouter(\pulledbits\Router\Router $router): void
+    {
+        $router->addRoute('^/contactmoment/import$', λize($this, 'makeRouteImport'));
+    }
+}

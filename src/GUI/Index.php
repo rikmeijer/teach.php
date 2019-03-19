@@ -6,12 +6,12 @@ namespace rikmeijer\Teach\GUI;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
-use pulledbits\Router\Router;
 use pulledbits\View\Directory;
 use rikmeijer\Teach\Contactmoment;
+use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\PHPviewEndPoint;
 
-final class Index
+final class Index implements GUI
 {
     private $server;
     private $schema;
@@ -73,9 +73,9 @@ final class Index
             }
         };
     }
-}
 
-return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
-    $indexGUI = new Index($bootstrap);
-    $router->addRoute('^/$', λize($indexGUI, 'makeRoute'));
-};
+    public function addRoutesToRouter(\pulledbits\Router\Router $router): void
+    {
+        $router->addRoute('^/$', λize($this, 'makeRoute'));
+    }
+}

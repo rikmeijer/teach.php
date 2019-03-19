@@ -2,18 +2,16 @@
 namespace rikmeijer\Teach\GUI;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\SimpleCache\CacheInterface;
 use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
-use pulledbits\Router\Router;
 use pulledbits\View\Directory;
 use rikmeijer\Teach\Bootstrap;
 use rikmeijer\Teach\CachedEndPoint;
+use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\ImagePngEndPoint;
-use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\PHPviewEndPoint;
 
-class Rating
+class Rating implements GUI
 {
     private $assets;
     private $cache;
@@ -62,9 +60,9 @@ class Rating
             }
         };
     }
-}
 
-return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
-    $ratingGUI = new Rating($bootstrap);
-    $router->addRoute('^/rating/(?<value>(N|[\d\.]+))$', λize($ratingGUI, 'makeRoute'));
-};
+    public function addRoutesToRouter(\pulledbits\Router\Router $router): void
+    {
+        $router->addRoute('^/rating/(?<value>(N|[\d\.]+))$', λize($this, 'makeRoute'));
+    }
+}

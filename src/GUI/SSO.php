@@ -1,18 +1,16 @@
 <?php
-
-
 namespace rikmeijer\Teach\GUI;
 
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
-use pulledbits\Router\Router;
 use rikmeijer\Teach\Bootstrap;
 use rikmeijer\Teach\ClosureEndPoint;
+use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\SeeOtherEndPoint;
 
-class SSO
+class SSO implements GUI
 {
     private $session;
     private $server;
@@ -101,12 +99,10 @@ class SSO
         };
     }
 
+    public function addRoutesToRouter(\pulledbits\Router\Router $router): void
+    {
+        $router->addRoute('^/sso/authorize', λize($this, 'makeRouteAuthorize'));
+        $router->addRoute('^/sso/callback', λize($this, 'makeRouteAuthorized'));
+        $router->addRoute('^/logout', λize($this, 'makeRouteLogout'));
+    }
 }
-
-return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
-    $sso = new \rikmeijer\Teach\GUI\SSO($bootstrap);
-
-    $router->addRoute('^/sso/authorize', λize($sso, 'makeRouteAuthorize'));
-    $router->addRoute('^/sso/callback', λize($sso, 'makeRouteAuthorized'));
-    $router->addRoute('^/logout', λize($sso, 'makeRouteLogout'));
-};

@@ -2,12 +2,12 @@
 
 
 namespace rikmeijer\Teach\GUI;
-use pulledbits\Router\Router;
 use rikmeijer\Teach\Contactmoment;
+use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\GUI\Feedback\Supply;
 use rikmeijer\Teach\GUI\Feedback\View;
 
-final class Feedback
+final class Feedback implements GUI
 {
     private $session;
     private $schema;
@@ -37,10 +37,10 @@ final class Feedback
     public function makeRouteView() : \pulledbits\Router\Route {
         return new View($this, $this->phpviewDirectoryFactory->make(''));
     }
-}
 
-return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
-    $feedbackGUI = new Feedback($bootstrap);
-    $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', λize($feedbackGUI, 'makeRouteSupply'));
-    $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', λize($feedbackGUI, 'makeRouteView'));
-};
+    public function addRoutesToRouter(\pulledbits\Router\Router $router): void
+    {
+        $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', λize($this, 'makeRouteSupply'));
+        $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', λize($this, 'makeRouteView'));
+    }
+}

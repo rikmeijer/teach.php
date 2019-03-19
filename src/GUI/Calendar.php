@@ -3,9 +3,9 @@ namespace rikmeijer\Teach\GUI;
 
 use Eluceo\iCal\Component\Event;
 use pulledbits\Router\Route;
-use pulledbits\Router\Router;
+use rikmeijer\Teach\GUI;
 
-final class Calendar
+final class Calendar implements GUI
 {
     private $schema;
     private $phpviewDirectory;
@@ -47,9 +47,9 @@ final class Calendar
     public function makeRouteView() : Route {
         return new Calendar\View($this, $this->phpviewDirectory);
     }
-}
 
-return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
-    $calendarGUI = new Calendar($bootstrap);
-    $router->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', λize($calendarGUI, 'makeRouteView'));
-};
+    public function addRoutesToRouter(\pulledbits\Router\Router $router): void
+    {
+        $router->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', λize($this, 'makeRouteView'));
+    }
+}
