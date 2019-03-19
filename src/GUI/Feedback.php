@@ -34,10 +34,10 @@ final class Feedback implements GUI
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
         $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', function (): \pulledbits\Router\Route {
-            return new Supply($this, $this->phpviewDirectory->make(''));
+            return new Supply($this, $this->phpviewDirectory);
         });
         $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', function (): \pulledbits\Router\Route {
-            return new View($this, $this->phpviewDirectory->make(''));
+            return new View($this, $this->phpviewDirectory);
         });
     }
 }
