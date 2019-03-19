@@ -34,7 +34,7 @@ class Import implements Route
 
     private function handleGet(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
     {
-        return new PHPviewEndPoint($this->phpviewDirectory->load('import', [
+        return new PHPviewEndPoint($this->phpviewDirectory->load('contactmoment/import', [
             'importForm' => function (): void {
                 $this->form("post", "Importeren", 'rooster.avans.nl');
             }
@@ -44,7 +44,7 @@ class Import implements Route
     private function handlePost(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
     {
         return new PHPviewEndPoint($this->phpviewDirectory->load(
-            'imported',
+            'contactmoment/imported',
             ["numberImported" => $this->gui->importCalendarEvents()]
         ));
     }

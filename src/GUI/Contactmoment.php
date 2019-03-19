@@ -12,7 +12,7 @@ class Contactmoment implements GUI
     public function __construct(\rikmeijer\Teach\Bootstrap $bootstrap)
     {
         $this->user = $bootstrap->resource('user');
-        $this->phpviewDirectory = $bootstrap->resource('phpview')->make('contactmoment');
+        $this->phpviewDirectory = $bootstrap->resource('phpview')->make('');
     }
 
     public function importCalendarEvents(): int

@@ -3,6 +3,7 @@
 
 namespace rikmeijer\Teach\GUI\Feedback;
 
+use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\Route;
 use pulledbits\View\Directory;
 use rikmeijer\Teach\GUI\Feedback;
@@ -48,7 +49,7 @@ class Supply implements Route
         }
 
         return new \rikmeijer\Teach\PHPviewEndPoint($this->phpviewDirectory->load(
-            'supply',
+            'feedback/supply',
             ['rating' => $rating, 'explanation' => $ipRating->inhoud]
         ));
     }
@@ -65,6 +66,6 @@ class Supply implements Route
             return ErrorFactory::makeInstance('403');
         }
         $contactmoment->rate($_SERVER['REMOTE_ADDR'], $parsedBody['rating'], $parsedBody['explanation']);
-        return new \rikmeijer\Teach\PHPviewEndPoint($this->phpviewDirectory->load('processed'));
+        return new \rikmeijer\Teach\PHPviewEndPoint($this->phpviewDirectory->load('feedback/processed'));
     }
 }
