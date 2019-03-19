@@ -50,7 +50,10 @@ class Supply implements Route
 
         return new \rikmeijer\Teach\PHPviewEndPoint($this->phpviewDirectory->load(
             'feedback/supply',
-            ['rating' => $rating, 'explanation' => $ipRating->inhoud]
+            [
+                'rating' => $rating,
+                'explanation' => $ipRating->inhoud
+            ]
         ));
     }
 
