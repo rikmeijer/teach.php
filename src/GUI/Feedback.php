@@ -49,7 +49,6 @@ final class Feedback
 
     public function view(\Psr\Http\Message\ServerRequestInterface $request) : \pulledbits\Router\RouteEndPoint {
         $view = new View($this, $this->phpviewDirectoryFactory->make(''));
-
         return $view->handleGet($request);
     }
 }

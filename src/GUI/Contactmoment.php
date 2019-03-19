@@ -1,39 +1,43 @@
 <?php
 namespace rikmeijer\Teach\GUI;
 
-
-use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\ErrorFactory;
-use pulledbits\Router\RouteEndPoint;
 use pulledbits\Router\Router;
-use rikmeijer\Teach\PHPviewEndPoint;
+use rikmeijer\Teach\PHPViewDirectoryFactory;
+use rikmeijer\Teach\User;
 
 class Contactmoment
 {
-}
+    private $user;
+    private $phpviewDirectory;
 
-return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
-    $user = $bootstrap->resource('user');
-    $phpviewDirectory = $bootstrap->resource('phpview')->make('contactmoment');
-
-    $router->addRoute('^/contactmoment/import$', function(ServerRequestInterface $request) use ($user, $phpviewDirectory) : RouteEndPoint
+    public function __construct(User $user, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
+        $this->user = $user;
+        $this->phpviewDirectory = $phpviewDirectoryFactory->make('contactmoment');
+    }
+
+    public function importCalendarEvents() : int
+    {
+        return $this->user->importCalendarEvents();
+    }
+
+    public function import(\Psr\Http\Message\ServerRequestInterface $request) : \pulledbits\Router\RouteEndPoint {
+        $view = new Contactmoment\Import($this, $this->phpviewDirectory);
         switch ($request->getMethod()) {
             case 'GET':
-                return new PHPviewEndPoint($phpviewDirectory->load('import', [
-                    'importForm' => function (): void {
-                        $this->form("post", "Importeren", 'rooster.avans.nl');
-                    }
-                ]));
+                return $view->handleGet($request);
 
             case 'POST':
-                return new PHPviewEndPoint($phpviewDirectory->load('imported', [
-                    "numberImported" => $user->importCalendarEvents()
-                ]));
+                return $view->handlePost($request);
 
             default:
                 return ErrorFactory::makeInstance('405');
         }
+    }
+}
 
-    });
+return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
+    $gui = new Contactmoment($bootstrap->resource('user'), $bootstrap->resource('phpview'));
+    $router->addRoute('^/contactmoment/import$', fn($gui, 'import'));
 };

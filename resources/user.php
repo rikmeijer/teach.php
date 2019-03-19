@@ -22,19 +22,16 @@ final class User
         return $this->server->getUserDetails();
     }
 
-    private function isEmployee() : bool
-    {
-        return $this->details()->extra['employee'];
-    }
-
     public function importCalendarEvents() : int
     {
-        if ($this->isEmployee() === false) {
+        $details = $this->details();
+
+        if ($details->extra['employee'] === false) {
             return 0;
         }
 
-        $userId = $this->details()->uid;
-        $icalReader = new \ICal('http://rooster.avans.nl/gcal/D' . $this->details()->uid);
+        $userId = $details->uid;
+        $icalReader = new \ICal('http://rooster.avans.nl/gcal/D' . $userId);
         $count = 0;
         foreach ($icalReader->events() as $event) {
             if (array_key_exists('SUMMARY', $event) === false) {
