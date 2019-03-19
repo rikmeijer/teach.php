@@ -1,4 +1,5 @@
 <?php
+
 namespace rikmeijer\Teach\GUI;
 
 use Psr\Http\Message\ServerRequestInterface;
@@ -21,26 +22,7 @@ class SSO implements GUI
         $this->session = $bootstrap->resource('session');
     }
 
-
-    public function acquireTemporaryCredentials() : string
-    {
-        $temporaryCredentials = $this->server->getTemporaryCredentials();
-        $this->session->getSegment('token')->set('temporary_credentials', serialize($temporaryCredentials));
-        return $this->server->getAuthorizationUrl($temporaryCredentials);
-    }
-
-    public function authorizeTokenCredentials(string $oauthToken, string $oauthVerifier) : void
-    {
-        $temporaryCredentialsSerialized = $this->session->getSegment('token')->get('temporary_credentials');
-        if ($temporaryCredentialsSerialized !== null) {
-            $temporaryCredentials = unserialize($temporaryCredentialsSerialized);
-            $tokenCredentials = $this->server->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
-            $this->session->getSegment('token')->set('temporary_credentials', null);
-            $this->session->getSegment('token')->set('credentials', serialize($tokenCredentials));
-        }
-    }
-
-    public function logout() : void
+    public function logout(): void
     {
         if ($this->session->isStarted()) {
             $this->session->getSegment('token')->clear();
@@ -51,28 +33,34 @@ class SSO implements GUI
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('^/sso/authorize', function() : Route {
-            return new class($this) implements Route {
+        $router->addRoute('^/sso/authorize', function (): Route {
+            return new class($this) implements Route
+            {
                 private $gui;
+
                 public function __construct(\rikmeijer\Teach\GUI\SSO $gui)
                 {
                     $this->gui = $gui;
                 }
 
-                public function handleRequest(ServerRequestInterface $request)  : RouteEndPoint {
+                public function handleRequest(ServerRequestInterface $request): RouteEndPoint
+                {
                     return new SeeOtherEndPoint($this->gui->acquireTemporaryCredentials());
                 }
             };
         });
-        $router->addRoute('^/sso/callback', function() : Route {
-            return new class($this) implements Route {
+        $router->addRoute('^/sso/callback', function (): Route {
+            return new class($this) implements Route
+            {
                 private $gui;
+
                 public function __construct(\rikmeijer\Teach\GUI\SSO $gui)
                 {
                     $this->gui = $gui;
                 }
 
-                public function handleRequest(ServerRequestInterface $request)  : RouteEndPoint {
+                public function handleRequest(ServerRequestInterface $request): RouteEndPoint
+                {
                     $queryParams = $request->getQueryParams();
 
                     if (array_key_exists('oauth_token', $queryParams) && array_key_exists('oauth_verifier', $queryParams)) {
@@ -84,19 +72,40 @@ class SSO implements GUI
                 }
             };
         });
-        $router->addRoute('^/logout', function() : Route {
-            return new class($this) implements Route {
+        $router->addRoute('^/logout', function (): Route {
+            return new class($this) implements Route
+            {
                 private $gui;
+
                 public function __construct(\rikmeijer\Teach\GUI\Index $gui, Directory $phpviewDirectory)
                 {
                     $this->gui = $gui;
                 }
 
-                public function handleRequest(ServerRequestInterface $request)  : RouteEndPoint {
+                public function handleRequest(ServerRequestInterface $request): RouteEndPoint
+                {
                     $this->gui->logout();
                     return new SeeOtherEndPoint('/');
                 }
             };
         });
+    }
+
+    public function acquireTemporaryCredentials(): string
+    {
+        $temporaryCredentials = $this->server->getTemporaryCredentials();
+        $this->session->getSegment('token')->set('temporary_credentials', serialize($temporaryCredentials));
+        return $this->server->getAuthorizationUrl($temporaryCredentials);
+    }
+
+    public function authorizeTokenCredentials(string $oauthToken, string $oauthVerifier): void
+    {
+        $temporaryCredentialsSerialized = $this->session->getSegment('token')->get('temporary_credentials');
+        if ($temporaryCredentialsSerialized !== null) {
+            $temporaryCredentials = unserialize($temporaryCredentialsSerialized);
+            $tokenCredentials = $this->server->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
+            $this->session->getSegment('token')->set('temporary_credentials', null);
+            $this->session->getSegment('token')->set('credentials', serialize($tokenCredentials));
+        }
     }
 }

@@ -16,25 +16,31 @@ final class Contactmoment
         $this->record = $entity;
     }
 
-    static function wrapAround(Entity $entity) : self {
+    static function wrapAround(Entity $entity): self
+    {
         return new self($entity);
     }
 
-    static function readByModuleName(Schema $schema, string $owner, string $moduleNaam) : array {
+    static function readByModuleName(Schema $schema, string $owner, string $moduleNaam): array
+    {
         return array_map([__CLASS__, 'wrapAround'], $schema->read("contactmoment_module", [], ["modulenaam" => $moduleNaam, "owner" => $owner]));
     }
 
-    static function readVandaag(Schema $schema, string $owner) : array {
+    static function readVandaag(Schema $schema, string $owner): array
+    {
         return array_map([__CLASS__, 'wrapAround'], $schema->read('contactmoment_vandaag', [], ["owner" => $owner]));
     }
 
-    static function read(Schema $schema, string $identifier) : self {
+    static function read(Schema $schema, string $identifier): self
+    {
         $contactmoments = $schema->read('contactmoment', [], ['id' => $identifier]);
         if (count($contactmoments) === 0) {
-            $contactmoments[0] = new class implements Entity {
+            $contactmoments[0] = new class implements Entity
+            {
 
-                final public function contains(array $values) : void
-                {}
+                final public function contains(array $values): void
+                {
+                }
 
                 final public function __get($property)
                 {
@@ -42,10 +48,12 @@ final class Contactmoment
                 }
 
                 final public function __set($property, $value)
-                {}
+                {
+                }
 
                 final public function __isset($property)
-                {}
+                {
+                }
 
                 final public function delete(): int
                 {
@@ -70,7 +78,8 @@ final class Contactmoment
         return array_map([__CLASS__, 'wrapAround'], $contactmoments)[0];
     }
 
-    public function retrieveRating() {
+    public function retrieveRating()
+    {
         $contactmomentratings = $this->record->fetchByFkRatingContactmoment();
         if (count($contactmomentratings) === 0) {
             return null;
@@ -83,7 +92,8 @@ final class Contactmoment
     }
 
 
-    public function findRatingByIP(string $ipAddress) {
+    public function findRatingByIP(string $ipAddress)
+    {
         $ipRatings = $this->record->fetchByFkRatingContactmoment(['ip' => $ipAddress]);
         if (count($ipRatings) === 0) {
             return $this->record->referenceByFkRatingContactmoment(['ip' => $ipAddress]);
@@ -91,7 +101,8 @@ final class Contactmoment
         return $ipRatings[0];
     }
 
-    public function rate(string $ipAddress, string $rating, string $explanation) {
+    public function rate(string $ipAddress, string $rating, string $explanation)
+    {
         $this->record->rate_contactmoment($this->record->id, $ipAddress, $rating, $explanation);
     }
 

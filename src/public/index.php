@@ -11,8 +11,7 @@ if ($response->getHeaderLine('Cache-Control') === 'public') {
     $ifModifiedSince = (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : false);
     $etagHeader = (isset($_SERVER['HTTP_IF_NONE_MATCH']) ? trim($_SERVER['HTTP_IF_NONE_MATCH']) : false);
 
-    if ($ifModifiedSince === $response->getHeaderLine('Last-Modified') || $etagHeader === $response->getHeaderLine('ETag'))
-    {
+    if ($ifModifiedSince === $response->getHeaderLine('Last-Modified') || $etagHeader === $response->getHeaderLine('ETag')) {
         header("HTTP/1.1 304 Not Modified");
         foreach ($response->getHeaders() as $headerIdentifier => $headerValue) {
             header($headerIdentifier . ': ' . implode(', ', $headerValue));

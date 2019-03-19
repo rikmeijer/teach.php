@@ -1,9 +1,11 @@
 <?php
+
 namespace rikmeijer\Teach;
 
 use Psr\Http\Message\ResponseInterface;
 
-return new class {
+return new class
+{
 
     /**
      * @var Bootstrap
@@ -16,7 +18,7 @@ return new class {
         $this->router = $bootstrap->resource('router');
     }
 
-    public function handle(\Psr\Http\Message\ServerRequestInterface $serverRequest) : ResponseInterface
+    public function handle(\Psr\Http\Message\ServerRequestInterface $serverRequest): ResponseInterface
     {
         $routeEndPoint = $this->router->route($serverRequest);
 

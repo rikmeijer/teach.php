@@ -1,7 +1,6 @@
 <?php namespace rikmeijer\Teach;
 
 use Psr\Http\Message\ResponseInterface;
-use pulledbits\Router\RouteEndPoint;
 use pulledbits\Router\RouteEndPointDecorator;
 
 class ImagePngEndPoint extends RouteEndPointDecorator

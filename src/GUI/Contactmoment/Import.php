@@ -1,4 +1,5 @@
 <?php
+
 namespace rikmeijer\Teach\GUI\Contactmoment;
 
 use pulledbits\Router\Route;
@@ -17,7 +18,8 @@ class Import implements Route
         $this->phpviewDirectory = $phpviewDirectory;
     }
 
-    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request) : \pulledbits\Router\RouteEndPoint {
+    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
+    {
         switch ($request->getMethod()) {
             case 'GET':
                 return $this->handleGet($request);
@@ -30,20 +32,16 @@ class Import implements Route
         }
     }
 
-    private function handleGet(\Psr\Http\Message\ServerRequestInterface $request) : \pulledbits\Router\RouteEndPoint
+    private function handleGet(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
     {
-        return new PHPviewEndPoint($this->phpviewDirectory->load('import', [
-            'importForm' => function (): void {
-                $this->form("post", "Importeren", 'rooster.avans.nl');
-            }
-        ]));
+        return new PHPviewEndPoint($this->phpviewDirectory->load('import', ['importForm' => function (): void {
+            $this->form("post", "Importeren", 'rooster.avans.nl');
+        }]));
     }
 
-    private function handlePost(\Psr\Http\Message\ServerRequestInterface $request) : \pulledbits\Router\RouteEndPoint
+    private function handlePost(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
     {
-        return new PHPviewEndPoint($this->phpviewDirectory->load('imported', [
-            "numberImported" => $this->gui->importCalendarEvents()
-        ]));
+        return new PHPviewEndPoint($this->phpviewDirectory->load('imported', ["numberImported" => $this->gui->importCalendarEvents()]));
 
     }
 }

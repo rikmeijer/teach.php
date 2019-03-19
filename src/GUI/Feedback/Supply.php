@@ -19,7 +19,8 @@ class Supply implements Route
         $this->phpviewDirectory = $phpviewDirectory;
     }
 
-    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request) : \pulledbits\Router\RouteEndPoint {
+    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
+    {
         switch ($request->getMethod()) {
             case 'GET':
                 return $this->handleGet($request);
@@ -31,7 +32,7 @@ class Supply implements Route
         }
     }
 
-    private function handleGet(\Psr\Http\Message\ServerRequestInterface $request) : \pulledbits\Router\RouteEndPoint
+    private function handleGet(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
     {
         $contactmoment = $this->gui->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
         if ($contactmoment->id === null) {
@@ -50,7 +51,7 @@ class Supply implements Route
         return new \rikmeijer\Teach\PHPviewEndPoint($this->phpviewDirectory->load('supply', ['rating' => $rating, 'explanation' => $ipRating->inhoud]));
     }
 
-    private function handlePost(\Psr\Http\Message\ServerRequestInterface $request) : \pulledbits\Router\RouteEndPoint
+    private function handlePost(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
     {
         $contactmoment = $this->gui->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
         if ($contactmoment->id === null) {

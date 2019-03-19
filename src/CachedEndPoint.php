@@ -1,4 +1,5 @@
 <?php
+
 namespace rikmeijer\Teach;
 
 use GuzzleHttp\Psr7\Response;
@@ -20,7 +21,8 @@ class CachedEndPoint extends RouteEndPointDecorator
     public function __construct(RouteEndPoint $wrappedEndPoint, \DateTime $lastModified, string $eTag)
     {
         parent::__construct($wrappedEndPoint);
-        $this->suspendedResponseBody = new class($wrappedEndPoint) implements StreamInterface {
+        $this->suspendedResponseBody = new class($wrappedEndPoint) implements StreamInterface
+        {
 
             /**
              * @var RouteEndPoint
@@ -33,8 +35,9 @@ class CachedEndPoint extends RouteEndPointDecorator
                 $this->wrappedEndPoint = $wrappedEndPoint;
             }
 
-            private function responseBody() : StreamInterface {
-                return $this->responseBody = ($this->responseBody??$this->wrappedEndPoint->respond(new Response())->getBody());
+            private function responseBody(): StreamInterface
+            {
+                return $this->responseBody = ($this->responseBody ?? $this->wrappedEndPoint->respond(new Response())->getBody());
             }
 
             /**
@@ -233,10 +236,6 @@ class CachedEndPoint extends RouteEndPointDecorator
 
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        return $psrResponse
-            ->withHeader('Last-Modified', $this->lastModified->format(DATE_RFC7231))
-            ->withHeader('Etag', $this->eTag)
-            ->withHeader('Cache-Control', 'public')
-            ->withBody($this->suspendedResponseBody);
+        return $psrResponse->withHeader('Last-Modified', $this->lastModified->format(DATE_RFC7231))->withHeader('Etag', $this->eTag)->withHeader('Cache-Control', 'public')->withBody($this->suspendedResponseBody);
     }
 }

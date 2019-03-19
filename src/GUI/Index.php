@@ -24,6 +24,28 @@ final class Index implements GUI
         $this->phpviewDirectory = $bootstrap->resource('phpview')->make('');
     }
 
+    public function addRoutesToRouter(\pulledbits\Router\Router $router): void
+    {
+        $router->addRoute('^/$', function (): Route {
+            return new class($this, $this->phpviewDirectory) implements Route
+            {
+                private $gui;
+                private $phpviewDirectory;
+
+                public function __construct(\rikmeijer\Teach\GUI\Index $gui, Directory $phpviewDirectory)
+                {
+                    $this->gui = $gui;
+                    $this->phpviewDirectory = $phpviewDirectory;
+                }
+
+                public function handleRequest(ServerRequestInterface $request): RouteEndPoint
+                {
+                    return new PHPviewEndPoint($this->phpviewDirectory->load('welcome', ['modules' => $this->gui->retrieveModules(), 'contactmomenten' => $this->gui->retrieveContactmomenten()]));
+                }
+            };
+        });
+    }
+
     public function retrieveModules(): array
     {
         $modules = [];
@@ -50,30 +72,8 @@ final class Index implements GUI
         return $modules;
     }
 
-    public function retrieveContactmomenten() {
-        return Contactmoment::readVandaag($this->schema, $this->server->getUserDetails()->uid);
-    }
-
-    public function addRoutesToRouter(\pulledbits\Router\Router $router): void
+    public function retrieveContactmomenten()
     {
-        $router->addRoute('^/$', function() : Route {
-            return new class($this, $this->phpviewDirectory) implements Route {
-                private $gui;
-                private $phpviewDirectory;
-
-                public function __construct(\rikmeijer\Teach\GUI\Index $gui, Directory $phpviewDirectory)
-                {
-                    $this->gui = $gui;
-                    $this->phpviewDirectory = $phpviewDirectory;
-                }
-
-                public function handleRequest(ServerRequestInterface $request)  : RouteEndPoint {
-                    return new PHPviewEndPoint($this->phpviewDirectory->load('welcome', [
-                        'modules' => $this->gui->retrieveModules(),
-                        'contactmomenten' => $this->gui->retrieveContactmomenten()
-                    ]));
-                }
-            };
-        });
+        return Contactmoment::readVandaag($this->schema, $this->server->getUserDetails()->uid);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace rikmeijer\Teach;
 
 use Psr\Http\Message\ResponseInterface;

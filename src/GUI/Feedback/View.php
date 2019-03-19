@@ -20,14 +20,12 @@ class View implements Route
         $this->phpviewDirectory = $phpviewDirectory;
     }
 
-    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request) : RouteEndPoint
+    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): RouteEndPoint
     {
         $contactmoment = $this->gui->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
         if ($contactmoment->id === null) {
             return \pulledbits\Router\ErrorFactory::makeInstance(404);
         }
-        return new \rikmeijer\Teach\PHPviewEndPoint($this->phpviewDirectory->load('feedback', [
-            'contactmoment' => $contactmoment
-        ]));
+        return new \rikmeijer\Teach\PHPviewEndPoint($this->phpviewDirectory->load('feedback', ['contactmoment' => $contactmoment]));
     }
 }

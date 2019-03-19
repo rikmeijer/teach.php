@@ -19,7 +19,7 @@ class QR implements GUI
     public function __construct(Bootstrap $bootstrap)
     {
         $this->phpviewDirectory = $bootstrap->resource('phpview')->make('');
-        $this->phpviewDirectory->registerHelper('qr', function(int $width, int $height, string $data): void {
+        $this->phpviewDirectory->registerHelper('qr', function (int $width, int $height, string $data): void {
             $renderer = new \BaconQrCode\Renderer\Image\Png();
             $renderer->setHeight($width);
             $renderer->setWidth($height);
@@ -30,8 +30,9 @@ class QR implements GUI
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('^/qr', function() : Route {
-            return new class($this->phpviewDirectory) implements Route {
+        $router->addRoute('^/qr', function (): Route {
+            return new class($this->phpviewDirectory) implements Route
+            {
                 private $phpviewDirectory;
 
                 public function __construct(Directory $phpviewDirectory)
@@ -39,7 +40,8 @@ class QR implements GUI
                     $this->phpviewDirectory = $phpviewDirectory;
                 }
 
-                public function handleRequest(ServerRequestInterface $request)  : RouteEndPoint {
+                public function handleRequest(ServerRequestInterface $request): RouteEndPoint
+                {
                     $query = $request->getQueryParams();
                     if (array_key_exists('data', $query) === false) {
                         syslog(E_USER_ERROR, 'Query incomplete');
@@ -48,9 +50,7 @@ class QR implements GUI
                         syslog(E_USER_ERROR, 'Query data incomplete');
                         return ErrorFactory::makeInstance('400');
                     }
-                    return new PHPviewEndPoint($this->phpviewDirectory->load('qr', [
-                        'data' => $query['data']
-                    ]));
+                    return new PHPviewEndPoint($this->phpviewDirectory->load('qr', ['data' => $query['data']]));
                 }
             };
         });

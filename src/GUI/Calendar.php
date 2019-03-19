@@ -1,4 +1,5 @@
 <?php
+
 namespace rikmeijer\Teach\GUI;
 
 use Eluceo\iCal\Component\Event;
@@ -16,7 +17,8 @@ final class Calendar implements GUI
         $this->phpviewDirectory = $bootstrap->resource('phpview')->make('');
     }
 
-    public function retrieveCalendar(string $calendarIdentifier) : \Eluceo\iCal\Component\Calendar {
+    public function retrieveCalendar(string $calendarIdentifier): \Eluceo\iCal\Component\Calendar
+    {
         $calendar = new \Eluceo\iCal\Component\Calendar($calendarIdentifier);
         switch ($calendarIdentifier) {
             case 'weeks':
@@ -25,7 +27,7 @@ final class Calendar implements GUI
                     $lesweekEvent = new Event();
                     $lesweekEvent->setNoTime(true);
                     $lesweekEvent->setUniqueId(sha1($lesweek->jaar . $lesweek->kalenderweek));
-                    $lesweekEvent->setSummary('OW' .  $lesweek->onderwijsweek . '/BW' . $lesweek->blokweek);
+                    $lesweekEvent->setSummary('OW' . $lesweek->onderwijsweek . '/BW' . $lesweek->blokweek);
                     try {
                         $week_start = new \DateTime();
                         $week_start->setISODate($lesweek->jaar, $lesweek->kalenderweek);
@@ -46,7 +48,7 @@ final class Calendar implements GUI
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', function() : Route {
+        $router->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', function (): Route {
             return new Calendar\View($this, $this->phpviewDirectory);
         });
     }

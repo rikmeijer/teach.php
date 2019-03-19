@@ -6,162 +6,165 @@ HTML rgb(149, 0, 32)	rgb(99, 0, 21)		rgb(199, 0, 43) 	rgb(255, 192, 206) 		rgb(1
 Please adhere to above color codes
 **/
 @page {
-	size: A4 portrait;
-	margin: 25mm 10mm; /* change the margins as you want them to be. */
+    size: A4 portrait;
+    margin: 25mm 10mm; /* change the margins as you want them to be. */
 }
 
 @media print {
-	body header,
-	body>nav, body>section {
-		width: 210mm;
-	}
-	body>header, body>section {
-		page-break-after: always;
-	}
+    body header,
+    body > nav, body > section {
+        width: 210mm;
+    }
+
+    body > header, body > section {
+        page-break-after: always;
+    }
 }
 
 html, body {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 a, a:active, a:visited {
-	color: rgb(226, 19, 80);
+    color: rgb(226, 19, 80);
 }
 
 body {
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 10pt;
-	line-height: 1.5em;
-	background-color: #ffffff;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 10pt;
+    line-height: 1.5em;
+    background-color: #ffffff;
 }
 
 body header,
-body>nav, body>section {
-	width: 80%;
-	margin: 0 auto;
+body > nav, body > section {
+    width: 80%;
+    margin: 0 auto;
 }
 
 body header {
-	text-align: left;
-	border-top: 20px solid rgb(226, 19, 80);
-	height: 94px;
-	padding-top: 20px;
+    text-align: left;
+    border-top: 20px solid rgb(226, 19, 80);
+    height: 94px;
+    padding-top: 20px;
 }
 
 body header:before {
-	content: url(/img/avans_logo.png);
-	float: right;
+    content: url(/img/avans_logo.png);
+    float: right;
 }
 
 body header h1 {
-	color: rgb(226, 19, 80);
-	font-style: italic;
-	margin-top: 10px;
+    color: rgb(226, 19, 80);
+    font-style: italic;
+    margin-top: 10px;
 }
 
 body header h2 {
-	color: rgb(149, 0, 32);
-	font-style: italic;
-	margin-top: 10px;
+    color: rgb(149, 0, 32);
+    font-style: italic;
+    margin-top: 10px;
 }
 
-body>nav, body>section {
-	border-top: 1px solid rgb(199, 0, 43);
+body > nav, body > section {
+    border-top: 1px solid rgb(199, 0, 43);
 }
 
 body section h2 {
-	margin-top: 2em;
-	color: rgb(199, 0, 43);
+    margin-top: 2em;
+    color: rgb(199, 0, 43);
 }
 
 body section h3 {
-	color: rgb(149, 0, 32);
+    color: rgb(149, 0, 32);
 }
 
 table {
-	width: 100%;
-	border-spacing: 0;
-	border-collapse: separate;
-	margin-bottom: 1em;
-	table-layout: fixed;
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: separate;
+    margin-bottom: 1em;
+    table-layout: fixed;
 }
 
 table caption,
 table caption a,
-table caption a:visited ,
+table caption a:visited,
 table caption a:active {
-	color: rgb(99, 0, 21);
-	text-align: left;
-	line-height: 2em;
-	font-weight: bold;
-	text-decoration: none;
+    color: rgb(99, 0, 21);
+    text-align: left;
+    line-height: 2em;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 table tbody.collapsed tr.past {
-	display: none;
+    display: none;
 }
 
 table td, table th {
-	padding: 2px;
-	vertical-align: top;
-	text-align: left;
+    padding: 2px;
+    vertical-align: top;
+    text-align: left;
 }
+
 table tr td:last-of-type {
-	text-align: right;
+    text-align: right;
 }
+
 table tr th {
-	background-color: rgb(226, 19, 80);
-	color: #ffffff;
+    background-color: rgb(226, 19, 80);
+    color: #ffffff;
 }
 
 table tr th:last-of-type {
-	text-align: right;
+    text-align: right;
 }
 
 table tr:nth-child(2n+1) td {
-	background-color: #efefef;
+    background-color: #efefef;
 }
 
 table tr.active td {
-	background-color: rgb(255, 192, 206);
+    background-color: rgb(255, 192, 206);
 }
 
 table tr.past td {
-	color: rgb(172, 172, 172);
+    color: rgb(172, 172, 172);
 }
 
 table tr.past td a, table tr.past td a:active, table tr.past td a:visited {
-	color: rgb(255, 100, 150);
+    color: rgb(255, 100, 150);
 }
 
 
 table.multicol th {
-	text-align: right;
-	color: rgb(226, 19, 80);
-	width: 20%;
+    text-align: right;
+    color: rgb(226, 19, 80);
+    width: 20%;
 }
 
 table td ul {
-	margin: 0;
+    margin: 0;
 }
 
 table td#intelligenties ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 table td#intelligenties ul li {
-	padding: 0 5px;
-	display: inline;
+    padding: 0 5px;
+    display: inline;
 }
 
 ul.horizontal-menu {
-	padding-left: 0;
+    padding-left: 0;
 }
 
 ul.horizontal-menu li {
-	list-style: none;
-	display: inline;
+    list-style: none;
+    display: inline;
 }

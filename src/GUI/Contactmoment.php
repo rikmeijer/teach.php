@@ -1,4 +1,5 @@
 <?php
+
 namespace rikmeijer\Teach\GUI;
 
 use rikmeijer\Teach\GUI;
@@ -14,14 +15,14 @@ class Contactmoment implements GUI
         $this->phpviewDirectory = $bootstrap->resource('phpview')->make('contactmoment');
     }
 
-    public function importCalendarEvents() : int
+    public function importCalendarEvents(): int
     {
         return $this->user->importCalendarEvents();
     }
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('^/contactmoment/import$', function() : \pulledbits\Router\Route {
+        $router->addRoute('^/contactmoment/import$', function (): \pulledbits\Router\Route {
             return new Contactmoment\Import($this, $this->phpviewDirectory);
         });
     }
