@@ -17,7 +17,7 @@ final class User
 
     public function importCalendarEvents(): int
     {
-        $details = $this->details();
+        $details = $this->server->getUserDetails();
 
         if ($details->extra['employee'] === false) {
             return 0;
@@ -49,11 +49,6 @@ final class User
         $this->schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
 
         return $count;
-    }
-
-    private function details(): \League\OAuth1\Client\Server\User
-    {
-        return $this->server->getUserDetails();
     }
 
     private function convertToSQLDateTime(string $icaldatetime): string
