@@ -3,21 +3,20 @@
 
 namespace rikmeijer\Teach\GUI;
 
-
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\Router\Router;
-use rikmeijer\Teach\PHPViewDirectoryFactory;
+use rikmeijer\Teach\Bootstrap;
 use rikmeijer\Teach\PHPviewEndPoint;
 
 class QR
 {
     private $phpviewDirectory;
 
-    public function __construct(PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(Bootstrap $bootstrap)
     {
-        $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
+        $this->phpviewDirectory = $bootstrap->resource('phpview')->make('');
         $this->phpviewDirectory->registerHelper('qr', λize($this, 'generate'));
     }
 
@@ -56,6 +55,6 @@ class QR
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
-    $qrGUI = new QR($bootstrap->resource('phpview'));
+    $qrGUI = new QR($bootstrap);
     $router->addRoute('^/qr', λize($qrGUI, 'makeRoute'));
 };

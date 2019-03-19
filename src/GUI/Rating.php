@@ -7,6 +7,7 @@ use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\Router\Router;
 use pulledbits\View\Directory;
+use rikmeijer\Teach\Bootstrap;
 use rikmeijer\Teach\CachedEndPoint;
 use rikmeijer\Teach\ImagePngEndPoint;
 use rikmeijer\Teach\PHPViewDirectoryFactory;
@@ -18,11 +19,11 @@ class Rating
     private $cache;
     private $phpviewDirectory;
 
-    public function __construct(\League\Flysystem\FilesystemInterface $assets, CacheInterface $cache, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(Bootstrap $bootstrap)
     {
-        $this->assets = $assets;
-        $this->cache = $cache;
-        $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
+        $this->assets = $bootstrap->resource('assets');
+        $this->cache = $bootstrap->resource('cache');
+        $this->phpviewDirectory = $bootstrap->resource('phpview')->make('');
     }
 
     public function readImage(string $imageName) : string {
@@ -64,11 +65,6 @@ class Rating
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
-    $publicAssetsFileSystem = $bootstrap->resource('assets');
-    $cache = $bootstrap->resource('cache');
-    $phpviewDirectoryFactory = $bootstrap->resource('phpview');
-
-    $ratingGUI = new Rating($publicAssetsFileSystem, $cache, $phpviewDirectoryFactory);
-
+    $ratingGUI = new Rating($bootstrap);
     $router->addRoute('^/rating/(?<value>(N|[\d\.]+))$', λize($ratingGUI, 'makeRoute'));
 };

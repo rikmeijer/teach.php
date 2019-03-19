@@ -2,18 +2,16 @@
 namespace rikmeijer\Teach\GUI;
 
 use pulledbits\Router\Router;
-use rikmeijer\Teach\PHPViewDirectoryFactory;
-use rikmeijer\Teach\User;
 
 class Contactmoment
 {
     private $user;
     private $phpviewDirectory;
 
-    public function __construct(User $user, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(\rikmeijer\Teach\Bootstrap $bootstrap)
     {
-        $this->user = $user;
-        $this->phpviewDirectory = $phpviewDirectoryFactory->make('contactmoment');
+        $this->user = $bootstrap->resource('user');
+        $this->phpviewDirectory = $bootstrap->resource('phpview')->make('contactmoment');
     }
 
     public function importCalendarEvents() : int
@@ -27,6 +25,6 @@ class Contactmoment
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
-    $gui = new Contactmoment($bootstrap->resource('user'), $bootstrap->resource('phpview'));
+    $gui = new Contactmoment($bootstrap);
     $router->addRoute('^/contactmoment/import$', λize($gui, 'makeRouteImport'));
 };

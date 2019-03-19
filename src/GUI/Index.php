@@ -3,17 +3,13 @@
 
 namespace rikmeijer\Teach\GUI;
 
-
 use Psr\Http\Message\ServerRequestInterface;
-use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\Router\Router;
 use pulledbits\View\Directory;
 use rikmeijer\Teach\Contactmoment;
-use rikmeijer\Teach\PHPViewDirectoryFactory;
 use rikmeijer\Teach\PHPviewEndPoint;
-use rikmeijer\Teach\SSO;
 
 final class Index
 {
@@ -21,11 +17,11 @@ final class Index
     private $schema;
     private $phpviewDirectory;
 
-    public function __construct(SSO $server, Schema $schema, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(\rikmeijer\Teach\Bootstrap $bootstrap)
     {
-        $this->server = $server;
-        $this->schema = $schema;
-        $this->phpviewDirectory = $phpviewDirectoryFactory->make('');
+        $this->server = $bootstrap->resource('sso');
+        $this->schema = $bootstrap->resource('database');
+        $this->phpviewDirectory = $bootstrap->resource('phpview')->make('');
     }
 
     public function retrieveModules(): array
@@ -80,8 +76,6 @@ final class Index
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
-    $server = $bootstrap->resource('sso');
-    $schema = $bootstrap->resource('database');
-    $indexGUI = new Index($server, $schema, $bootstrap->resource('phpview'));
+    $indexGUI = new Index($bootstrap);
     $router->addRoute('^/$', λize($indexGUI, 'makeRoute'));
 };

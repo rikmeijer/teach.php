@@ -2,14 +2,10 @@
 
 
 namespace rikmeijer\Teach\GUI;
-
-use Aura\Session\Session;
-use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\Router;
 use rikmeijer\Teach\Contactmoment;
 use rikmeijer\Teach\GUI\Feedback\Supply;
 use rikmeijer\Teach\GUI\Feedback\View;
-use rikmeijer\Teach\PHPViewDirectoryFactory;
 
 final class Feedback
 {
@@ -17,11 +13,11 @@ final class Feedback
     private $schema;
     private $phpviewDirectoryFactory;
 
-    public function __construct(Session $session, Schema $schema, PHPViewDirectoryFactory $phpviewDirectoryFactory)
+    public function __construct(\rikmeijer\Teach\Bootstrap $bootstrap)
     {
-        $this->session = $session;
-        $this->schema = $schema;
-        $this->phpviewDirectoryFactory = $phpviewDirectoryFactory;
+        $this->session = $bootstrap->resource('session');
+        $this->schema = $bootstrap->resource('database');
+        $this->phpviewDirectoryFactory = $bootstrap->resource('phpview');
     }
 
     public function verifyCSRFToken(string $CSRFToken) : bool
@@ -44,8 +40,7 @@ final class Feedback
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
-    $feedbackGUI = new Feedback($bootstrap->resource('session'), $bootstrap->resource('database'), $bootstrap->resource('phpview'));
-
+    $feedbackGUI = new Feedback($bootstrap);
     $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', λize($feedbackGUI, 'makeRouteSupply'));
     $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', λize($feedbackGUI, 'makeRouteView'));
 };

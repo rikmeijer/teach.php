@@ -3,12 +3,12 @@
 
 namespace rikmeijer\Teach\GUI;
 
-
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\Router\Router;
+use rikmeijer\Teach\Bootstrap;
 use rikmeijer\Teach\ClosureEndPoint;
 use rikmeijer\Teach\SeeOtherEndPoint;
 
@@ -17,10 +17,10 @@ class SSO
     private $session;
     private $server;
 
-    public function __construct(\League\OAuth1\Client\Server\Server $server, \Aura\Session\Session $session)
+    public function __construct(Bootstrap $bootstrap)
     {
-        $this->server = $server;
-        $this->session = $session;
+        $this->server = $bootstrap->resource('oauth');
+        $this->session = $bootstrap->resource('session');
     }
 
 
@@ -104,7 +104,7 @@ class SSO
 }
 
 return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
-    $sso = new \rikmeijer\Teach\GUI\SSO($bootstrap->resource('oauth'), $bootstrap->resource('session'));
+    $sso = new \rikmeijer\Teach\GUI\SSO($bootstrap);
 
     $router->addRoute('^/sso/authorize', λize($sso, 'makeRouteAuthorize'));
     $router->addRoute('^/sso/callback', λize($sso, 'makeRouteAuthorized'));
