@@ -5,6 +5,6 @@ return [
     'driver' => 'pdo_mysql',
     'host' => $config['HOST'],
     'dbname' => $config['DATABASE'],
-    'user' =>  $config['USERNAME'],
+    'user' => $config['USERNAME'],
     'password' => $config['PASSWORD']
 ];

@@ -37,7 +37,10 @@ class CachedEndPoint extends RouteEndPointDecorator
 
             private function responseBody(): StreamInterface
             {
-                return $this->responseBody = ($this->responseBody ?? $this->wrappedEndPoint->respond(new Response())->getBody());
+                if ($this->responseBody !== null) {
+                    return $this->responseBody;
+                }
+                return $this->responseBody = $this->wrappedEndPoint->respond(new Response())->getBody();
             }
 
             /**
@@ -236,6 +239,14 @@ class CachedEndPoint extends RouteEndPointDecorator
 
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        return $psrResponse->withHeader('Last-Modified', $this->lastModified->format(DATE_RFC7231))->withHeader('Etag', $this->eTag)->withHeader('Cache-Control', 'public')->withBody($this->suspendedResponseBody);
+        $headers = [
+            'Last-Modified' => $this->lastModified->format(DATE_RFC7231),
+            'Etag' => $this->eTag,
+            'Cache-Control' => 'public'
+        ];
+        foreach ($headers as $header => $value) {
+            $psrResponse = $psrResponse->withHeader($header, $value);
+        }
+        return parent::respond($psrResponse->withBody($this->suspendedResponseBody));
     }
 }

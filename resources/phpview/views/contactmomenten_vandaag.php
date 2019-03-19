@@ -1,6 +1,6 @@
-<?php if (count($contactmomenten) === 0): ?>
+<?php if (count($contactmomenten) === 0) : ?>
     <p>Geen <?= $this->escape(strtolower($caption)); ?></p>
-<?php else: ?>
+<?php else : ?>
     <table>
         <caption><?= $this->escape($caption); ?></caption>
         <thead>
@@ -15,12 +15,12 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($contactmomenten as $contactmoment): ?>
-            <?php if ($contactmoment->active): ?>
+        <?php foreach ($contactmomenten as $contactmoment) : ?>
+            <?php if ($contactmoment->active) : ?>
                 <tr class="active">
-            <?php elseif ($contactmoment->past): ?>
+            <?php elseif ($contactmoment->past) : ?>
                 <tr class="past">
-            <?php else: ?>
+            <?php else : ?>
                 <tr>
             <?php endif; ?>
             <td><?= $this->escape($contactmoment->modulenaam); ?></td>

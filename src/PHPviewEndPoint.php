@@ -18,5 +18,4 @@ class PHPviewEndPoint implements RouteEndPoint
     {
         return $psrResponse->withBody(\GuzzleHttp\Psr7\stream_for($this->phpview->prepare()->capture()));
     }
-
 }

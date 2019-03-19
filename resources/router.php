@@ -1,7 +1,8 @@
 <?php
+
 namespace rikmeijer\Teach;
 
-return function(\rikmeijer\Teach\Bootstrap $bootstrap) {
+return function (\rikmeijer\Teach\Bootstrap $bootstrap) {
     $router = new \pulledbits\Router\Router([]);
 
     $routesPath = $bootstrap->config('ROUTER')['path'] . DIRECTORY_SEPARATOR;

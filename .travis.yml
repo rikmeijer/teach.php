@@ -1,7 +1,7 @@
 language: php
 before_install:
-- phpenv config-add travis.php.ini
+  - phpenv config-add travis.php.ini
 install:
-- composer install
+  - composer install
 php:
-- '7.2'
+  - '7.2'

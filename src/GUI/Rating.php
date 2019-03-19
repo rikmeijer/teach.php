@@ -41,8 +41,22 @@ class Rating implements GUI
 
                 public function handleRequest(ServerRequestInterface $request): RouteEndPoint
                 {
-                    $eTag = md5(($request->getAttribute('value') === 'N' ? null : $request->getAttribute('value')) . '500' . '100' . '5');
-                    return new CachedEndPoint(new ImagePngEndPoint(new PHPviewEndPoint($this->phpviewDirectory->load('rating', ['ratingwaarde' => $request->getAttribute('value') == 'N' ? null : $request->getAttribute('value'), 'ratingWidth' => 500, 'ratingHeight' => 100, 'repetition' => 5, 'star' => $this->gui->readImage('star.png'), 'unstar' => $this->gui->readImage('unstar.png'), 'nostar' => $this->gui->readImage('nostar.png')]))), $this->gui->eTag($eTag), $eTag);
+                    if ($request->getAttribute('value') === 'N') {
+                        $waarde = null;
+                    } else {
+                        $waarde = $request->getAttribute('value');
+                    }
+                    $eTag = md5($waarde . '500' . '100' . '5');
+                    $phpview = new PHPviewEndPoint($this->phpviewDirectory->load('rating', [
+                        'ratingwaarde' => $waarde,
+                        'ratingWidth' => 500,
+                        'ratingHeight' => 100,
+                        'repetition' => 5,
+                        'star' => $this->gui->readImage('star.png'),
+                        'unstar' => $this->gui->readImage('unstar.png'),
+                        'nostar' => $this->gui->readImage('nostar.png')
+                    ]));
+                    return new CachedEndPoint(new ImagePngEndPoint($phpview), $this->gui->eTag($eTag), $eTag);
                 }
             };
         });

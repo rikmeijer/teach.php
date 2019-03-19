@@ -3,7 +3,6 @@
 
 namespace rikmeijer\Teach;
 
-
 use pulledbits\ActiveRecord\Entity;
 use pulledbits\ActiveRecord\Schema;
 
@@ -16,22 +15,25 @@ final class Contactmoment
         $this->record = $entity;
     }
 
-    static function wrapAround(Entity $entity): self
+    public static function wrapAround(Entity $entity): self
     {
         return new self($entity);
     }
 
-    static function readByModuleName(Schema $schema, string $owner, string $moduleNaam): array
+    public static function readByModuleName(Schema $schema, string $owner, string $moduleNaam): array
     {
-        return array_map([__CLASS__, 'wrapAround'], $schema->read("contactmoment_module", [], ["modulenaam" => $moduleNaam, "owner" => $owner]));
+        return array_map(
+            [__CLASS__, 'wrapAround'],
+            $schema->read("contactmoment_module", [], ["modulenaam" => $moduleNaam, "owner" => $owner])
+        );
     }
 
-    static function readVandaag(Schema $schema, string $owner): array
+    public static function readVandaag(Schema $schema, string $owner): array
     {
         return array_map([__CLASS__, 'wrapAround'], $schema->read('contactmoment_vandaag', [], ["owner" => $owner]));
     }
 
-    static function read(Schema $schema, string $identifier): self
+    public static function read(Schema $schema, string $identifier): self
     {
         $contactmoments = $schema->read('contactmoment', [], ['id' => $identifier]);
         if (count($contactmoments) === 0) {
@@ -107,17 +109,23 @@ final class Contactmoment
     }
 
 
+    private function convertToDateTime(string $date): \DateTime
+    {
+        try {
+            return new \DateTime($date);
+        } catch (\Exception $e) {
+            return $date;
+        }
+    }
+
     public function __get(string $name)
     {
         $value = $this->record->$name;
         switch ($name) {
             case 'starttijd':
+                return $this->convertToDateTime($value);
             case 'eindtijd':
-                try {
-                    return new \DateTime($value);
-                } catch (\Exception $e) {
-                    return $value;
-                }
+                return $this->convertToDateTime($value);
 
             case 'active':
                 return strtotime($this->record->starttijd) <= time() && strtotime($this->record->starttijd) >= time();

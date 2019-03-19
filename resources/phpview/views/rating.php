@@ -16,7 +16,18 @@ $starHeight = $ratingHeight;
 
 if ($ratingwaarde === null) {
     for ($offset = 0; $offset < $repetition; $offset++) {
-        imagecopyresampled($im, $nostar, $starWidth * $offset, ($ratingHeight / 2) - ($ratingHeight / 2), 0, 0, $starWidth, $ratingHeight, $sourceWidth, $sourceHeight);
+        imagecopyresampled(
+            $im,
+            $nostar,
+            $starWidth * $offset,
+            ($ratingHeight / 2) - ($ratingHeight / 2),
+            0,
+            0,
+            $starWidth,
+            $ratingHeight,
+            $sourceWidth,
+            $sourceHeight
+        );
     }
 } else {
     for ($offset = 0; $offset < $repetition; $offset++) {
@@ -25,9 +36,21 @@ if ($ratingwaarde === null) {
         } else {
             $source = $unstar;
         }
-        imagecopyresampled($im, $source, $starWidth * $offset, ($ratingHeight / 2) - ($ratingHeight / 2), 0, 0, $starWidth, $ratingHeight, $sourceWidth, $sourceHeight);
+        imagecopyresampled(
+            $im,
+            $source,
+            $starWidth * $offset,
+            ($ratingHeight / 2) - ($ratingHeight / 2),
+            0,
+            0,
+            $starWidth,
+            $ratingHeight,
+            $sourceWidth,
+            $sourceHeight
+        );
     }
 }
+
 
 imagepng($im, null, 0);
 imagedestroy($im);

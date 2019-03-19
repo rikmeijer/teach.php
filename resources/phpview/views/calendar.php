@@ -1,1 +1,1 @@
-<?=$calendar->render();?>
+<?= $calendar->render(); ?>

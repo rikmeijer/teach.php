@@ -3,7 +3,6 @@
 
 namespace rikmeijer\Teach\GUI\Feedback;
 
-
 use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\View\Directory;
@@ -26,6 +25,9 @@ class View implements Route
         if ($contactmoment->id === null) {
             return \pulledbits\Router\ErrorFactory::makeInstance(404);
         }
-        return new \rikmeijer\Teach\PHPviewEndPoint($this->phpviewDirectory->load('feedback', ['contactmoment' => $contactmoment]));
+        return new \rikmeijer\Teach\PHPviewEndPoint($this->phpviewDirectory->load(
+            'feedback',
+            ['contactmoment' => $contactmoment]
+        ));
     }
 }

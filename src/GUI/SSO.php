@@ -63,11 +63,16 @@ class SSO implements GUI
                 {
                     $queryParams = $request->getQueryParams();
 
-                    if (array_key_exists('oauth_token', $queryParams) && array_key_exists('oauth_verifier', $queryParams)) {
-                        $this->gui->authorizeTokenCredentials($queryParams['oauth_token'], $queryParams['oauth_verifier']);
-                        return new SeeOtherEndPoint('/');
-                    } else {
+                    if (array_key_exists('oauth_token', $queryParams) === false) {
                         return ErrorFactory::makeInstance(400);
+                    } elseif (array_key_exists('oauth_verifier', $queryParams) === false) {
+                        return ErrorFactory::makeInstance(400);
+                    } else {
+                        $this->gui->authorizeTokenCredentials(
+                            $queryParams['oauth_token'],
+                            $queryParams['oauth_verifier']
+                        );
+                        return new SeeOtherEndPoint('/');
                     }
                 }
             };

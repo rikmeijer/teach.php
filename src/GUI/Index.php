@@ -40,7 +40,10 @@ final class Index implements GUI
 
                 public function handleRequest(ServerRequestInterface $request): RouteEndPoint
                 {
-                    return new PHPviewEndPoint($this->phpviewDirectory->load('welcome', ['modules' => $this->gui->retrieveModules(), 'contactmomenten' => $this->gui->retrieveContactmomenten()]));
+                    return new PHPviewEndPoint($this->phpviewDirectory->load('welcome', [
+                        'modules' => $this->gui->retrieveModules(),
+                        'contactmomenten' => $this->gui->retrieveContactmomenten()
+                    ]));
                 }
             };
         });
@@ -49,8 +52,9 @@ final class Index implements GUI
     public function retrieveModules(): array
     {
         $modules = [];
+        $userId = $this->server->getUserDetails()->uid;
         foreach ($this->schema->read('module', [], []) as $module) {
-            $modulecontactmomenten = Contactmoment::readByModuleName($this->schema, $this->server->getUserDetails()->uid, $module->naam);
+            $modulecontactmomenten = Contactmoment::readByModuleName($this->schema, $userId, $module->naam);
 
             if (count($modulecontactmomenten) > 0) {
                 $module->contains(['contactmomenten' => $modulecontactmomenten]);

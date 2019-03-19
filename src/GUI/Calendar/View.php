@@ -1,13 +1,12 @@
 <?php
 
-
 namespace rikmeijer\Teach\GUI\Calendar;
-
 
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\View\Directory;
+use rikmeijer\Teach\CalendarEndPoint;
 
 class View implements Route
 {
@@ -23,6 +22,9 @@ class View implements Route
     public function handleRequest(ServerRequestInterface $request): RouteEndPoint
     {
         $calendar = $this->gui->retrieveCalendar($request->getAttribute('calendarIdentifier'));
-        return new CalendarEndPoint(new PHPviewEndPoint($this->phpviewDirectory->load('calendar', ['calendar' => $calendar])), $request->getAttribute('calendarIdentifier'));
+        $phpview = new PHPviewEndPoint(
+            $this->phpviewDirectory->load('calendar', ['calendar' => $calendar])
+        );
+        return new CalendarEndPoint($phpview, $request->getAttribute('calendarIdentifier'));
     }
 }
