@@ -5,25 +5,23 @@ namespace rikmeijer\Teach;
 final class User
 {
     private $session;
-    private $server;
+    private $sso;
     private $schema;
 
     public function __construct(Bootstrap $bootstrap)
     {
         $this->session = $bootstrap->resource('session');
         $this->schema = $bootstrap->resource('database');
-        $this->server = $bootstrap->resource('sso');
+        $this->sso = $bootstrap->resource('sso');
     }
 
     public function importCalendarEvents(): int
     {
-        $details = $this->server->getUserDetails();
-
-        if ($details->extra['employee'] === false) {
+        if ($this->sso->extra['employee'] === false) {
             return 0;
         }
 
-        $userId = $details->uid;
+        $userId = $this->sso->uid;
         $icalReader = new \ICal('http://rooster.avans.nl/gcal/D' . $userId);
         $count = 0;
         foreach ($icalReader->events() as $event) {
