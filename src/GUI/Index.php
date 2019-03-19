@@ -13,13 +13,13 @@ use rikmeijer\Teach\PHPviewEndPoint;
 
 final class Index implements GUI
 {
-    private $sso;
+    private $user;
     private $schema;
     private $phpviewDirectory;
 
     public function __construct(\rikmeijer\Teach\Bootstrap $bootstrap)
     {
-        $this->sso = $bootstrap->resource('sso');
+        $this->user = $bootstrap->resource('user');
         $this->schema = $bootstrap->resource('database');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
     }
@@ -52,7 +52,7 @@ final class Index implements GUI
     public function retrieveModules(): array
     {
         $modules = [];
-        $userId = $this->sso->uid;
+        $userId = $this->user->uid;
         foreach ($this->schema->read('module', [], []) as $module) {
             $modulecontactmomenten = Contactmoment::readByModuleName($this->schema, $userId, $module->naam);
 
@@ -78,6 +78,6 @@ final class Index implements GUI
 
     public function retrieveContactmomenten()
     {
-        return Contactmoment::readVandaag($this->schema, $this->sso->uid);
+        return Contactmoment::readVandaag($this->schema, $this->user->uid);
     }
 }

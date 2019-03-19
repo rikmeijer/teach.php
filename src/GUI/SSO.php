@@ -2,6 +2,9 @@
 
 namespace rikmeijer\Teach\GUI;
 
+use Avans\OAuth\Web;
+use League\OAuth1\Client\Credentials\TemporaryCredentials;
+use League\OAuth1\Client\Credentials\TokenCredentials;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\Route;
@@ -10,26 +13,23 @@ use rikmeijer\Teach\Bootstrap;
 use rikmeijer\Teach\ClosureEndPoint;
 use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\SeeOtherEndPoint;
+use rikmeijer\Teach\User;
 
 class SSO implements GUI
 {
     private $session;
-    private $server;
+
+    /**
+     * @var User
+     */
+    private $user;
 
     public function __construct(Bootstrap $bootstrap)
     {
-        $this->server = $bootstrap->resource('oauth');
+        $this->user = $bootstrap->resource('user');
         $this->session = $bootstrap->resource('session');
     }
 
-    public function logout(): void
-    {
-        if ($this->session->isStarted()) {
-            $this->session->getSegment('token')->clear();
-            $this->session->clear();
-            $this->session->destroy();
-        }
-    }
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
@@ -82,7 +82,7 @@ class SSO implements GUI
             {
                 private $gui;
 
-                public function __construct(\rikmeijer\Teach\GUI\Index $gui, Directory $phpviewDirectory)
+                public function __construct(\rikmeijer\Teach\GUI\SSO $gui)
                 {
                     $this->gui = $gui;
                 }
@@ -98,19 +98,15 @@ class SSO implements GUI
 
     public function acquireTemporaryCredentials(): string
     {
-        $temporaryCredentials = $this->server->getTemporaryCredentials();
-        $this->session->getSegment('token')->set('temporary_credentials', serialize($temporaryCredentials));
-        return $this->server->getAuthorizationUrl($temporaryCredentials);
+        return $this->user->acquireTemporaryCredentials();
     }
 
     public function authorizeTokenCredentials(string $oauthToken, string $oauthVerifier): void
     {
-        $temporaryCredentialsSerialized = $this->session->getSegment('token')->get('temporary_credentials');
-        if ($temporaryCredentialsSerialized !== null) {
-            $temporaryCredentials = unserialize($temporaryCredentialsSerialized);
-            $tokenCredentials = $this->server->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
-            $this->session->getSegment('token')->set('temporary_credentials', null);
-            $this->session->getSegment('token')->set('credentials', serialize($tokenCredentials));
-        }
+        $this->user->authorizeTokenCredentials($oauthToken, $oauthVerifier);
+    }
+    public function logout(): void
+    {
+        $this->user->logout();
     }
 }

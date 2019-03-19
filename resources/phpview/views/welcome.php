@@ -7,6 +7,7 @@
     <h1>Overzicht contactmomenten</h1>
     <ul class="horizontal-menu">
         <li><a href="<?= $this->url('/contactmoment/import'); ?>" target="_blank">Importeer contactmomenten</a></li>
+        <li><a href="<?= $this->url('/logout'); ?>" target="_blank">Afmelden</a></li>
     </ul>
 </header>
 
