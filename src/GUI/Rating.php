@@ -22,7 +22,7 @@ class Rating implements GUI
     {
         $this->assets = $bootstrap->resource('assets');
         $this->cache = $bootstrap->resource('cache');
-        $this->phpviewDirectory = $bootstrap->resource('phpview')->make('');
+        $this->phpviewDirectory = $bootstrap->resource('phpview');
     }
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void

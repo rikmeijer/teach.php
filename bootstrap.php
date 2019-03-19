@@ -51,9 +51,9 @@ namespace rikmeijer\Teach {
             return $resources[$resource] = $this->bootstrap($this->resourcesPath . DIRECTORY_SEPARATOR . $resource . '.php');
         }
 
-        public function bootstrap(string $file)
+        public function bootstrap(string $file, array $args = [])
         {
-            return (require $file)($this);
+            return (require $file)($this, ...$args);
         }
 
         public function config(string $section): array

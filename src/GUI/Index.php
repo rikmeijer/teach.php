@@ -21,7 +21,7 @@ final class Index implements GUI
     {
         $this->server = $bootstrap->resource('sso');
         $this->schema = $bootstrap->resource('database');
-        $this->phpviewDirectory = $bootstrap->resource('phpview')->make('');
+        $this->phpviewDirectory = $bootstrap->resource('phpview');
     }
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void

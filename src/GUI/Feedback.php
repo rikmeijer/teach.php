@@ -12,13 +12,13 @@ final class Feedback implements GUI
 {
     private $session;
     private $schema;
-    private $phpviewDirectoryFactory;
+    private $phpviewDirectory;
 
     public function __construct(\rikmeijer\Teach\Bootstrap $bootstrap)
     {
         $this->session = $bootstrap->resource('session');
         $this->schema = $bootstrap->resource('database');
-        $this->phpviewDirectoryFactory = $bootstrap->resource('phpview');
+        $this->phpviewDirectory = $bootstrap->resource('phpview');
     }
 
     public function verifyCSRFToken(string $CSRFToken): bool
@@ -34,10 +34,10 @@ final class Feedback implements GUI
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
         $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', function (): \pulledbits\Router\Route {
-            return new Supply($this, $this->phpviewDirectoryFactory->make(''));
+            return new Supply($this, $this->phpviewDirectory->make(''));
         });
         $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', function (): \pulledbits\Router\Route {
-            return new View($this, $this->phpviewDirectoryFactory->make(''));
+            return new View($this, $this->phpviewDirectory->make(''));
         });
     }
 }

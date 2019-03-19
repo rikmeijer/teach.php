@@ -14,7 +14,7 @@ final class Calendar implements GUI
     public function __construct(\rikmeijer\Teach\Bootstrap $bootstrap)
     {
         $this->schema = $bootstrap->resource('database');
-        $this->phpviewDirectory = $bootstrap->resource('phpview')->make('');
+        $this->phpviewDirectory = $bootstrap->resource('phpview');
     }
 
     public function retrieveCalendar(string $calendarIdentifier): \Eluceo\iCal\Component\Calendar
