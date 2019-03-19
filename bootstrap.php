@@ -24,16 +24,16 @@ namespace {
         }
         return implode(DIRECTORY_SEPARATOR, $absolutes);
     }
+
+    function fn() : Closure {
+        $args = func_get_args();
+        return function() use ($args) {
+            return call_user_func_array($args, func_get_args());
+        };
+    }
 }
 
 namespace rikmeijer\Teach {
-
-    use Aura\Session\Session;
-    use Psr\Http\Message\ServerRequestInterface;
-    use Psr\SimpleCache\CacheInterface;
-    use pulledbits\Router\ErrorFactory;
-    use pulledbits\Router\RouteEndPoint;
-
 
     final class Bootstrap
     {

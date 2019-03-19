@@ -7,16 +7,21 @@ use Aura\Session\Session;
 use pulledbits\ActiveRecord\Schema;
 use pulledbits\Router\Router;
 use rikmeijer\Teach\Contactmoment;
+use rikmeijer\Teach\GUI\Feedback\Supply;
+use rikmeijer\Teach\GUI\Feedback\View;
+use rikmeijer\Teach\PHPViewDirectoryFactory;
 
 final class Feedback
 {
     private $session;
     private $schema;
+    private $phpviewDirectoryFactory;
 
-    public function __construct(Session $session, Schema $schema)
+    public function __construct(Session $session, Schema $schema, PHPViewDirectoryFactory $phpviewDirectoryFactory)
     {
         $this->session = $session;
         $this->schema = $schema;
+        $this->phpviewDirectoryFactory = $phpviewDirectoryFactory;
     }
 
     public function verifyCSRFToken(string $CSRFToken) : bool
@@ -28,58 +33,30 @@ final class Feedback
     {
         return Contactmoment::read($this->schema, $contactmomentIdentifier);
     }
-}
 
-return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
-    $session = $bootstrap->resource('session');
-    $schema = $bootstrap->resource('database');
-    $phpviewDirectoryFactory = $bootstrap->resource('phpview');
-
-    $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', function(\Psr\Http\Message\ServerRequestInterface $request) use ($session, $schema, $phpviewDirectoryFactory): \pulledbits\Router\RouteEndPoint {
-
-        $feedbackGUI = new Feedback($session, $schema);
-        $phpviewDirectory = $phpviewDirectoryFactory->make('feedback');
-
-        $contactmoment = $feedbackGUI->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
-        if ($contactmoment->id === null) {
-            return \pulledbits\Router\ErrorFactory::makeInstance('404');
-        }
-
+    public function supply(\Psr\Http\Message\ServerRequestInterface $request) : \pulledbits\Router\RouteEndPoint {
+        $view = new Supply($this, $this->phpviewDirectoryFactory->make('feedback'));
         switch ($request->getMethod()) {
             case 'GET':
-                $ipRating = $contactmoment->findRatingByIP(($request->getServerParams())['REMOTE_ADDR']);
-
-                $query = $request->getQueryParams();
-                if (array_key_exists('rating', $query)) {
-                    $rating = $query['rating'];
-                } else {
-                    $rating = $ipRating->waarde;
-                }
-
-                return new \rikmeijer\Teach\PHPviewEndPoint($phpviewDirectory->load('supply', ['rating' => $rating, 'explanation' => $ipRating->inhoud]));
+                return $view->handleGet($request);
 
             case 'POST':
-                $parsedBody = $request->getParsedBody();
-                if ($feedbackGUI->verifyCSRFToken($parsedBody['__csrf_value']) === false) {
-                    return ErrorFactory::makeInstance('403');
-                }
-                $contactmoment->rate($_SERVER['REMOTE_ADDR'], $parsedBody['rating'], $parsedBody['explanation']);
-                return new \rikmeijer\Teach\PHPviewEndPoint($phpviewDirectory->load('processed'));
-
+                return $view->handlePost($request);
             default:
                 return \pulledbits\Router\ErrorFactory::makeInstance('405');
         }
-    });
-    $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', function(\Psr\Http\Message\ServerRequestInterface $request) use ($session, $schema, $phpviewDirectoryFactory): \pulledbits\Router\RouteEndPoint {
-        $feedbackGUI = new Feedback($session, $schema);
-        $phpviewDirectory = $phpviewDirectoryFactory->make('');
+    }
 
-        $contactmoment = $feedbackGUI->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
-        if ($contactmoment->id === null) {
-            return \pulledbits\Router\ErrorFactory::makeInstance(404);
-        }
-        return new \rikmeijer\Teach\PHPviewEndPoint($phpviewDirectory->load('feedback', [
-            'contactmoment' => $contactmoment
-        ]));
-    });
+    public function view(\Psr\Http\Message\ServerRequestInterface $request) : \pulledbits\Router\RouteEndPoint {
+        $view = new View($this, $this->phpviewDirectoryFactory->make(''));
+
+        return $view->handleGet($request);
+    }
+}
+
+return function(\rikmeijer\Teach\Bootstrap $bootstrap, Router $router) : void {
+    $feedbackGUI = new Feedback($bootstrap->resource('session'), $bootstrap->resource('database'), $bootstrap->resource('phpview'));
+
+    $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)/supply$', fn($feedbackGUI, 'supply'));
+    $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', fn($feedbackGUI, 'view'));
 };
