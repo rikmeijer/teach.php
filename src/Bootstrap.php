@@ -2,10 +2,15 @@
 
 namespace rikmeijer\Teach;
 
-require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
-
 final class Bootstrap
 {
+    private $configurationPath;
+
+    public function __construct(string $configurationPath)
+    {
+        $this->configurationPath = $configurationPath;
+    }
+
     public function resource(string $resource)
     {
         static $resources = [];
@@ -20,13 +25,12 @@ final class Bootstrap
     {
         static $config;
         if (isset($config) === false) {
-            $defaults = (require __DIR__ . DIRECTORY_SEPARATOR . 'config.defaults.php');
-            $environment = (require __DIR__ . DIRECTORY_SEPARATOR . 'config.php');
+            $defaults = (require $this->configurationPath . DIRECTORY_SEPARATOR . 'config.defaults.php');
+            $environment = (require $this->configurationPath . DIRECTORY_SEPARATOR . 'config.php');
             $config = array_merge($defaults, $environment);
         }
         return $config[$section];
     }
 }
 
-return new Bootstrap();
 

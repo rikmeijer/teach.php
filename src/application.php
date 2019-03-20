@@ -14,7 +14,8 @@ return new class
 
     public function __construct()
     {
-        $bootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
+        require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+        $bootstrap = new Bootstrap(dirname(__DIR__));
         $this->router = $bootstrap->resource('router');
     }
 
