@@ -1,1 +1,1 @@
-<?= $calendar->render(); ?>
+<?= $this->calendar($calendarIdentifier)->render(); ?>
