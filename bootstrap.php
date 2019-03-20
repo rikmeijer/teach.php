@@ -2,31 +2,18 @@
 
 namespace rikmeijer\Teach;
 
+require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+
 final class Bootstrap
 {
-    private $autoloader;
-    private $resourcesPath;
-
-    public function __construct()
-    {
-        $this->autoloader = require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
-        $this->resourcesPath = __DIR__ . DIRECTORY_SEPARATOR . 'resources';
-    }
-
     public function resource(string $resource)
     {
         static $resources = [];
         if (array_key_exists($resource, $resources)) {
             return $resources[$resource];
         }
-        return $resources[$resource] = $this->bootstrap(
-            $this->resourcesPath . DIRECTORY_SEPARATOR . $resource . '.php'
-        );
-    }
-
-    public function bootstrap(string $file, array $args = [])
-    {
-        return (require $file)($this, ...$args);
+        $path = $this->config('BOOSTRAP')['path'];
+        return $resources[$resource] = (require $path . DIRECTORY_SEPARATOR . $resource . '.php')($this);
     }
 
     public function config(string $section): array
