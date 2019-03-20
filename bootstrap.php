@@ -68,7 +68,5 @@ namespace rikmeijer\Teach {
         }
     }
 
-    ;
-
     return new Bootstrap();
 }
