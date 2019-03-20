@@ -3,13 +3,10 @@
 
 namespace rikmeijer\Teach\GUI;
 
-use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\Route;
-use pulledbits\Router\RouteEndPoint;
 use pulledbits\View\Directory;
 use rikmeijer\Teach\Contactmoment;
 use rikmeijer\Teach\GUI;
-use rikmeijer\Teach\PHPviewEndPoint;
 
 final class Index implements GUI
 {
@@ -28,19 +25,28 @@ final class Index implements GUI
         $this->phpviewDirectory = $bootstrap->resource('phpview');
 
         $gui = $this;
-        $this->phpviewDirectory->registerHelper('modules', function ()  use ($gui) : array {
-            return $gui->retrieveModules();
-        });
-        $this->phpviewDirectory->registerHelper('contactmomenten', function () use ($gui) : array {
-            return $gui->retrieveContactmomenten();
-        });
+        $this->phpviewDirectory->registerHelper(
+            'modules',
+            function () use ($gui) : array {
+                return $gui->retrieveModules();
+            }
+        );
+        $this->phpviewDirectory->registerHelper(
+            'contactmomenten',
+            function () use ($gui) : array {
+                return $gui->retrieveContactmomenten();
+            }
+        );
     }
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('^/$', function (): Route {
-            return new Index\Index($this->phpviewDirectory);
-        });
+        $router->addRoute(
+            '^/$',
+            function (): Route {
+                return new Index\Index($this->phpviewDirectory);
+            }
+        );
     }
 
     public function retrieveModules(): array
