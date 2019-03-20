@@ -14,8 +14,6 @@ use rikmeijer\Teach\User;
 
 class SSO implements GUI
 {
-    private $session;
-
     /**
      * @var User
      */
@@ -24,7 +22,6 @@ class SSO implements GUI
     public function __construct(Bootstrap $bootstrap)
     {
         $this->user = $bootstrap->resource('user');
-        $this->session = $bootstrap->resource('session');
     }
 
 
