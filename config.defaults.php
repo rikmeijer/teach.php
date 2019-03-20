@@ -1,5 +1,5 @@
 <?php return [
-    'BOOSTRAP' => [
+    'BOOTSTRAP' => [
         'path' => __DIR__ . DIRECTORY_SEPARATOR . 'bootstrap'
     ],
     'ROUTER' => [
