@@ -10,7 +10,7 @@ use pulledbits\Router\RouteEndPoint;
 use rikmeijer\Teach\CachedEndPoint;
 use rikmeijer\Teach\ImagePngEndPoint;
 use rikmeijer\Teach\PHPviewEndPoint;
-use SebastianBergmann\CodeCoverage\Node\Directory;
+use pulledbits\View\Directory;
 
 class Visualize implements Route
 {
@@ -35,10 +35,7 @@ class Visualize implements Route
             'ratingwaarde' => $waarde,
             'ratingWidth' => 500,
             'ratingHeight' => 100,
-            'repetition' => 5,
-            'star' => $this->gui->readImage('star.png'),
-            'unstar' => $this->gui->readImage('unstar.png'),
-            'nostar' => $this->gui->readImage('nostar.png')
+            'repetition' => 5
         ]));
         return new CachedEndPoint(new ImagePngEndPoint($phpview), $this->gui->eTag($eTag), $eTag);
     }

@@ -4,9 +4,9 @@ imagealphablending($im, false);
 imagesavealpha($im, true);
 imagefilledrectangle($im, 0, 0, $ratingWidth, $ratingHeight, imagecolorallocatealpha($im, 255, 255, 255, 127));
 
-$star = imagecreatefromstring($star);
-$unstar = imagecreatefromstring($unstar);
-$nostar = imagecreatefromstring($nostar);
+$star = imagecreatefromstring($this->star());
+$unstar = imagecreatefromstring($this->unstar());
+$nostar = imagecreatefromstring($this->nostar());
 
 $sourceWidth = imagesx($star);
 $sourceHeight = imagesy($star);
