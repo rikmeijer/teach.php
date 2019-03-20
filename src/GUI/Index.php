@@ -15,6 +15,10 @@ final class Index implements GUI
 {
     private $user;
     private $schema;
+
+    /**
+     * @var Directory
+     */
     private $phpviewDirectory;
 
     public function __construct(\pulledbits\Bootstrap\Bootstrap $bootstrap)
@@ -22,30 +26,20 @@ final class Index implements GUI
         $this->user = $bootstrap->resource('user');
         $this->schema = $bootstrap->resource('database');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
+
+        $gui = $this;
+        $this->phpviewDirectory->registerHelper('modules', function ()  use ($gui) : array {
+            return $gui->retrieveModules();
+        });
+        $this->phpviewDirectory->registerHelper('contactmomenten', function () use ($gui) : array {
+            return $gui->retrieveContactmomenten();
+        });
     }
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
         $router->addRoute('^/$', function (): Route {
-            return new class($this, $this->phpviewDirectory) implements Route
-            {
-                private $gui;
-                private $phpviewDirectory;
-
-                public function __construct(\rikmeijer\Teach\GUI\Index $gui, Directory $phpviewDirectory)
-                {
-                    $this->gui = $gui;
-                    $this->phpviewDirectory = $phpviewDirectory;
-                }
-
-                public function handleRequest(ServerRequestInterface $request): RouteEndPoint
-                {
-                    return new PHPviewEndPoint($this->phpviewDirectory->load('welcome', [
-                        'modules' => $this->gui->retrieveModules(),
-                        'contactmomenten' => $this->gui->retrieveContactmomenten()
-                    ]));
-                }
-            };
+            return new Index\Index($this->phpviewDirectory);
         });
     }
 
@@ -58,17 +52,20 @@ final class Index implements GUI
 
             if (count($modulecontactmomenten) > 0) {
                 $module->contains(['contactmomenten' => $modulecontactmomenten]);
-                $module->bind('retrieveRating', function () {
-                    $ratings = [];
-                    foreach ($this->contactmomenten as $modulecontactmoment) {
-                        $ratings[] = $modulecontactmoment->retrieveRating();
+                $module->bind(
+                    'retrieveRating',
+                    function () {
+                        $ratings = [];
+                        foreach ($this->contactmomenten as $modulecontactmoment) {
+                            $ratings[] = $modulecontactmoment->retrieveRating();
+                        }
+                        $numericRatings = array_filter($ratings, 'is_numeric');
+                        if (count($numericRatings) === 0) {
+                            return null;
+                        }
+                        return array_sum($numericRatings) / count($numericRatings);
                     }
-                    $numericRatings = array_filter($ratings, 'is_numeric');
-                    if (count($numericRatings) === 0) {
-                        return null;
-                    }
-                    return array_sum($numericRatings) / count($numericRatings);
-                });
+                );
 
                 $modules[] = $module;
             }

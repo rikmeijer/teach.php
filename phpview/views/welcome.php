@@ -13,7 +13,7 @@
 
 <nav>
     <ul class="horizontal-menu">
-        <?php foreach ($modules as $module) : ?>
+        <?php foreach ($this->modules() as $module) : ?>
             <li><a href="#<?= $this->escape($module->naam); ?>"><?= $this->escape($module->naam); ?></a></li>
         <?php endforeach; ?>
     </ul>
@@ -21,11 +21,11 @@
 <section>
     <?php $this->sub(
         'contactmomenten_vandaag',
-        ['caption' => 'Contactmomenten vandaag', 'contactmomenten' => $contactmomenten]
+        ['caption' => 'Contactmomenten vandaag', 'contactmomenten' => $this->contactmomenten()]
     ); ?>
 </section>
 
-<?php foreach ($modules as $module) : ?>
+<?php foreach ($this->modules() as $module) : ?>
     <section>
         <a name="<?= $this->escape($module->naam); ?>"></a>
         <h2><?= $this->escape($module->naam); ?><img
