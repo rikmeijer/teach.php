@@ -7,7 +7,7 @@ return function (\rikmeijer\Teach\Bootstrap $bootstrap) {
 
     $routesPath = $bootstrap->config('ROUTER')['path'] . DIRECTORY_SEPARATOR;
     foreach (glob($routesPath . '*.php') as $file) {
-        $guiClassName = GUI::class . NAMESPACE_SEPARATOR . str_replace([$routesPath, '.php'], '', $file);
+        $guiClassName = GUI::class . '\\' . str_replace([$routesPath, '.php'], '', $file);
         $gui = new $guiClassName($bootstrap);
         if ($gui instanceof GUI) {
             $gui->addRoutesToRouter($router);
