@@ -2,14 +2,10 @@
 
 namespace rikmeijer\Teach\GUI;
 
-use Psr\Http\Message\ServerRequestInterface;
-use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\Route;
-use pulledbits\Router\RouteEndPoint;
 use \pulledbits\Bootstrap\Bootstrap;
 use rikmeijer\Teach\ClosureEndPoint;
 use rikmeijer\Teach\GUI;
-use rikmeijer\Teach\SeeOtherEndPoint;
 use rikmeijer\Teach\User;
 
 class SSO implements GUI
@@ -24,69 +20,16 @@ class SSO implements GUI
         $this->user = $bootstrap->resource('user');
     }
 
-
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
         $router->addRoute('^/sso/authorize', function (): Route {
-            return new class($this) implements Route
-            {
-                private $gui;
-
-                public function __construct(\rikmeijer\Teach\GUI\SSO $gui)
-                {
-                    $this->gui = $gui;
-                }
-
-                public function handleRequest(ServerRequestInterface $request): RouteEndPoint
-                {
-                    return new SeeOtherEndPoint($this->gui->acquireTemporaryCredentials());
-                }
-            };
+            return new SSO\Authorize($this);
         });
         $router->addRoute('^/sso/callback', function (): Route {
-            return new class($this) implements Route
-            {
-                private $gui;
-
-                public function __construct(\rikmeijer\Teach\GUI\SSO $gui)
-                {
-                    $this->gui = $gui;
-                }
-
-                public function handleRequest(ServerRequestInterface $request): RouteEndPoint
-                {
-                    $queryParams = $request->getQueryParams();
-
-                    if (array_key_exists('oauth_token', $queryParams) === false) {
-                        return ErrorFactory::makeInstance(400);
-                    } elseif (array_key_exists('oauth_verifier', $queryParams) === false) {
-                        return ErrorFactory::makeInstance(400);
-                    } else {
-                        $this->gui->authorizeTokenCredentials(
-                            $queryParams['oauth_token'],
-                            $queryParams['oauth_verifier']
-                        );
-                        return new SeeOtherEndPoint('/');
-                    }
-                }
-            };
+            return new SSO\Authorized($this);
         });
         $router->addRoute('^/logout', function (): Route {
-            return new class($this) implements Route
-            {
-                private $gui;
-
-                public function __construct(\rikmeijer\Teach\GUI\SSO $gui)
-                {
-                    $this->gui = $gui;
-                }
-
-                public function handleRequest(ServerRequestInterface $request): RouteEndPoint
-                {
-                    $this->gui->logout();
-                    return new SeeOtherEndPoint('/');
-                }
-            };
+            return new SSO\Logout($this);
         });
     }
 
