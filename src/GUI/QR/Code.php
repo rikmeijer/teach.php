@@ -5,9 +5,11 @@ namespace rikmeijer\Teach\GUI\QR;
 
 
 use Psr\Http\Message\ServerRequestInterface;
+use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\View\Directory;
+use rikmeijer\Teach\PHPviewEndPoint;
 
 class Code implements Route
 {
