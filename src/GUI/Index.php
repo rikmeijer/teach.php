@@ -24,18 +24,10 @@ final class Index implements GUI
         $this->schema = $bootstrap->resource('database');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
 
-        $gui = $this;
-        $this->phpviewDirectory->registerHelper(
-            'modules',
-            function () use ($gui) : array {
-                return $gui->retrieveModules();
-            }
-        );
+        $this->phpviewDirectory->registerHelper('modules', \Closure::fromCallable([$this, 'retrieveModules']));
         $this->phpviewDirectory->registerHelper(
             'contactmomenten',
-            function () use ($gui) : array {
-                return $gui->retrieveContactmomenten();
-            }
+            \Closure::fromCallable([$this, 'retrieveContactmomenten'])
         );
     }
 
@@ -79,7 +71,7 @@ final class Index implements GUI
         return $modules;
     }
 
-    public function retrieveContactmomenten()
+    public function retrieveContactmomenten(): array
     {
         return Contactmoment::readVandaag($this->schema, $this->user->uid);
     }

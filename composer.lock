@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a1be76ca6306bcb9dddb37da616dc51",
+    "content-hash": "d4143d414348feb53ce53eb7d14a9d22",
     "packages": [
         {
             "name": "aura/session",
@@ -1542,16 +1542,16 @@
         },
         {
             "name": "pulledbits/view",
-            "version": "0.6",
+            "version": "0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pulledbits/view.git",
-                "reference": "48d09c54fdda9f357c3eb00f76167d2c55afe3d0"
+                "reference": "d2f4a7c4fb9bc649e699ca0566ef5619af88edfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/view/zipball/48d09c54fdda9f357c3eb00f76167d2c55afe3d0",
-                "reference": "48d09c54fdda9f357c3eb00f76167d2c55afe3d0",
+                "url": "https://api.github.com/repos/pulledbits/view/zipball/d2f4a7c4fb9bc649e699ca0566ef5619af88edfc",
+                "reference": "d2f4a7c4fb9bc649e699ca0566ef5619af88edfc",
                 "shasum": ""
             },
             "require": {
@@ -1572,7 +1572,7 @@
                 "MIT"
             ],
             "description": "native PHP view engine",
-            "time": "2018-11-28T13:40:01+00:00"
+            "time": "2019-03-20T19:32:30+00:00"
         },
         {
             "name": "symfony/console",

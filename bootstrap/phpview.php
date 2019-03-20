@@ -9,7 +9,7 @@
 
     $directory->registerHelper(
         'url',
-        function (string $path, string ...$unencoded): string {
+        function (\pulledbits\View\TemplateInstance $templateInstance, string $path, string ...$unencoded): string {
             $encoded = array_map('rawurlencode', $unencoded);
             if (strpos($path, '.') === 0) {
                 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) . '/' . $path;
@@ -41,13 +41,13 @@
 
     $directory->registerHelper(
         'form',
-        function (string $method, string $submitValue, string $model) use ($session) : void {
+        function (\pulledbits\View\TemplateInstance $templateInstance, string $method, string $submitValue, string $model) use ($session) : void {
             ?>
-            <form method="<?= $this->escape($method); ?>">
+            <form method="<?= $templateInstance->escape($method); ?>">
                 <input type="hidden" name="__csrf_value"
-                       value="<?= $this->escape($session->getCsrfToken()->getValue()); ?>"/>
+                       value="<?= $templateInstance->escape($session->getCsrfToken()->getValue()); ?>"/>
                 <?= $model; ?>
-                <input type="submit" value="<?= $this->escape($submitValue); ?>"/>
+                <input type="submit" value="<?= $templateInstance->escape($submitValue); ?>"/>
             </form>
             <?php
         }

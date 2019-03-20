@@ -19,9 +19,8 @@ final class Calendar implements GUI
     {
         $this->schema = $bootstrap->resource('database');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
-        $gui = $this;
-        $this->phpviewDirectory->registerHelper('calendar', function(string $calendarIdentifier) use ($gui) : \Eluceo\iCal\Component\Calendar {
-           return $calendar = $gui->retrieveCalendar($calendarIdentifier);
+        $this->phpviewDirectory->registerHelper('calendar', function(\pulledbits\View\TemplateInstance $templateInstance, string $calendarIdentifier) : \Eluceo\iCal\Component\Calendar {
+           return $calendar = $this->retrieveCalendar($calendarIdentifier);
         });
     }
 

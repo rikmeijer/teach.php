@@ -5,6 +5,7 @@ namespace rikmeijer\Teach\GUI;
 use pulledbits\Bootstrap\Bootstrap;
 use pulledbits\Router\Route;
 use pulledbits\View\Directory;
+use pulledbits\View\TemplateInstance;
 use rikmeijer\Teach\GUI;
 
 class Rating implements GUI
@@ -22,16 +23,24 @@ class Rating implements GUI
         $this->cache = $bootstrap->resource('cache');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
 
-        $gui = $this;
-        $this->phpviewDirectory->registerHelper('star', function() use($gui) : string {
-            return $gui->readImage('star.png');
-        });
-        $this->phpviewDirectory->registerHelper('unstar', function() use($gui) : string {
-            return $gui->readImage('unstar.png');
-        });
-        $this->phpviewDirectory->registerHelper('nostar', function() use($gui) : string {
-            return $gui->readImage('nostar.png');
-        });
+        $this->phpviewDirectory->registerHelper(
+            'star',
+            function (TemplateInstance $templateInstance): string {
+                return $this->readImage('star.png');
+            }
+        );
+        $this->phpviewDirectory->registerHelper(
+            'unstar',
+            function (TemplateInstance $templateInstance): string {
+                return $this->readImage('unstar.png');
+            }
+        );
+        $this->phpviewDirectory->registerHelper(
+            'nostar',
+            function (TemplateInstance $templateInstance): string {
+                return $this->readImage('nostar.png');
+            }
+        );
     }
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
