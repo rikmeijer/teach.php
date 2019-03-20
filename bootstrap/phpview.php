@@ -1,4 +1,4 @@
-<?php return function (\rikmeijer\Teach\Bootstrap $bootstrap) {
+<?php return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
     $session = $bootstrap->resource('session');
     $basedir = $bootstrap->config('PHPVIEW')['path'];
 

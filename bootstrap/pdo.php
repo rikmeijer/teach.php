@@ -1,4 +1,4 @@
-<?php return function (\rikmeijer\Teach\Bootstrap $bootstrap) {
+<?php return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
     $config = $bootstrap->config('DB');
     return new \PDO(
         $config['CONNECTION'] . ':host=' . $config['HOST'] . ';dbname=' . $config['DATABASE'],

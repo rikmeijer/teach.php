@@ -1,4 +1,4 @@
-<?php return function (\rikmeijer\Teach\Bootstrap $bootstrap): \Psr\SimpleCache\CacheInterface {
+<?php return function (\pulledbits\Bootstrap\Bootstrap $bootstrap): \Psr\SimpleCache\CacheInterface {
     $config = $bootstrap->config('MEMCACHED');
     $client = new \Memcached();
     $client->addServer($config['host'], $config['port']);

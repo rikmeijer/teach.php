@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\View\Directory;
-use rikmeijer\Teach\Bootstrap;
+use \pulledbits\Bootstrap\Bootstrap;
 use rikmeijer\Teach\CachedEndPoint;
 use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\ImagePngEndPoint;

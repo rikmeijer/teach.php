@@ -14,7 +14,7 @@ final class Feedback implements GUI
     private $schema;
     private $phpviewDirectory;
 
-    public function __construct(\rikmeijer\Teach\Bootstrap $bootstrap)
+    public function __construct(\pulledbits\Bootstrap\Bootstrap $bootstrap)
     {
         $this->session = $bootstrap->resource('session');
         $this->schema = $bootstrap->resource('database');

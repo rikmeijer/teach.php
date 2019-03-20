@@ -3,6 +3,7 @@
 namespace rikmeijer\Teach;
 
 use Psr\Http\Message\ResponseInterface;
+use pulledbits\Bootstrap\Bootstrap;
 
 return new class
 {

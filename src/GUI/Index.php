@@ -17,7 +17,7 @@ final class Index implements GUI
     private $schema;
     private $phpviewDirectory;
 
-    public function __construct(\rikmeijer\Teach\Bootstrap $bootstrap)
+    public function __construct(\pulledbits\Bootstrap\Bootstrap $bootstrap)
     {
         $this->user = $bootstrap->resource('user');
         $this->schema = $bootstrap->resource('database');

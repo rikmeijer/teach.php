@@ -9,7 +9,7 @@ class Contactmoment implements GUI
     private $user;
     private $phpviewDirectory;
 
-    public function __construct(\rikmeijer\Teach\Bootstrap $bootstrap)
+    public function __construct(\pulledbits\Bootstrap\Bootstrap $bootstrap)
     {
         $this->user = $bootstrap->resource('user');
         $this->phpviewDirectory = $bootstrap->resource('phpview');

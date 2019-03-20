@@ -2,14 +2,11 @@
 
 namespace rikmeijer\Teach\GUI;
 
-use Avans\OAuth\Web;
-use League\OAuth1\Client\Credentials\TemporaryCredentials;
-use League\OAuth1\Client\Credentials\TokenCredentials;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
-use rikmeijer\Teach\Bootstrap;
+use \pulledbits\Bootstrap\Bootstrap;
 use rikmeijer\Teach\ClosureEndPoint;
 use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\SeeOtherEndPoint;

@@ -3,6 +3,7 @@
 namespace rikmeijer\Teach;
 
 use Aura\Session\Session;
+use pulledbits\Bootstrap\Bootstrap;
 
 final class User
 {

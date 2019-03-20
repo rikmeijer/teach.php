@@ -11,7 +11,7 @@ final class Calendar implements GUI
     private $schema;
     private $phpviewDirectory;
 
-    public function __construct(\rikmeijer\Teach\Bootstrap $bootstrap)
+    public function __construct(\pulledbits\Bootstrap\Bootstrap $bootstrap)
     {
         $this->schema = $bootstrap->resource('database');
         $this->phpviewDirectory = $bootstrap->resource('phpview');

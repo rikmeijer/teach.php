@@ -1,4 +1,4 @@
-<?php return function (\rikmeijer\Teach\Bootstrap $bootstrap) {
+<?php return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
     $pdo = $bootstrap->resource('pdo');
 
     $config = $bootstrap->config('DB');
