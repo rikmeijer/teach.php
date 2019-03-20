@@ -15,22 +15,28 @@ final class Contactmoment
         $this->record = $entity;
     }
 
-    public static function wrapAround(Entity $entity): self
+    public static function wrapAroundEntity(Entity $entity): self
     {
         return new self($entity);
     }
 
+    public static function wrapAroundEntities(array $entities): array
+    {
+        return array_map([__CLASS__, 'wrapAroundEntity'], $entities);
+    }
+
     public static function readByModuleName(Schema $schema, string $owner, string $moduleNaam): array
     {
-        return array_map(
-            [__CLASS__, 'wrapAround'],
+        return self::wrapAroundEntities(
             $schema->read("contactmoment_module", [], ["modulenaam" => $moduleNaam, "owner" => $owner])
         );
     }
 
     public static function readVandaag(Schema $schema, string $owner): array
     {
-        return array_map([__CLASS__, 'wrapAround'], $schema->read('contactmoment_vandaag', [], ["owner" => $owner]));
+        return self::wrapAroundEntities(
+            $schema->read('contactmoment_vandaag', [], ["owner" => $owner])
+        );
     }
 
     public static function read(Schema $schema, string $identifier): self
@@ -77,7 +83,7 @@ final class Contactmoment
                 }
             };
         }
-        return array_map([__CLASS__, 'wrapAround'], $contactmoments)[0];
+        return self::wrapAroundEntities($contactmoments)[0];
     }
 
     public function retrieveRating()
