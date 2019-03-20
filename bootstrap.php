@@ -58,7 +58,13 @@ namespace rikmeijer\Teach {
 
         public function config(string $section): array
         {
-            return (require __DIR__ . DIRECTORY_SEPARATOR . 'config.php')[$section];
+            static $config;
+            if (isset($config) === false) {
+                $defaults = (require __DIR__ . DIRECTORY_SEPARATOR . 'config.defaults.php');
+                $environment = (require __DIR__ . DIRECTORY_SEPARATOR . 'config.php');
+                $config = array_merge($defaults, $environment);
+            }
+            return $config[$section];
         }
     }
 
