@@ -24,5 +24,8 @@
     ],
     'PHPVIEW' => [
         'path' => __DIR__ . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'phpview'
+    ],
+    'ASSETS' => [
+        'path' => __DIR__ . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'assets'
     ]
 ];
