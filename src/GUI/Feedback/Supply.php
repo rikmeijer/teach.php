@@ -48,13 +48,15 @@ class Supply implements Route
             $rating = $ipRating->waarde;
         }
 
-        return new \rikmeijer\Teach\PHPviewEndPoint($this->phpviewDirectory->load(
-            'feedback/supply',
-            [
-                'rating' => $rating,
-                'explanation' => $ipRating->inhoud
-            ]
-        ));
+        return new \rikmeijer\Teach\PHPviewEndPoint(
+            $this->phpviewDirectory->load(
+                'feedback/supply',
+                [
+                    'rating' => $rating,
+                    'explanation' => $ipRating->inhoud
+                ]
+            )
+        );
     }
 
     private function handlePost(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint

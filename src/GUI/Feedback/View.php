@@ -1,33 +1,34 @@
 <?php
 
-
 namespace rikmeijer\Teach\GUI\Feedback;
 
 use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\View\Directory;
-use rikmeijer\Teach\GUI\Feedback;
+use pulledbits\View\TemplateInstance;
 
 class View implements Route
 {
-    private $gui;
     private $phpviewDirectory;
 
-    public function __construct(Feedback $gui, Directory $phpviewDirectory)
+    public function __construct(Directory $phpviewDirectory)
     {
-        $this->gui = $gui;
         $this->phpviewDirectory = $phpviewDirectory;
+        $this->phpviewDirectory->registerHelper(
+            'feedbackSupplyURL',
+            function (TemplateInstance $templateInstance, string $contactmomentIdentifier): string {
+                return $templateInstance->url('/feedback/%s/supply', $contactmomentIdentifier);
+            }
+        );
     }
 
     public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): RouteEndPoint
     {
-        $contactmoment = $this->gui->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
-        if ($contactmoment->id === null) {
-            return \pulledbits\Router\ErrorFactory::makeInstance(404);
-        }
-        return new \rikmeijer\Teach\PHPviewEndPoint($this->phpviewDirectory->load(
-            'feedback',
-            ['contactmoment' => $contactmoment]
-        ));
+        return new \rikmeijer\Teach\PHPviewEndPoint(
+            $this->phpviewDirectory->load(
+                'feedback',
+                ['contactmomentIdentifier' => $request->getAttribute('contactmomentIdentifier')]
+            )
+        );
     }
 }

@@ -3,6 +3,8 @@
 
 namespace rikmeijer\Teach\GUI;
 
+use phpDocumentor\Reflection\Types\Boolean;
+use pulledbits\View\TemplateInstance;
 use rikmeijer\Teach\Contactmoment;
 use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\GUI\Feedback\Supply;
@@ -19,6 +21,10 @@ final class Feedback implements GUI
         $this->session = $bootstrap->resource('session');
         $this->schema = $bootstrap->resource('database');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
+        $this->phpviewDirectory->registerHelper('contactmomentRating', function(TemplateInstance $templateInstance, string $contactmomentIdentifier) : int {
+            $contactmoment = Contactmoment::read($templateInstance->resource('database'), $contactmomentIdentifier);
+            return $contactmoment->retrieveRating();
+        });
     }
 
     public function verifyCSRFToken(string $CSRFToken): bool
@@ -37,7 +43,7 @@ final class Feedback implements GUI
             return new Supply($this, $this->phpviewDirectory);
         });
         $router->addRoute('^/feedback/(?<contactmomentIdentifier>\d+)', function (): \pulledbits\Router\Route {
-            return new View($this, $this->phpviewDirectory);
+            return new View($this->phpviewDirectory);
         });
     }
 }
