@@ -13,6 +13,7 @@ class QR implements GUI
 
     public function __construct(Bootstrap $bootstrap)
     {
+        $bootstrap->resource('qr');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
     }
 
