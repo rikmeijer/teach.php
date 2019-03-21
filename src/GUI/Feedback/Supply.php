@@ -3,6 +3,7 @@
 
 namespace rikmeijer\Teach\GUI\Feedback;
 
+use pulledbits\ActiveRecord\Entity;
 use pulledbits\Router\ErrorFactory;
 use pulledbits\Router\Route;
 use pulledbits\View\Directory;
@@ -28,20 +29,17 @@ class Supply implements Route
 
         switch ($request->getMethod()) {
             case 'GET':
-                return $this->handleGet($contactmoment, $request);
+                return $this->handleGet($contactmoment->findRatingByIP(($request->getServerParams())['REMOTE_ADDR']), $request->getQueryParams());
 
             case 'POST':
-                return $this->handlePost($contactmoment, $request);
+                return $this->handlePost($contactmoment, ($request->getServerParams())['REMOTE_ADDR'], $request->getParsedBody());
             default:
                 return \pulledbits\Router\ErrorFactory::makeInstance('405');
         }
     }
 
-    private function handleGet(\rikmeijer\Teach\Contactmoment $contactmoment, \Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
+    private function handleGet(Entity $ipRating, array $query): \pulledbits\Router\RouteEndPoint
     {
-        $ipRating = $contactmoment->findRatingByIP(($request->getServerParams())['REMOTE_ADDR']);
-
-        $query = $request->getQueryParams();
         if (array_key_exists('rating', $query)) {
             $rating = $query['rating'];
         } else {
@@ -59,13 +57,12 @@ class Supply implements Route
         );
     }
 
-    private function handlePost(\rikmeijer\Teach\Contactmoment $contactmoment, \Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
+    private function handlePost(\rikmeijer\Teach\Contactmoment $contactmoment, string $remoteAddress, array $parsedBody): \pulledbits\Router\RouteEndPoint
     {
-        $parsedBody = $request->getParsedBody();
         if ($this->gui->verifyCSRFToken($parsedBody['__csrf_value']) === false) {
             return ErrorFactory::makeInstance('403');
         }
-        $contactmoment->rate($_SERVER['REMOTE_ADDR'], $parsedBody['rating'], $parsedBody['explanation']);
+        $contactmoment->rate($remoteAddress, $parsedBody['rating'], $parsedBody['explanation']);
         return new \rikmeijer\Teach\PHPviewEndPoint($this->phpviewDirectory->load('feedback/processed'));
     }
 }
