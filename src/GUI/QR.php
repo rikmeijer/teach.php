@@ -14,16 +14,6 @@ class QR implements GUI
     public function __construct(Bootstrap $bootstrap)
     {
         $this->phpviewDirectory = $bootstrap->resource('phpview');
-        $this->phpviewDirectory->registerHelper(
-            'qr',
-            function (TemplateInstance $templateInstance, int $width, int $height, string $data): void {
-                $renderer = new \BaconQrCode\Renderer\Image\Png();
-                $renderer->setHeight($width);
-                $renderer->setWidth($height);
-                $writer = new \BaconQrCode\Writer($renderer);
-                print $writer->writeString($data);
-            }
-        );
     }
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
