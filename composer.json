@@ -7,10 +7,10 @@
   "prefer-stable": true,
   "require": {
     "php": ">=7.3",
-    "ext-gd": "*",
+    "ext-imagick": "*",
     "ext-memcached": "*",
     "avans/oauth-php": "^0.4",
-    "bacon/bacon-qr-code": "^1.0",
+    "bacon/bacon-qr-code": "^2",
     "johngrogg/ics-parser": "^1.0",
     "aura/session": "^2.1",
     "doctrine/migrations": "^1.5",
