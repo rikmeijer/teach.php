@@ -10,7 +10,6 @@ use rikmeijer\Teach\GUI;
 
 class Rating implements GUI
 {
-    private $assets;
     private $cache;
     /**
      * @var Directory
@@ -19,26 +18,26 @@ class Rating implements GUI
 
     public function __construct(Bootstrap $bootstrap)
     {
-        $this->assets = $bootstrap->resource('assets');
+        $bootstrap->resource('assets');
         $this->cache = $bootstrap->resource('cache');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
 
         $this->phpviewDirectory->registerHelper(
             'star',
-            function (TemplateInstance $templateInstance): string {
-                return $this->readImage('star.png');
+            function (TemplateInstance $templateInstance) : string {
+                return $templateInstance->image('star.png');
             }
         );
         $this->phpviewDirectory->registerHelper(
             'unstar',
             function (TemplateInstance $templateInstance): string {
-                return $this->readImage('unstar.png');
+                return $templateInstance->image('unstar.png');
             }
         );
         $this->phpviewDirectory->registerHelper(
             'nostar',
             function (TemplateInstance $templateInstance): string {
-                return $this->readImage('nostar.png');
+                return $templateInstance->image('nostar.png');
             }
         );
     }
@@ -51,11 +50,6 @@ class Rating implements GUI
                 return new Rating\Visualize($this, $this->phpviewDirectory);
             }
         );
-    }
-
-    public function readImage(string $imageName): string
-    {
-        return $this->assets->read('img' . DIRECTORY_SEPARATOR . $imageName);
     }
 
     public function eTag(string $eTag)

@@ -4,6 +4,7 @@ namespace rikmeijer\Teach\GUI;
 
 use pulledbits\Bootstrap\Bootstrap;
 use pulledbits\Router\Route;
+use pulledbits\View\TemplateInstance;
 use rikmeijer\Teach\GUI;
 
 class QR implements GUI
@@ -15,7 +16,7 @@ class QR implements GUI
         $this->phpviewDirectory = $bootstrap->resource('phpview');
         $this->phpviewDirectory->registerHelper(
             'qr',
-            function (int $width, int $height, string $data): void {
+            function (TemplateInstance $templateInstance, int $width, int $height, string $data): void {
                 $renderer = new \BaconQrCode\Renderer\Image\Png();
                 $renderer->setHeight($width);
                 $renderer->setWidth($height);
