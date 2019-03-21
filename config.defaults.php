@@ -1,6 +1,7 @@
 <?php return [
     'BOOTSTRAP' => [
-        'path' => __DIR__ . DIRECTORY_SEPARATOR . 'bootstrap'
+        'path' => __DIR__ . DIRECTORY_SEPARATOR . 'bootstrap',
+        'preload' => ['assets']
     ],
     'ROUTER' => [
         'path' => __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'GUI'

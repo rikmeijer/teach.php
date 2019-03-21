@@ -1474,16 +1474,16 @@
         },
         {
             "name": "pulledbits/bootstrap",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pulledbits/Bootstrap.git",
-                "reference": "c22b455851ea1b41ef4a202265cff958c0174560"
+                "reference": "e00f0150bd0afe47798c64c7a88b87219acdae21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/Bootstrap/zipball/c22b455851ea1b41ef4a202265cff958c0174560",
-                "reference": "c22b455851ea1b41ef4a202265cff958c0174560",
+                "url": "https://api.github.com/repos/pulledbits/Bootstrap/zipball/e00f0150bd0afe47798c64c7a88b87219acdae21",
+                "reference": "e00f0150bd0afe47798c64c7a88b87219acdae21",
                 "shasum": ""
             },
             "require": {
@@ -1503,7 +1503,7 @@
                 "MIT"
             ],
             "description": "Bootstrap class for loading resources",
-            "time": "2019-03-20T13:13:40+00:00"
+            "time": "2019-03-21T09:02:57+00:00"
         },
         {
             "name": "pulledbits/router",

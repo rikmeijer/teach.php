@@ -18,7 +18,6 @@ class Rating implements GUI
 
     public function __construct(Bootstrap $bootstrap)
     {
-        $bootstrap->resource('assets');
         $this->cache = $bootstrap->resource('cache');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
 
