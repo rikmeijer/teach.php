@@ -52,5 +52,9 @@
             <?php
         }
     );
+
+    $directory->registerHelper('resource', function (\pulledbits\View\TemplateInstance $templateInstance, string $resourceIdentfier) use ($bootstrap) : object {
+        return $bootstrap->resource($resourceIdentfier);
+    });
     return $directory;
 };

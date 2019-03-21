@@ -17,14 +17,13 @@ final class Calendar implements GUI
 
     public function __construct(\pulledbits\Bootstrap\Bootstrap $bootstrap)
     {
-        $schema = $bootstrap->resource('database');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
-        $this->phpviewDirectory->registerHelper('calendar', function(\pulledbits\View\TemplateInstance $templateInstance, string $calendarIdentifier) use ($schema) : \Eluceo\iCal\Component\Calendar
+        $this->phpviewDirectory->registerHelper('calendar', function(\pulledbits\View\TemplateInstance $templateInstance, string $calendarIdentifier) : \Eluceo\iCal\Component\Calendar
         {
             $calendar = new \Eluceo\iCal\Component\Calendar($calendarIdentifier);
             switch ($calendarIdentifier) {
                 case 'weeks':
-                    $lesweken = $schema->read('lesweek', [], []);
+                    $lesweken = $templateInstance->resource('database')->read('lesweek', [], []);
                     foreach ($lesweken as $lesweek) {
                         $lesweekEvent = new Event();
                         $lesweekEvent->setNoTime(true);
