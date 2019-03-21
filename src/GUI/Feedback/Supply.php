@@ -21,24 +21,24 @@ class Supply implements Route
 
     public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
     {
-        switch ($request->getMethod()) {
-            case 'GET':
-                return $this->handleGet($request);
-
-            case 'POST':
-                return $this->handlePost($request);
-            default:
-                return \pulledbits\Router\ErrorFactory::makeInstance('405');
-        }
-    }
-
-    private function handleGet(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
-    {
         $contactmoment = $this->gui->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
         if ($contactmoment->id === null) {
             return \pulledbits\Router\ErrorFactory::makeInstance('404');
         }
 
+        switch ($request->getMethod()) {
+            case 'GET':
+                return $this->handleGet($contactmoment, $request);
+
+            case 'POST':
+                return $this->handlePost($contactmoment, $request);
+            default:
+                return \pulledbits\Router\ErrorFactory::makeInstance('405');
+        }
+    }
+
+    private function handleGet(\rikmeijer\Teach\Contactmoment $contactmoment, \Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
+    {
         $ipRating = $contactmoment->findRatingByIP(($request->getServerParams())['REMOTE_ADDR']);
 
         $query = $request->getQueryParams();
@@ -59,13 +59,8 @@ class Supply implements Route
         );
     }
 
-    private function handlePost(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
+    private function handlePost(\rikmeijer\Teach\Contactmoment $contactmoment, \Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
     {
-        $contactmoment = $this->gui->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
-        if ($contactmoment->id === null) {
-            return \pulledbits\Router\ErrorFactory::makeInstance('404');
-        }
-
         $parsedBody = $request->getParsedBody();
         if ($this->gui->verifyCSRFToken($parsedBody['__csrf_value']) === false) {
             return ErrorFactory::makeInstance('403');
