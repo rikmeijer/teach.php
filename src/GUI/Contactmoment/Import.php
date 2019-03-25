@@ -4,6 +4,7 @@ namespace rikmeijer\Teach\GUI\Contactmoment;
 
 use pulledbits\Router\Route;
 use pulledbits\View\Directory;
+use pulledbits\View\TemplateInstance;
 use rikmeijer\Teach\GUI\Contactmoment;
 use rikmeijer\Teach\PHPviewEndPoint;
 
@@ -35,8 +36,8 @@ class Import implements Route
     private function handleGet(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
     {
         return new PHPviewEndPoint($this->phpviewDirectory->load('contactmoment/import', [
-            'importForm' => function (): void {
-                $this->form("post", "Importeren", 'rooster.avans.nl');
+            'importForm' => function (TemplateInstance $templateInstance): void {
+                $templateInstance->form("post", "Importeren", 'rooster.avans.nl');
             }
         ]));
     }

@@ -22,15 +22,9 @@ class SSO implements GUI
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('^/sso/authorize', function (): Route {
-            return new SSO\Authorize($this);
-        });
-        $router->addRoute('^/sso/callback', function (): Route {
-            return new SSO\Authorized($this);
-        });
-        $router->addRoute('^/logout', function (): Route {
-            return new SSO\Logout($this);
-        });
+        $router->addRoute('/sso/authorize', new SSO\Authorize($this));
+        $router->addRoute('/sso/callback', new SSO\Authorized($this));
+        $router->addRoute('/logout', new SSO\Logout($this));
     }
 
     public function acquireTemporaryCredentials(): string

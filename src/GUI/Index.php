@@ -57,11 +57,6 @@ final class Index implements GUI
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute(
-            '^/$',
-            function (): Route {
-                return new Index\Index($this->phpviewDirectory);
-            }
-        );
+        $router->addRoute('/$', new Index\Index($this->phpviewDirectory));
     }
 }

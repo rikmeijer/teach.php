@@ -50,8 +50,6 @@ final class Calendar implements GUI
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('^/calendar/(?<calendarIdentifier>[^/]+)', function (): Route {
-            return new Calendar\View($this->phpviewDirectory);
-        });
+        $router->addRoute('/calendar/(?<calendarIdentifier>[^/]+)', new Calendar\View($this->phpviewDirectory));
     }
 }

@@ -22,8 +22,6 @@ class Contactmoment implements GUI
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('^/contactmoment/import$', function (): \pulledbits\Router\Route {
-            return new Contactmoment\Import($this, $this->phpviewDirectory);
-        });
+        $router->addRoute('(GET|POST):/contactmoment/import', new Contactmoment\Import($this, $this->phpviewDirectory));
     }
 }

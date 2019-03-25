@@ -44,12 +44,7 @@ class Rating implements GUI
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute(
-            '^/rating/(?<value>(N|[\d\.]+))$',
-            function (): Route {
-                return new Rating\Visualize($this, $this->phpviewDirectory);
-            }
-        );
+        $router->addRoute('/rating/(?<value>(N|[\d\.]+))$', new Rating\Visualize($this, $this->phpviewDirectory));
     }
 
     public function eTag(string $eTag)
