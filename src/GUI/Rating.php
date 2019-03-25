@@ -55,14 +55,13 @@ class Rating implements GUI
                 $waarde = $request->getAttribute('value');
             }
 
-            $psrResponse = $next($request)->withHeader('Etag', '"' . md5($waarde . '500' . '100' . '5') . '"')->withHeader('Content-Type', 'image/png');
-
+            $psrResponse = $next($request);
             return (new PHPviewEndPoint($this->phpviewDirectory->load('rating', [
                 'ratingwaarde' => $waarde,
                 'ratingWidth' => 500,
                 'ratingHeight' => 100,
                 'repetition' => 5
-            ])))->respond($psrResponse);
+            ])))->respond($psrResponse)->withHeader('Content-Type', 'image/png');
         });
     }
 }

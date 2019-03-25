@@ -49,7 +49,6 @@ return new class
             }
             $psrCache->withLastModified($response, $cache->get($eTag[0]));
         }
-
         if ($psrCache->isNotModified($serverRequest, $response)) {
             return $response->withStatus(304);
         }

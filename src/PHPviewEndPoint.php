@@ -20,7 +20,7 @@ class PHPviewEndPoint implements RouteEndPoint
 
     public function respond(ResponseInterface $psrResponse): ResponseInterface
     {
-        return $psrResponse->withBody(\GuzzleHttp\Psr7\stream_for([$this, 'read']));
+        return $psrResponse->withBody(\GuzzleHttp\Psr7\stream_for([$this, 'read']))->withHeader('Etag', '"' . $this->phpview->serial() . '"');
     }
 
     public function read(int $length) : ?string {
