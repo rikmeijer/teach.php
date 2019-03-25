@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f8d0e192b8e6f17441ce3e94b6ff794",
+    "content-hash": "6065782b5d1f0fdd8a493272e5a9bd46",
     "packages": [
         {
             "name": "aura/session",
@@ -1173,6 +1173,54 @@
             "time": "2016-08-17T00:36:58+00:00"
         },
         {
+            "name": "micheh/psr7-cache",
+            "version": "0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/micheh/psr7-cache.git",
+                "reference": "b99e8ae6d024d8c70945084b5b979a62cfd05df4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/micheh/psr7-cache/zipball/b99e8ae6d024d8c70945084b5b979a62cfd05df4",
+                "reference": "b99e8ae6d024d8c70945084b5b979a62cfd05df4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "psr/http-message": "~1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0||~5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Micheh\\Cache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Cache and conditional request helpers for PSR-7 HTTP Messages",
+            "keywords": [
+                "cache",
+                "conditional",
+                "http",
+                "http-message",
+                "if-match",
+                "if-modified-since",
+                "if-none-match",
+                "if-unmodified-since",
+                "psr",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "time": "2016-04-15T16:31:14+00:00"
+        },
+        {
             "name": "ocramius/package-versions",
             "version": "1.4.0",
             "source": {
@@ -1552,16 +1600,16 @@
         },
         {
             "name": "pulledbits/router",
-            "version": "6.2.3",
+            "version": "6.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pulledbits/router.git",
-                "reference": "1225a0f6299b3f0bf5657e9c6baa93e98758fffb"
+                "reference": "0a16b1d16a9ca5d24669af4fa95f7b986c5558ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/router/zipball/1225a0f6299b3f0bf5657e9c6baa93e98758fffb",
-                "reference": "1225a0f6299b3f0bf5657e9c6baa93e98758fffb",
+                "url": "https://api.github.com/repos/pulledbits/router/zipball/0a16b1d16a9ca5d24669af4fa95f7b986c5558ba",
+                "reference": "0a16b1d16a9ca5d24669af4fa95f7b986c5558ba",
                 "shasum": ""
             },
             "require": {
@@ -1583,7 +1631,7 @@
                 "MIT"
             ],
             "description": "Simple router",
-            "time": "2019-03-21T13:57:04+00:00"
+            "time": "2019-03-25T10:37:35+00:00"
         },
         {
             "name": "pulledbits/view",

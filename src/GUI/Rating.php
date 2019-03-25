@@ -2,11 +2,14 @@
 
 namespace rikmeijer\Teach\GUI;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Bootstrap\Bootstrap;
 use pulledbits\Router\Route;
 use pulledbits\View\Directory;
 use pulledbits\View\TemplateInstance;
 use rikmeijer\Teach\GUI;
+use rikmeijer\Teach\PHPviewEndPoint;
 
 class Rating implements GUI
 {
@@ -44,14 +47,22 @@ class Rating implements GUI
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('/rating/(?<value>(N|[\d\.]+))$', new Rating\Visualize($this, $this->phpviewDirectory));
-    }
+        $router->addRoute('/rating/(?<value>(N|[\d\.]+))$', function(ServerRequestInterface $request, callable $next): ResponseInterface
+        {
+            if ($request->getAttribute('value') === 'N') {
+                $waarde = null;
+            } else {
+                $waarde = $request->getAttribute('value');
+            }
 
-    public function eTag(string $eTag)
-    {
-        if ($this->cache->has($eTag) === false) {
-            $this->cache->set($eTag, new \DateTime());
-        }
-        return $this->cache->get($eTag);
+            $psrResponse = $next($request)->withHeader('Etag', '"' . md5($waarde . '500' . '100' . '5') . '"')->withHeader('Content-Type', 'image/png');
+
+            return (new PHPviewEndPoint($this->phpviewDirectory->load('rating', [
+                'ratingwaarde' => $waarde,
+                'ratingWidth' => 500,
+                'ratingHeight' => 100,
+                'repetition' => 5
+            ])))->respond($psrResponse);
+        });
     }
 }
