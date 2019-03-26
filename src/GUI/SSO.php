@@ -2,8 +2,9 @@
 
 namespace rikmeijer\Teach\GUI;
 
-use pulledbits\Router\Route;
-use \pulledbits\Bootstrap\Bootstrap;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use pulledbits\Bootstrap\Bootstrap;
 use rikmeijer\Teach\ClosureEndPoint;
 use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\User;
@@ -22,24 +23,39 @@ class SSO implements GUI
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('/sso/authorize', new SSO\Authorize($this));
-        $router->addRoute('/sso/callback', new SSO\Authorized($this));
-        $router->addRoute('/logout', new SSO\Logout($this));
+        $router->addRoute(
+            '/sso/authorize',
+            function (ServerRequestInterface $request, callable $next): ResponseInterface {
+                return $this->seeOther($next($request), $this->user->acquireTemporaryCredentials());
+            }
+        );
+        $router->addRoute(
+            '/sso/callback',
+            function (ServerRequestInterface $request, callable $next): ResponseInterface {
+                $queryParams = $request->getQueryParams();
+
+                if (array_key_exists('oauth_token', $queryParams) === false) {
+                    return ErrorFactory::makeInstance(400);
+                } elseif (array_key_exists('oauth_verifier', $queryParams) === false) {
+                    return ErrorFactory::makeInstance(400);
+                } else {
+                    $this->user->authorizeTokenCredentials(
+                        $queryParams['oauth_token'],
+                        $queryParams['oauth_verifier']
+                    );
+                    return $this->seeOther($next($request), '/');
+                }
+            }
+        );
+        $router->addRoute('/logout',
+            function (ServerRequestInterface $request, callable $next): ResponseInterface {
+                $this->user->logout();
+                return $this->seeOther($next($request), '/');
+            });
     }
 
-    public function acquireTemporaryCredentials(): string
+    private function seeOther(ResponseInterface $psrResponse, string $location): ResponseInterface
     {
-        return new SeeOtherEndPoint($this->user->acquireTemporaryCredentials());
-    }
-
-    public function authorizeTokenCredentials(string $oauthToken, string $oauthVerifier): void
-    {
-        $this->user->authorizeTokenCredentials($oauthToken, $oauthVerifier);
-        return new SeeOtherEndPoint('/');
-    }
-    public function logout(): void
-    {
-        $this->user->logout();
-        return new SeeOtherEndPoint('/');
+        return $psrResponse->withStatus('303')->withHeader('Location', $location);
     }
 }
