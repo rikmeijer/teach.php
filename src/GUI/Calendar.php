@@ -2,8 +2,11 @@
 
 namespace rikmeijer\Teach\GUI;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\View\Directory;
 use rikmeijer\Teach\GUI;
+use rikmeijer\Teach\PHPviewEndPoint;
 
 final class Calendar implements GUI
 {
@@ -21,6 +24,13 @@ final class Calendar implements GUI
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('/calendar/(?<calendarIdentifier>[^/]+)', new Calendar\View($this->phpviewDirectory));
+        $router->addRoute('/calendar/(?<calendarIdentifier>[^/]+)', function (ServerRequestInterface $request, callable $next): ResponseInterface {
+            $phpview = new PHPviewEndPoint(
+                $this->phpviewDirectory->load('calendar', ['calendarIdentifier' => $request->getAttribute('calendarIdentifier')])
+            );
+            return $phpview->respond($next($request))
+                ->withHeader('Content-Type', 'text/calendar; charset=utf-8')
+                ->withHeader('Content-Disposition', 'attachment; filename="' . $request->getAttribute('calendarIdentifier') . '.ics"');
+        });
     }
 }
