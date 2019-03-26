@@ -1,10 +1,10 @@
 <?php
+
 namespace rikmeijer\Teach\GUI\SSO;
 
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
-use rikmeijer\Teach\SeeOtherEndPoint;
 
 class Logout implements Route
 {
@@ -17,7 +17,6 @@ class Logout implements Route
 
     public function handleRequest(ServerRequestInterface $request): RouteEndPoint
     {
-        $this->gui->logout();
-        return new SeeOtherEndPoint('/');
+        return $this->gui->logout();
     }
 }

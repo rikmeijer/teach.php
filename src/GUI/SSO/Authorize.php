@@ -5,7 +5,6 @@ namespace rikmeijer\Teach\GUI\SSO;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
-use rikmeijer\Teach\SeeOtherEndPoint;
 
 class Authorize implements Route
 {
@@ -18,6 +17,6 @@ class Authorize implements Route
 
     public function handleRequest(ServerRequestInterface $request): RouteEndPoint
     {
-        return new SeeOtherEndPoint($this->gui->acquireTemporaryCredentials());
+        return $this->gui->acquireTemporaryCredentials();
     }
 }

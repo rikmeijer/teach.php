@@ -29,15 +29,17 @@ class SSO implements GUI
 
     public function acquireTemporaryCredentials(): string
     {
-        return $this->user->acquireTemporaryCredentials();
+        return new SeeOtherEndPoint($this->user->acquireTemporaryCredentials());
     }
 
     public function authorizeTokenCredentials(string $oauthToken, string $oauthVerifier): void
     {
         $this->user->authorizeTokenCredentials($oauthToken, $oauthVerifier);
+        return new SeeOtherEndPoint('/');
     }
     public function logout(): void
     {
         $this->user->logout();
+        return new SeeOtherEndPoint('/');
     }
 }

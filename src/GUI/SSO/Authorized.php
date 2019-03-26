@@ -7,7 +7,6 @@ namespace rikmeijer\Teach\GUI\SSO;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
-use rikmeijer\Teach\SeeOtherEndPoint;
 
 class Authorized implements Route
 {
@@ -27,11 +26,10 @@ class Authorized implements Route
         } elseif (array_key_exists('oauth_verifier', $queryParams) === false) {
             return ErrorFactory::makeInstance(400);
         } else {
-            $this->gui->authorizeTokenCredentials(
+            return $this->gui->authorizeTokenCredentials(
                 $queryParams['oauth_token'],
                 $queryParams['oauth_verifier']
             );
-            return new SeeOtherEndPoint('/');
         }
     }
 }
