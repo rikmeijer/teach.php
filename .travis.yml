@@ -1,7 +1,7 @@
 language: php
 before_install:
   - phpenv config-add travis.php.ini
-  - pecl install imagick
+  - printf "\n" | pecl install imagick
 install:
   - composer install
 php:
