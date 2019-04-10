@@ -41,8 +41,8 @@ return new class
         $psrCache = $this->bootstrap->resource('psr7-cache');
         $response = $psrCache->withCache($routeEndPoint->respond(new \GuzzleHttp\Psr7\Response($responseCode)));
 
-        if ($response->hasHeader('ETag')) {
-            $eTag = $response->getHeader('ETag');
+        if ($response->hasHeader('Etag')) {
+            $eTag = $response->getHeader('Etag');
             $cache = $this->bootstrap->resource('cache');
             if ($cache->has($eTag[0]) === false) {
                 $cache->set($eTag[0], time());
