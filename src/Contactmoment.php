@@ -96,7 +96,7 @@ final class Contactmoment
         foreach ($contactmomentratings as $contactmomentrating) {
             $value += $contactmomentrating->waarde;
         }
-        return $value / count($contactmomentratings);
+        return round($value / count($contactmomentratings), 1);
     }
 
 

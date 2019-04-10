@@ -40,7 +40,7 @@ final class Index implements GUI
                             if (count($numericRatings) === 0) {
                                 return null;
                             }
-                            return array_sum($numericRatings) / count($numericRatings);
+                            return round(array_sum($numericRatings) / count($numericRatings), 1);
                         }
                     );
 
