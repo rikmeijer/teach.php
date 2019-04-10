@@ -33,25 +33,6 @@ return new class
                 $responseCode = '200';
                 break;
         }
-
-
-        /**
-         * @var $psrCache CacheUtil
-         */
-        $psrCache = $this->bootstrap->resource('psr7-cache');
-        $response = $psrCache->withCache($routeEndPoint->respond(new \GuzzleHttp\Psr7\Response($responseCode)));
-
-        if ($response->hasHeader('Etag')) {
-            $eTag = $response->getHeader('Etag');
-            $cache = $this->bootstrap->resource('cache');
-            if ($cache->has($eTag[0]) === false) {
-                $cache->set($eTag[0], time());
-            }
-            $psrCache->withLastModified($response, $cache->get($eTag[0]));
-        }
-        if ($psrCache->isNotModified($serverRequest, $response)) {
-            return $response->withStatus(304);
-        }
-        return $response;
+        return $routeEndPoint->respond(new \GuzzleHttp\Psr7\Response($responseCode));
     }
 };
