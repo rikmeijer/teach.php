@@ -9,6 +9,7 @@
     "php": ">=7.3",
     "ext-imagick": "*",
     "ext-memcached": "*",
+    "ext-gd" : "*",
     "avans/oauth-php": "^0.4",
     "bacon/bacon-qr-code": "^2",
     "johngrogg/ics-parser": "^1.0",

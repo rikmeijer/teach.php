@@ -5,7 +5,6 @@ namespace rikmeijer\Teach\GUI;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Bootstrap\Bootstrap;
-use pulledbits\Router\Route;
 use pulledbits\View\Directory;
 use pulledbits\View\TemplateInstance;
 use rikmeijer\Teach\GUI;
@@ -27,7 +26,7 @@ class Rating implements GUI
 
         $this->phpviewDirectory->registerHelper(
             'star',
-            function (TemplateInstance $templateInstance) : string {
+            function (TemplateInstance $templateInstance): string {
                 return $templateInstance->image('star.png');
             }
         );
@@ -47,21 +46,28 @@ class Rating implements GUI
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
     {
-        $router->addRoute('/rating/(?<value>(N|[\d\.]+))$', function(ServerRequestInterface $request, callable $next): ResponseInterface
-        {
-            if ($request->getAttribute('value') === 'N') {
-                $waarde = null;
-            } else {
-                $waarde = $request->getAttribute('value');
-            }
+        $router->addRoute(
+            '/rating/(?<value>(N|[\d\.]+))$',
+            function (ServerRequestInterface $request, callable $next): ResponseInterface {
+                if ($request->getAttribute('value') === 'N') {
+                    $waarde = null;
+                } else {
+                    $waarde = $request->getAttribute('value');
+                }
 
-            $psrResponse = $next($request);
-            return (new PHPviewEndPoint($this->phpviewDirectory->load('rating', [
-                'ratingwaarde' => $waarde,
-                'ratingWidth' => 500,
-                'ratingHeight' => 100,
-                'repetition' => 5
-            ])))->respond($psrResponse)->withHeader('Content-Type', 'image/png');
-        });
+                $psrResponse = $next($request);
+                return (new PHPviewEndPoint(
+                    $this->phpviewDirectory->load(
+                        'rating',
+                        [
+                            'ratingwaarde' => $waarde,
+                            'ratingWidth' => 500,
+                            'ratingHeight' => 100,
+                            'repetition' => 5
+                        ]
+                    )
+                ))->respond($psrResponse)->withHeader('Content-Type', 'image/png');
+            }
+        );
     }
 }
