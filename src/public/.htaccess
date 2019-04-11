@@ -43,12 +43,6 @@
     Header set Cache-Control "max-age=216000, public, must-revalidate"
   </FilesMatch>
   <FilesMatch "\.(html|htm|php)$">
-   # Header set Cache-Control "max-age=1, private, must-revalidate"
+    Header set Cache-Control "max-age=1, private, must-revalidate"
   </FilesMatch>
 </IfModule>
-
-#<IfModule mod_ssl.c>
-#    SSLVerifyClient optional
-#    SSLVerifyDepth 0
-#    SSLOptions +StdEnvVars
-#</IfModule>
