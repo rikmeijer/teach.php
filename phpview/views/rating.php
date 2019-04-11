@@ -14,7 +14,7 @@ $sourceHeight = imagesy($star);
 $starWidth = $ratingWidth / $repetition;
 $starHeight = $ratingHeight;
 
-if ($ratingwaarde === null) {
+if ($ratingwaarde === 0) {
     for ($offset = 0; $offset < $repetition; $offset++) {
         imagecopyresampled(
             $im,

@@ -60,7 +60,7 @@ class Rating implements GUI
                     $this->phpviewDirectory->load(
                         'rating',
                         [
-                            'ratingwaarde' => $request->getAttribute('value'),
+                            'ratingwaarde' => (int)$request->getAttribute('value'),
                             'ratingWidth' => 500,
                             'ratingHeight' => 100,
                             'repetition' => 5
