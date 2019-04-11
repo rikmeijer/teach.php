@@ -13,7 +13,7 @@
 
 <?php $layout->section('body'); ?>
 <h1>Feedback-o-meter</h1>
-<img src="<?= $this->url('/rating/%s', $this->contactmomentRating($contactmomentIdentifier) ?? 'N'); ?>" width="500" height="100" style="margin: 25px 0;"/><br/>
+<?php $this->rating($this->contactmomentRating($contactmomentIdentifier) , 500, 100); ?><br />
 <img src="<?= $this->url('/qr?data=%s', $this->feedbackSupplyURL($contactmomentIdentifier)); ?>" width="400" height="400"/>
 <p><?= $this->feedbackSupplyURL($contactmomentIdentifier); ?></p>
 <?php $layout->compile(); ?>

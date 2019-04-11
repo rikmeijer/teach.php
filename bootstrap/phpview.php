@@ -1,4 +1,6 @@
-<?php return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
+<?php use pulledbits\View\TemplateInstance;
+
+return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
     $session = $bootstrap->resource('session');
     $basedir = $bootstrap->config('PHPVIEW')['path'];
 
@@ -52,6 +54,16 @@
             <?php
         }
     );
+
+    $directory->registerHelper('rating', function(TemplateInstance $templateInstance, int $rating, int $width, int $height) {
+        if ($rating === 0) {
+            ?><div style="display: inline-block; width: <?=$templateInstance->escape($width)?>px; height: <?=$templateInstance->escape($height)?>px; background-size: contain;background-image: url(/img/nostar.png); background-repeat: repeat-x;"></div><?php
+        } else {
+            ?><div style="display: inline-block; width: <?=$templateInstance->escape($width)?>px; height: <?=$templateInstance->escape($height)?>px; background-size: contain;background-image: url(/img/unstar.png); background-repeat: repeat-x;"><div style="width: <?=$templateInstance->escape($rating/5*$width)?>px; height: <?=$templateInstance->escape($height)?>px; background-size: contain;background-image: url(/img/star.png); background-repeat: repeat-x;"></div></div><?php
+        }
+    });
+
+
 
     $directory->registerHelper('resource', function (\pulledbits\View\TemplateInstance $templateInstance, string $resourceIdentfier) use ($bootstrap) : object {
         return $bootstrap->resource($resourceIdentfier);
