@@ -2,9 +2,7 @@
 
 namespace rikmeijer\Teach;
 
-use Micheh\Cache\CacheUtil;
 use Psr\Http\Message\ResponseInterface;
-use Psr\SimpleCache\CacheInterface;
 use pulledbits\Bootstrap\Bootstrap;
 
 return new class
