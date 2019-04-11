@@ -90,7 +90,7 @@ final class Contactmoment
     {
         $contactmomentratings = $this->record->fetchByFkRatingContactmoment();
         if (count($contactmomentratings) === 0) {
-            return null;
+            return 0;
         }
         $value = 0;
         foreach ($contactmomentratings as $contactmomentrating) {

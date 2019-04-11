@@ -34,11 +34,13 @@ final class Index implements GUI
                         function () {
                             $ratings = [];
                             foreach ($this->contactmomenten as $modulecontactmoment) {
-                                $ratings[] = $modulecontactmoment->retrieveRating();
+                                if ($modulecontactmoment->retrieveRating() > 0) {
+                                    $ratings[] = $modulecontactmoment->retrieveRating();
+                                }
                             }
                             $numericRatings = array_filter($ratings, 'is_numeric');
                             if (count($numericRatings) === 0) {
-                                return null;
+                                return 0;
                             }
                             return round(array_sum($numericRatings) / count($numericRatings), 1);
                         }

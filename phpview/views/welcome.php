@@ -29,7 +29,7 @@
     <section>
         <a name="<?= $this->escape($module->naam); ?>"></a>
         <h2><?= $this->escape($module->naam); ?><img
-                    src="<?= $this->url('/rating/%s', $module->retrieveRating() ?? 'N'); ?>" width="75" height="15"
+                    src="<?= $this->url('/rating/%s', $module->retrieveRating()); ?>" width="75" height="15"
                     style="float: right;"/></h2>
         <?php $this->sub(
             'contactmomenten',

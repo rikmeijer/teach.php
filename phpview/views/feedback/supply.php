@@ -11,7 +11,7 @@
     </style>
 <?php $layout->section('body');
 ?><h1>Hoeveel sterren?</h1>
-    <img src="<?= $this->url('/rating/%s', $rating ?? "N"); ?>" usemap="#rating" width="500" height="100"
+    <img src="<?= $this->url('/rating/%s', $rating); ?>" usemap="#rating" width="500" height="100"
          style="margin: 25px 0;"/>
     <map name="rating">
         <?php

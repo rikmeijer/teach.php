@@ -49,18 +49,18 @@ class Rating implements GUI
         $router->addRoute(
             '/rating/(?<value>(N|[\d\.]+))$',
             function (ServerRequestInterface $request, callable $next): ResponseInterface {
-                if ($request->getAttribute('value') === 'N') {
-                    $waarde = null;
-                } else {
-                    $waarde = $request->getAttribute('value');
+                $psrResponse = $next($request)
+                    ->withHeader('Accept-Ranges', 'bytes');
+
+                if ($request->hasHeader('If-Modified-Since') === false) {
+                    $psrResponse = $psrResponse->withHeader('Last-Modified', date(DATE_RFC7231));
                 }
 
-                $psrResponse = $next($request);
                 return (new PHPviewEndPoint(
                     $this->phpviewDirectory->load(
                         'rating',
                         [
-                            'ratingwaarde' => $waarde,
+                            'ratingwaarde' => $request->getAttribute('value'),
                             'ratingWidth' => 500,
                             'ratingHeight' => 100,
                             'repetition' => 5
