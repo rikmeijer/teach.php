@@ -10,9 +10,7 @@
         }
     </style>
 <?php $layout->section('body');
-?><h1>Hoeveel sterren?</h1>
-    <img src="<?= $this->url('/rating/%s', $rating); ?>" usemap="#rating" width="500" height="100"
-         style="margin: 25px 0;"/>
+?><h1>Hoeveel sterren?</h1><?php $this->rating($rating, 500, 100); ?>
     <map name="rating">
         <?php
         for ($i = 0; $i < 5; $i++) {
@@ -24,7 +22,7 @@
     </map>
 <?php
 
-if ($rating !== null) {
+if ($rating !== 0) {
     $this->form(
         "post",
         "Verzenden",

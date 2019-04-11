@@ -57,9 +57,9 @@ return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
 
     $directory->registerHelper('rating', function(TemplateInstance $templateInstance, int $rating, int $width, int $height) {
         if ($rating === 0) {
-            ?><div style="display: inline-block; width: <?=$templateInstance->escape($width)?>px; height: <?=$templateInstance->escape($height)?>px; background-size: contain;background-image: url(/img/nostar.png); background-repeat: repeat-x;"></div><?php
+            ?><div class="rating" style="width: <?=$templateInstance->escape($width)?>px; height: <?=$templateInstance->escape($height)?>px; background-image: url(/img/nostar.png);"><img src="/img/empty.png" usemap="#rating" width="<?=$templateInstance->escape($width);?>" height="<?=$templateInstance->escape($height);?>" /></div><?php
         } else {
-            ?><div style="display: inline-block; width: <?=$templateInstance->escape($width)?>px; height: <?=$templateInstance->escape($height)?>px; background-size: contain;background-image: url(/img/unstar.png); background-repeat: repeat-x;"><div style="width: <?=$templateInstance->escape($rating/5*$width)?>px; height: <?=$templateInstance->escape($height)?>px; background-size: contain;background-image: url(/img/star.png); background-repeat: repeat-x;"></div></div><?php
+            ?><div class="rating" style="width: <?=$templateInstance->escape($width)?>px; height: <?=$templateInstance->escape($height)?>px; background-image: url(/img/unstar.png);"><div style="width: <?=$templateInstance->escape($rating/5*$width)?>px; height: <?=$templateInstance->escape($height)?>px;"><img src="/img/empty.png" usemap="#rating" width="<?=$templateInstance->escape($width);?>" height="<?=$templateInstance->escape($height);?>"/></div></div><?php
         }
     });
 
