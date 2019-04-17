@@ -1,5 +1,8 @@
+services:
+  - mysql
 language: php
 before_install:
+  - mysql -e 'CREATE DATABASE teach;'
   - phpenv config-add travis.php.ini
   - printf "\n" | pecl install imagick
 install:
