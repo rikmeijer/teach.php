@@ -1,2 +1,2 @@
 #!/bin/sh
-./vendor/bin/doctrine-migrations "$@" --configuration ./migrations.xml
+./vendor/bin/doctrine-migrations "$@" --configuration migrations.xml
