@@ -7,6 +7,7 @@ before_install:
   - printf "\n" | pecl install imagick
 install:
   - composer install
+  - ./migrate-database
   - php regenerateTDBM.php
 php:
   - '7.3'
