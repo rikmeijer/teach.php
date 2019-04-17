@@ -1,5 +1,6 @@
 <?php
-$config = (require __DIR__ . DIRECTORY_SEPARATOR . 'config.php')['DB'];
+$bootstrap = require __DIR__ . DIRECTORY_SEPARATOR . 'bootstrap.php';
+$config = $bootstrap->config('DB');
 
 return [
     'driver' => 'pdo_' . $config['CONNECTION'],
