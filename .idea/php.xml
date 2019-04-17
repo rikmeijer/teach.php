@@ -70,6 +70,29 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
       <path value="$PROJECT_DIR$/vendor/pulledbits/bootstrap" />
       <path value="$PROJECT_DIR$/vendor/dasprid/enum" />
+      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/clue/graph" />
+      <path value="$PROJECT_DIR$/vendor/mouf/schema-analyzer" />
+      <path value="$PROJECT_DIR$/vendor/mouf/utils.common.conditioninterface" />
+      <path value="$PROJECT_DIR$/vendor/mouf/magic-query" />
+      <path value="$PROJECT_DIR$/vendor/mouf/utils.value.value-interface" />
+      <path value="$PROJECT_DIR$/vendor/mouf/utils.common.sortable-interface" />
+      <path value="$PROJECT_DIR$/vendor/mouf/classname-mapper" />
+      <path value="$PROJECT_DIR$/vendor/mouf/utils.common.paginable-interface" />
+      <path value="$PROJECT_DIR$/vendor/mouf/utils.log.psr.multi-logger" />
+      <path value="$PROJECT_DIR$/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/vendor/phlib/logger" />
+      <path value="$PROJECT_DIR$/vendor/analog/analog" />
+      <path value="$PROJECT_DIR$/vendor/graphp/algorithms" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/vendor/beberlei/porpaginas" />
+      <path value="$PROJECT_DIR$/vendor/graylog2/gelf-php" />
+      <path value="$PROJECT_DIR$/vendor/greenlion/php-sql-parser" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/constant_time_encoding" />
+      <path value="$PROJECT_DIR$/vendor/thecodingmachine/tdbm" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

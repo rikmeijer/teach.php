@@ -15,8 +15,7 @@ return new class
 
     public function __construct()
     {
-        require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
-        $this->bootstrap = new Bootstrap(dirname(__DIR__));
+        $this->bootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
     }
 
     public function handle(\Psr\Http\Message\ServerRequestInterface $serverRequest): ResponseInterface
