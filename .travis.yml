@@ -3,7 +3,7 @@ before_install:
   - phpenv config-add travis.php.ini
   - printf "\n" | pecl install imagick
 install:
-  - php regenerateTDBM.php
   - composer install
+  - php regenerateTDBM.php
 php:
   - '7.3'
