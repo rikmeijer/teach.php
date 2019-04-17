@@ -2,7 +2,7 @@
 
 namespace DoctrineMigrations;
 
-use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
 /**
@@ -15,7 +15,7 @@ class Version20171114082409 extends AbstractMigration
      *
      * @return void
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema) : void
     {
         $this->addSql("DROP VIEW contactmoment_module");
         $this->addSql("
@@ -44,7 +44,7 @@ class Version20171114082409 extends AbstractMigration
      *
      * @return void
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
         $this->addSql("DROP VIEW contactmoment_module");
         $this->addSql("

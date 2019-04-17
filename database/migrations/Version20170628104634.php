@@ -2,7 +2,7 @@
 
 namespace DoctrineMigrations;
 
-use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
 /**
@@ -13,7 +13,7 @@ class Version20170628104634 extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema) : void
     {
         $this->addSql('CREATE PROCEDURE rate_contactmoment(contactmoment_id INT, ipv4_remote_address VARCHAR(15), waarde VARCHAR(5), inhoud TEXT)
             BEGIN
@@ -33,7 +33,7 @@ class Version20170628104634 extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
         $this->addSql('DROP PROCEDURE rate_contactmoment;');
     }

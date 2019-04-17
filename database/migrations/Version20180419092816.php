@@ -2,7 +2,7 @@
 
 namespace DoctrineMigrations;
 
-use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
 /**
@@ -10,12 +10,12 @@ use Doctrine\DBAL\Schema\Schema;
  */
 class Version20180419092816 extends AbstractMigration
 {
-    public function up(Schema $schema)
+    public function up(Schema $schema) : void
     {
         $this->addSql("DROP VIEW contactmomentrating");
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
         $this->addSql("CREATE VIEW contactmomentrating AS
             SELECT rating.contactmoment_id, ROUND(SUM(rating.waarde)/COUNT(rating.waarde)) AS waarde FROM `rating` GROUP BY contactmoment_id");
