@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace rikmeijer\Teach\Beans;
 
 use rikmeijer\Teach\Beans\Generated\AbstractContactmoment;
+use rikmeijer\Teach\Daos\RatingDao;
 
 /**
  * The Contactmoment class maps the 'contactmoment' table in database.
@@ -25,6 +26,12 @@ class Contactmoment extends AbstractContactmoment
             $value += $contactmomentrating->getWaarde()->getNaam();
         }
         return round($value / count($contactmomentratings), 1);
+    }
+
+    public function findRatingByIP(string $ipAddress)
+    {
+        $dao = new RatingDao($this->tdbmService);
+        return $dao->getById($ipAddress, $this);
     }
 
     public function isActive() : bool {

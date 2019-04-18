@@ -9,10 +9,15 @@ declare(strict_types=1);
 namespace rikmeijer\Teach\Beans;
 
 use rikmeijer\Teach\Beans\Generated\AbstractRating;
+use rikmeijer\Teach\Daos\RatingDao;
 
 /**
  * The Rating class maps the 'rating' table in database.
  */
 class Rating extends AbstractRating
 {
+    public function save() {
+        $dao = new RatingDao($this->tdbmService);
+        $dao->save($this);
+    }
 }

@@ -3,9 +3,9 @@
 
 namespace rikmeijer\Teach\GUI;
 
-use phpDocumentor\Reflection\Types\Boolean;
 use pulledbits\View\TemplateInstance;
-use rikmeijer\Teach\Contactmoment;
+use rikmeijer\Teach\Beans\Contactmoment;
+use rikmeijer\Teach\Daos\ContactmomentDao;
 use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\GUI\Feedback\Supply;
 use rikmeijer\Teach\GUI\Feedback\View;
@@ -13,17 +13,21 @@ use rikmeijer\Teach\GUI\Feedback\View;
 final class Feedback implements GUI
 {
     private $session;
-    private $schema;
+
+    /**
+     * @var ContactmomentDao
+     */
+    private $dao;
+
     private $phpviewDirectory;
 
     public function __construct(\pulledbits\Bootstrap\Bootstrap $bootstrap)
     {
         $this->session = $bootstrap->resource('session');
-        $this->schema = $bootstrap->resource('database');
+        $this->dao = $bootstrap->resource('dao')('Contactmoment');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
-        $this->phpviewDirectory->registerHelper('contactmomentRating', function(TemplateInstance $templateInstance, string $contactmomentIdentifier) : int {
-            $contactmoment = Contactmoment::read($templateInstance->resource('database'), $contactmomentIdentifier);
-            return $contactmoment->retrieveRating();
+        $this->phpviewDirectory->registerHelper('contactmomentRating', function(TemplateInstance $templateInstance, string $contactmomentIdentifier) : float {
+            return $this->retrieveContactmoment($contactmomentIdentifier)->getAverageRating();
         });
     }
 
@@ -34,7 +38,7 @@ final class Feedback implements GUI
 
     public function retrieveContactmoment(string $contactmomentIdentifier): Contactmoment
     {
-        return Contactmoment::read($this->schema, $contactmomentIdentifier);
+        return $this->dao->getById($contactmomentIdentifier);
     }
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void

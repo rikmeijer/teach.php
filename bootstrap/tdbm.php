@@ -25,7 +25,7 @@ return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
     $beanNamespace = 'rikmeijer\\Teach\\Beans';
     $daoNamespace = 'rikmeijer\\Teach\\Daos';
 
-    return new \TheCodingMachine\TDBM\TDBMService(
+    $service = new \TheCodingMachine\TDBM\TDBMService(
         new TheCodingMachine\TDBM\Configuration(
             $beanNamespace,
             $daoNamespace,
@@ -37,4 +37,8 @@ return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
             []       // A list of generator listeners to hook into code generation
         )
     );
+
+    // $service->setLogLevel(Psr\Log\LogLevel::DEBUG);
+
+    return $service;
 };

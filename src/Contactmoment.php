@@ -72,29 +72,6 @@ final class Contactmoment
         return self::wrapAroundEntities($contactmoments)[0];
     }
 
-    public function retrieveRating()
-    {
-        $contactmomentratings = $this->record->fetchByFkRatingContactmoment();
-        if (count($contactmomentratings) === 0) {
-            return 0;
-        }
-        $value = 0;
-        foreach ($contactmomentratings as $contactmomentrating) {
-            $value += $contactmomentrating->waarde;
-        }
-        return round($value / count($contactmomentratings), 1);
-    }
-
-
-    public function findRatingByIP(string $ipAddress)
-    {
-        $ipRatings = $this->record->fetchByFkRatingContactmoment(['ip' => $ipAddress]);
-        if (count($ipRatings) === 0) {
-            return $this->record->referenceByFkRatingContactmoment(['ip' => $ipAddress]);
-        }
-        return $ipRatings[0];
-    }
-
     public function rate(string $ipAddress, string $rating, string $explanation)
     {
         $this->record->rate_contactmoment($this->record->id, $ipAddress, $rating, $explanation);

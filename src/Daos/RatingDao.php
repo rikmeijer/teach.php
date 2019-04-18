@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace rikmeijer\Teach\Daos;
 
+use rikmeijer\Teach\Beans\Rating;
 use rikmeijer\Teach\Daos\Generated\AbstractRatingDao;
 
 /**
@@ -15,4 +16,13 @@ use rikmeijer\Teach\Daos\Generated\AbstractRatingDao;
  */
 class RatingDao extends AbstractRatingDao
 {
+    public function getById(string $ipAddress, \rikmeijer\Teach\Beans\Contactmoment $contactmoment) : Rating
+    {
+        $rating = $this->findOne(["contactmoment_id" => $contactmoment->getId(), "ip" => $ipAddress]);
+        if ($rating === null) {
+            $rating = new Rating($ipAddress, $contactmoment);
+            $this->save($rating);
+        }
+        return $rating;
+    }
 }
