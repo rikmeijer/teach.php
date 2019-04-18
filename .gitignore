@@ -66,5 +66,5 @@ Homestead.yaml
 Homestead.json
 .env
 config.php
-src/Beans
-src/Daos
+src/Beans/Generated
+src/Daos/Generated
