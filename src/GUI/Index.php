@@ -3,13 +3,9 @@
 
 namespace rikmeijer\Teach\GUI;
 
-use pulledbits\Router\Route;
 use pulledbits\View\Directory;
 use pulledbits\View\TemplateInstance;
 use rikmeijer\Teach\Beans\Module;
-use rikmeijer\Teach\Contactmoment;
-use rikmeijer\Teach\Daos\ContactmomentDao;
-use rikmeijer\Teach\Daos\ModuleDao;
 use rikmeijer\Teach\GUI;
 use TheCodingMachine\TDBM\ResultIterator;
 
