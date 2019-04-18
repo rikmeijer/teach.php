@@ -14,7 +14,7 @@
 <nav>
     <ul class="horizontal-menu">
         <?php foreach ($this->modules() as $module) : ?>
-            <li><a href="#<?= $this->escape($module->naam); ?>"><?= $this->escape($module->naam); ?></a></li>
+            <li><a href="#<?= $this->escape($module->getNaam()); ?>"><?= $this->escape($module->getNaam()); ?></a></li>
         <?php endforeach; ?>
     </ul>
 </nav>
@@ -27,11 +27,11 @@
 
 <?php foreach ($this->modules() as $module) : ?>
     <section>
-        <a name="<?= $this->escape($module->naam); ?>"></a>
-        <h2><?= $this->escape($module->naam); ?><?php $this->rating($module->retrieveRating(), 75, 15); ?></h2>
+        <a name="<?= $this->escape($module->getNaam()); ?>"></a>
+        <h2><?= $this->escape($module->getNaam()); ?><?php $this->rating($module->getAverageRating(), 75, 15); ?></h2>
         <?php $this->sub(
             'contactmomenten',
-            ['caption' => 'Contactmomenten', 'contactmomenten' => $module->contactmomenten]
+            ['caption' => 'Contactmomenten', 'contactmomenten' => $this->getModuleContactmomenten($module)]
         ); ?>
     </section>
 <?php endforeach; ?>

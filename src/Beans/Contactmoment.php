@@ -15,4 +15,30 @@ use rikmeijer\Teach\Beans\Generated\AbstractContactmoment;
  */
 class Contactmoment extends AbstractContactmoment
 {
+    public function getAverageRating() {
+        $contactmomentratings = $this->getRating();
+        if (count($contactmomentratings) === 0) {
+            return 0;
+        }
+        $value = 0;
+        foreach ($contactmomentratings as $contactmomentrating) {
+            $value += $contactmomentrating->getWaarde()->getNaam();
+        }
+        return round($value / count($contactmomentratings), 1);
+    }
+
+    public function isActive() : bool {
+        return $this->getStarttijd()->getTimestamp() <= time() && $this->getStarttijd()->getTimestamp() >= time();
+    }
+    public function hasPast() : bool {
+        return $this->getEindtijd()->getTimestamp() <= time();
+    }
+
+    public function getKalenderweek() : string {
+        return $this->getLes()->getLesweek()->getKalenderweek();
+    }
+    public function getBlokweek() : string {
+        return $this->getLes()->getLesweek()->getBlokweek();
+    }
+
 }

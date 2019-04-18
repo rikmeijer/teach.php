@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace rikmeijer\Teach\Daos;
 
+use rikmeijer\Teach\Beans\Module;
 use rikmeijer\Teach\Daos\Generated\AbstractContactmomentDao;
 
 /**
@@ -15,4 +16,28 @@ use rikmeijer\Teach\Daos\Generated\AbstractContactmomentDao;
  */
 class ContactmomentDao extends AbstractContactmomentDao
 {
+    public function findContactmomentenForUserByModule(string $owner, Module $module) {
+
+        /**
+         * select
+         * `module`.`naam` AS `modulenaam`,
+         * `lesweek`.`kalenderweek` AS `kalenderweek`,
+         * `lesweek`.`blokweek` AS `blokweek`,
+         * `contactmoment`.`id` AS `id`,
+         * `contactmoment`.`les_id` AS `les_id`,
+         * `contactmoment`.`starttijd` AS `starttijd`,
+         * `contactmoment`.`eindtijd` AS `eindtijd`,
+         * `contactmoment`.`ruimte` AS `ruimte`,
+         * `contactmoment`.`ical_uid` AS `ical_uid`,
+         * `contactmoment`.`created_at` AS `created_at`,
+         * `contactmoment`.`updated_at` AS `updated_at`,
+         * `contactmoment`.`owner` AS `owner`
+         * from (
+         *  ((`module` join `les` on(`les`.`module_naam` = `module`.`naam`))
+         *  join `contactmoment` on(`contactmoment`.`les_id` = `les`.`id`))
+         *  join `lesweek` on(`les`.`jaar` = `lesweek`.`jaar` and `les`.`kalenderweek` = `lesweek`.`kalenderweek`))
+         */
+
+        return $this->find('module.naam = :moduleName AND contactmoment.owner = :owner', ['moduleName' => $module->getNaam(), 'owner' => $owner]);
+    }
 }

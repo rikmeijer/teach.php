@@ -9,10 +9,27 @@ declare(strict_types=1);
 namespace rikmeijer\Teach\Beans;
 
 use rikmeijer\Teach\Beans\Generated\AbstractModule;
+use rikmeijer\Teach\Daos\ContactmomentDao;
 
 /**
  * The Module class maps the 'module' table in database.
  */
 class Module extends AbstractModule
 {
+    public function getAverageRating() {
+        $module_lessen = $this->getLes();
+        $ratings = [];
+        foreach ($module_lessen as $module_les) {
+            foreach ($module_les->getContactmoment() as $lescontactmoment) {
+                if ($lescontactmoment->getAverageRating() > 0) {
+                    $ratings[] = $lescontactmoment->getAverageRating();
+                }
+            }
+        }
+        $numericRatings = array_filter($ratings, 'is_numeric');
+        if (count($numericRatings) === 0) {
+            return 0;
+        }
+        return round(array_sum($numericRatings) / count($numericRatings), 1);
+    }
 }

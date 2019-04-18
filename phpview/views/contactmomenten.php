@@ -1,4 +1,9 @@
-<?php if (count($contactmomenten) === 0) : ?>
+<?php
+/**
+ * @var \rikmeijer\Teach\Beans\Contactmoment[] $contactmomenten
+ */
+
+if (count($contactmomenten) === 0) : ?>
     <p>Geen <?= $this->escape(strtolower($caption)); ?></p>
 <?php else : ?>
     <table>
@@ -21,20 +26,20 @@
         </thead>
         <tbody class="collapsed">
         <?php foreach ($contactmomenten as $contactmoment) : ?>
-            <?php if ($contactmoment->active) : ?>
+            <?php if ($contactmoment->isActive()) : ?>
                 <tr class="active">
-            <?php elseif ($contactmoment->past) : ?>
+            <?php elseif ($contactmoment->hasPast()) : ?>
                 <tr class="past">
             <?php else : ?>
                 <tr>
             <?php endif; ?>
-            <td><?= $this->escape($contactmoment->kalenderweek); ?></td>
-            <td><?= $this->escape($contactmoment->blokweek); ?></td>
-            <td><?= $this->escape($contactmoment->starttijd->format('l')); ?></td>
-            <td><?= $this->escape($contactmoment->starttijd->format('H:i')); ?></td>
-            <td><?= $this->escape($contactmoment->eindtijd->format('H:i')); ?></td>
+            <td><?= $this->escape($contactmoment->getKalenderweek()); ?></td>
+            <td><?= $this->escape($contactmoment->getBlokweek()); ?></td>
+            <td><?= $this->escape($contactmoment->getStarttijd()->format('l')); ?></td>
+            <td><?= $this->escape($contactmoment->getStarttijd()->format('H:i')); ?></td>
+            <td><?= $this->escape($contactmoment->getEindtijd()->format('H:i')); ?></td>
             <td><a href="<?= $this->url('/webboard'); ?>" target="_blank">webboard</a> - <a
-                        href="<?= $this->url('/feedback/%s', $contactmoment->id); ?>" target="_blank"><?php $this->rating($contactmoment->retrieveRating(), 75, 15); ?></a></td>
+                        href="<?= $this->url('/feedback/%s', $contactmoment->getId()); ?>" target="_blank"><?php $this->rating($contactmoment->getAverageRating(), 75, 15); ?></a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
