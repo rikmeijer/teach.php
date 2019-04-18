@@ -21,6 +21,6 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --rsh='ssh -p7685' --quiet $TRAVIS_BUILD_DIR u28492p22384@web0115.zxcs.nl:domains/teach.pulledbits.org/
+  script: ssh -p 7685 u28492p22384@web0115.zxcs.nl "cd domains/teach.pulledbits.org; ./deploy.sh"
   on:
     branch: master
