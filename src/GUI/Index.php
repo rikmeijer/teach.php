@@ -24,16 +24,16 @@ final class Index implements GUI
     {
         $this->phpviewDirectory = $bootstrap->resource('phpview');
         $this->phpviewDirectory->registerHelper('modules', function(TemplateInstance $templateInstance) : ResultIterator {
-            $userId = $templateInstance->resource('user')->uid;
             return ($templateInstance->resource('dao')('Module'))->findAll();
         });
         $this->phpviewDirectory->registerHelper('getModuleContactmomenten', function(TemplateInstance $templateInstance, Module $module) : ResultIterator {
             $userId = $templateInstance->resource('user')->uid;
             return ($templateInstance->resource('dao')('Contactmoment'))->findContactmomentenForUserByModule($userId, $module);
         });
-        $this->phpviewDirectory->registerHelper('contactmomenten', function(TemplateInstance $templateInstance) : array
+        $this->phpviewDirectory->registerHelper('contactmomenten', function(TemplateInstance $templateInstance) : ResultIterator
         {
-            return Contactmoment::readVandaag($templateInstance->resource('database'), $templateInstance->resource('user')->uid);
+            $userId = $templateInstance->resource('user')->uid;
+            return ($templateInstance->resource('dao')('Contactmoment'))->findContactmomentenTodayForUser($userId);
         });
     }
 

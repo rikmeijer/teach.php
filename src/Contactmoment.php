@@ -25,20 +25,6 @@ final class Contactmoment
         return array_map([__CLASS__, 'wrapAroundEntity'], $entities);
     }
 
-    public static function readByModuleName(Schema $schema, string $owner, string $moduleNaam): array
-    {
-        return self::wrapAroundEntities(
-            $schema->read("contactmoment_module", [], ["modulenaam" => $moduleNaam, "owner" => $owner])
-        );
-    }
-
-    public static function readVandaag(Schema $schema, string $owner): array
-    {
-        return self::wrapAroundEntities(
-            $schema->read('contactmoment_vandaag', [], ["owner" => $owner])
-        );
-    }
-
     public static function read(Schema $schema, string $identifier): self
     {
         $contactmoments = $schema->read('contactmoment', [], ['id' => $identifier]);
