@@ -1,18 +1,18 @@
 services:
-- mysql
+  - mysql
 language: php
 addons:
-  ssh_known_hosts: web0115.zxcs.nl
+  ssh_known_hosts: web0115.zxcs.nl:7685
 before_install:
-- mysql -e 'CREATE DATABASE teach;'
-- phpenv config-add travis.php.ini
-- printf "\n" | pecl install imagick
+  - mysql -e 'CREATE DATABASE teach;'
+  - phpenv config-add travis.php.ini
+  - printf "\n" | pecl install imagick
 install:
-- composer install
-- "./migrate-database"
-- php regenerateTDBM.php
+  - composer install
+  - "./migrate-database"
+  - php regenerateTDBM.php
 php:
-- '7.3'
+  - '7.3'
 
 before_deploy:
   - openssl aes-256-cbc -K $encrypted_f753f987fe65_key -iv $encrypted_f753f987fe65_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
