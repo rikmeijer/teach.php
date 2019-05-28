@@ -98,9 +98,9 @@ final class User
             if (array_key_exists('LOCATION', $event) === false) {
                 continue;
             }
-            $procedureStatement = $this->tdbm->getConnection()->prepare('CALL import_ical_to_contactmoment(:userid, :eventSummary, :eventId, :eventStartTime, :eventEndTime, :eventLocation)');
+            $procedureStatement = $this->tdbm->getConnection()->prepare('CALL import_ical_to_contactmoment(:owner, :eventSummary, :eventId, :eventStartTime, :eventEndTime, :eventLocation)');
             $procedureStatement->execute([
-                 'userid' => $userId,
+                 'owner' => $userId,
                  'eventSummary' => $event['SUMMARY'],
                  'eventId' => $event['UID'],
                  'eventStartTime' => $this->convertToSQLDateTime($event['DTSTART']),
@@ -110,10 +110,11 @@ final class User
             $count++;
         }
 
-        $objects = $this->tdbm->findObjectsFromSql('contactmoment', 'contactmoment_toekomst_geimporteerd_verleden AS contactmoment');
-        foreach ($objects as $object) {
-            $this->tdbm->delete($object);
-        }
+        $procedureStatement = $this->tdbm->getConnection()->prepare('CALL delete_previously_imported_future_events(:owner)');
+        $procedureStatement->execute([
+             'owner' => $userId
+         ]);
+
         return $count;
     }
 
