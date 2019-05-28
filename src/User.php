@@ -15,14 +15,14 @@ final class User
     private $oauth;
 
     /**
-     * @var TDBMService
+     * @var Calendar
      */
-    private $tdbm;
+    private $calendar;
 
     public function __construct(Bootstrap $bootstrap)
     {
         $this->session = $bootstrap->resource('session');
-        $this->tdbm = $bootstrap->resource('tdbm');
+        $this->calendar = $bootstrap->resource('calendar');
         $this->oauth = $bootstrap->resource('oauth');
     }
 
@@ -89,43 +89,6 @@ final class User
         }
 
         $userId = $this->details()->uid;
-        $icalReader = new \ICal('http://rooster.avans.nl/gcal/D' . $userId);
-        $count = 0;
-        foreach ($icalReader->events() as $event) {
-            if (array_key_exists('SUMMARY', $event) === false) {
-                continue;
-            }
-            if (array_key_exists('LOCATION', $event) === false) {
-                continue;
-            }
-            $procedureStatement = $this->tdbm->getConnection()->prepare('CALL import_ical_to_contactmoment(:owner, :eventSummary, :eventId, :eventStartTime, :eventEndTime, :eventLocation)');
-            $procedureStatement->execute([
-                 'owner' => $userId,
-                 'eventSummary' => $event['SUMMARY'],
-                 'eventId' => $event['UID'],
-                 'eventStartTime' => $this->convertToSQLDateTime($event['DTSTART']),
-                 'eventEndTime' => $this->convertToSQLDateTime($event['DTEND']),
-                 'eventLocation' =>$event['LOCATION']
-             ]);
-            $count++;
-        }
-
-        $procedureStatement = $this->tdbm->getConnection()->prepare('CALL delete_previously_imported_future_events(:owner)');
-        $procedureStatement->execute([
-             'owner' => $userId
-         ]);
-
-        return $count;
-    }
-
-    private function convertToSQLDateTime(string $icaldatetime): string
-    {
-        try {
-            $datetime = new \DateTime($icaldatetime);
-            $datetime->setTimezone(new \DateTimeZone(ini_get('date.timezone')));
-            return $datetime->format('Y-m-d H:i:s');
-        } catch (\Exception $e) {
-            return null;
-        }
+        return $this->calendar->importICal($userId, 'http://rooster.avans.nl/gcal/D' . $userId);
     }
 }

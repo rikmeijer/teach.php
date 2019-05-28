@@ -34,4 +34,6 @@
             return $calendar;
         }
     );
+
+    return new \rikmeijer\Teach\Calendar($bootstrap->resource('tdbm')->getConnection());
 };

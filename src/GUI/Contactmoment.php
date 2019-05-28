@@ -3,9 +3,13 @@
 namespace rikmeijer\Teach\GUI;
 
 use rikmeijer\Teach\GUI;
+use rikmeijer\Teach\User;
 
 class Contactmoment implements GUI
 {
+    /**
+     * @var User
+     */
     private $user;
     private $phpviewDirectory;
 
