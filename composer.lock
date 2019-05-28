@@ -2407,40 +2407,6 @@
             "time": "2017-10-23T01:57:42+00:00"
         },
         {
-            "name": "pulledbits/activerecord",
-            "version": "1.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pulledbits/activerecord.git",
-                "reference": "cf384ef97e10931de0a916a973fa7d2df838ea63"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/activerecord/zipball/cf384ef97e10931de0a916a973fa7d2df838ea63",
-                "reference": "cf384ef97e10931de0a916a973fa7d2df838ea63",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/psr7": "1.4.2",
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~6"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "pulledbits\\ActiveRecord\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "proper activerecord in PHP",
-            "time": "2018-11-21T13:38:07+00:00"
-        },
-        {
             "name": "pulledbits/bootstrap",
             "version": "1.1.1",
             "source": {

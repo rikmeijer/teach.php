@@ -15,7 +15,6 @@
     "aura/session": "^2.1",
     "doctrine/migrations": "2.0.*",
     "pulledbits/view": "^0.7",
-    "pulledbits/activerecord": "~1",
     "pulledbits/router": "~6",
     "pulledbits/bootstrap": "~1",
     "eluceo/ical": "^0.14.0",
