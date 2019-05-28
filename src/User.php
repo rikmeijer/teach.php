@@ -13,7 +13,6 @@ final class User
      */
     private $session;
     private $oauth;
-    private $schema;
 
     /**
      * @var TDBMService
@@ -23,7 +22,6 @@ final class User
     public function __construct(Bootstrap $bootstrap)
     {
         $this->session = $bootstrap->resource('session');
-        $this->schema = $bootstrap->resource('database');
         $this->tdbm = $bootstrap->resource('tdbm');
         $this->oauth = $bootstrap->resource('oauth');
     }
