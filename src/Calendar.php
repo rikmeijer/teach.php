@@ -5,6 +5,7 @@ namespace rikmeijer\Teach;
 
 use Doctrine\DBAL\Connection;
 use pulledbits\Bootstrap\Bootstrap;
+use rikmeijer\Teach\Daos\LesweekDao;
 
 class Calendar
 {
@@ -20,7 +21,7 @@ class Calendar
     private $dbal;
 
     /**
-     * @var \rikmeijer\Teach\Daos\LesweekDao
+     * @var LesweekDao
      */
     private $lesweken;
 
@@ -31,7 +32,8 @@ class Calendar
         $this->lesweken = $bootstrap->resource('dao')('Lesweek');
     }
 
-    public function importICal(string $owner, string $url) {
+    public function importICal(string $owner, string $url)
+    {
         $count = 0;
         $events = $this->icalReader->initURL($url);
         foreach ($events['VEVENT'] as $event) {
@@ -41,22 +43,28 @@ class Calendar
             if (array_key_exists('LOCATION', $event) === false) {
                 continue;
             }
-            $procedureStatement = $this->dbal->prepare('CALL import_ical_to_contactmoment(:owner, :eventSummary, :eventId, :eventStartTime, :eventEndTime, :eventLocation)');
-            $procedureStatement->execute([
-                 'owner' => $owner,
-                 'eventSummary' => $event['SUMMARY'],
-                 'eventId' => $event['UID'],
-                 'eventStartTime' => $this->convertToSQLDateTime($event['DTSTART']),
-                 'eventEndTime' => $this->convertToSQLDateTime($event['DTEND']),
-                 'eventLocation' =>$event['LOCATION']
-             ]);
+            $procedureStatement = $this->dbal->prepare(
+                'CALL import_ical_to_contactmoment(:owner, :eventSummary, :eventId, :eventStartTime, :eventEndTime, :eventLocation)'
+            );
+            $procedureStatement->execute(
+                [
+                    'owner' => $owner,
+                    'eventSummary' => $event['SUMMARY'],
+                    'eventId' => $event['UID'],
+                    'eventStartTime' => $this->convertToSQLDateTime($event['DTSTART']),
+                    'eventEndTime' => $this->convertToSQLDateTime($event['DTEND']),
+                    'eventLocation' => $event['LOCATION']
+                ]
+            );
             $count++;
         }
 
         $procedureStatement = $this->dbal->prepare('CALL delete_previously_imported_future_events(:owner)');
-        $procedureStatement->execute([
-             'owner' => $owner
-         ]);
+        $procedureStatement->execute(
+            [
+                'owner' => $owner
+            ]
+        );
 
         return $count;
     }
@@ -72,7 +80,8 @@ class Calendar
         }
     }
 
-    public function generate(string $calendarIdentifier) {
+    public function generate(string $calendarIdentifier)
+    {
         $calendar = new \Eluceo\iCal\Component\Calendar($calendarIdentifier);
         switch ($calendarIdentifier) {
             case 'weeks':
