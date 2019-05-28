@@ -111,8 +111,11 @@ final class User
              ]);
             $count++;
         }
-        $this->schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
 
+        $objects = $this->tdbm->findObjectsFromSql('contactmoment', 'contactmoment_toekomst_geimporteerd_verleden AS contactmoment');
+        foreach ($objects as $object) {
+            $this->tdbm->delete($object);
+        }
         return $count;
     }
 
