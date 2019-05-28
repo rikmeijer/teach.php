@@ -4,6 +4,7 @@ namespace rikmeijer\Teach;
 
 use Aura\Session\Session;
 use pulledbits\Bootstrap\Bootstrap;
+use TheCodingMachine\TDBM\TDBMService;
 
 final class User
 {
@@ -14,10 +15,16 @@ final class User
     private $oauth;
     private $schema;
 
+    /**
+     * @var TDBMService
+     */
+    private $tdbm;
+
     public function __construct(Bootstrap $bootstrap)
     {
         $this->session = $bootstrap->resource('session');
         $this->schema = $bootstrap->resource('database');
+        $this->tdbm = $bootstrap->resource('tdbm');
         $this->oauth = $bootstrap->resource('oauth');
     }
 
@@ -93,17 +100,15 @@ final class User
             if (array_key_exists('LOCATION', $event) === false) {
                 continue;
             }
-            $this->schema->executeProcedure(
-                'import_ical_to_contactmoment',
-                [
-                    $userId,
-                    $event['SUMMARY'],
-                    $event['UID'],
-                    $this->convertToSQLDateTime($event['DTSTART']),
-                    $this->convertToSQLDateTime($event['DTEND']),
-                    $event['LOCATION']
-                ]
-            );
+            $procedureStatement = $this->tdbm->getConnection()->prepare('CALL import_ical_to_contactmoment(:userid, :eventSummary, :eventId, :eventStartTime, :eventEndTime, :eventLocation)');
+            $procedureStatement->execute([
+                 'userid' => $userId,
+                 'eventSummary' => $event['SUMMARY'],
+                 'eventId' => $event['UID'],
+                 'eventStartTime' => $this->convertToSQLDateTime($event['DTSTART']),
+                 'eventEndTime' => $this->convertToSQLDateTime($event['DTEND']),
+                 'eventLocation' =>$event['LOCATION']
+             ]);
             $count++;
         }
         $this->schema->delete('contactmoment_toekomst_geimporteerd_verleden', []);
