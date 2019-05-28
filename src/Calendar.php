@@ -4,24 +4,37 @@
 namespace rikmeijer\Teach;
 
 use Doctrine\DBAL\Connection;
+use pulledbits\Bootstrap\Bootstrap;
 
 class Calendar
 {
+
+    /**
+     * @var \ICal
+     */
+    private $icalReader;
 
     /**
      * @var Connection
      */
     private $dbal;
 
-    public function __construct(Connection $connection)
+    /**
+     * @var \rikmeijer\Teach\Daos\LesweekDao
+     */
+    private $lesweken;
+
+    public function __construct(Bootstrap $bootstrap)
     {
-        $this->dbal = $connection;
+        $this->icalReader = $bootstrap->resource('ical');
+        $this->dbal = $bootstrap->resource('tdbm')->getConnection();
+        $this->lesweken = $bootstrap->resource('dao')('Lesweek');
     }
 
     public function importICal(string $owner, string $url) {
-        $icalReader = new \ICal($url);
         $count = 0;
-        foreach ($icalReader->events() as $event) {
+        $events = $this->icalReader->initURL($url);
+        foreach ($events['VEVENT'] as $event) {
             if (array_key_exists('SUMMARY', $event) === false) {
                 continue;
             }
@@ -57,6 +70,35 @@ class Calendar
         } catch (\Exception $e) {
             return null;
         }
+    }
+
+    public function generate(string $calendarIdentifier) {
+        $calendar = new \Eluceo\iCal\Component\Calendar($calendarIdentifier);
+        switch ($calendarIdentifier) {
+            case 'weeks':
+                foreach ($this->lesweken->findAll() as $lesweek) {
+                    $lesweekEvent = new \Eluceo\iCal\Component\Event();
+                    $lesweekEvent->setNoTime(true);
+                    $lesweekEvent->setUniqueId(sha1($lesweek->getJaar() . $lesweek->getKalenderweek()));
+                    $lesweekEvent->setSummary(
+                        'OW' . $lesweek->getOnderwijsweek() . '/BW' . $lesweek->getBlokweek()
+                    );
+                    try {
+                        $week_start = new \DateTime();
+                        $week_start->setISODate($lesweek->getJaar(), $lesweek->getKalenderweek());
+                        $lesweekEvent->setDtStart($week_start);
+                        $lesweekEvent->setDtEnd($week_start);
+                        $calendar->addComponent($lesweekEvent);
+                    } catch (\Exception $e) {
+                    }
+                }
+                break;
+
+            default:
+                error_log('Unknown calendar ' . $calendarIdentifier . ' requested');
+                break;
+        }
+        return $calendar;
     }
 
 }

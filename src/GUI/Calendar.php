@@ -17,8 +17,15 @@ final class Calendar implements GUI
 
     public function __construct(\pulledbits\Bootstrap\Bootstrap $bootstrap)
     {
-        $bootstrap->resource('calendar');
         $this->phpview = $bootstrap->resource('phpview')->load('calendar');
+
+        $calendar = $bootstrap->resource('calendar');
+
+        $this->phpview->registerHelper(
+            'calendar', function (\pulledbits\View\TemplateInstance $templateInstance, string $calendarIdentifier) use ($calendar) : \Eluceo\iCal\Component\Calendar {
+                return $calendar->generate($calendarIdentifier);
+            }
+        );
     }
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void
