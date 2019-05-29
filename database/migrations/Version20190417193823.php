@@ -46,6 +46,11 @@ final class Version20190417193823 extends AbstractMigration
         $this->addSql('CREATE TABLE ratingwaarde (naam VARCHAR(5) NOT NULL COLLATE utf8_unicode_ci, PRIMARY KEY(naam)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB COMMENT = \'\' ');
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
+        $schema->getTable('rating')->addForeignKeyConstraint('ratingwaarde', ['waarde'], ['naam'], [
+            'onUpdate' => 'CASCADE',
+            'onDelete' => 'SET NULL'
+        ]);
+
         $this->addSql('CREATE TABLE users (id VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, name TEXT NOT NULL COLLATE utf8_unicode_ci, email VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, remember_token TEXT DEFAULT NULL COLLATE utf8_unicode_ci, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, UNIQUE INDEX email (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB COMMENT = \'\' ');
 
         $this->addSql('CREATE VIEW `contactmoment_module` AS select `module`.`naam` AS `modulenaam`,`lesweek`.`kalenderweek` AS `kalenderweek`,`lesweek`.`blokweek` AS `blokweek`,`contactmoment`.`id` AS `id`,`contactmoment`.`les_id` AS `les_id`,`contactmoment`.`starttijd` AS `starttijd`,`contactmoment`.`eindtijd` AS `eindtijd`,`contactmoment`.`ruimte` AS `ruimte`,`contactmoment`.`ical_uid` AS `ical_uid`,`contactmoment`.`created_at` AS `created_at`,`contactmoment`.`updated_at` AS `updated_at`,`contactmoment`.`owner` AS `owner` from (((`module` join `les` on(`les`.`module_naam` = `module`.`naam`)) join `contactmoment` on(`contactmoment`.`les_id` = `les`.`id`)) join `lesweek` on(`les`.`jaar` = `lesweek`.`jaar` and `les`.`kalenderweek` = `lesweek`.`kalenderweek`))');
