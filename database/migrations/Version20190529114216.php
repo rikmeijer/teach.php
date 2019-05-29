@@ -21,7 +21,7 @@ final class Version20190529114216 extends AbstractMigration
     {
         $schema->getTable('rating')->removeForeignKey('fk_rating_waarde');
 
-        $this->addSql('INSERT INTO `ratingwaarde` (`naam`) VALUES ("0")');
+        $this->addSql('REPLACE INTO `ratingwaarde` (`naam`) VALUES ("0")');
         $this->addSql('UPDATE `rating` SET `waarde` = 0 WHERE `waarde` IS NULL');
 
         $schema->getTable('rating')->changeColumn('waarde', [
