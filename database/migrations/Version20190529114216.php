@@ -43,7 +43,7 @@ final class Version20190529114216 extends AbstractMigration
     }
 
 
-    public function preDown(Schema $schema): void
+    public function down(Schema $schema): void
     {
         $this->connection->executeQuery('alter table rating drop foreign key fk_rating_waarde');
 
