@@ -9,7 +9,7 @@ install:
   - echo '|1|+2lC+ZMLuAow30SKKRkXW8+SIJg=|0063B3li+aMWB5BQrcGR16of2X0= ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvOs1rTXd6KsK7bmo/2dQiKtbeekF4/fXAMUM91y4chbPkLSd9zCqDaxhY1mwU0h5stWBRSm3K0WyrEHaUO8/BIknYnDyRUgcMf4WtichX7YD776HeSZZNOixh4iQLc/JxNxy5DXILytuTFl4/fTlhlXrGnxrleljUtzid3y/ultqAsVYcMt5lybYdO/g8thi+FqtnX27z4qh2y8qQgZ5AJ+e/ic8TQAxW/FI4+bC6ZNC7JEQCzkl48qbrcmXfilPzoPOP9EV3WlwPuftir9pSpizEK4SkPNYABOauzT5ystgiEaThqD0aww4vIAP0dJNJwxHCrvByqWKfD3CGcE4kQ==' >> $HOME/.ssh/known_hosts
   - composer install
   - "./migrate-database"
-  - php regenerateTDBM.php
+  - php ./cli/teach.php regenerateTDBM
 php:
   - '7.3'
 
