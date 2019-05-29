@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
@@ -21,8 +22,13 @@ final class Version20190529114216 extends AbstractMigration
     {
         $schema->getTable('rating')->removeForeignKey('fk_rating_waarde');
 
-        $this->addSql('INSERT IGNORE INTO `ratingwaarde` (`naam`) VALUES ("0")');
-        $this->addSql('UPDATE `rating` SET `waarde` = 0 WHERE `waarde` IS NULL');
+        try {
+            $this->connection->insert('ratingwaarde', ['naam' => '0']);
+        } catch (DBALException $e) {
+
+        }
+
+        $this->connection->update('rating', ['waarde' => '0'], ['waarde' => null]);
 
         $schema->getTable('rating')->changeColumn('waarde', [
             'notnull' => true,
