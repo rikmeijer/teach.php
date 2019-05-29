@@ -18,14 +18,9 @@ final class Version20190529114216 extends AbstractMigration
         return '';
     }
 
-    public function preUp(Schema $schema): void
+    public function up(Schema $schema): void
     {
-        $schema->getTable('rating')->removeForeignKey('fk_rating_waarde');
         $this->connection->executeQuery('alter table rating drop foreign key fk_rating_waarde');
-    }
-
-    public function up(Schema $schema) : void
-    {
 
         $schema->getTable('rating')->changeColumn('waarde', [
             'notnull' => true,
@@ -50,11 +45,8 @@ final class Version20190529114216 extends AbstractMigration
 
     public function preDown(Schema $schema): void
     {
-        $schema->getTable('rating')->removeForeignKey('fk_rating_waarde');
-    }
+        $this->connection->executeQuery('alter table rating drop foreign key fk_rating_waarde');
 
-    public function down(Schema $schema) : void
-    {
         $schema->getTable('rating')->changeColumn('waarde', [
             'notnull' => false,
             'default' => null
