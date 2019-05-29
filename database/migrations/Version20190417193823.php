@@ -46,7 +46,7 @@ final class Version20190417193823 extends AbstractMigration
         $this->addSql('CREATE TABLE ratingwaarde (naam VARCHAR(5) NOT NULL COLLATE utf8_unicode_ci, PRIMARY KEY(naam)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB COMMENT = \'\' ');
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('alter table teach.rating add constraint fk_rating_waarde foreign key (waarde) references teach.ratingwaarde (naam) on update cascade on delete set null');
+        $this->addSql('alter table rating add constraint fk_rating_waarde foreign key (waarde) references ratingwaarde (naam) on update cascade on delete set null');
 
         $this->addSql('CREATE TABLE users (id VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, name TEXT NOT NULL COLLATE utf8_unicode_ci, email VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, remember_token TEXT DEFAULT NULL COLLATE utf8_unicode_ci, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, UNIQUE INDEX email (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB COMMENT = \'\' ');
 

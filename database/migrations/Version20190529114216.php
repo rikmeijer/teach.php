@@ -18,32 +18,43 @@ final class Version20190529114216 extends AbstractMigration
         return '';
     }
 
+    public function preUp(Schema $schema): void
+    {
+        $schema->getTable('rating')->removeForeignKey('fk_rating_waarde');
+        $this->connection->executeQuery('alter table rating drop foreign key fk_rating_waarde');
+    }
+
     public function up(Schema $schema) : void
     {
-
-        try {
-            $schema->getTable('rating')->removeForeignKey('fk_rating_waarde');
-            $this->connection->insert('ratingwaarde', ['naam' => '0']);
-        } catch (DBALException $e) {
-
-        }
-
-        $this->connection->update('rating', ['waarde' => '0'], ['waarde' => null]);
 
         $schema->getTable('rating')->changeColumn('waarde', [
             'notnull' => true,
             'default' => 0
         ]);
+
+        try {
+            $this->connection->insert('ratingwaarde', ['naam' => '0']);
+        } catch (DBALException $e) {
+        }
+        $this->connection->update('rating', ['waarde' => '0'], ['waarde' => null]);
+
+
+        $this->connection->executeQuery('alter table rating add constraint fk_rating_waarde foreign key (waarde) references ratingwaarde (naam) on update cascade on delete restrict');
+
         $schema->getTable('rating')->addForeignKeyConstraint('ratingwaarde', ['waarde'], ['naam'], [
             'onUpdate' => 'CASCADE',
             'onDelete' => 'RESTRICT'
         ]);
+    }
 
+
+    public function preDown(Schema $schema): void
+    {
+        $schema->getTable('rating')->removeForeignKey('fk_rating_waarde');
     }
 
     public function down(Schema $schema) : void
     {
-        $schema->getTable('rating')->removeForeignKey('fk_rating_waarde');
         $schema->getTable('rating')->changeColumn('waarde', [
             'notnull' => false,
             'default' => null
