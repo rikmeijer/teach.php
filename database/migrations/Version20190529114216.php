@@ -21,6 +21,7 @@ final class Version20190529114216 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         $schema->getTable('rating')->removeForeignKey('fk_rating_waarde');
+        $schema->getTable('rating')->dropIndex('fk_rating_waarde');
 
         try {
             $this->connection->insert('ratingwaarde', ['naam' => '0']);
