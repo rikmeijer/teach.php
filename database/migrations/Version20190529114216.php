@@ -22,10 +22,7 @@ final class Version20190529114216 extends AbstractMigration
     {
         $this->connection->executeQuery('alter table rating drop foreign key fk_rating_waarde');
 
-        $schema->getTable('rating')->changeColumn('waarde', [
-            'notnull' => true,
-            'default' => 0
-        ]);
+        $this->connection->executeQuery('ALTER TABLE rating CHANGE waarde waarde VARCHAR(5) DEFAULT \'0\' NOT NULL COLLATE utf8_unicode_ci');
 
         try {
             $this->connection->insert('ratingwaarde', ['naam' => '0']);
@@ -35,11 +32,6 @@ final class Version20190529114216 extends AbstractMigration
 
 
         $this->connection->executeQuery('alter table rating add constraint fk_rating_waarde foreign key (waarde) references ratingwaarde (naam) on update cascade on delete restrict');
-
-        $schema->getTable('rating')->addForeignKeyConstraint('ratingwaarde', ['waarde'], ['naam'], [
-            'onUpdate' => 'CASCADE',
-            'onDelete' => 'RESTRICT'
-        ]);
     }
 
 
