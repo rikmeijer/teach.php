@@ -47,7 +47,7 @@ class Supply implements Route
         if (array_key_exists('rating', $query)) {
             $rating = $query['rating'];
         } else {
-            $rating = $ipRating->getWaarde() !== null ? $ipRating->getWaarde()->getNaam() : 0;
+            $rating = $ipRating->getWaarde()->getNaam();
         }
 
         return new \rikmeijer\Teach\PHPviewEndPoint(
