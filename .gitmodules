@@ -1,4 +1,4 @@
 [submodule "src/public/webboard"]
 	path = src/public/webboard
-	url = git@github.com:pulledbits/Webboard.git
+	url = https://github.com/pulledbits/Webboard.git
 	branch = master
