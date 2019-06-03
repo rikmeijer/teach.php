@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @var $bootstrap \pulledbits\Bootstrap\Bootstrap
+ */
 $bootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'application.php';
 $serverRequest = \GuzzleHttp\Psr7\ServerRequest::fromGlobals();
 /**
