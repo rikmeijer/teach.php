@@ -1,5 +1,4 @@
-runtime: php
-env: flex
+runtime: php73
 entrypoint: serve src/public/index.php
 #api_version: 1
 
