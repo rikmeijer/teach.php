@@ -22,7 +22,11 @@ class PHPviewEndPoint implements RouteEndPoint
         $reader = function(int $length) use ($templateInstance) : ?string {
             static $buffer;
             if (isset($buffer) === false) {
-                $buffer = $templateInstance->capture();
+                try {
+                    $buffer = $templateInstance->capture();
+                } catch (\Error $e) {
+                    error_log($e->getMessage() . ':' . $e->getTraceAsString());
+                }
             } elseif ($buffer === false) {
                 return null;
             }
