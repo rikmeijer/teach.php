@@ -3,19 +3,6 @@
 use TheCodingMachine\TDBM\Utils\DefaultNamingStrategy;
 
 return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
-    $config = $bootstrap->config('DB');
-
-    $dbConnection = Doctrine\DBAL\DriverManager::getConnection(
-        [
-            'user' => $config['USERNAME'],
-            'password' => $config['PASSWORD'],
-            'host' => $config['HOST'],
-            'driver' => 'pdo_' . $config['CONNECTION'],
-            'dbname' => $config['DATABASE'],
-        ],
-        new \Doctrine\DBAL\Configuration()
-    );
-
     $naming = new TheCodingMachine\TDBM\Utils\DefaultNamingStrategy();
     $naming->setExceptions([
         'les' => 'Les'
@@ -29,7 +16,7 @@ return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
         new TheCodingMachine\TDBM\Configuration(
             $beanNamespace,
             $daoNamespace,
-            $dbConnection,
+            $bootstrap->resource('dbal'),
             $naming,
             $bootstrap->resource('cache'),
             null,    // An optional SchemaAnalyzer instance
