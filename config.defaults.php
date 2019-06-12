@@ -1,4 +1,10 @@
-<?php return [
+<?php
+
+if (in_array('gs', stream_get_wrappers())) {
+    $config = include 'gs://teach-242612.appspot.com/config/config.php';
+}
+
+return array_merge_recursive([
     'DB' => [
         'CONNECTION' => getenv('DB_CONNECTION'),
         'HOST' => getenv('DB_HOST'),
@@ -32,4 +38,4 @@
     'ASSETS' => [
         'path' => __DIR__ . DIRECTORY_SEPARATOR . 'assets'
     ]
-];
+], $config);
