@@ -1,7 +1,7 @@
 <?php
 
 $config = [];
-if (in_array('gs', stream_get_wrappers())) {
+if (in_array('gs', stream_get_wrappers(), true)) {
     $config = require 'gs://' . getenv('GOOGLE_CLOUD_PROJECT') .'.appspot.com/config/config.php';
 }
 
