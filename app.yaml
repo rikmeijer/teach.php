@@ -1,7 +1,13 @@
-runtime: php
-env: flex
+runtime: php72
+entrypoint: serve src/public/index.php
 #api_version: 1
 
-runtime_config:
-  document_root: src/public
-  front_controller_file: index.php
+handlers:
+  - url: /css
+    static_dir: src/public/css
+
+  - url: /img
+    static_dir: src/public/img
+
+  - url: /webboard
+    static_dir: src/public/webboard
