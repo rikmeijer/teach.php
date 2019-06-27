@@ -1,9 +1,7 @@
 <?php
 
-use Doctrine\Common\Cache\MemcachedCache;
+use Doctrine\Common\Cache\ApcuCache;
 
 return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) : \Doctrine\Common\Cache\Cache {
-    $cache = new Doctrine\Common\Cache\MemcachedCache();
-    $cache->setMemcached($bootstrap->resource('memcached'));
-    return $cache;
+    return new Doctrine\Common\Cache\ApcuCache();
 };
