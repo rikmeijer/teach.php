@@ -1,6 +1,5 @@
 <?php
 
-$config = [];
 if (in_array('gs', stream_get_wrappers())) {
     $config = include 'gs://teach-242612.appspot.com/config/config.php';
 }
