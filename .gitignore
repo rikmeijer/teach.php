@@ -75,3 +75,4 @@ awstats/
 logs/
 private_html
 public_html
+deploy.log

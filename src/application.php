@@ -32,4 +32,8 @@ return new class
         }
         return $routeEndPoint->respond(new \GuzzleHttp\Psr7\Response($responseCode));
     }
+
+    public function root() : string {
+        return dirname(__DIR__);
+    }
 };
