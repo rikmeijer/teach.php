@@ -68,3 +68,10 @@ Homestead.json
 config.php
 src/Beans/Generated
 src/Daos/Generated
+
+# zxcs specific files
+.htpasswd/
+awstats/
+logs/
+private_html
+public_html
