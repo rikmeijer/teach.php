@@ -8,7 +8,7 @@
   "require": {
     "php": ">=7.2",
     "ext-imagick": "*",
-    "ext-memcached" : "*",
+    "ext-apcu" : "*",
     "avans/oauth-php": "^0.4",
     "bacon/bacon-qr-code": "^2",
     "johngrogg/ics-parser": "^1.0",

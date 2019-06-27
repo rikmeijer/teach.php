@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9256abc617074528ff603238f63546b3",
+    "content-hash": "b51c2a61fafadf6a9b47f69f74df2aed",
     "packages": [
         {
             "name": "analog/analog",
@@ -4731,7 +4731,7 @@
     "platform": {
         "php": ">=7.2",
         "ext-imagick": "*",
-        "ext-memcached": "*"
+        "ext-apcu": "*"
     },
     "platform-dev": []
 }
