@@ -6,7 +6,7 @@ before_install:
   - phpenv config-add travis.php.ini
   - printf "\n" | pecl install imagick
 install:
-  - install.sh
+  - ./install.sh
 php:
   - '7.3'
 deploy:
