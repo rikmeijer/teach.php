@@ -6,9 +6,7 @@ before_install:
   - phpenv config-add travis.php.ini
   - printf "\n" | pecl install imagick
 install:
-  - composer install
-  - "./migrate-database"
-  - php ./cli/teach.php regenerateTDBM
+  - install.sh
 php:
   - '7.3'
 deploy:
