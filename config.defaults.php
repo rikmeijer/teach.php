@@ -2,7 +2,7 @@
 
 $config = [];
 if (in_array('gs', stream_get_wrappers())) {
-    $config = require 'gs://' . getenv('GOOGLE_CLOUD_PROJECT') .'.appspot.com/config/config.php';
+    $config = include 'gs://teach-242612.appspot.com/config/config.php';
 }
 
 return array_merge_recursive([
