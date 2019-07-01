@@ -33,17 +33,17 @@ class SSO implements GUI
         $router->addRoute(
             '/sso/login',
             function (ServerRequestInterface $request, callable $next): ResponseInterface {
-                return $this->seeOther($next($request), $this->user->login());
+                $this->user->login();
             }
         );
         $router->addRoute(
             '/sso/callback',
             function (ServerRequestInterface $request, callable $next): ResponseInterface {
-                $this->user->details();
+                $this->details();
                 return $this->seeOther($next($request), '/');
             }
         );
-        $router->addRoute('/sso/profile', new SSO\Profile($this->phpviewDirectory, $this->user->details()));
+        $router->addRoute('/sso/profile', new SSO\Profile($this->phpviewDirectory, $this));
         $router->addRoute('/logout',
             function (ServerRequestInterface $request, callable $next): ResponseInterface {
                 return $this->seeOther($next($request), $this->user->logout());
@@ -53,5 +53,10 @@ class SSO implements GUI
     private function seeOther(ResponseInterface $psrResponse, string $location): ResponseInterface
     {
         return $psrResponse->withStatus('303')->withHeader('Location', $location);
+    }
+
+    public function details()
+    {
+        return $this->user->details();
     }
 }

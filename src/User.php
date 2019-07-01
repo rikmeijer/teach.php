@@ -5,7 +5,7 @@ namespace rikmeijer\Teach;
 use Aura\Session\Session;
 use Auth0\SDK\Auth0;
 use pulledbits\Bootstrap\Bootstrap;
-use TheCodingMachine\TDBM\TDBMService;
+use rikmeijer\Teach\Beans\Useremailaddress;
 
 final class User
 {
@@ -26,20 +26,31 @@ final class User
      */
     private $calendar;
 
+    /**
+     * @var callable
+     */
+    private $daoFactory;
+
     public function __construct(Bootstrap $bootstrap)
     {
         $this->calendar = $bootstrap->resource('calendar');
+        $this->daoFactory = $bootstrap->resource('dao');
         $this->auth0 = $bootstrap->resource('auth0');
     }
 
-    public function details(): array
+    public function details(): \rikmeijer\Teach\Beans\User
     {
         $details = $this->auth0->getUser();
         if ($details === null) {
             header('Location: /sso/login', true, 302);
             exit;
         }
-        return $details;
+
+        /**
+         * @var $useremailaddress Useremailaddress
+         */
+        $useremailaddress = ($this->daoFactory)('Useremailaddress')->getById($details['email']);
+        return $useremailaddress->getUserid();
     }
 
     public function login() : void {
@@ -62,26 +73,16 @@ final class User
         return $logout_url;
     }
 
-    public function __get($name)
+    public function __call($name, array $args)
     {
-        return $this->details()->$name;
-    }
-
-    public function __set($name, $value)
-    {
-        trigger_error('Can not write SSO', E_USER_ERROR);
-    }
-    public function __isset($name)
-    {
-        $details = $this->details();
-        return isset($details->$name);
+        return $this->details()->$name(...$args);
     }
 
 
     public function importCalendarEvents(): int
     {
         if ($this->details()->extra['employee'] === true) {
-            $userId = $this->details()->uid;
+            $userId = $this->details()->getId();
             return $this->calendar->importICal($userId, 'http://rooster.avans.nl/gcal/D' . $userId);
         }
         return 0;

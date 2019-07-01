@@ -23,12 +23,12 @@ final class Index implements GUI
             return ($templateInstance->resource('dao')('Module'))->findAll();
         });
         $this->phpviewDirectory->registerHelper('getModuleContactmomenten', function(TemplateInstance $templateInstance, Module $module) : ResultIterator {
-            $userId = $templateInstance->resource('user')->uid;
+            $userId = $templateInstance->resource('user')->getId();
             return ($templateInstance->resource('dao')('Contactmoment'))->findContactmomentenForUserByModule($userId, $module);
         });
         $this->phpviewDirectory->registerHelper('contactmomenten', function(TemplateInstance $templateInstance) : ResultIterator
         {
-            $userId = $templateInstance->resource('user')->uid;
+            $userId = $templateInstance->resource('user')->getId();
             return ($templateInstance->resource('dao')('Contactmoment'))->findContactmomentenTodayForUser($userId);
         });
     }

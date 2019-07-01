@@ -1,6 +1,6 @@
 <?php use Doctrine\DBAL\DriverManager;
 
-return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
+return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) : \Doctrine\DBAL\Connection {
     $config = $bootstrap->config('DB');
     return Doctrine\DBAL\DriverManager::getConnection(
         [

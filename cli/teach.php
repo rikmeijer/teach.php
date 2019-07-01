@@ -34,6 +34,7 @@ $application->add(new class($bootstrap) extends \Symfony\Component\Console\Comma
          */
         $tdbm = $this->bootstrap->resource('tdbm');
         $tdbm->generateAllDaosAndBeans();
+        apcu_clear_cache();
         $output->writeln("OK");
     }
 });
