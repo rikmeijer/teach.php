@@ -3,6 +3,7 @@
 namespace rikmeijer\Teach;
 
 use Aura\Session\Session;
+use Auth0\SDK\Auth0;
 use pulledbits\Bootstrap\Bootstrap;
 use TheCodingMachine\TDBM\TDBMService;
 
@@ -12,7 +13,13 @@ final class User
      * @var Session
      */
     private $session;
+
     private $oauth;
+
+    /**
+     * @var Auth0
+     */
+    private $auth0;
 
     /**
      * @var Calendar
@@ -23,6 +30,7 @@ final class User
     {
         $this->session = $bootstrap->resource('session');
         $this->calendar = $bootstrap->resource('calendar');
+        $this->auth0 = $bootstrap->resource('auth0');
         $this->oauth = $bootstrap->resource('oauth');
     }
 

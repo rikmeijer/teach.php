@@ -15,6 +15,12 @@
         'callback_uri' => getenv('OAUTH_CALLBACK_URI')
     ],
 
+    'AUTH0' => [
+        'persist_id_token' => true,
+        'persist_access_token' => true,
+        'persist_refresh_token' => true,
+    ],
+
     'MEMCACHED' => [
         'host' => getenv('MEMCACHED_HOST'),
         'port' => getenv('MEMCACHED_PORT')
