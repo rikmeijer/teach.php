@@ -28,50 +28,38 @@ final class User
 
     public function __construct(Bootstrap $bootstrap)
     {
-        $this->session = $bootstrap->resource('session');
         $this->calendar = $bootstrap->resource('calendar');
         $this->auth0 = $bootstrap->resource('auth0');
-        $this->oauth = $bootstrap->resource('oauth');
     }
 
-    private function details(): \League\OAuth1\Client\Server\User
+    public function details(): array
     {
-        $sessionToken = $this->session->getSegment('token');
-        $details = unserialize($sessionToken->get('user'), [\League\OAuth1\Client\Server\User::class]);
-        if (!($details instanceof \League\OAuth1\Client\Server\User)) {
-            $tokenCredentialsSerialized = $sessionToken->get('credentials');
-            if ($tokenCredentialsSerialized === null) {
-                header('Location: /sso/authorize', true, 302);
-                exit;
-            }
-            $token = unserialize($tokenCredentialsSerialized, [TokenCredentials::class]);
-
-            $details = $this->oauth->getUserDetails($token);
-            $sessionToken->set('user', serialize($details));
+        $details = $this->auth0->getUser();
+        if ($details === null) {
+            header('Location: /sso/login', true, 302);
+            exit;
         }
         return $details;
     }
 
-    public function acquireTemporaryCredentials() {
-        $temporaryCredentials = $this->oauth->getTemporaryCredentials();
-        $this->session->getSegment('token')->set('temporary_credentials', serialize($temporaryCredentials));
-        return $this->oauth->getAuthorizationUrl($temporaryCredentials);
+    public function login() : void {
+        $this->auth0->login();
     }
 
 
-    public function authorizeTokenCredentials(string $oauthToken, string $oauthVerifier): void
-    {
-        $temporaryCredentialsSerialized = $this->session->getSegment('token')->get('temporary_credentials');
-        if ($temporaryCredentialsSerialized !== null) {
-            $temporaryCredentials = unserialize($temporaryCredentialsSerialized, [TemporaryCredentials::class]);
-            $tokenCredentials = $this->oauth->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
-            $this->session->getSegment('token')->set('temporary_credentials', null);
-            $this->session->getSegment('token')->set('credentials', serialize($tokenCredentials));
+    public function authorize() : void {
+        $details = $this->auth0->getUser();
+        if ($details === null) {
+
         }
     }
-    public function logout(): void
+
+    public function logout(): string
     {
-        $this->session->destroy();
+        $this->auth0->logout();
+        $return_to = 'https://' . $_SERVER['HTTP_HOST'];
+        $logout_url = sprintf('https://%s/v2/logout?client_id=%s&returnTo=%s', 'pulledbits.eu.auth0.com', '2ohAli435Sq92PV14zh9vsXkFqofZrbh', $return_to);
+        return $logout_url;
     }
 
     public function __get($name)

@@ -16,6 +16,7 @@
     ],
 
     'AUTH0' => [
+        'scope' => 'openid profile email',
         'persist_id_token' => true,
         'persist_access_token' => true,
         'persist_refresh_token' => true,
