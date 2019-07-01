@@ -12,7 +12,10 @@ use rikmeijer\Teach\GUI\Feedback\View;
 
 final class Feedback implements GUI
 {
-    private $session;
+    /**
+     * @var CsrfToken
+     */
+    private $csrf;
 
     /**
      * @var ContactmomentDao
@@ -23,7 +26,7 @@ final class Feedback implements GUI
 
     public function __construct(\pulledbits\Bootstrap\Bootstrap $bootstrap)
     {
-        $this->session = $bootstrap->resource('session');
+        $this->csrf = $bootstrap->resource('csrf');
         $this->dao = $bootstrap->resource('dao')('Contactmoment');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
         $this->phpviewDirectory->registerHelper('contactmomentRating', function(TemplateInstance $templateInstance, string $contactmomentIdentifier) : float {
@@ -33,7 +36,7 @@ final class Feedback implements GUI
 
     public function verifyCSRFToken(string $CSRFToken): bool
     {
-        return $this->session->getCsrfToken()->isValid($CSRFToken);
+        return $this->csrf->isValid($CSRFToken);
     }
 
     public function retrieveContactmoment(string $contactmomentIdentifier): Contactmoment

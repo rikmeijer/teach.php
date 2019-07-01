@@ -1,7 +1,7 @@
 <?php use pulledbits\View\TemplateInstance;
 
 return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
-    $session = $bootstrap->resource('session');
+    $csrf = $bootstrap->resource('csrf');
     $basedir = $bootstrap->config('PHPVIEW')['path'];
 
     $directory = new \pulledbits\View\Directory(
@@ -43,11 +43,11 @@ return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
 
     $directory->registerHelper(
         'form',
-        function (\pulledbits\View\TemplateInstance $templateInstance, string $method, string $submitValue, string $model) use ($session) : void {
+        function (\pulledbits\View\TemplateInstance $templateInstance, string $method, string $submitValue, string $model) use ($csrf) : void {
             ?>
             <form method="<?= $templateInstance->escape($method); ?>">
                 <input type="hidden" name="__csrf_value"
-                       value="<?= $templateInstance->escape($session->getCsrfToken()->getValue()); ?>"/>
+                       value="<?= $templateInstance->escape($csrf->getValue()); ?>"/>
                 <?= $model; ?>
                 <input type="submit" value="<?= $templateInstance->escape($submitValue); ?>"/>
             </form>

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace rikmeijer\Teach\Daos;
 
 use rikmeijer\Teach\Beans\Rating;
+use rikmeijer\Teach\Beans\Ratingwaarde;
 use rikmeijer\Teach\Daos\Generated\AbstractRatingDao;
 
 /**
@@ -20,7 +21,7 @@ class RatingDao extends AbstractRatingDao
     {
         $rating = $this->findOne(["contactmoment_id" => $contactmoment->getId(), "ip" => $ipAddress]);
         if ($rating === null) {
-            $rating = new Rating($ipAddress, $contactmoment);
+            $rating = new Rating($ipAddress, $contactmoment, (new RatingwaardeDao($this->tdbmService))->getById('0'));
             $this->save($rating);
         }
         return $rating;
