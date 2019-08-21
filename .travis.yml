@@ -11,6 +11,6 @@ php:
   - '7.3'
 deploy:
   provider: script
-  script: curl -Ss https://teach.pulledbits.org/update.php
+  script: curl -Ss https://teach.rikmeijer.nl/update.php
   on:
     branch: master
