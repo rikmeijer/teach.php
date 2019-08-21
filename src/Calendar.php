@@ -76,6 +76,7 @@ class Calendar
             $datetime->setTimezone(new \DateTimeZone(ini_get('date.timezone')));
             return $datetime->format('Y-m-d H:i:s');
         } catch (\Exception $e) {
+            error_log($e->getMessage(), E_USER_WARNING);
             return null;
         }
     }

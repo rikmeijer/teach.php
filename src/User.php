@@ -81,10 +81,7 @@ final class User
 
     public function importCalendarEvents(): int
     {
-        if ($this->details()->extra['employee'] === true) {
-            $userId = $this->details()->getId();
-            return $this->calendar->importICal($userId, 'http://rooster.avans.nl/gcal/D' . $userId);
-        }
-        return 0;
+        $userId = $this->details()->getId();
+        return $this->calendar->importICal($userId, 'http://rooster.avans.nl/gcal/D' . $userId);
     }
 }
