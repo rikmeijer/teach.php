@@ -23,18 +23,12 @@ final class User
     private $auth0;
 
     /**
-     * @var Calendar
-     */
-    private $calendar;
-
-    /**
      * @var callable
      */
     private $daoFactory;
 
     public function __construct(Bootstrap $bootstrap)
     {
-        $this->calendar = $bootstrap->resource('calendar');
         $this->daoFactory = $bootstrap->resource('dao');
         $this->auth0 = $bootstrap->resource('auth0');
     }
@@ -80,8 +74,8 @@ final class User
     }
 
 
-    public function importCalendarEvents(): int
+    public function importCalendarEvents(Calendar $calendar): int
     {
-        return ($this->daoFactory)('Contactmoment')->import($this->details()->getId(), $this->calendar);
+        return ($this->daoFactory)('Contactmoment')->import($this->details()->getId(), $calendar);
     }
 }
