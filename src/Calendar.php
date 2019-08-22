@@ -23,38 +23,32 @@ class Calendar
     public function __construct(Bootstrap $bootstrap)
     {
         $this->icalReader = $bootstrap->resource('ical');
-        $this->dbal = $bootstrap->resource('tdbm')->getConnection();
         $this->lesweken = $bootstrap->resource('dao')('Lesweek');
         $this->roosterURL = $bootstrap->config('CALENDAR')['rooster-url'];
     }
 
-    public function importICal(string $owner)
+    public function retrieveEvents(string $owner)
     {
-        $count = 0;
-        $events = $this->icalReader->initURL($this->roosterURL . $owner);
-        foreach ($events['VEVENT'] as $event) {
+        $ical = $this->icalReader->initURL($this->roosterURL . $owner);
+        $events = [];
+        foreach ($ical['VEVENT'] as $event) {
             if (array_key_exists('SUMMARY', $event) === false) {
                 continue;
             }
             if (array_key_exists('LOCATION', $event) === false) {
                 continue;
             }
-            $procedureStatement = $this->dbal->prepare(
-                'CALL import_ical_to_contactmoment(:owner, :eventSummary, :eventId, :eventStartTime, :eventEndTime, :eventLocation)'
-            );
-            $procedureStatement->execute(
-                [
-                    'owner' => $owner,
-                    'eventSummary' => $event['SUMMARY'],
-                    'eventId' => $event['UID'],
-                    'eventStartTime' => $this->convertToSQLDateTime($event['DTSTART']),
-                    'eventEndTime' => $this->convertToSQLDateTime($event['DTEND']),
-                    'eventLocation' => $event['LOCATION']
-                ]
-            );
-            $count++;
+
+            $events[] = [
+                'owner' => $owner,
+                'eventSummary' => $event['SUMMARY'],
+                'eventId' => $event['UID'],
+                'eventStartTime' => $this->convertToSQLDateTime($event['DTSTART']),
+                'eventEndTime' => $this->convertToSQLDateTime($event['DTEND']),
+                'eventLocation' => $event['LOCATION']
+            ];
         }
-        return $count;
+        return $events;
     }
 
     private function convertToSQLDateTime(string $icaldatetime): string

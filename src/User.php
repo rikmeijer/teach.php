@@ -89,15 +89,19 @@ final class User
     public function importCalendarEvents(): int
     {
         $userId = $this->details()->getId();
-        $imported = $this->calendar->importICal($userId);
+        $count = 0;
+        foreach ($this->calendar->retrieveEvents($userId) as $event) {
+            $procedureStatement = $this->dbal->prepare(
+                'CALL import_ical_to_contactmoment(:owner, :eventSummary, :eventId, :eventStartTime, :eventEndTime, :eventLocation)'
+            );
+            $procedureStatement->execute($event);
+            $count++;
+        }
 
         $procedureStatement = $this->dbal->prepare('CALL delete_previously_imported_future_events(:owner)');
-        $procedureStatement->execute(
-            [
-                'owner' => $userId
-            ]
-        );
-
-        return $imported;
+        $procedureStatement->execute([
+            'owner' => $userId
+        ]);
+        return $count;
     }
 }
