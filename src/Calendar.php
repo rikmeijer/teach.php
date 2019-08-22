@@ -34,7 +34,7 @@ class Calendar
         $this->roosterURL = $bootstrap->config('CALENDAR')['rooster-url'];
     }
 
-    public function retrieveEvents(string $owner)
+    public function importEventsForUser(string $owner)
     {
         $ical = $this->icalReader->initURL($this->roosterURL . $owner);
         $events = [];

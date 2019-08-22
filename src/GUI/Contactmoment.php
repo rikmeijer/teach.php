@@ -29,7 +29,7 @@ class Contactmoment implements GUI
 
     public function importCalendarEvents(): int
     {
-        return $this->user->importCalendarEvents($this->calendar);
+        return $this->user->importEventsFromCalendar($this->calendar);
     }
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void

@@ -68,8 +68,8 @@ final class User
         return $logout_url;
     }
 
-    public function importCalendarEvents(Calendar $calendar): int
+    public function importEventsFromCalendar(Calendar $calendar): int
     {
-        return $calendar->retrieveEvents($this->details()->getId());
+        return $calendar->importEventsForUser($this->details()->getId());
     }
 }
