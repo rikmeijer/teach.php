@@ -16,11 +16,6 @@ class Calendar
     private $icalReader;
 
     /**
-     * @var Connection
-     */
-    private $dbal;
-
-    /**
      * @var LesweekDao
      */
     private $lesweken;
@@ -59,14 +54,6 @@ class Calendar
             );
             $count++;
         }
-
-        $procedureStatement = $this->dbal->prepare('CALL delete_previously_imported_future_events(:owner)');
-        $procedureStatement->execute(
-            [
-                'owner' => $owner
-            ]
-        );
-
         return $count;
     }
 

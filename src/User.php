@@ -4,6 +4,7 @@ namespace rikmeijer\Teach;
 
 use Aura\Session\Session;
 use Auth0\SDK\Auth0;
+use Doctrine\DBAL\Connection;
 use pulledbits\Bootstrap\Bootstrap;
 use rikmeijer\Teach\Beans\Useremailaddress;
 
@@ -31,10 +32,16 @@ final class User
      */
     private $daoFactory;
 
+    /**
+     * @var Connection
+     */
+    private $dbal;
+
     public function __construct(Bootstrap $bootstrap)
     {
         $this->calendar = $bootstrap->resource('calendar');
         $this->daoFactory = $bootstrap->resource('dao');
+        $this->dbal = $bootstrap->resource('tdbm')->getConnection();
         $this->auth0 = $bootstrap->resource('auth0');
     }
 
@@ -82,6 +89,15 @@ final class User
     public function importCalendarEvents(): int
     {
         $userId = $this->details()->getId();
-        return $this->calendar->importICal($userId);
+        $imported = $this->calendar->importICal($userId);
+
+        $procedureStatement = $this->dbal->prepare('CALL delete_previously_imported_future_events(:owner)');
+        $procedureStatement->execute(
+            [
+                'owner' => $userId
+            ]
+        );
+
+        return $imported;
     }
 }
