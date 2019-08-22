@@ -24,4 +24,16 @@ class ContactmomentDao extends AbstractContactmomentDao
     public function findContactmomentenTodayForUser(string $owner) : ResultIterator {
         return $this->find('DATE(contactmoment.starttijd) = curdate() AND contactmoment.owner = :owner', ['owner' => $owner]);
     }
+
+    public function import(array $events) {
+        $count = 0;
+        foreach ($events as $event) {
+            $procedureStatement = $this->tdbmService->getConnection()->prepare(
+                'CALL import_ical_to_contactmoment(:owner, :eventSummary, :eventId, :eventStartTime, :eventEndTime, :eventLocation)'
+            );
+            $procedureStatement->execute($event);
+            $count++;
+        }
+        return $count;
+    }
 }
