@@ -12,7 +12,7 @@ class Contactmoment implements GUI
     /**
      * @var Calendar
      */
-    private $calendar;
+    private $rooster;
 
     /**
      * @var User
@@ -22,14 +22,14 @@ class Contactmoment implements GUI
 
     public function __construct(\pulledbits\Bootstrap\Bootstrap $bootstrap)
     {
-        $this->calendar = $bootstrap->resource('calendar');
+        $this->rooster = $bootstrap->resource('rooster');
         $this->user = $bootstrap->resource('user');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
     }
 
-    public function importCalendarEvents(): int
+    public function importRooster(): int
     {
-        return $this->user->importEventsFromCalendar($this->calendar);
+        return $this->user->importEventsFromRooster($this->rooster);
     }
 
     public function addRoutesToRouter(\pulledbits\Router\Router $router): void

@@ -6,6 +6,7 @@ use Aura\Session\Session;
 use Auth0\SDK\Auth0;
 use Doctrine\DBAL\Connection;
 use pulledbits\Bootstrap\Bootstrap;
+use rikmeijer\Teach\Avans\Rooster;
 use rikmeijer\Teach\Beans\Useremailaddress;
 
 final class User
@@ -68,8 +69,8 @@ final class User
         return $logout_url;
     }
 
-    public function importEventsFromCalendar(Calendar $calendar): int
+    public function importEventsFromRooster(Rooster $rooster): int
     {
-        return $calendar->importEventsForUser($this->details()->getId());
+        return $rooster->importEventsForUser($this->details()->getId());
     }
 }

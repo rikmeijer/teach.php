@@ -46,7 +46,7 @@ class Import implements Route
     {
         return new PHPviewEndPoint($this->phpviewDirectory->load(
             'contactmoment/imported',
-            ["numberImported" => $this->gui->importCalendarEvents()]
+            ["numberImported" => $this->gui->importRooster()]
         ));
     }
 }
