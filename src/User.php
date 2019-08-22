@@ -32,16 +32,10 @@ final class User
      */
     private $daoFactory;
 
-    /**
-     * @var Connection
-     */
-    private $dbal;
-
     public function __construct(Bootstrap $bootstrap)
     {
         $this->calendar = $bootstrap->resource('calendar');
         $this->daoFactory = $bootstrap->resource('dao');
-        $this->dbal = $bootstrap->resource('tdbm')->getConnection();
         $this->auth0 = $bootstrap->resource('auth0');
     }
 
