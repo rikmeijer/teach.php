@@ -9,6 +9,10 @@
         'PREFIX' => getenv('DB_PREFIX')
     ],
 
+    'CALENDAR' => [
+        'rooster-url' => 'http://rooster.avans.nl/gcal/D'
+    ],
+
     'OAUTH' => [
         'identifier' => getenv('OAUTH_CLIENT_ID'),
         "secret" => getenv('OAUTH_CLIENT_SECRET'),

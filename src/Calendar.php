@@ -30,12 +30,13 @@ class Calendar
         $this->icalReader = $bootstrap->resource('ical');
         $this->dbal = $bootstrap->resource('tdbm')->getConnection();
         $this->lesweken = $bootstrap->resource('dao')('Lesweek');
+        $this->roosterURL = $bootstrap->config('CALENDAR')['rooster-url'];
     }
 
-    public function importICal(string $owner, string $url)
+    public function importICal(string $owner)
     {
         $count = 0;
-        $events = $this->icalReader->initURL($url);
+        $events = $this->icalReader->initURL($this->roosterURL . $owner);
         foreach ($events['VEVENT'] as $event) {
             if (array_key_exists('SUMMARY', $event) === false) {
                 continue;
