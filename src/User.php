@@ -68,11 +68,6 @@ final class User
         return $logout_url;
     }
 
-    public function __call($name, array $args)
-    {
-        return $this->details()->$name(...$args);
-    }
-
     public function importCalendarEvents(Calendar $calendar): int
     {
         return $calendar->retrieveEvents($this->details()->getId());
