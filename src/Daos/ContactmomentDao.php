@@ -26,10 +26,10 @@ class ContactmomentDao extends AbstractContactmomentDao
         return $this->find('DATE(contactmoment.starttijd) = curdate() AND contactmoment.owner = :owner', ['owner' => $owner]);
     }
 
-    public function import(string $owner, Calendar $calendar) {
+    public function import(string $owner, array $events) {
         $dbal = $this->tdbmService->getConnection();
         $count = 0;
-        foreach ($calendar->retrieveEvents($owner) as $event) {
+        foreach ($events as $event) {
             $procedureStatement = $dbal->prepare(
                 'CALL import_ical_to_contactmoment(:owner, :eventSummary, :eventId, :eventStartTime, :eventEndTime, :eventLocation)'
             );

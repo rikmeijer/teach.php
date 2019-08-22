@@ -5,6 +5,7 @@ namespace rikmeijer\Teach;
 
 use Doctrine\DBAL\Connection;
 use pulledbits\Bootstrap\Bootstrap;
+use rikmeijer\Teach\Daos\ContactmomentDao;
 use rikmeijer\Teach\Daos\LesweekDao;
 
 class Calendar
@@ -20,10 +21,16 @@ class Calendar
      */
     private $lesweken;
 
+    /**
+     * @var ContactmomentDao
+     */
+    private $contactmomenten;
+
     public function __construct(Bootstrap $bootstrap)
     {
         $this->icalReader = $bootstrap->resource('ical');
         $this->lesweken = $bootstrap->resource('dao')('Lesweek');
+        $this->contactmomenten = $bootstrap->resource('dao')('Contactmoment');
         $this->roosterURL = $bootstrap->config('CALENDAR')['rooster-url'];
     }
 
@@ -48,7 +55,7 @@ class Calendar
                 'eventLocation' => $event['LOCATION']
             ];
         }
-        return $events;
+        return $this->contactmomenten->import($owner, $events);
     }
 
     private function convertToSQLDateTime(string $icaldatetime): string

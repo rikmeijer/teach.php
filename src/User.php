@@ -73,9 +73,8 @@ final class User
         return $this->details()->$name(...$args);
     }
 
-
     public function importCalendarEvents(Calendar $calendar): int
     {
-        return ($this->daoFactory)('Contactmoment')->import($this->details()->getId(), $calendar);
+        return $calendar->retrieveEvents($this->details()->getId());
     }
 }
