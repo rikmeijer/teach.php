@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace rikmeijer\Teach\Daos;
 
 use rikmeijer\Teach\Beans\Module;
+use rikmeijer\Teach\Calendar;
 use rikmeijer\Teach\Daos\Generated\AbstractContactmomentDao;
 use TheCodingMachine\TDBM\ResultIterator;
 
@@ -25,15 +26,18 @@ class ContactmomentDao extends AbstractContactmomentDao
         return $this->find('DATE(contactmoment.starttijd) = curdate() AND contactmoment.owner = :owner', ['owner' => $owner]);
     }
 
-    public function import(array $events) {
+    public function import(string $owner, Calendar $calendar) {
+        $dbal = $this->tdbmService->getConnection();
         $count = 0;
-        foreach ($events as $event) {
-            $procedureStatement = $this->tdbmService->getConnection()->prepare(
+        foreach ($calendar->retrieveEvents($owner) as $event) {
+            $procedureStatement = $dbal->prepare(
                 'CALL import_ical_to_contactmoment(:owner, :eventSummary, :eventId, :eventStartTime, :eventEndTime, :eventLocation)'
             );
             $procedureStatement->execute($event);
             $count++;
         }
+        $procedureStatement = $dbal->prepare('CALL delete_previously_imported_future_events(:owner)');
+        $procedureStatement->execute(['owner' => $owner]);
         return $count;
     }
 }

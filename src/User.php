@@ -88,12 +88,6 @@ final class User
 
     public function importCalendarEvents(): int
     {
-        $userId = $this->details()->getId();
-        $count = ($this->daoFactory)('Contactmoment')->import($this->calendar->retrieveEvents($userId));
-        $procedureStatement = $this->dbal->prepare('CALL delete_previously_imported_future_events(:owner)');
-        $procedureStatement->execute([
-            'owner' => $userId
-        ]);
-        return $count;
+        return ($this->daoFactory)('Contactmoment')->import($this->details()->getId(), $this->calendar);
     }
 }
