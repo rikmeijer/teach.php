@@ -18,16 +18,18 @@ final class Index implements GUI
 
     public function __construct(\pulledbits\Bootstrap\Bootstrap $bootstrap)
     {
+        $user = $bootstrap->resource('user');
+
         $this->phpviewDirectory = $bootstrap->resource('phpview');
         $this->phpviewDirectory->registerHelper('modules', function(TemplateInstance $templateInstance) : ResultIterator {
             return ($templateInstance->resource('dao')('Module'))->findAll();
         });
-        $this->phpviewDirectory->registerHelper('getModuleContactmomenten', function(TemplateInstance $templateInstance, Module $module) : ResultIterator {
-            return $templateInstance->resource('user')->findContactmomentenByModule($module);
+        $this->phpviewDirectory->registerHelper('getModuleContactmomenten', function(TemplateInstance $templateInstance, Module $module) use ($user) : ResultIterator {
+            return $user->findContactmomentenByModule($module);
         });
-        $this->phpviewDirectory->registerHelper('contactmomenten', function(TemplateInstance $templateInstance) : ResultIterator
+        $this->phpviewDirectory->registerHelper('contactmomenten', function(TemplateInstance $templateInstance) use ($user) : ResultIterator
         {
-            return $templateInstance->resource('user')->findContactmomentenToday();
+            return $user->findContactmomentenToday();
         });
     }
 
