@@ -7,7 +7,9 @@ use Auth0\SDK\Auth0;
 use Doctrine\DBAL\Connection;
 use pulledbits\Bootstrap\Bootstrap;
 use rikmeijer\Teach\Avans\Rooster;
+use rikmeijer\Teach\Beans\Module;
 use rikmeijer\Teach\Beans\Useremailaddress;
+use TheCodingMachine\TDBM\ResultIterator;
 
 final class User
 {
@@ -72,5 +74,15 @@ final class User
     public function importEventsFromRooster(Rooster $rooster): int
     {
         return $rooster->importEventsForUser($this->details()->getId());
+    }
+
+    public function findContactmomentenToday() : ResultIterator
+    {
+        return ($this->daoFactory)('Contactmoment')->findContactmomentenTodayForUser($this->details()->getId());
+    }
+
+    public function findContactmomentenByModule(Module $module) : ResultIterator
+    {
+        return ($this->daoFactory)('Contactmoment')->findContactmomentenForUserByModule($this->details()->getId(), $module);
     }
 }
