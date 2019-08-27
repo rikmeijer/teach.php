@@ -3,11 +3,8 @@
 
 namespace rikmeijer\Teach\GUI\Feedback;
 
-use pulledbits\ActiveRecord\Entity;
-use pulledbits\Router\ErrorFactory;
-use pulledbits\Router\Route;
+use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\View\Directory;
-use rikmeijer\Teach\Beans\Contactmoment;
 use rikmeijer\Teach\Beans\Rating;
 use rikmeijer\Teach\Beans\Ratingwaarde;
 use rikmeijer\Teach\GUI\Feedback;
@@ -24,11 +21,11 @@ class Supply
         $this->phpviewDirectory = $phpviewDirectory;
     }
 
-    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): PHPviewEndPoint
+    public function handleRequest(ServerRequestInterface $request): PHPviewEndPoint
     {
         $contactmoment = $this->gui->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
         if ($contactmoment->getId() === null) {
-            return \pulledbits\Router\ErrorFactory::makeInstance('404');
+            return ErrorFactory::makeInstance('404');
         }
 
         $rating = $contactmoment->findRatingByIP(($request->getServerParams())['REMOTE_ADDR']);
@@ -39,11 +36,11 @@ class Supply
             case 'POST':
                 return $this->handlePost($rating, $request->getParsedBody());
             default:
-                return \pulledbits\Router\ErrorFactory::makeInstance('405');
+                return ErrorFactory::makeInstance('405');
         }
     }
 
-    private function handleGet(Rating $ipRating, array $query): \pulledbits\Router\RouteEndPoint
+    private function handleGet(Rating $ipRating, array $query): PHPviewEndPoint
     {
         if (array_key_exists('rating', $query)) {
             $rating = $query['rating'];
@@ -51,7 +48,7 @@ class Supply
             $rating = $ipRating->getWaarde()->getNaam();
         }
 
-        return new \rikmeijer\Teach\PHPviewEndPoint(
+        return new PHPviewEndPoint(
             $this->phpviewDirectory->load(
                 'feedback/supply',
                 [
@@ -62,7 +59,7 @@ class Supply
         );
     }
 
-    private function handlePost(Rating $rating, array $parsedBody): \pulledbits\Router\RouteEndPoint
+    private function handlePost(Rating $rating, array $parsedBody): PHPviewEndPoint
     {
         if ($this->gui->verifyCSRFToken($parsedBody['__csrf_value']) === false) {
             return ErrorFactory::makeInstance('403');
@@ -71,6 +68,6 @@ class Supply
         $rating->setInhoud($parsedBody['explanation']);
         $rating->save();
 
-        return new \rikmeijer\Teach\PHPviewEndPoint($this->phpviewDirectory->load('feedback/processed'));
+        return new PHPviewEndPoint($this->phpviewDirectory->load('feedback/processed'));
     }
 }

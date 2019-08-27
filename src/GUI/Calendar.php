@@ -5,7 +5,9 @@ namespace rikmeijer\Teach\GUI;
 use Aura\Router\Map;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use pulledbits\Bootstrap\Bootstrap;
 use pulledbits\View\Directory;
+use pulledbits\View\TemplateInstance;
 use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\PHPviewEndPoint;
 
@@ -16,14 +18,15 @@ final class Calendar implements GUI
      */
     private $phpview;
 
-    public function __construct(\pulledbits\Bootstrap\Bootstrap $bootstrap)
+    public function __construct(Bootstrap $bootstrap)
     {
         $this->phpview = $bootstrap->resource('phpview')->load('calendar');
 
         $calendar = $bootstrap->resource('calendar');
 
         $this->phpview->registerHelper(
-            'calendar', function (\pulledbits\View\TemplateInstance $templateInstance, string $calendarIdentifier) use ($calendar) : \Eluceo\iCal\Component\Calendar {
+            'calendar',
+            function (TemplateInstance $templateInstance, string $calendarIdentifier) use ($calendar) : \Eluceo\iCal\Component\Calendar {
                 return $calendar->generate($calendarIdentifier);
             }
         );
@@ -31,7 +34,10 @@ final class Calendar implements GUI
 
     public function mapRoutes(Map $map): void
     {
-        $map->get('calendar','/calendar/{calendarIdentifier}', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+        $map->get(
+            'calendar',
+            '/calendar/{calendarIdentifier}',
+            function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
                 $response = PHPviewEndPoint::attachToResponse(
                     $response,
                     $this->phpview->prepare(

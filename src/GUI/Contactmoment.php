@@ -5,6 +5,7 @@ namespace rikmeijer\Teach\GUI;
 use Aura\Router\Map;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use pulledbits\Bootstrap\Bootstrap;
 use rikmeijer\Teach\Calendar;
 use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\User;
@@ -23,7 +24,7 @@ class Contactmoment implements GUI
     private $user;
     private $phpviewDirectory;
 
-    public function __construct(\pulledbits\Bootstrap\Bootstrap $bootstrap)
+    public function __construct(Bootstrap $bootstrap)
     {
         $this->rooster = $bootstrap->resource('rooster');
         $this->user = $bootstrap->resource('user');

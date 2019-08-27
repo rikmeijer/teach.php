@@ -31,30 +31,46 @@ class SSO implements GUI
 
     public function mapRoutes(Map $map): void
     {
-        $map->get('sso.login', '/sso/login', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
-            $this->user->login();
-        });
-        $map->get('sso.callback', '/sso/callback', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
-            $this->details();
-            return $this->seeOther($response, '/');
-        });
-        $map->get('sso.profile', '/sso/profile', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
-            $view = new SSO\Profile($this->phpviewDirectory, $this);
-            return $view->handleRequest($request)->respond($response);
-        });
+        $map->get(
+            'sso.login',
+            '/sso/login',
+            function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+                $this->user->login();
+            }
+        );
+        $map->get(
+            'sso.callback',
+            '/sso/callback',
+            function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+                $this->details();
+                return $this->seeOther($response, '/');
+            }
+        );
+        $map->get(
+            'sso.profile',
+            '/sso/profile',
+            function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+                $view = new SSO\Profile($this->phpviewDirectory, $this);
+                return $view->handleRequest($request)->respond($response);
+            }
+        );
 
-        $map->get('sso.logout', '/logout', function(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
-            return $this->seeOther($response, $this->user->logout());
-        });
-    }
-
-    private function seeOther(ResponseInterface $psrResponse, string $location): ResponseInterface
-    {
-        return $psrResponse->withStatus('303')->withHeader('Location', $location);
+        $map->get(
+            'sso.logout',
+            '/logout',
+            function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+                return $this->seeOther($response, $this->user->logout());
+            }
+        );
     }
 
     public function details()
     {
         return $this->user->details();
+    }
+
+    private function seeOther(ResponseInterface $psrResponse, string $location): ResponseInterface
+    {
+        return $psrResponse->withStatus('303')->withHeader('Location', $location);
     }
 }

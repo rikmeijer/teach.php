@@ -2,8 +2,7 @@
 
 namespace rikmeijer\Teach\GUI\Feedback;
 
-use pulledbits\Router\Route;
-use pulledbits\Router\RouteEndPoint;
+use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\View\Directory;
 use pulledbits\View\TemplateInstance;
 use rikmeijer\Teach\PHPviewEndPoint;
@@ -23,9 +22,9 @@ class View
         );
     }
 
-    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): PHPviewEndPoint
+    public function handleRequest(ServerRequestInterface $request): PHPviewEndPoint
     {
-        return new \rikmeijer\Teach\PHPviewEndPoint(
+        return new PHPviewEndPoint(
             $this->phpviewDirectory->load(
                 'feedback',
                 ['contactmomentIdentifier' => $request->getAttribute('contactmomentIdentifier')]
