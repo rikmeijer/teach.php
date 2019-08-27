@@ -24,8 +24,6 @@
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-eventmanager" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
-      <path value="$PROJECT_DIR$/vendor/avans/oauth-php" />
-      <path value="$PROJECT_DIR$/vendor/league/oauth1-client" />
       <path value="$PROJECT_DIR$/vendor/pulledbits/view" />
       <path value="$PROJECT_DIR$/vendor/eluceo/ical" />
       <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
