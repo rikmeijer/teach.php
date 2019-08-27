@@ -2,6 +2,7 @@
 
 namespace rikmeijer\Teach;
 
+use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use pulledbits\Bootstrap\Bootstrap;
 
@@ -20,17 +21,15 @@ return new class
 
     public function handle(\Psr\Http\Message\ServerRequestInterface $serverRequest): ResponseInterface
     {
-        $routeEndPoint = $this->bootstrap->resource('router')->route($serverRequest);
-
-        switch ($serverRequest->getMethod()) {
-            case 'POST':
-                $responseCode = '201';
-                break;
-            default:
-                $responseCode = '200';
-                break;
+        $matcher = $this->bootstrap->resource('router');
+        $route = $matcher->match($serverRequest);
+        if (!$route) {
+            return new Response(404);
         }
-        return $routeEndPoint->respond(new \GuzzleHttp\Psr7\Response($responseCode));
+        foreach ($route->attributes as $key => $val) {
+            $serverRequest = $serverRequest->withAttribute($key, $val);
+        }
+        return ($route->handler)($serverRequest, new Response());
     }
 
     public function root() : string {

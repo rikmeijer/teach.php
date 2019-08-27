@@ -2,6 +2,9 @@
 
 namespace rikmeijer\Teach\GUI;
 
+use Aura\Router\Map;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Bootstrap\Bootstrap;
 use pulledbits\Router\Route;
 use pulledbits\View\TemplateInstance;
@@ -17,8 +20,11 @@ class QR implements GUI
         $this->phpviewDirectory = $bootstrap->resource('phpview');
     }
 
-    public function createRoutes() : array
+    public function mapRoutes(Map $map): void
     {
-        return ['/qr' => new QR\Code($this->phpviewDirectory)];
+        $map->get('qr','/qr', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+            $view = new QR\Code($this->phpviewDirectory);
+            return $view->handleRequest($request)->respond($response);
+        });
     }
 }

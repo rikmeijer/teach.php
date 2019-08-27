@@ -2,6 +2,7 @@
 
 namespace rikmeijer\Teach\GUI;
 
+use Aura\Router\Map;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\View\Directory;
@@ -28,12 +29,11 @@ final class Calendar implements GUI
         );
     }
 
-    public function createRoutes(): array
+    public function mapRoutes(Map $map): void
     {
-        return [
-            '/calendar/(?<calendarIdentifier>[^/]+)' => function (ServerRequestInterface $request, callable $next): ResponseInterface {
+        $map->get('calendar','/calendar/{calendarIdentifier}', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
                 $response = PHPviewEndPoint::attachToResponse(
-                    $next($request),
+                    $response,
                     $this->phpview->prepare(
                         ['calendarIdentifier' => $request->getAttribute(
                             'calendarIdentifier'
@@ -46,6 +46,6 @@ final class Calendar implements GUI
                         'attachment; filename="' . $request->getAttribute('calendarIdentifier') . '.ics"'
                     );
             }
-        ];
+        );
     }
 }

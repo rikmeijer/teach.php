@@ -2,15 +2,20 @@
 
 namespace rikmeijer\Teach;
 
-return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
+use Aura\Router\Matcher;
+use Aura\Router\RouterContainer;
+
+return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) : Matcher {
     $routesPath = $bootstrap->config('ROUTER')['path'] . DIRECTORY_SEPARATOR;
-    $routes = [];
+
+    $routerContainer = new RouterContainer();
+    $map = $routerContainer->getMap();
     foreach (glob($routesPath . '*.php') as $file) {
         $guiClassName = GUI::class . '\\' . str_replace([$routesPath, '.php'], '', $file);
         $gui = new $guiClassName($bootstrap);
         if ($gui instanceof GUI) {
-            $routes += $gui->createRoutes();
+            $gui->mapRoutes($map);
         }
     }
-    return new \pulledbits\Router\Router($routes);
+    return $routerContainer->getMatcher();
 };

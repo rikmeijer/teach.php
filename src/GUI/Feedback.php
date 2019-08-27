@@ -3,6 +3,9 @@
 
 namespace rikmeijer\Teach\GUI;
 
+use Aura\Router\Map;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\View\TemplateInstance;
 use rikmeijer\Teach\Beans\Contactmoment;
 use rikmeijer\Teach\Daos\ContactmomentDao;
@@ -44,11 +47,20 @@ final class Feedback implements GUI
         return $this->dao->getById($contactmomentIdentifier);
     }
 
-    public function createRoutes() : array
+    public function mapRoutes(Map $map): void
     {
-        return [
-            '/feedback/(?<contactmomentIdentifier>\d+)/supply$' => new Supply($this, $this->phpviewDirectory),
-            '/feedback/(?<contactmomentIdentifier>\d+)' => new View($this->phpviewDirectory)
-        ];
+        $map->get('feedback.supply', '/feedback/{contactmomentIdentifier}/supply', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+            $view = new Supply($this, $this->phpviewDirectory);
+            return $view->handleRequest($request)->respond($response);
+        })->tokens(['contactmomentIdentifier' => '\d+']);
+        $map->post('feedback.supplied', '/feedback/{contactmomentIdentifier}/supply', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+            $view = new Supply($this, $this->phpviewDirectory);
+            return $view->handleRequest($request)->respond($response);
+        })->tokens(['contactmomentIdentifier' => '\d+']);
+
+        $map->get('feedback', '/feedback/{contactmomentIdentifier}', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+            $view = new View($this->phpviewDirectory);
+            return $view->handleRequest($request)->respond($response);
+        });
     }
 }

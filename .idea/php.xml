@@ -27,7 +27,6 @@
       <path value="$PROJECT_DIR$/vendor/avans/oauth-php" />
       <path value="$PROJECT_DIR$/vendor/league/oauth1-client" />
       <path value="$PROJECT_DIR$/vendor/pulledbits/view" />
-      <path value="$PROJECT_DIR$/vendor/pulledbits/router" />
       <path value="$PROJECT_DIR$/vendor/eluceo/ical" />
       <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
       <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
@@ -97,6 +96,7 @@
       <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
       <path value="$PROJECT_DIR$/vendor/sebastian/resource-operations" />
       <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/vendor/aura/router" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

@@ -4,8 +4,57 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3795da2371f74a48e1b8a47419e821b7",
+    "content-hash": "1057e1518d3753758fe06eba9452b01f",
     "packages": [
+        {
+            "name": "aura/router",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/auraphp/Aura.Router.git",
+                "reference": "52507bc813c92511dbcacc7463f163ef5149ad38"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/auraphp/Aura.Router/zipball/52507bc813c92511dbcacc7463f163ef5149ad38",
+                "reference": "52507bc813c92511dbcacc7463f163ef5149ad38",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "psr/http-message": "~1.0",
+                "psr/log": "~1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~5.7 || ~4.8",
+                "zendframework/zend-diactoros": "~1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Aura\\Router\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aura.Router Contributors",
+                    "homepage": "https://github.com/auraphp/Aura.Router/contributors"
+                }
+            ],
+            "description": "Powerful, flexible web routing for PSR-7 requests.",
+            "homepage": "https://github.com/auraphp/Aura.Router",
+            "keywords": [
+                "psr-7",
+                "route",
+                "router",
+                "routing"
+            ],
+            "time": "2017-03-02T16:34:47+00:00"
+        },
         {
             "name": "aura/session",
             "version": "2.1.0",
@@ -115,46 +164,6 @@
             "description": "Auth0 PHP SDK.",
             "homepage": "https://github.com/auth0/auth0-PHP",
             "time": "2019-07-15T16:22:08+00:00"
-        },
-        {
-            "name": "avans/oauth-php",
-            "version": "0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Avans/oauth-php.git",
-                "reference": "f51279eecaae3682e2c49a78861f2a5b72955501"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Avans/oauth-php/zipball/f51279eecaae3682e2c49a78861f2a5b72955501",
-                "reference": "f51279eecaae3682e2c49a78861f2a5b72955501",
-                "shasum": ""
-            },
-            "require": {
-                "league/oauth1-client": "^1.7",
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Avans\\OAuth\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rik Meijer",
-                    "email": "ha.meijer@avans.nl"
-                }
-            ],
-            "description": "PHP Connector to the Avans Oauth public API",
-            "time": "2017-09-30T11:08:31+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -1457,69 +1466,6 @@
             "time": "2016-08-20T19:07:35+00:00"
         },
         {
-            "name": "league/oauth1-client",
-            "version": "1.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thephpleague/oauth1-client.git",
-                "reference": "fca5f160650cb74d23fc11aa570dd61f86dcf647"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/oauth1-client/zipball/fca5f160650cb74d23fc11aa570dd61f86dcf647",
-                "reference": "fca5f160650cb74d23fc11aa570dd61f86dcf647",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^6.0",
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^0.9",
-                "phpunit/phpunit": "^4.0",
-                "squizlabs/php_codesniffer": "^2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "League\\OAuth1\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ben Corlett",
-                    "email": "bencorlett@me.com",
-                    "homepage": "http://www.webcomm.com.au",
-                    "role": "Developer"
-                }
-            ],
-            "description": "OAuth 1.0 Client Library",
-            "keywords": [
-                "Authentication",
-                "SSO",
-                "authorization",
-                "bitbucket",
-                "identity",
-                "idp",
-                "oauth",
-                "oauth1",
-                "single sign on",
-                "trello",
-                "tumblr",
-                "twitter"
-            ],
-            "time": "2016-08-17T00:36:58+00:00"
-        },
-        {
             "name": "monolog/monolog",
             "version": "1.9.1",
             "source": {
@@ -2539,41 +2485,6 @@
             "time": "2019-06-04T12:25:31+00:00"
         },
         {
-            "name": "pulledbits/router",
-            "version": "6.2.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pulledbits/router.git",
-                "reference": "0a16b1d16a9ca5d24669af4fa95f7b986c5558ba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pulledbits/router/zipball/0a16b1d16a9ca5d24669af4fa95f7b986c5558ba",
-                "reference": "0a16b1d16a9ca5d24669af4fa95f7b986c5558ba",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1",
-                "psr/http-message": "^1.0"
-            },
-            "require-dev": {
-                "guzzlehttp/psr7": "^1.3",
-                "phpunit/phpunit": "~6"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "pulledbits\\Router\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Simple router",
-            "time": "2019-03-25T10:37:35+00:00"
-        },
-        {
             "name": "pulledbits/view",
             "version": "0.7.1",
             "source": {
@@ -3354,6 +3265,46 @@
     ],
     "packages-dev": [
         {
+            "name": "avans/oauth-php",
+            "version": "0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Avans/oauth-php.git",
+                "reference": "f51279eecaae3682e2c49a78861f2a5b72955501"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Avans/oauth-php/zipball/f51279eecaae3682e2c49a78861f2a5b72955501",
+                "reference": "f51279eecaae3682e2c49a78861f2a5b72955501",
+                "shasum": ""
+            },
+            "require": {
+                "league/oauth1-client": "^1.7",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Avans\\OAuth\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rik Meijer",
+                    "email": "ha.meijer@avans.nl"
+                }
+            ],
+            "description": "PHP Connector to the Avans Oauth public API",
+            "time": "2017-09-30T11:08:31+00:00"
+        },
+        {
             "name": "doctrine/instantiator",
             "version": "1.2.0",
             "source": {
@@ -3408,6 +3359,69 @@
                 "instantiate"
             ],
             "time": "2019-03-17T17:37:11+00:00"
+        },
+        {
+            "name": "league/oauth1-client",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/oauth1-client.git",
+                "reference": "fca5f160650cb74d23fc11aa570dd61f86dcf647"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/oauth1-client/zipball/fca5f160650cb74d23fc11aa570dd61f86dcf647",
+                "reference": "fca5f160650cb74d23fc11aa570dd61f86dcf647",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.0",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9",
+                "phpunit/phpunit": "^4.0",
+                "squizlabs/php_codesniffer": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\OAuth1\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Corlett",
+                    "email": "bencorlett@me.com",
+                    "homepage": "http://www.webcomm.com.au",
+                    "role": "Developer"
+                }
+            ],
+            "description": "OAuth 1.0 Client Library",
+            "keywords": [
+                "Authentication",
+                "SSO",
+                "authorization",
+                "bitbucket",
+                "identity",
+                "idp",
+                "oauth",
+                "oauth1",
+                "single sign on",
+                "trello",
+                "tumblr",
+                "twitter"
+            ],
+            "time": "2016-08-17T00:36:58+00:00"
         },
         {
             "name": "myclabs/deep-copy",

@@ -2,6 +2,7 @@
 
 namespace rikmeijer\Teach\GUI;
 
+use Aura\Router\Map;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Bootstrap\Bootstrap;
@@ -28,21 +29,23 @@ class SSO implements GUI
         $this->phpviewDirectory = $bootstrap->resource('phpview');
     }
 
-    public function createRoutes() : array
+    public function mapRoutes(Map $map): void
     {
-        return [
-            '/sso/login' => function (ServerRequestInterface $request, callable $next): ResponseInterface {
-                $this->user->login();
-            },
-            '/sso/callback' => function (ServerRequestInterface $request, callable $next): ResponseInterface {
-                $this->details();
-                return $this->seeOther($next($request), '/');
-            },
-            '/sso/profile' => new SSO\Profile($this->phpviewDirectory, $this),
-            '/logout' => function (ServerRequestInterface $request, callable $next): ResponseInterface {
-                return $this->seeOther($next($request), $this->user->logout());
-            }
-        ];
+        $map->get('sso.login', '/sso/login', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+            $this->user->login();
+        });
+        $map->get('sso.callback', '/sso/callback', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+            $this->details();
+            return $this->seeOther($response, '/');
+        });
+        $map->get('sso.profile', '/sso/profile', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+            $view = new SSO\Profile($this->phpviewDirectory, $this);
+            return $view->handleRequest($request)->respond($response);
+        });
+
+        $map->get('sso.logout', '/logout', function(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+            return $this->seeOther($response, $this->user->logout());
+        });
     }
 
     private function seeOther(ResponseInterface $psrResponse, string $location): ResponseInterface

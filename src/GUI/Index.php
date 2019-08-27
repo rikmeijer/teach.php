@@ -3,10 +3,14 @@
 
 namespace rikmeijer\Teach\GUI;
 
+use Aura\Router\Map;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\View\Directory;
 use pulledbits\View\TemplateInstance;
 use rikmeijer\Teach\Beans\Module;
 use rikmeijer\Teach\GUI;
+use rikmeijer\Teach\GUI\Feedback\View;
 use TheCodingMachine\TDBM\ResultIterator;
 
 final class Index implements GUI
@@ -33,8 +37,11 @@ final class Index implements GUI
         });
     }
 
-    public function createRoutes() : array
+    public function mapRoutes(Map $map): void
     {
-        return ['/$' => new Index\Index($this->phpviewDirectory)];
+        $map->get('index','/', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+            $view = new Index\Index($this->phpviewDirectory);
+            return $view->handleRequest($request)->respond($response);
+        });
     }
 }

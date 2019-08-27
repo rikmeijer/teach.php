@@ -2,6 +2,9 @@
 
 namespace rikmeijer\Teach\GUI;
 
+use Aura\Router\Map;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use rikmeijer\Teach\Calendar;
 use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\User;
@@ -32,10 +35,15 @@ class Contactmoment implements GUI
         return $this->user->importEventsFromRooster($this->rooster);
     }
 
-    public function createRoutes() : array
+    public function mapRoutes(Map $map): void
     {
-        return [
-            '(GET|POST):/contactmoment/import' => new Contactmoment\Import($this, $this->phpviewDirectory)
-        ];
+        $endpoint = function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+            $view = new Contactmoment\Import($this, $this->phpviewDirectory);
+            return $view->handleRequest($request)->respond($response);
+        };
+
+
+        $map->get('contactmoment.import', '/contactmoment/import', $endpoint);
+        $map->post('contactmoment.imported', '/contactmoment/import', $endpoint);
     }
 }
