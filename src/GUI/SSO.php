@@ -28,26 +28,21 @@ class SSO implements GUI
         $this->phpviewDirectory = $bootstrap->resource('phpview');
     }
 
-    public function addRoutesToRouter(\pulledbits\Router\Router $router): void
+    public function createRoutes() : array
     {
-        $router->addRoute(
-            '/sso/login',
-            function (ServerRequestInterface $request, callable $next): ResponseInterface {
+        return [
+            '/sso/login' => function (ServerRequestInterface $request, callable $next): ResponseInterface {
                 $this->user->login();
-            }
-        );
-        $router->addRoute(
-            '/sso/callback',
-            function (ServerRequestInterface $request, callable $next): ResponseInterface {
+            },
+            '/sso/callback' => function (ServerRequestInterface $request, callable $next): ResponseInterface {
                 $this->details();
                 return $this->seeOther($next($request), '/');
-            }
-        );
-        $router->addRoute('/sso/profile', new SSO\Profile($this->phpviewDirectory, $this));
-        $router->addRoute('/logout',
-            function (ServerRequestInterface $request, callable $next): ResponseInterface {
+            },
+            '/sso/profile' => new SSO\Profile($this->phpviewDirectory, $this),
+            '/logout' => function (ServerRequestInterface $request, callable $next): ResponseInterface {
                 return $this->seeOther($next($request), $this->user->logout());
-            });
+            }
+        ];
     }
 
     private function seeOther(ResponseInterface $psrResponse, string $location): ResponseInterface

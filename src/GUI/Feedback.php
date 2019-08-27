@@ -44,9 +44,11 @@ final class Feedback implements GUI
         return $this->dao->getById($contactmomentIdentifier);
     }
 
-    public function addRoutesToRouter(\pulledbits\Router\Router $router): void
+    public function createRoutes() : array
     {
-        $router->addRoute('/feedback/(?<contactmomentIdentifier>\d+)/supply$', new Supply($this, $this->phpviewDirectory));
-        $router->addRoute('/feedback/(?<contactmomentIdentifier>\d+)', new View($this->phpviewDirectory));
+        return [
+            '/feedback/(?<contactmomentIdentifier>\d+)/supply$' => new Supply($this, $this->phpviewDirectory),
+            '/feedback/(?<contactmomentIdentifier>\d+)' => new View($this->phpviewDirectory)
+        ];
     }
 }

@@ -32,8 +32,10 @@ class Contactmoment implements GUI
         return $this->user->importEventsFromRooster($this->rooster);
     }
 
-    public function addRoutesToRouter(\pulledbits\Router\Router $router): void
+    public function createRoutes() : array
     {
-        $router->addRoute('(GET|POST):/contactmoment/import', new Contactmoment\Import($this, $this->phpviewDirectory));
+        return [
+            '(GET|POST):/contactmoment/import' => new Contactmoment\Import($this, $this->phpviewDirectory)
+        ];
     }
 }

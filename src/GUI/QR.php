@@ -17,8 +17,8 @@ class QR implements GUI
         $this->phpviewDirectory = $bootstrap->resource('phpview');
     }
 
-    public function addRoutesToRouter(\pulledbits\Router\Router $router): void
+    public function createRoutes() : array
     {
-        $router->addRoute('/qr', new QR\Code($this->phpviewDirectory));
+        return ['/qr' => new QR\Code($this->phpviewDirectory)];
     }
 }

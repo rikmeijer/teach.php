@@ -28,11 +28,10 @@ final class Calendar implements GUI
         );
     }
 
-    public function addRoutesToRouter(\pulledbits\Router\Router $router): void
+    public function createRoutes(): array
     {
-        $router->addRoute(
-            '/calendar/(?<calendarIdentifier>[^/]+)',
-            function (ServerRequestInterface $request, callable $next): ResponseInterface {
+        return [
+            '/calendar/(?<calendarIdentifier>[^/]+)' => function (ServerRequestInterface $request, callable $next): ResponseInterface {
                 $response = PHPviewEndPoint::attachToResponse(
                     $next($request),
                     $this->phpview->prepare(
@@ -47,6 +46,6 @@ final class Calendar implements GUI
                         'attachment; filename="' . $request->getAttribute('calendarIdentifier') . '.ics"'
                     );
             }
-        );
+        ];
     }
 }

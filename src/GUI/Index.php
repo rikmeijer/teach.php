@@ -33,8 +33,8 @@ final class Index implements GUI
         });
     }
 
-    public function addRoutesToRouter(\pulledbits\Router\Router $router): void
+    public function createRoutes() : array
     {
-        $router->addRoute('/$', new Index\Index($this->phpviewDirectory));
+        return ['/$' => new Index\Index($this->phpviewDirectory)];
     }
 }
