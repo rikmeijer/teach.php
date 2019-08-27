@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\View\TemplateInstance;
 
-class PHPviewEndPoint implements RouteEndPoint
+class PHPviewEndPoint
 {
     /**
      * @var \pulledbits\View\TemplateInstance

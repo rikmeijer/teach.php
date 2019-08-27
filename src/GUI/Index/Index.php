@@ -10,7 +10,7 @@ use pulledbits\Router\RouteEndPoint;
 use pulledbits\View\Directory;
 use rikmeijer\Teach\PHPviewEndPoint;
 
-class Index implements Route
+class Index
 {
     private $phpviewDirectory;
 
@@ -19,7 +19,7 @@ class Index implements Route
         $this->phpviewDirectory = $phpviewDirectory;
     }
 
-    public function handleRequest(ServerRequestInterface $request): RouteEndPoint
+    public function handleRequest(ServerRequestInterface $request): PHPviewEndPoint
     {
         return new PHPviewEndPoint($this->phpviewDirectory->load('welcome'));
     }

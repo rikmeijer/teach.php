@@ -12,7 +12,7 @@ use rikmeijer\Teach\GUI\SSO;
 use rikmeijer\Teach\PHPviewEndPoint;
 use rikmeijer\Teach\User;
 
-class Profile implements Route
+class Profile
 {
     private $phpviewDirectory;
     private $gui;
@@ -28,7 +28,7 @@ class Profile implements Route
         $this->gui = $gui;
     }
 
-    public function handleRequest(ServerRequestInterface $request): RouteEndPoint
+    public function handleRequest(ServerRequestInterface $request): PHPviewEndPoint
     {
         return new PHPviewEndPoint($this->phpviewDirectory->load('profile', ['details' => $this->gui->details()]));
     }

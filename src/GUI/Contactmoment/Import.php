@@ -8,7 +8,7 @@ use pulledbits\View\TemplateInstance;
 use rikmeijer\Teach\GUI\Contactmoment;
 use rikmeijer\Teach\PHPviewEndPoint;
 
-class Import implements Route
+class Import
 {
     private $gui;
     private $phpviewDirectory;
@@ -33,7 +33,7 @@ class Import implements Route
         }
     }
 
-    private function handleGet(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
+    private function handleGet(\Psr\Http\Message\ServerRequestInterface $request): PHPviewEndPoint
     {
         return new PHPviewEndPoint($this->phpviewDirectory->load('contactmoment/import', [
             'importForm' => function (TemplateInstance $templateInstance): void {
@@ -42,7 +42,7 @@ class Import implements Route
         ]));
     }
 
-    private function handlePost(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
+    private function handlePost(\Psr\Http\Message\ServerRequestInterface $request): PHPviewEndPoint
     {
         return new PHPviewEndPoint($this->phpviewDirectory->load(
             'contactmoment/imported',

@@ -11,7 +11,7 @@ use pulledbits\Router\RouteEndPoint;
 use pulledbits\View\Directory;
 use rikmeijer\Teach\PHPviewEndPoint;
 
-class Code implements Route
+class Code
 {
     private $phpviewDirectory;
 
@@ -20,7 +20,7 @@ class Code implements Route
         $this->phpviewDirectory = $phpviewDirectory;
     }
 
-    public function handleRequest(ServerRequestInterface $request): RouteEndPoint
+    public function handleRequest(ServerRequestInterface $request): PHPviewEndPoint
     {
         $query = $request->getQueryParams();
         if (array_key_exists('data', $query) === false) {

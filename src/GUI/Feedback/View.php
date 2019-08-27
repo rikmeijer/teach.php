@@ -6,8 +6,9 @@ use pulledbits\Router\Route;
 use pulledbits\Router\RouteEndPoint;
 use pulledbits\View\Directory;
 use pulledbits\View\TemplateInstance;
+use rikmeijer\Teach\PHPviewEndPoint;
 
-class View implements Route
+class View
 {
     private $phpviewDirectory;
 
@@ -22,7 +23,7 @@ class View implements Route
         );
     }
 
-    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): RouteEndPoint
+    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): PHPviewEndPoint
     {
         return new \rikmeijer\Teach\PHPviewEndPoint(
             $this->phpviewDirectory->load(

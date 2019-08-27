@@ -11,8 +11,9 @@ use rikmeijer\Teach\Beans\Contactmoment;
 use rikmeijer\Teach\Beans\Rating;
 use rikmeijer\Teach\Beans\Ratingwaarde;
 use rikmeijer\Teach\GUI\Feedback;
+use rikmeijer\Teach\PHPviewEndPoint;
 
-class Supply implements Route
+class Supply
 {
     private $gui;
     private $phpviewDirectory;
@@ -23,7 +24,7 @@ class Supply implements Route
         $this->phpviewDirectory = $phpviewDirectory;
     }
 
-    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): \pulledbits\Router\RouteEndPoint
+    public function handleRequest(\Psr\Http\Message\ServerRequestInterface $request): PHPviewEndPoint
     {
         $contactmoment = $this->gui->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
         if ($contactmoment->getId() === null) {
