@@ -19,17 +19,17 @@ return new class
         $this->bootstrap = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
     }
 
-    public function handle(\Psr\Http\Message\ServerRequestInterface $serverRequest): ResponseInterface
+    public function handle(\Psr\Http\Message\ServerRequestInterface $serverRequest, ResponseInterface $response): ResponseInterface
     {
         $matcher = $this->bootstrap->resource('router');
         $route = $matcher->match($serverRequest);
         if (!$route) {
-            return new Response(404);
+            return $response->withStatus(404);
         }
         foreach ($route->attributes as $key => $val) {
             $serverRequest = $serverRequest->withAttribute($key, $val);
         }
-        return ($route->handler)($serverRequest, new Response());
+        return ($route->handler)($serverRequest, $response);
     }
 
     public function root() : string {
