@@ -40,11 +40,19 @@ class Contactmoment implements GUI
     public function mapRoutes(Map $map): void
     {
         $view = new Contactmoment\Import($this, $this->phpviewDirectory);
-        $map->get('contactmoment.import', '/contactmoment/import', function (ServerRequestInterface $request, ResponseInterface $response) use ($view) : ResponseInterface {
-            return PHPviewEndPoint::attachToResponse($response, $view->handleGet($request)->prepare());
-        });
-        $map->post('contactmoment.imported', '/contactmoment/import', function (ServerRequestInterface $request, ResponseInterface $response) use ($view) : ResponseInterface {
-            return PHPviewEndPoint::attachToResponse($response, $view->handlePost($request)->prepare());
-        });
+        $map->get(
+            'contactmoment.import',
+            '/contactmoment/import',
+            function (ServerRequestInterface $request, ResponseInterface $response) use ($view) : ResponseInterface {
+                return PHPviewEndPoint::attachToResponse($response, $view->handleGet($request)->prepare());
+            }
+        );
+        $map->post(
+            'contactmoment.imported',
+            '/contactmoment/import',
+            function (ServerRequestInterface $request, ResponseInterface $response) use ($view) : ResponseInterface {
+                return PHPviewEndPoint::attachToResponse($response, $view->handlePost($request)->prepare());
+            }
+        );
     }
 }

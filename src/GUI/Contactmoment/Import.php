@@ -2,7 +2,6 @@
 
 namespace rikmeijer\Teach\GUI\Contactmoment;
 
-use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\View\Directory;
 use pulledbits\View\Template;
 use pulledbits\View\TemplateInstance;
@@ -21,11 +20,14 @@ class Import
 
     public function handleGet(): Template
     {
-        return $this->phpviewDirectory->load('contactmoment/import', [
-            'importForm' => function (TemplateInstance $templateInstance): void {
-                $templateInstance->form("post", "Importeren", 'rooster.avans.nl');
-            }
-        ]);
+        return $this->phpviewDirectory->load(
+            'contactmoment/import',
+            [
+                'importForm' => function (TemplateInstance $templateInstance): void {
+                    $templateInstance->form("post", "Importeren", 'rooster.avans.nl');
+                }
+            ]
+        );
     }
 
     public function handlePost(): Template
