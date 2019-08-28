@@ -4,9 +4,9 @@ namespace rikmeijer\Teach\GUI\Contactmoment;
 
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\View\Directory;
+use pulledbits\View\Template;
 use pulledbits\View\TemplateInstance;
 use rikmeijer\Teach\GUI\Contactmoment;
-use rikmeijer\Teach\PHPviewEndPoint;
 
 class Import
 {
@@ -19,41 +19,20 @@ class Import
         $this->phpviewDirectory = $phpviewDirectory;
     }
 
-    public function handleRequest(ServerRequestInterface $request): PHPviewEndPoint
+    public function handleGet(): Template
     {
-        switch ($request->getMethod()) {
-            case 'GET':
-                return $this->handleGet($request);
-
-            case 'POST':
-                return $this->handlePost($request);
-
-            default:
-                return ErrorFactory::makeInstance('405');
-        }
+        return $this->phpviewDirectory->load('contactmoment/import', [
+            'importForm' => function (TemplateInstance $templateInstance): void {
+                $templateInstance->form("post", "Importeren", 'rooster.avans.nl');
+            }
+        ]);
     }
 
-    private function handleGet(ServerRequestInterface $request): PHPviewEndPoint
+    public function handlePost(): Template
     {
-        return new PHPviewEndPoint(
-            $this->phpviewDirectory->load(
-                'contactmoment/import',
-                [
-                    'importForm' => function (TemplateInstance $templateInstance): void {
-                        $templateInstance->form("post", "Importeren", 'rooster.avans.nl');
-                    }
-                ]
-            )
-        );
-    }
-
-    private function handlePost(ServerRequestInterface $request): PHPviewEndPoint
-    {
-        return new PHPviewEndPoint(
-            $this->phpviewDirectory->load(
-                'contactmoment/imported',
-                ["numberImported" => $this->gui->importRooster()]
-            )
+        return $this->phpviewDirectory->load(
+            'contactmoment/imported',
+            ["numberImported" => $this->gui->importRooster()]
         );
     }
 }

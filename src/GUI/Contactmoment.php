@@ -8,6 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Bootstrap\Bootstrap;
 use rikmeijer\Teach\Calendar;
 use rikmeijer\Teach\GUI;
+use rikmeijer\Teach\PHPviewEndPoint;
 use rikmeijer\Teach\User;
 
 class Contactmoment implements GUI
@@ -38,13 +39,12 @@ class Contactmoment implements GUI
 
     public function mapRoutes(Map $map): void
     {
-        $endpoint = function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
-            $view = new Contactmoment\Import($this, $this->phpviewDirectory);
-            return $view->handleRequest($request)->respond($response);
-        };
-
-
-        $map->get('contactmoment.import', '/contactmoment/import', $endpoint);
-        $map->post('contactmoment.imported', '/contactmoment/import', $endpoint);
+        $view = new Contactmoment\Import($this, $this->phpviewDirectory);
+        $map->get('contactmoment.import', '/contactmoment/import', function (ServerRequestInterface $request, ResponseInterface $response) use ($view) : ResponseInterface {
+            return PHPviewEndPoint::attachToResponse($response, $view->handleGet($request)->prepare());
+        });
+        $map->post('contactmoment.imported', '/contactmoment/import', function (ServerRequestInterface $request, ResponseInterface $response) use ($view) : ResponseInterface {
+            return PHPviewEndPoint::attachToResponse($response, $view->handlePost($request)->prepare());
+        });
     }
 }
