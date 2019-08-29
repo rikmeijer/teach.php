@@ -1,4 +1,6 @@
 <?php use pulledbits\View\TemplateInstance;
+use rikmeijer\Teach\Beans\Useremailaddress;
+use rikmeijer\Teach\User;
 
 return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
     $csrf = $bootstrap->resource('csrf');
@@ -67,6 +69,20 @@ return function (\pulledbits\Bootstrap\Bootstrap $bootstrap) {
 
     $directory->registerHelper('resource', function (\pulledbits\View\TemplateInstance $templateInstance, string $resourceIdentfier) use ($bootstrap) : object {
         return $bootstrap->resource($resourceIdentfier);
+    });
+
+    $directory->registerHelper('userid', function() use ($bootstrap) : string {
+        $details = $bootstrap->resource('auth0')->getUser();
+        if ($details === null) {
+            header('Location: /sso/login', true, 302);
+            exit;
+        }
+
+        /**
+         * @var $useremailaddress Useremailaddress
+         */
+        $useremailaddress = ($bootstrap->resource('dao')('Useremailaddress'))->getById($details['email']);
+        return $useremailaddress->getUserid()->getId();
     });
     return $directory;
 };

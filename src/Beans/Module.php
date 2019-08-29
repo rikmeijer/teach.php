@@ -10,6 +10,7 @@ namespace rikmeijer\Teach\Beans;
 
 use rikmeijer\Teach\Beans\Generated\AbstractModule;
 use rikmeijer\Teach\Daos\ContactmomentDao;
+use TheCodingMachine\TDBM\ResultIterator;
 
 /**
  * The Module class maps the 'module' table in database.
@@ -31,5 +32,12 @@ class Module extends AbstractModule
             return 0;
         }
         return round(array_sum($numericRatings) / count($numericRatings), 1);
+    }
+
+
+    public function getContactmomenten(string $userid): ResultIterator
+    {
+        $dao = new ContactmomentDao($this->tdbmService);
+        return $dao->findContactmomentenForUserByModule($userid, $this);
     }
 }
