@@ -4,6 +4,7 @@
 namespace rikmeijer\Teach\GUI;
 
 use Aura\Router\Map;
+use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Bootstrap\Bootstrap;
@@ -13,6 +14,7 @@ use rikmeijer\Teach\Daos\ContactmomentDao;
 use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\GUI\Feedback\Supply;
 use rikmeijer\Teach\GUI\Feedback\View;
+use rikmeijer\Teach\PHPviewEndPoint;
 
 final class Feedback implements GUI
 {
@@ -51,6 +53,15 @@ final class Feedback implements GUI
         return $this->csrf->isValid($CSRFToken);
     }
 
+    public function retrieveRating(Request $request) {
+        $contactmoment = $this->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
+        if ($contactmoment->getId() === null) {
+            return ErrorFactory::makeInstance('404');
+        }
+
+        return $contactmoment->findRatingByIP(($request->getServerParams())['REMOTE_ADDR']);
+    }
+
     public function mapRoutes(Map $map): void
     {
         $map->get(
@@ -58,15 +69,16 @@ final class Feedback implements GUI
             '/feedback/{contactmomentIdentifier}/supply',
             function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
                 $view = new Supply($this, $this->phpviewDirectory);
-                return $view->handleRequest($request)->respond($response);
+                return $view->handleGet($this->retrieveRating($request), $request->getQueryParams())->respond($response);
             }
         )->tokens(['contactmomentIdentifier' => '\d+']);
+
         $map->post(
             'feedback.supplied',
             '/feedback/{contactmomentIdentifier}/supply',
             function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
                 $view = new Supply($this, $this->phpviewDirectory);
-                return $view->handleRequest($request)->respond($response);
+                return $view->handlePost($this->retrieveRating($request), $request->getParsedBody())->respond($response);
             }
         )->tokens(['contactmomentIdentifier' => '\d+']);
 
@@ -74,8 +86,19 @@ final class Feedback implements GUI
             'feedback',
             '/feedback/{contactmomentIdentifier}',
             function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
-                $view = new View($this->phpviewDirectory);
-                return $view->handleRequest($request)->respond($response);
+                $this->phpviewDirectory->registerHelper(
+                    'feedbackSupplyURL',
+                    function (TemplateInstance $templateInstance, string $contactmomentIdentifier): string {
+                        return $templateInstance->url('/feedback/%s/supply', $contactmomentIdentifier);
+                    }
+                );
+
+                return (new PHPviewEndPoint(
+                    $this->phpviewDirectory->load(
+                        'feedback',
+                        ['contactmomentIdentifier' => $request->getAttribute('contactmomentIdentifier')]
+                    )
+                ))->respond($response);
             }
         );
     }

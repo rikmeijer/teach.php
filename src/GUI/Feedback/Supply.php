@@ -21,26 +21,7 @@ class Supply
         $this->phpviewDirectory = $phpviewDirectory;
     }
 
-    public function handleRequest(ServerRequestInterface $request): PHPviewEndPoint
-    {
-        $contactmoment = $this->gui->retrieveContactmoment($request->getAttribute('contactmomentIdentifier'));
-        if ($contactmoment->getId() === null) {
-            return ErrorFactory::makeInstance('404');
-        }
-
-        $rating = $contactmoment->findRatingByIP(($request->getServerParams())['REMOTE_ADDR']);
-        switch ($request->getMethod()) {
-            case 'GET':
-                return $this->handleGet($rating, $request->getQueryParams());
-
-            case 'POST':
-                return $this->handlePost($rating, $request->getParsedBody());
-            default:
-                return ErrorFactory::makeInstance('405');
-        }
-    }
-
-    private function handleGet(Rating $ipRating, array $query): PHPviewEndPoint
+    public function handleGet(Rating $ipRating, array $query): PHPviewEndPoint
     {
         if (array_key_exists('rating', $query)) {
             $rating = $query['rating'];
@@ -59,7 +40,7 @@ class Supply
         );
     }
 
-    private function handlePost(Rating $rating, array $parsedBody): PHPviewEndPoint
+    public function handlePost(Rating $rating, array $parsedBody): PHPviewEndPoint
     {
         if ($this->gui->verifyCSRFToken($parsedBody['__csrf_value']) === false) {
             return ErrorFactory::makeInstance('403');

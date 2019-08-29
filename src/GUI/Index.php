@@ -12,6 +12,7 @@ use pulledbits\View\TemplateInstance;
 use rikmeijer\Teach\Beans\Module;
 use rikmeijer\Teach\Beans\User;
 use rikmeijer\Teach\GUI;
+use rikmeijer\Teach\PHPviewEndPoint;
 use TheCodingMachine\TDBM\ResultIterator;
 
 final class Index implements GUI
@@ -55,8 +56,7 @@ final class Index implements GUI
             'index',
             '/',
             function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
-                $view = new Index\Index($this->phpviewDirectory);
-                return $view->handleRequest($request)->respond($response);
+                return (new PHPviewEndPoint($this->phpviewDirectory->load('welcome')))->respond($response);
             }
         );
     }
