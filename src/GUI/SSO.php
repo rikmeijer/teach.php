@@ -9,10 +9,14 @@ use pulledbits\Bootstrap\Bootstrap;
 use pulledbits\View\Directory;
 use rikmeijer\Teach\ClosureEndPoint;
 use rikmeijer\Teach\GUI;
-use rikmeijer\Teach\User;
 
 class SSO implements GUI
 {
+    /**
+     * @var \Auth0\SDK\Auth0
+     */
+    private $auth0;
+
     /**
      * @var Directory
      */

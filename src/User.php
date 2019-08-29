@@ -2,25 +2,18 @@
 
 namespace rikmeijer\Teach;
 
-use Auth0\SDK\Auth0;
 use pulledbits\Bootstrap\Bootstrap;
 use rikmeijer\Teach\Avans\Rooster;
 use rikmeijer\Teach\Beans\Module;
-use rikmeijer\Teach\Beans\Useremailaddress;
 use rikmeijer\Teach\Daos\ContactmomentDao;
 use TheCodingMachine\TDBM\ResultIterator;
 
 final class User
 {
     /**
-     * @var Auth0
+     * @var \rikmeijer\Teach\Beans\User
      */
-    private $auth0;
-
-    /**
-     * @var callable
-     */
-    private $daoFactory;
+    private $currentUser;
 
     /**
      * @var ContactmomentDao
@@ -29,45 +22,24 @@ final class User
 
     public function __construct(Bootstrap $bootstrap)
     {
-        $this->daoFactory = $bootstrap->resource('dao');
-        $this->auth0 = $bootstrap->resource('auth0');
-        $this->contactmomentDao = ($this->daoFactory)('Contactmoment');
-    }
-
-    public function profile() {
-        $details = $this->auth0->getUser();
-        if ($details === null) {
-            header('Location: /sso/login', true, 302);
-            exit;
-        }
-        return $details;
-    }
-
-    public function details(): \rikmeijer\Teach\Beans\User
-    {
-        $details = $this->profile();
-
-        /**
-         * @var $useremailaddress Useremailaddress
-         */
-        $useremailaddress = ($this->daoFactory)('Useremailaddress')->getById($details['email']);
-        return $useremailaddress->getUserid();
+        $this->currentUser = $bootstrap->resource('currentuser');
+        $this->contactmomentDao = $bootstrap->resource('dao')('Contactmoment');
     }
 
     public function importEventsFromRooster(Rooster $rooster): int
     {
-        return $rooster->importEventsForUser($this->details()->getId());
+        return $rooster->importEventsForUser($this->currentUser->getId());
     }
 
     public function findContactmomentenToday(): ResultIterator
     {
-        return $this->contactmomentDao->findContactmomentenTodayForUser($this->details()->getId());
+        return $this->contactmomentDao->findContactmomentenTodayForUser($this->currentUser->getId());
     }
 
     public function findContactmomentenByModule(Module $module): ResultIterator
     {
         return $this->contactmomentDao->findContactmomentenForUserByModule(
-            $this->details()->getId(),
+            $this->currentUser->getId(),
             $module
         );
     }
