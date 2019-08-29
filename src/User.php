@@ -46,7 +46,7 @@ final class User
     public function details(): \rikmeijer\Teach\Beans\User
     {
         $details = $this->profile();
-        
+
         /**
          * @var $useremailaddress Useremailaddress
          */
@@ -57,15 +57,6 @@ final class User
     public function login(): void
     {
         $this->auth0->login();
-    }
-
-
-    public function authorize(): void
-    {
-        $details = $this->auth0->getUser();
-        if ($details === null) {
-
-        }
     }
 
     public function logout(): string
