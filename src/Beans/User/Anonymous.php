@@ -4,8 +4,12 @@
 namespace rikmeijer\Teach\Beans\User;
 
 
+use rikmeijer\Teach\Avans\Rooster;
+use rikmeijer\Teach\Beans\Module;
 use rikmeijer\Teach\Beans\User;
 use rikmeijer\Teach\Beans\Useremailaddress;
+use rikmeijer\Teach\Daos\ContactmomentDao;
+use TheCodingMachine\TDBM\ResultIterator;
 
 class Anonymous extends User
 {
@@ -35,4 +39,18 @@ class Anonymous extends User
         $this->login();
     }
 
+    public function importEventsFromRooster(Rooster $rooster): int
+    {
+        return 0;
+    }
+
+    public function getContactmomentenToday(): ResultIterator
+    {
+        $this->login();
+    }
+
+    public function getContactmomentenByModule(Module $module): ResultIterator
+    {
+        $this->login();
+    }
 }
