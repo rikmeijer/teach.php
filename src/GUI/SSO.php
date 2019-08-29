@@ -42,7 +42,7 @@ class SSO implements GUI
             'sso.callback',
             '/sso/callback',
             function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
-                $this->details();
+                $this->profile();
                 return $this->seeOther($response, '/');
             }
         );
@@ -64,9 +64,9 @@ class SSO implements GUI
         );
     }
 
-    public function details()
+    public function profile()
     {
-        return $this->user->details();
+        return $this->user->profile();
     }
 
     private function seeOther(ResponseInterface $psrResponse, string $location): ResponseInterface

@@ -34,14 +34,19 @@ final class User
         $this->contactmomentDao = ($this->daoFactory)('Contactmoment');
     }
 
-    public function details(): \rikmeijer\Teach\Beans\User
-    {
+    public function profile() {
         $details = $this->auth0->getUser();
         if ($details === null) {
             header('Location: /sso/login', true, 302);
             exit;
         }
+        return $details;
+    }
 
+    public function details(): \rikmeijer\Teach\Beans\User
+    {
+        $details = $this->profile();
+        
         /**
          * @var $useremailaddress Useremailaddress
          */

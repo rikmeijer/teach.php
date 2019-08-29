@@ -27,6 +27,6 @@ class Profile
 
     public function handleRequest(ServerRequestInterface $request): PHPviewEndPoint
     {
-        return new PHPviewEndPoint($this->phpviewDirectory->load('profile', ['details' => $this->gui->details()]));
+        return new PHPviewEndPoint($this->phpviewDirectory->load('profile', ['profile' => $this->gui->profile()]));
     }
 }
