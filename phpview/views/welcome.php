@@ -31,7 +31,7 @@
         <h2><?= $this->escape($module->getNaam()); ?><?php $this->rating($module->getAverageRating(), 75, 15); ?></h2>
         <?php $this->sub(
             'contactmomenten',
-            ['caption' => 'Contactmomenten', 'contactmomenten' => $module->getContactmomenten($this->userid())]
+            ['caption' => 'Contactmomenten', 'contactmomenten' => $this->getModuleContactmomenten($module)]
         ); ?>
     </section>
 <?php endforeach; ?>
