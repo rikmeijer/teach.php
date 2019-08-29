@@ -1,14 +1,12 @@
 <?php
 
 
-namespace rikmeijer\Teach;
+namespace rikmeijer\Teach\Calendar;
 
-use Doctrine\DBAL\Connection;
 use pulledbits\Bootstrap\Bootstrap;
-use rikmeijer\Teach\Daos\ContactmomentDao;
 use rikmeijer\Teach\Daos\LesweekDao;
 
-class Calendar
+class Weeks
 {
     /**
      * @var LesweekDao

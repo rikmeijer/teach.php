@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace rikmeijer\Teach\Daos;
 
 use rikmeijer\Teach\Beans\Module;
-use rikmeijer\Teach\Calendar;
 use rikmeijer\Teach\Daos\Generated\AbstractContactmomentDao;
 use TheCodingMachine\TDBM\ResultIterator;
 

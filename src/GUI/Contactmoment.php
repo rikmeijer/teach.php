@@ -6,7 +6,7 @@ use Aura\Router\Map;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use pulledbits\Bootstrap\Bootstrap;
-use rikmeijer\Teach\Calendar;
+use rikmeijer\Teach\Calendar\Weeks;
 use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\PHPviewEndPoint;
 use rikmeijer\Teach\User;
@@ -15,7 +15,7 @@ class Contactmoment implements GUI
 {
 
     /**
-     * @var Calendar
+     * @var Weeks
      */
     private $rooster;
 
