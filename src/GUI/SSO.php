@@ -14,18 +14,13 @@ use rikmeijer\Teach\User;
 class SSO implements GUI
 {
     /**
-     * @var User
-     */
-    private $user;
-
-    /**
      * @var Directory
      */
     private $phpviewDirectory;
 
     public function __construct(Bootstrap $bootstrap)
     {
-        $this->user = $bootstrap->resource('user');
+        $this->auth0 = $bootstrap->resource('auth0');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
     }
 
@@ -35,7 +30,7 @@ class SSO implements GUI
             'sso.login',
             '/sso/login',
             function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
-                $this->user->login();
+                $this->auth0->login();
             }
         );
         $map->get(
@@ -59,14 +54,22 @@ class SSO implements GUI
             'sso.logout',
             '/logout',
             function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
-                return $this->seeOther($response, $this->user->logout());
+                $this->auth0->logout();
+                $return_to = 'https://' . $_SERVER['HTTP_HOST'];
+                $logout_url = sprintf(
+                    'https://%s/v2/logout?client_id=%s&returnTo=%s',
+                    'pulledbits.eu.auth0.com',
+                    '2ohAli435Sq92PV14zh9vsXkFqofZrbh',
+                    $return_to
+                );
+                return $this->seeOther($response, $logout_url);
             }
         );
     }
 
     public function profile()
     {
-        return $this->user->profile();
+        return $this->auth0->getUser();
     }
 
     private function seeOther(ResponseInterface $psrResponse, string $location): ResponseInterface

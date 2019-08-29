@@ -54,24 +54,6 @@ final class User
         return $useremailaddress->getUserid();
     }
 
-    public function login(): void
-    {
-        $this->auth0->login();
-    }
-
-    public function logout(): string
-    {
-        $this->auth0->logout();
-        $return_to = 'https://' . $_SERVER['HTTP_HOST'];
-        $logout_url = sprintf(
-            'https://%s/v2/logout?client_id=%s&returnTo=%s',
-            'pulledbits.eu.auth0.com',
-            '2ohAli435Sq92PV14zh9vsXkFqofZrbh',
-            $return_to
-        );
-        return $logout_url;
-    }
-
     public function importEventsFromRooster(Rooster $rooster): int
     {
         return $rooster->importEventsForUser($this->details()->getId());
