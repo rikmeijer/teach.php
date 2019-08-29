@@ -22,12 +22,12 @@ final class Calendar implements GUI
     {
         $this->phpview = $bootstrap->resource('phpview')->load('calendar');
 
-        $calendar = $bootstrap->resource('calendar');
+        $calendarFactory = $bootstrap->resource('calendar');
 
         $this->phpview->registerHelper(
             'calendar',
-            function (TemplateInstance $templateInstance, string $calendarIdentifier) use ($calendar) : \Eluceo\iCal\Component\Calendar {
-                return $calendar->generate($calendarIdentifier);
+            function (TemplateInstance $templateInstance, string $calendarIdentifier) use ($calendarFactory) : \Eluceo\iCal\Component\Calendar {
+                return $calendarFactory($calendarIdentifier)->generate();
             }
         );
     }
