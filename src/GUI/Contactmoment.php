@@ -9,7 +9,6 @@ use pulledbits\Bootstrap\Bootstrap;
 use rikmeijer\Teach\Calendar\Weeks;
 use rikmeijer\Teach\GUI;
 use rikmeijer\Teach\PHPviewEndPoint;
-use rikmeijer\Teach\User;
 
 class Contactmoment implements GUI
 {
@@ -20,7 +19,7 @@ class Contactmoment implements GUI
     private $rooster;
 
     /**
-     * @var User
+     * @var \rikmeijer\Teach\Beans\User
      */
     private $user;
     private $phpviewDirectory;
@@ -28,7 +27,7 @@ class Contactmoment implements GUI
     public function __construct(Bootstrap $bootstrap)
     {
         $this->rooster = $bootstrap->resource('rooster');
-        $this->user = $bootstrap->resource('user');
+        $this->user = $bootstrap->resource('currentuser');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
     }
 
