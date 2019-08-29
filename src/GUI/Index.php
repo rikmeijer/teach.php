@@ -32,12 +32,6 @@ final class Index implements GUI
             }
         );
         $this->phpviewDirectory->registerHelper(
-            'getModuleContactmomenten',
-            function (TemplateInstance $templateInstance, Module $module) use ($user) : ResultIterator {
-                return $user->findContactmomentenByModule($module);
-            }
-        );
-        $this->phpviewDirectory->registerHelper(
             'contactmomenten',
             function (TemplateInstance $templateInstance) use ($user) : ResultIterator {
                 return $user->findContactmomentenToday();

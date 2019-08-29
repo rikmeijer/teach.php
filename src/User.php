@@ -78,12 +78,4 @@ final class User
     {
         return ($this->daoFactory)('Contactmoment')->findContactmomentenTodayForUser($this->details()->getId());
     }
-
-    public function findContactmomentenByModule(Module $module): ResultIterator
-    {
-        return ($this->daoFactory)('Contactmoment')->findContactmomentenForUserByModule(
-            $this->details()->getId(),
-            $module
-        );
-    }
 }
