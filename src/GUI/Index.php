@@ -26,7 +26,7 @@ final class Index implements GUI
         /**
          * @var User
          */
-        $user = $bootstrap->resource('currentuser');
+        $user = $bootstrap->resource('user');
 
         $this->phpviewDirectory = $bootstrap->resource('phpview');
         $this->phpviewDirectory->registerHelper(

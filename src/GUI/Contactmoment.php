@@ -27,7 +27,7 @@ class Contactmoment implements GUI
     public function __construct(Bootstrap $bootstrap)
     {
         $this->rooster = $bootstrap->resource('rooster');
-        $this->user = $bootstrap->resource('currentuser');
+        $this->user = $bootstrap->resource('user');
         $this->phpviewDirectory = $bootstrap->resource('phpview');
     }
 
