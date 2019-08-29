@@ -4,23 +4,29 @@
 namespace rikmeijer\Teach\Calendar;
 
 use pulledbits\Bootstrap\Bootstrap;
+use rikmeijer\Teach\Calendar;
 use rikmeijer\Teach\Daos\LesweekDao;
 
-class Weeks
+class Weeks implements Calendar
 {
     /**
      * @var LesweekDao
      */
     private $lesweken;
 
+    /**
+     * @var \Eluceo\iCal\Component\Calendar
+     */
+    private $icalGenerator;
+
     public function __construct(Bootstrap $bootstrap)
     {
         $this->lesweken = $bootstrap->resource('dao')('Lesweek');
+        $this->icalGenerator = $bootstrap->resource('ical-generator')('weeks');;
     }
 
-    final public function generate() : \Eluceo\iCal\Component\Calendar
+    final public function generate() : string
     {
-        $calendar = new \Eluceo\iCal\Component\Calendar('weeks');
         foreach ($this->lesweken->findAll() as $lesweek) {
             $lesweekEvent = new \Eluceo\iCal\Component\Event();
             $lesweekEvent->setNoTime(true);
@@ -33,11 +39,11 @@ class Weeks
                 $week_start->setISODate($lesweek->getJaar(), $lesweek->getKalenderweek());
                 $lesweekEvent->setDtStart($week_start);
                 $lesweekEvent->setDtEnd($week_start);
-                $calendar->addComponent($lesweekEvent);
+                $this->icalGenerator->addComponent($lesweekEvent);
             } catch (\Exception $e) {
             }
         }
-        return $calendar;
+        return $this->icalGenerator->render();
     }
 
 }

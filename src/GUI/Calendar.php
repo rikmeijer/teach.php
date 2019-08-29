@@ -26,8 +26,8 @@ final class Calendar implements GUI
 
         $this->phpview->registerHelper(
             'calendar',
-            function (TemplateInstance $templateInstance, string $calendarIdentifier) use ($calendarFactory) : \Eluceo\iCal\Component\Calendar {
-                return $calendarFactory($calendarIdentifier)->generate();
+            function (TemplateInstance $templateInstance, string $calendarIdentifier) use ($calendarFactory) : \rikmeijer\Teach\Calendar {
+                return $calendarFactory($calendarIdentifier);
             }
         );
     }
