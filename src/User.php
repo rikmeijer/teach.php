@@ -28,19 +28,16 @@ final class User
 
     public function importEventsFromRooster(Rooster $rooster): int
     {
-        return $rooster->importEventsForUser($this->currentUser->getId());
+        return $this->currentUser->importEventsFromRooster($rooster);
     }
 
     public function findContactmomentenToday(): ResultIterator
     {
-        return $this->contactmomentDao->findContactmomentenTodayForUser($this->currentUser->getId());
+        return $this->currentUser->getContactmomentenToday();
     }
 
     public function findContactmomentenByModule(Module $module): ResultIterator
     {
-        return $this->contactmomentDao->findContactmomentenForUserByModule(
-            $this->currentUser->getId(),
-            $module
-        );
+        return $this->currentUser->getContactmomentenByModule($module);
     }
 }
