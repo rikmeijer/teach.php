@@ -7,6 +7,7 @@ use pulledbits\Bootstrap\Bootstrap;
 use rikmeijer\Teach\Avans\Rooster;
 use rikmeijer\Teach\Beans\Module;
 use rikmeijer\Teach\Beans\Useremailaddress;
+use rikmeijer\Teach\Daos\ContactmomentDao;
 use TheCodingMachine\TDBM\ResultIterator;
 
 final class User
@@ -21,10 +22,16 @@ final class User
      */
     private $daoFactory;
 
+    /**
+     * @var ContactmomentDao
+     */
+    private $contactmomentDao;
+
     public function __construct(Bootstrap $bootstrap)
     {
         $this->daoFactory = $bootstrap->resource('dao');
         $this->auth0 = $bootstrap->resource('auth0');
+        $this->contactmomentDao = ($this->daoFactory)('Contactmoment');
     }
 
     public function details(): \rikmeijer\Teach\Beans\User
@@ -76,12 +83,12 @@ final class User
 
     public function findContactmomentenToday(): ResultIterator
     {
-        return ($this->daoFactory)('Contactmoment')->findContactmomentenTodayForUser($this->details()->getId());
+        return $this->contactmomentDao->findContactmomentenTodayForUser($this->details()->getId());
     }
 
     public function findContactmomentenByModule(Module $module): ResultIterator
     {
-        return ($this->daoFactory)('Contactmoment')->findContactmomentenForUserByModule(
+        return $this->contactmomentDao->findContactmomentenForUserByModule(
             $this->details()->getId(),
             $module
         );
