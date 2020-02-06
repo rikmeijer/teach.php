@@ -59,15 +59,20 @@ vendor
 .idea/inspectionProfiles/
 
 resources/activerecord
+
+# Laravel
 /data
 /node_modules
+/public/hot
 /public/storage
-Homestead.yaml
-Homestead.json
+/storage/*.key
 .env
-config.php
-src/Beans/Generated
-src/Daos/Generated
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
 
 # zxcs specific files
 .htpasswd/
