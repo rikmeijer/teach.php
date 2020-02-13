@@ -8,7 +8,7 @@ before_install:
 install:
   - ./install.sh
 php:
-  - '7.3'
+  - '7.4'
 deploy:
   provider: script
   script: curl -Ss https://teach.rikmeijer.nl/update.php
