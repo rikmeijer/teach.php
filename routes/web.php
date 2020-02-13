@@ -11,6 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Module;
+
+Route::get(
+    '/',
+    function () {
+        return view(
+            'welcome',
+            [
+                'modules' => Module::all()
+            ]
+        );
+    }
+);

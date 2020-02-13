@@ -2,22 +2,44 @@
 
 namespace Tests\Browser;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
+use Throwable;
 
 class WelcomeTest extends DuskTestCase
 {
-    /**
-     * A basic browser test example.
-     *
-     * @return void
-     */
-    public function testSeeLiteralOverzichtContactmoment()
+    use RefreshDatabase;
+
+    final public function testSeeLiteralOverzichtContactmoment(): void
     {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-                    ->assertSee('Overzicht contactmomenten');
-        });
+        try {
+            $this->browse(
+                static function (Browser $browser) {
+                    $browser->visit('/')
+                        ->assertSee('Overzicht contactmomenten');
+                }
+            );
+        } catch (Throwable $e) {
+        }
+    }
+
+    final public function testSeeAllAvailableModuleCodes(): void
+    {
+        $this->assertDatabaseHas(
+            'modules',
+            [
+                'naam' => 'AFST'
+            ]
+        );
+        try {
+            $this->browse(
+                static function (Browser $browser) {
+                    $browser->visit('/')
+                        ->assertSeeLink('AFST');
+                }
+            );
+        } catch (Throwable $e) {
+        }
     }
 }

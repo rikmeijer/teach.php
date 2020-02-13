@@ -4,7 +4,6 @@ return [
     'DB' => [
         'CONNECTION' => 'mysql',
         'HOST' => 'localhost',
-        'PORT' => 'port',
         'DATABASE' => 'teach',
         'USERNAME' => 'teach',
         'PASSWORD' => 'teach',
