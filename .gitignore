@@ -83,4 +83,4 @@ private_html
 public_html
 deploy.log
 /_ide_helper.php
-!/.phpstorm.meta.php
+/.phpstorm.meta.php
