@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use App\Module;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -24,7 +25,7 @@ class WelcomeTest extends DuskTestCase
         }
     }
 
-    final public function testSeeAllAvailableModuleCodes(): void
+    final public function testSeeAFSTModuleCodes(): void
     {
         $this->assertDatabaseHas(
             'modules',
@@ -41,5 +42,22 @@ class WelcomeTest extends DuskTestCase
             );
         } catch (Throwable $e) {
         }
+    }
+
+    final public function testSeeAllAvailableModuleCodes(): void
+    {
+        try {
+            $this->browse(
+                static function (Browser $browser) {
+                    $page = $browser->visit('/');
+                    foreach (Module::all() as $module) {
+                        $page->assertSeeLink($module->naam);
+                    }
+                }
+            );
+        } catch (Throwable $e) {
+            $this->assertTrue(false, $e->getMessage());
+        }
+
     }
 }
