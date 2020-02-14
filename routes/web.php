@@ -11,18 +11,6 @@
 |
 */
 
-use App\Contactmoment;
-use App\Module;
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::get(
-    '/',
-    function () {
-        return view(
-            'welcome',
-            [
-                'modules' => Module::all(),
-                'contactmomenten' => Contactmoment::all()
-            ]
-        );
-    }
-);
+Auth::routes();

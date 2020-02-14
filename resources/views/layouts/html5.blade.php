@@ -5,7 +5,6 @@
     @section('head')
         Head
     @show
-    <link rel="stylesheet" type="text/css" href="/css/app.css">
     <link rel="stylesheet" type="text/css" href="/css/teach.css">
 </head>
 <body>
