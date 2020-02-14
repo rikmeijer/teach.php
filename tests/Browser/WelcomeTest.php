@@ -48,7 +48,7 @@ class WelcomeTest extends DuskTestCase
     }
 
 
-    final public function testSeeContactmomentenVandaag(): void
+    final public function testSeeNoContactmomentenVandaag(): void
     {
         $this->browse(
             static function (Browser $browser) {
@@ -58,4 +58,31 @@ class WelcomeTest extends DuskTestCase
             }
         );
     }
+
+
+
+//    final public function testSeeAuthtencatedNoContactmomentenVandaag(): void
+//    {
+//        $user = new User();
+//        $user->email = 'user@example.com';
+//        $user->password = 'ss';
+//        $user->name = 'U Ser';
+//        $user->save();
+//
+//        $this->assertDatabaseMissing('contactmomenten', [
+//
+//        ]);
+//
+//        try {
+//            $this->browse(
+//                static function (Browser $browser) use ($user) {
+//                    $browser->loginAs($user)->visit('/')
+//                        ->assertSee('Contactmomenten vandaag')
+//                        ->assertSee('Geen contactmomenten vandaag');
+//                }
+//            );
+//        } finally {
+//            $user->delete();
+//        }
+//    }
 }
