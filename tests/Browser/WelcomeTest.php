@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\Browser;
 
 use App\Module;
+use App\User;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
@@ -60,29 +61,24 @@ class WelcomeTest extends DuskTestCase
     }
 
 
+    final public function testSeeAuthtencatedNoContactmomentenVandaag(): void
+    {
+        $user = new User();
+        $user->email = 'user@example.com';
+        $user->password = 'ss';
+        $user->name = 'U Ser';
+        $user->save();
 
-//    final public function testSeeAuthtencatedNoContactmomentenVandaag(): void
-//    {
-//        $user = new User();
-//        $user->email = 'user@example.com';
-//        $user->password = 'ss';
-//        $user->name = 'U Ser';
-//        $user->save();
-//
-//        $this->assertDatabaseMissing('contactmomenten', [
-//
-//        ]);
-//
-//        try {
-//            $this->browse(
-//                static function (Browser $browser) use ($user) {
-//                    $browser->loginAs($user)->visit('/')
-//                        ->assertSee('Contactmomenten vandaag')
-//                        ->assertSee('Geen contactmomenten vandaag');
-//                }
-//            );
-//        } finally {
-//            $user->delete();
-//        }
-//    }
+        try {
+            $this->browse(
+                static function (Browser $browser) use ($user) {
+                    $browser->loginAs($user)->visit('/')
+                        ->assertSee('Contactmomenten vandaag')
+                        ->assertSee('Geen contactmomenten vandaag');
+                }
+            );
+        } finally {
+            $user->delete();
+        }
+    }
 }

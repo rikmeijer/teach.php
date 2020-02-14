@@ -28,7 +28,7 @@
     </nav>
 
     <section>
-        @component('contactmomenten_vandaag', ['caption' => 'Contactmomenten vandaag'])
+        @component('contactmomenten_vandaag', ['caption' => 'Contactmomenten vandaag', 'contactmomenten' => $contactmomenten])
             Geen contactmomenten vandaag
         @endcomponent
     </section>

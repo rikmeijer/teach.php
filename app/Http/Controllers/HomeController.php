@@ -1,9 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Contactmoment;
 use App\Module;
+use Auth;
 use Illuminate\Contracts\Support\Renderable;
 
 class HomeController extends Controller
@@ -15,7 +16,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
     }
 
     /**
@@ -23,13 +23,13 @@ class HomeController extends Controller
      *
      * @return Renderable
      */
-    public function index()
+    final public function index(): Renderable
     {
         return view(
             'welcome',
             [
                 'modules' => Module::all(),
-                'contactmomenten' => Contactmoment::all()
+                'contactmomenten' => Auth::user() ? Auth::user()->contactmomentenVandaag : []
             ]
         );
     }
