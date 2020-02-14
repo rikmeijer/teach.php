@@ -53,7 +53,8 @@ class WelcomeTest extends DuskTestCase
         $this->browse(
             static function (Browser $browser) {
                 $browser->visit('/')
-                    ->assertSee('Contactmomenten vandaag');
+                    ->assertSee('Contactmomenten vandaag')
+                    ->assertSee('Geen contactmomenten vandaag');
             }
         );
     }

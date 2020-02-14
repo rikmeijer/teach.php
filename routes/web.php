@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
 |--------------------------------------------------------------------------
@@ -11,6 +11,7 @@
 |
 */
 
+use App\Contactmoment;
 use App\Module;
 
 Route::get(
@@ -19,7 +20,8 @@ Route::get(
         return view(
             'welcome',
             [
-                'modules' => Module::all()
+                'modules' => Module::all(),
+                'contactmomenten' => Contactmoment::all()
             ]
         );
     }

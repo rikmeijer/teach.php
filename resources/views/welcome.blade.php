@@ -17,4 +17,10 @@
             @endforeach
         </ul>
     </nav>
+
+    <section>
+        @component('contactmomenten_vandaag', ['caption' => 'Contactmomenten vandaag'])
+            Geen contactmomenten vandaag
+        @endcomponent
+    </section>
 @endsection

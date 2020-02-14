@@ -51,7 +51,7 @@ body header {
 }
 
 body header:before {
-    content: url(/public/img/avans_logo.png);
+    content: url(/img/avans_logo.png);
     float: right;
 }
 
@@ -101,6 +101,14 @@ table caption a:active {
 
 table tbody.collapsed tr.past {
     display: none;
+}
+
+table tr th.medium {
+    width: 80px
+}
+
+table tr th.small {
+    width: 30px;
 }
 
 table td, table th {
