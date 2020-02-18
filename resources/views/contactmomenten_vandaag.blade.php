@@ -1,4 +1,4 @@
-<table>
+<table id="contactmomenten-vandaag">
     <caption>{{$caption}}</caption>
     <thead>
     <tr>
@@ -33,13 +33,13 @@
                     <tr>
                         @endif
 
-                        <td>{{$contactmoment->getLes()->getModuleNaam()->getNaam()}}</td>
-                        <td>{{$contactmoment->getKalenderweek()}}</td>
-                        <td>{{$contactmoment->getBlokweek()}}</td>
-                        <td>{{$contactmoment->getStarttijd()->format('l')}}</td>
-                        <td>{{$contactmoment->getStarttijd()->format('H:i')}}</td>
-                        <td>{{$contactmoment->getEindtijd()->format('H:i')}}</td>
-                        <td><a href="{{ url('/feedback/%s', $contactmoment->getId()) }}" target="_blank">Feedback</a>
+                        <td>{{$contactmoment->les->module->naam}}</td>
+                        <td>{{$contactmoment->les->lesweek->kalenderweek}}</td>
+                        <td>{{$contactmoment->les->lesweek->blokweek}}</td>
+                        <td>{{$contactmoment->starttijd->format('l')}}</td>
+                        <td>{{$contactmoment->starttijd->format('H:i')}}</td>
+                        <td>{{$contactmoment->eindtijd->format('H:i')}}</td>
+                        <td><a href="{{ url('/feedback/%s', $contactmoment->id) }}" target="_blank">Feedback</a>
                         </td>
                     </tr>
                     @endforeach
