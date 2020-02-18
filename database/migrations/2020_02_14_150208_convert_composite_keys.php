@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -11,7 +12,7 @@ class ConvertCompositeKeys extends Migration
      *
      * @return void
      */
-    public function up()
+    final public function up(): void
     {
         Schema::table(
             'lesweken',
@@ -70,7 +71,7 @@ class ConvertCompositeKeys extends Migration
      *
      * @return void
      */
-    public function down()
+    final public function down(): void
     {
         Schema::table(
             'lessen',
