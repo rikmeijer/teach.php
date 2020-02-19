@@ -19,7 +19,6 @@ class ContactmomentenImportTest extends DuskTestCase
         );
     }
 
-
     final public function testWhenAuthenticated_Expect_ImporteerContactmomentenLink(): void
     {
         $user = User::query()->where('email', '=', 'user@example.com')->firstOrCreate(
@@ -35,6 +34,34 @@ class ContactmomentenImportTest extends DuskTestCase
                 function (Browser $browser) use ($user) {
                     $browser->loginAs($user)->visit('/')
                         ->assertSeeLink('Importeer contactmomenten');
+                }
+            );
+        } finally {
+            $user->delete();
+        }
+    }
+
+    final public function testWhenClickImporteerContactmomentenLink_Expect_ImporteerContactmomentenPage(): void
+    {
+        $user = User::query()->where('email', '=', 'user@example.com')->firstOrCreate(
+            [
+                'email' => 'user@example.com',
+                'password' => 'ss',
+                'name' => 'U Ser',
+            ]
+        );
+
+        try {
+            $this->browse(
+                function (Browser $browser) use ($user) {
+                    $browser->loginAs($user)->visit('/')
+                        ->clickLink('Importeer contactmomenten');
+
+                    $window = collect($browser->driver->getWindowHandles())->last();
+                    $browser->driver->switchTo()->window($window);
+                    $browser->waitForLocation('/contactmoment/import')
+                        ->assertSeeIn('h1', 'Importeer contactomenten')
+                        ->assertSeeIn('input[type=submit]', 'Importeren');
                 }
             );
         } finally {
