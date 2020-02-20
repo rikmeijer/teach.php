@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace App\Avans;
 
 use App\Contactmoment;
-use Sabre\VObject\Document;
+use Sabre\VObject\Component\VCalendar;
 
 class Rooster
 {
-    final public function import(Document $calendar): array
+    final public function importVCalendar(VCalendar $calendar): array
     {
         if (isset($calendar->VEVENT) === false) {
             return [];

@@ -45,7 +45,8 @@ VOBJECT;
     final public function testWhen_NoEventsImported_Expect_EmptyListOfContactmomenten(): void
     {
         $object = new Rooster();
-        $this->assertCount(0, $object->import(Reader::read($this->emptyCalendar)));
+        /** @noinspection PhpParamsInspection */
+        $this->assertCount(0, $object->importVCalendar(Reader::read($this->emptyCalendar)));
     }
 
 
@@ -53,7 +54,8 @@ VOBJECT;
     {
         $object = new Rooster();
 
-        $contactmomenten = $object->import(Reader::read($this->oneEventCalendar));
+        /** @noinspection PhpParamsInspection */
+        $contactmomenten = $object->importVCalendar(Reader::read($this->oneEventCalendar));
 
         $this->assertCount(1, $contactmomenten);
         $this->assertInstanceOf(Contactmoment::class, $contactmomenten[0]);
