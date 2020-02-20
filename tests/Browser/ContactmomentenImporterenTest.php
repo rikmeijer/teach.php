@@ -68,4 +68,29 @@ class ContactmomentenImporterenTest extends DuskTestCase
             $user->delete();
         }
     }
+
+    final public function testWhenContactmomentenImporteren_Expect_Confirmation(): void
+    {
+        $user = User::query()->where('email', '=', 'user@example.com')->firstOrCreate(
+            [
+                'email' => 'user@example.com',
+                'password' => 'ss',
+                'name' => 'U Ser',
+            ]
+        );
+
+        try {
+            $this->browse(
+                function (Browser $browser) use ($user) {
+                    $browser->loginAs($user)->visitRoute('contactmomenten.importeer')
+                        ->press('Importeren')
+                        ->waitForRoute('contactmomenten.geimporteerd')
+                        ->assertSee('0 contactmomenten geïmporteerd');
+                }
+            );
+        } finally {
+            $user->delete();
+        }
+    }
+
 }
