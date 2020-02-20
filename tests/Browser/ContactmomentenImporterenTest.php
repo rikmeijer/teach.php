@@ -85,7 +85,7 @@ class ContactmomentenImporterenTest extends DuskTestCase
                     $browser->loginAs($user)->visitRoute('contactmomenten.importeer')
                         ->press('Importeren')
                         ->waitForRoute('contactmomenten.geimporteerd')
-                        ->assertSee('0 contactmomenten geïmporteerd');
+                        ->assertSee('0 contactmomenten zijn geïmporteerd');
                 }
             );
         } finally {

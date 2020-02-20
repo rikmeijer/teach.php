@@ -18,4 +18,11 @@ class RoutesTest extends TestCase
         $response = $this->get('/contactmomenten/importeer');
         $response->assertStatus(200);
     }
+
+
+    final public function testContactmomentenGeimporteerd(): void
+    {
+        $response = $this->get('/contactmomenten/geimporteerd');
+        $response->assertStatus(200);
+    }
 }

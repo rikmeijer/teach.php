@@ -6,7 +6,7 @@
         <h1>Importeer contactmomenten</h1>
     </header>
     <section>
-        <form method="{{route('contactmomenten.importeer')}}}">
+        <form action="{{route('contactmomenten.importeer')}}" method="post">
             @csrf
             rooster.avans.nl
             <input type="submit" value="Importeren"/>

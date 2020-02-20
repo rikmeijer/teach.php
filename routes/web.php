@@ -20,4 +20,13 @@ Route::get(
     }
 )->name('contactmomenten.importeer');
 
+Route::post('/contactmomenten/importeer', 'ContactmomentenController@importeer')->name('contactmomenten.importeer');
+
+Route::get(
+    '/contactmomenten/geimporteerd',
+    function () {
+        return view('contactmomenten.geimporteerd');
+    }
+)->name('contactmomenten.geimporteerd');
+
 Auth::routes();
