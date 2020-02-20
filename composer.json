@@ -24,6 +24,7 @@
         "laravel/tinker": "^2.0",
         "pulledbits/bootstrap": "~1",
         "pulledbits/view": "^0.7",
+        "sabre/vobject": "^4",
         "thecodingmachine/tdbm": "5.0.*"
     },
     "require-dev": {
