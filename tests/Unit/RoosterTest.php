@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use App\Avans\Rooster;
+use App\Contactmoment;
 use PHPUnit\Framework\TestCase;
 use Sabre\VObject\Reader;
 
@@ -51,6 +52,11 @@ VOBJECT;
     final public function testWhen_EventsImported_Expect_ListOfContactmomenten(): void
     {
         $object = new Rooster();
-        $this->assertCount(1, $object->import(Reader::read($this->oneEventCalendar)));
+
+        $contactmomenten = $object->import(Reader::read($this->oneEventCalendar));
+
+        $this->assertCount(1, $contactmomenten);
+        $this->assertInstanceOf(Contactmoment::class, $contactmomenten[0]);
+        $this->assertEquals('sabre-vobject-2930d1fa-ac6d-42c8-92fe-06bb8bc3614e', $contactmomenten[0]->ical_uid);
     }
 }
