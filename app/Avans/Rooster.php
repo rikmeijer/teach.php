@@ -9,6 +9,6 @@ class Rooster
 {
     final public function import(Document $calendar): array
     {
-        return [];
+        return [''];
     }
 }
