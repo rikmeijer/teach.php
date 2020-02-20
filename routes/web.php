@@ -13,4 +13,11 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get(
+    '/contactmomenten/importeer',
+    function () {
+        return view('contactmomenten.importeer');
+    }
+)->name('contactmomenten.importeer');
+
 Auth::routes();

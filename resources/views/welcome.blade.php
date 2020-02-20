@@ -6,7 +6,7 @@
         <h1>Overzicht contactmomenten</h1>
         <ul class="horizontal-menu">
             @auth
-                <li><a href="{{url('/contactmoment/import')}}" target="_blank">Importeer contactmomenten</a></li>
+                <li><a href="{{route('contactmomenten.importeer')}}" target="_blank">Importeer contactmomenten</a></li>
                 <li><a href="{{ route('logout') }}" target="_blank">Afmelden</a></li>
             @else
                 <a href="{{ route('login') }}">Aanmelden</a>

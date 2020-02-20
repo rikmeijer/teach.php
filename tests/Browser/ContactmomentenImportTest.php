@@ -59,7 +59,7 @@ class ContactmomentenImportTest extends DuskTestCase
 
                     $window = collect($browser->driver->getWindowHandles())->last();
                     $browser->driver->switchTo()->window($window);
-                    $browser->waitForLocation('/contactmoment/import')
+                    $browser->waitForRoute('contactmomenten.importeer')
                         ->assertSeeIn('h1', 'Importeer contactomenten')
                         ->assertSeeIn('input[type=submit]', 'Importeren');
                 }
