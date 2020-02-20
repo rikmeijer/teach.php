@@ -9,11 +9,22 @@ use Sabre\VObject\Reader;
 
 class RoosterTest extends TestCase
 {
-    private string $vobject;
+
+    private string $emptyCalendar;
+    private string $oneEventCalendar;
 
     final protected function setUp(): void
     {
-        $this->vobject = <<<VOBJECT
+
+        $this->emptyCalendar = <<<VOBJECT
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Sabre//Sabre VObject 4.0.0-beta1//EN
+    CALSCALE:GREGORIAN
+END:VCALENDAR
+VOBJECT;
+
+        $this->oneEventCalendar = <<<VOBJECT
 BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Sabre//Sabre VObject 4.0.0-beta1//EN
@@ -30,9 +41,16 @@ VOBJECT;
 
     }
 
+    final public function testWhen_NoEventsImported_Expect_EmptyListOfContactmomenten(): void
+    {
+        $object = new Rooster();
+        $this->assertCount(0, $object->import(Reader::read($this->emptyCalendar)));
+    }
+
+
     final public function testWhen_EventsImported_Expect_ListOfContactmomenten(): void
     {
         $object = new Rooster();
-        $this->assertCount(1, $object->import(Reader::read($this->vobject)));
+        $this->assertCount(1, $object->import(Reader::read($this->oneEventCalendar)));
     }
 }
