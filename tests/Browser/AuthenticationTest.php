@@ -15,10 +15,12 @@ class AuthenticationTest extends DuskTestCase
         $user = User::query()->where('email', '=', 'user@example.com')->firstOrCreate(
             [
                 'email' => 'user@example.com',
-                'password' => Hash::make('ss'),
+                'password' => 'ss',
                 'name' => 'U Ser',
             ]
         );
+        $user->password = Hash::make('ss');
+        $user->save();
 
         try {
             $this->browse(
