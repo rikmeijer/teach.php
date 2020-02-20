@@ -17,18 +17,14 @@ Route::prefix('contactmomenten')->name('contactmomenten.')->group(
     function () {
         Route::get(
             'importeer',
-            function () {
-                return view('contactmomenten.importeer');
-            }
+            'ContactmomentenController@importeerForm'
         )->name('importeer');
 
         Route::post('importeer', 'ContactmomentenController@importeer')->name('importeer');
 
         Route::get(
             'geimporteerd',
-            function () {
-                return view('contactmomenten.geimporteerd');
-            }
+            'ContactmomentenController@geimporteerd'
         )->name('geimporteerd');
     }
 );
