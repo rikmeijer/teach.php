@@ -15,12 +15,16 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::prefix('contactmomenten')->name('contactmomenten.')->group(
     function () {
-        Route::get(
-            'importeer',
-            'ContactmomentenController@importeerForm'
-        )->name('importeer');
+        Route::name('importeer')->group(
+            function () {
+                Route::get(
+                    'importeer',
+                    'ContactmomentenController@importeerForm'
+                );
 
-        Route::post('importeer', 'ContactmomentenController@importeer')->name('importeer');
+                Route::post('importeer', 'ContactmomentenController@importeer');
+            }
+        );
 
         Route::get(
             'geimporteerd',
