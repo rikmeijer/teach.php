@@ -13,20 +13,24 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get(
-    '/contactmomenten/importeer',
+Route::prefix('contactmomenten')->name('contactmomenten.')->group(
     function () {
-        return view('contactmomenten.importeer');
-    }
-)->name('contactmomenten.importeer');
+        Route::get(
+            'importeer',
+            function () {
+                return view('contactmomenten.importeer');
+            }
+        )->name('importeer');
 
-Route::post('/contactmomenten/importeer', 'ContactmomentenController@importeer')->name('contactmomenten.importeer');
+        Route::post('importeer', 'ContactmomentenController@importeer')->name('importeer');
 
-Route::get(
-    '/contactmomenten/geimporteerd',
-    function () {
-        return view('contactmomenten.geimporteerd');
+        Route::get(
+            'geimporteerd',
+            function () {
+                return view('contactmomenten.geimporteerd');
+            }
+        )->name('geimporteerd');
     }
-)->name('contactmomenten.geimporteerd');
+);
 
 Auth::routes();
