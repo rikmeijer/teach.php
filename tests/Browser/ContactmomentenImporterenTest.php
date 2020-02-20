@@ -7,7 +7,7 @@ use App\User;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class ContactmomentenImportTest extends DuskTestCase
+class ContactmomentenImporterenTest extends DuskTestCase
 {
     final public function testWhenNotAuthenticated_Expect_NoImporteerContactmomentenLink(): void
     {
