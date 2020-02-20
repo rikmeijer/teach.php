@@ -60,5 +60,7 @@ VOBJECT;
         $this->assertCount(1, $contactmomenten);
         $this->assertInstanceOf(Contactmoment::class, $contactmomenten[0]);
         $this->assertEquals('sabre-vobject-2930d1fa-ac6d-42c8-92fe-06bb8bc3614e', $contactmomenten[0]->ical_uid);
+        $this->assertEquals('20160704T210000', $contactmomenten[0]->starttijd->format('Ymd\THis'));
+        $this->assertEquals('20160704T210000', $contactmomenten[0]->eindtijd->format('Ymd\THis'));
     }
 }
