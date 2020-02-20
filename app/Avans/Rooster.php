@@ -10,7 +10,7 @@ class Rooster
 {
     final public function import(Document $calendar): array
     {
-        if (isset($calendar->VEVENT) == false) {
+        if (isset($calendar->VEVENT) === false) {
             return [];
         }
         $contactmomenten = [];
