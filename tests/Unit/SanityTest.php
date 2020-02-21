@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use PDO;
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class SanityTest extends TestCase
 {
     use RefreshDatabase;
 
