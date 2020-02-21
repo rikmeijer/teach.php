@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace App\Avans;
 
 use App\Contactmoment;
+use DateTimeImmutable;
 use DateTimeZone;
 use Sabre\VObject\Component\VCalendar;
+use Sabre\VObject\Property\ICalendar\DateTime;
 
 class Rooster
 {
@@ -18,14 +20,17 @@ class Rooster
         foreach ($calendar->VEVENT as $event) {
             $contactmoment = new Contactmoment();
             $contactmoment->ical_uid = $event->UID;
-            $contactmoment->starttijd = $event->DTSTART->getDateTime()->setTimeZone(
-                new DateTimeZone(date_default_timezone_get())
-            );
-            $contactmoment->eindtijd = $event->DTEND->getDateTime()->setTimeZone(
-                new DateTimeZone(date_default_timezone_get())
-            );
+            $contactmoment->starttijd = $this->convertICALDateTimeToDefaultTZDateTime($event->DTSTART);
+            $contactmoment->eindtijd = $this->convertICALDateTimeToDefaultTZDateTime($event->DTEND);
             $contactmomenten[] = $contactmoment;
         }
         return $contactmomenten;
+    }
+
+    final private function convertICALDateTimeToDefaultTZDateTime(DateTime $vdatetime): DateTimeImmutable
+    {
+        return $vdatetime->getDateTime()->setTimeZone(
+            new DateTimeZone(date_default_timezone_get())
+        );
     }
 }
