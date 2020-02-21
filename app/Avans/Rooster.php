@@ -22,7 +22,7 @@ class Rooster
             $contactmoment->ical_uid = $event->UID;
             $contactmoment->starttijd = $this->convertICALDateTimeToDefaultTZDateTime($event->DTSTART);
             $contactmoment->eindtijd = $this->convertICALDateTimeToDefaultTZDateTime($event->DTEND);
-            $contactmoment->location = $event->LOCATION;
+            $contactmoment->location = $event->LOCATION->getValue();
             $contactmomenten[] = $contactmoment;
         }
         return $contactmomenten;
