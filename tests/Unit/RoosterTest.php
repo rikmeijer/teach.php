@@ -53,6 +53,7 @@ BEGIN:VEVENT
 UID:sabre-vobject-2930d1fa-ac6d-42c8-92fe-06bb8bc3614e
 DTSTAMP:20150603T171911Z
 SUMMARY:Birthday party!
+LOCATION:My House!
 DTSTART;TZID=America/New_York:20160704T210000
 DTEND;TZID=America/New_York:20160705T030000
 END:VEVENT
@@ -67,5 +68,6 @@ VOBJECT
         $this->assertEquals('UTC', $contactmomenten[0]->starttijd->getTimeZone()->getName());
         $this->assertEquals('20160705T010000UTC', $contactmomenten[0]->starttijd->format('Ymd\THise'));
         $this->assertEquals('20160705T070000UTC', $contactmomenten[0]->eindtijd->format('Ymd\THise'));
+        $this->assertEquals('My House!', $contactmomenten[0]->location);
     }
 }
