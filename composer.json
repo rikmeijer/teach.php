@@ -28,6 +28,7 @@
         "thecodingmachine/tdbm": "5.0.*"
     },
     "require-dev": {
+        "ext-pdo": "*",
         "barryvdh/laravel-ide-helper": "^2.6",
         "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.9.1",
