@@ -24,10 +24,10 @@ class CreateContactMomentsTable extends Migration
         Schema::create(
             'lesweken',
             function (Blueprint $table) {
+                $table->bigIncrements('id');
+
                 $table->string('jaar', 4);
                 $table->string('kalenderweek', 2);
-                $table->primary(['jaar', 'kalenderweek']);
-
                 $table->string('onderwijsweek', 2);
                 $table->string('blokweek', 2);
             }
@@ -50,9 +50,8 @@ class CreateContactMomentsTable extends Migration
             function (Blueprint $table) {
                 $table->bigIncrements('id');
 
-                $table->string('jaar', 4);
-                $table->string('kalenderweek', 2);
-                $table->foreign(['jaar', 'kalenderweek'])->references(['jaar', 'kalenderweek'])->on('lesweken');
+                $table->bigInteger('lesweek_id');
+                $table->foreign('lesweek_id')->references('id')->on('lesweken');
 
                 $table->string('module_naam', 10);
                 $table->foreign('module_naam')->references('naam')->on('modules');
