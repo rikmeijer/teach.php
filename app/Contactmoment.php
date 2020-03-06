@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Contactmoment extends Model
+class Contactmoment extends Eloquent
 {
     protected $table = 'contactmomenten';
     protected $dates = [
@@ -18,5 +18,10 @@ class Contactmoment extends Model
     final public function les(): BelongsTo
     {
         return $this->belongsTo(Les::class);
+    }
+
+    final public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

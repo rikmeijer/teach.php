@@ -1,10 +1,11 @@
-<?php /** @noinspection ClassNameCollisionInspection */
+<?php declare(strict_types=1);
+/** @noinspection ClassNameCollisionInspection */
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Eloquent;
 
-class Module extends Model
+class Module extends Eloquent
 {
-    //
+    public $timestamps = false;
 }

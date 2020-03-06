@@ -3,12 +3,17 @@ declare(strict_types=1);
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Les extends Model
+class Les extends Eloquent
 {
     protected $table = 'lessen';
+
+    protected $fillable = [
+        'lesweek_id',
+        'module_naam'
+    ];
 
     final public function module(): BelongsTo
     {

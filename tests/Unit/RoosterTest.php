@@ -5,6 +5,8 @@ namespace Tests\Unit;
 
 use App\Avans\Rooster;
 use App\Contactmoment;
+use App\Lesweek;
+use App\Module;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Sabre\VObject\Reader;
 use Tests\TestCase;
@@ -22,7 +24,7 @@ class RoosterTest extends TestCase
         /** @noinspection PhpParamsInspection */
         $this->assertCount(
             0,
-            $object->importVCalendar(
+            $object->createContactmomentenFromVCalendar(
                 Reader::read(
                     <<<VOBJECT
 BEGIN:VCALENDAR
@@ -39,10 +41,22 @@ VOBJECT
 
     final public function testWhen_EventsImported_Expect_ListOfContactmomenten(): void
     {
+
+        $lesweek = new Lesweek();
+        $lesweek->jaar = '2020';
+        $lesweek->kalenderweek = '5';
+        $lesweek->blokweek = '1';
+        $lesweek->onderwijsweek = '21';
+        $lesweek->save();
+
+        $module = new Module();
+        $module->naam = 'SOPRJ11';
+        $module->save();
+
         $object = new Rooster();
 
         /** @noinspection PhpParamsInspection */
-        $contactmomenten = $object->importVCalendar(
+        $contactmomenten = $object->createContactmomentenFromVCalendar(
             Reader::read(
                 <<<VOBJECT
 BEGIN:VCALENDAR
@@ -83,6 +97,11 @@ VOBJECT
         $this->assertEquals('UTC', $contactmomenten[0]->starttijd->getTimeZone()->getName());
         $this->assertEquals('20200127T083500UTC', $contactmomenten[0]->starttijd->format('Ymd\THise'));
         $this->assertEquals('20200127T092000UTC', $contactmomenten[0]->eindtijd->format('Ymd\THise'));
-        $this->assertEquals('ODS25, Onderwijsboulevard 215, 5223 DE \'s-Hertogenbosch', $contactmomenten[0]->location);
+        $this->assertEquals('ODS25, Onderwijsboulevard 215, 5223 DE \'s-Hertogenbosch', $contactmomenten[0]->locatie);
+
+        $this->assertEquals('SOPRJ11', $contactmomenten[0]->les->module->naam);
+
+        $this->assertEquals('5', $contactmomenten[0]->les->lesweek->kalenderweek);
+        $this->assertEquals('1', $contactmomenten[0]->les->lesweek->blokweek);
     }
 }

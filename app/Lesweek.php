@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Eloquent;
 
-class Lesweek extends Model
+class Lesweek extends Eloquent
 {
     protected $table = 'lesweken';
     public $timestamps = false;
