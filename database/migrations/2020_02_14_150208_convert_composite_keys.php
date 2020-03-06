@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use App\Les;
+use App\Lesweek;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -27,14 +29,19 @@ class ConvertCompositeKeys extends Migration
             }
         );
 
+        /* @var $lesweken Lesweek[] */
         $lesweken = DB::table('lesweken')->get();
         foreach ($lesweken as $index => $lesweek) {
-            DB::statement('UPDATE lesweken SET lessen.lesweek_id = ' . $index);
-        }
-        DB::statement(
-            'UPDATE lessen JOIN lesweken ON lessen.jaar = lesweken.jaar AND lessen.kalenderweek = lesweken.kalenderweek SET lessen.lesweek_id = lesweken.id'
-        );
+            $lesweek->update(['id' => $index]);
 
+            /* @var $lessen Les[] */
+            DB::table('lesweken')->where(
+                [
+                    'kalenderweek' => $lesweek->kalenderweek,
+                    'jaar' => $lesweek->jaar
+                ]
+            )->update(['lesweek_id' => $lesweek->id]);
+        }
 
         Schema::table(
             'lessen',
@@ -81,10 +88,16 @@ class ConvertCompositeKeys extends Migration
             }
         );
 
-
-        DB::statement(
-            'UPDATE lessen JOIN lesweken ON lessen.lesweek_id = lesweken.id SET lessen.jaar = lesweken.jaar, lessen.kalenderweek = lesweken.kalenderweek'
-        );
+        /* @var $lesweken Lesweek[] */
+        $lesweken = DB::table('lesweken')->get();
+        foreach ($lesweken as $index => $lesweek) {
+            $lesweek->lessen()->update(
+                [
+                    'kalenderweek' => $lesweek->kalenderweek,
+                    'jaar' => $lesweek->jaar
+                ]
+            );
+        }
 
         Schema::table(
             'lessen',
