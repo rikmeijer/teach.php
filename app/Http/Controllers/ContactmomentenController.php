@@ -8,6 +8,11 @@ use Illuminate\Http\RedirectResponse;
 
 class ContactmomentenController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     final public function importeerForm(): Renderable
     {
         return view('contactmomenten.importeer');
