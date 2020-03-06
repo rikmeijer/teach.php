@@ -18,7 +18,9 @@ class ContactmomentenImporterenTest extends TestCase
 
     final public function testContactmomentenGeimporteerd(): void
     {
-        $response = $this->get('/contactmomenten/geimporteerd');
-        $response->assertStatus(200);
+        $response = $this->post('/contactmomenten/importeer', []);
+        $response->assertStatus(302);
+        $response->assertRedirect('/contactmomenten/geimporteerd');
+        $response->assertSessionHas('numberImported', 0);
     }
 }
