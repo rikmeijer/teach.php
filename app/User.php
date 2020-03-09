@@ -7,6 +7,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Sabre\VObject\Component\VCalendar;
 
 /** @mixin Eloquent */
 class User extends Authenticatable
@@ -43,5 +44,10 @@ class User extends Authenticatable
     final public function contactmomentenVandaag(): HasMany
     {
         return $this->hasMany(Contactmoment::class, 'eigenaar_id');
+    }
+
+    final public function readVCalendar(): VCalendar
+    {
+        return new VCalendar();
     }
 }
