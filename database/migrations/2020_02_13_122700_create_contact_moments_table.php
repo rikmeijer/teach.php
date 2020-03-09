@@ -84,8 +84,8 @@ class CreateContactMomentsTable extends Migration
                 $table->unsignedBigInteger('les_id');
                 $table->foreign('les_id')->references('id')->on('lessen');
 
-                $table->unsignedBigInteger('owner_id');
-                $table->foreign('owner_id')->references('id')->on('users');
+                $table->unsignedBigInteger('eigenaar_id');
+                $table->foreign('eigenaar_id')->references('id')->on('users');
 
                 $table->dateTime('starttijd');
                 $table->dateTime('eindtijd');

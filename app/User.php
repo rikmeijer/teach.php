@@ -42,6 +42,6 @@ class User extends Authenticatable
 
     final public function contactmomentenVandaag(): HasMany
     {
-        return $this->hasMany(Contactmoment::class);
+        return $this->hasMany(Contactmoment::class, 'eigenaar_id');
     }
 }
