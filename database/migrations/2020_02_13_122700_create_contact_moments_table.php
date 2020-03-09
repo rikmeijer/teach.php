@@ -50,7 +50,7 @@ class CreateContactMomentsTable extends Migration
             function (Blueprint $table) {
                 $table->bigIncrements('id');
 
-                $table->bigInteger('lesweek_id');
+                $table->unsignedBigInteger('lesweek_id');
                 $table->foreign('lesweek_id')->references('id')->on('lesweken');
 
                 $table->string('module_naam', 10);
