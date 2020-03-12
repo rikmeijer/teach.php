@@ -4,15 +4,12 @@ declare(strict_types=1);
 namespace Tests\Browser;
 
 use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
 class AuthenticationTest extends DuskTestCase
 {
-    use DatabaseMigrations;
-
     final public function testWhen_Authenticated_Expect_Homepage(): void
     {
         $user = User::query()->where('email', '=', 'user@example.com')->firstOrCreate(
