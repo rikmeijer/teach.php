@@ -8,8 +8,21 @@ use Tests\TestCase;
 
 class UserTest extends TestCase
 {
+
     /** @noinspection PhpUndefinedFieldInspection */
-    final public function testReadVCalendar(): void
+    final public function testWhen_ICALUrlNotSet_Expect_EmptyVCalendar(): void
+    {
+        $user = new User();
+        $user->ical_url = null;
+
+        $calendar = $user->readVCalendar();
+
+        $this->assertNull($calendar->VEVENT);
+
+    }
+
+    /** @noinspection PhpUndefinedFieldInspection */
+    final public function testWhen_ICALUrlValid_Expect_VCalendarWithRightEvents(): void
     {
         $user = new User();
         $user->ical_url = tempnam(sys_get_temp_dir(), 'ical');

@@ -7,6 +7,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Sabre\VObject\Component\VCalendar;
 use Sabre\VObject\Document;
 use Sabre\VObject\Reader;
 
@@ -49,6 +50,9 @@ class User extends Authenticatable
 
     final public function readVCalendar(): Document
     {
+        if ($this->ical_url === null) {
+            return new VCalendar();
+        }
         return Reader::read(file_get_contents($this->ical_url));
     }
 }
