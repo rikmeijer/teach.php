@@ -93,4 +93,60 @@ class ContactmomentenImporterenTest extends DuskTestCase
         }
     }
 
+
+    final public function testWhenContactmomentenImporterenWithActualURL_Expect_OneImported(): void
+    {
+        $ical_url = tempnam(sys_get_temp_dir(), 'ical');
+        file_put_contents(
+            $ical_url,
+            <<<VOBJECT
+BEGIN:VCALENDAR
+PRODID:-//Avans Roosters//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Avans hameijer
+X-WR-TIMEZONE:Europe/Amsterdam
+X-WR-CALDESC:Avans Rooster voor hameijer
+
+BEGIN:VEVENT
+DTSTART:20200127T083500Z
+DTEND:20200127T092000Z
+CLASS:PUBLIC
+UID:Ical20200127T09:35:0020200127T10:20:00ODS25SOPRJ11tutorenoverleghameijer@rooster.avans.nl
+DTSTAMP:20120101T000000Z
+CREATED:20120101T000000Z
+DESCRIPTION:Groepen: 42IN-inc\n\nNB: Voor roostergegevens van voorbije blokken, raadpleeg het rooster-archief op https://rooster.avans.nl/archief
+LAST-MODIFIED:20190918T042537Z
+LOCATION:ODS25\, Onderwijsboulevard 215\, 5223 DE 's-Hertogenbosch
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:SOPRJ11 tutorenoverleg
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR
+VOBJECT
+        );
+        $user = User::query()->where('email', '=', 'user@example.com')->firstOrCreate(
+            [
+                'email' => 'user@example.com',
+                'password' => 'ss',
+                'name' => 'U Ser',
+                'ical_url' => $ical_url
+            ]
+        );
+
+        try {
+            $this->browse(
+                function (Browser $browser) use ($user) {
+                    $browser->loginAs($user)->visitRoute('contactmomenten.importeer')
+                        ->press('Importeren')
+                        ->waitForRoute('contactmomenten.geimporteerd')
+                        ->assertSee('1 contactmoment is geïmporteerd');
+                }
+            );
+        } finally {
+            $user->delete();
+        }
+    }
 }
