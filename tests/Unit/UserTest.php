@@ -8,11 +8,6 @@ use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-    /**
-     * A basic unit test example.
-     *
-     * @return void
-     */
     final public function testReadVCalendar(): void
     {
         $user = new User();
