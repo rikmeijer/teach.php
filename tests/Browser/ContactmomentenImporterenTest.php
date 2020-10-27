@@ -127,14 +127,18 @@ END:VEVENT
 END:VCALENDAR
 VOBJECT
         );
+
+        shell_exec('vagrant upload ' . escapeshellarg($ical_url) . ' ' . escapeshellarg($ical_url));
+
         $user = User::query()->where('email', '=', 'user@example.com')->firstOrCreate(
             [
                 'email' => 'user@example.com',
                 'password' => 'ss',
-                'name' => 'U Ser',
-                'ical_url' => $ical_url
+                'name' => 'U Ser'
             ]
         );
+        $user->ical_url = $ical_url;
+        $user->save();
 
         try {
             $this->browse(

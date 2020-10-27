@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Avans\Rooster;
+use App\Contactmoment;
+use Auth;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 
@@ -18,9 +21,17 @@ class ContactmomentenController extends Controller
         return view('contactmomenten.importeer');
     }
 
-    final public function importeer(): RedirectResponse
+    final public function importeer(Rooster $rooster): RedirectResponse
     {
-        return redirect()->route('contactmomenten.geimporteerd')->with('numberImported', 0);
+        $user = Auth::user();
+        $contactmomenten = $rooster->createContactmomentenFromVCalendar($user->readVCalendar());
+
+        /** @var $contactmomenten Contactmoment[] */
+        foreach ($contactmomenten as $contactmoment) {
+            $contactmoment->owner()->associate($user);
+        }
+
+        return redirect()->route('contactmomenten.geimporteerd')->with('numberImported', count($contactmomenten));
     }
 
     final public function geimporteerd(): Renderable
